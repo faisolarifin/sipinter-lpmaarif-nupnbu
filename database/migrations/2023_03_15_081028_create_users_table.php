@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /**
+         * Tabel User Login
+         */
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->id('id_user');
+            $table->string('username')->unique();
             $table->string('password');
-            $table->rememberToken();
+            $table->enum('role', ['admin', 'operator']);
+            $table->enum('status_active', ['active', 'block']);
             $table->timestamps();
         });
     }

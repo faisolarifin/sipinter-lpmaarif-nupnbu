@@ -1,0 +1,25 @@
+.container-begin .breadcrumb-item:not(.active) {
+    text-decoration: underline;
+}
+.container-begin .nav li {
+    margin-right: 15px;
+    background-color: #fff;
+    color: #222;
+}
+.container-begin .nav .active {
+    background-color: #5D87FF;
+    border-color: #5D87FF;
+    color: #fff;
+}
+.container-begin table th, .container-begin table td {
+    padding: .5rem .6rem;
+}
+.form-control-sm, .form-select-sm {
+    min-height: calc(1.5em + 0.8rem + calc(var(--bs-border-width) * 2));
+}
+.login-side-right {
+    background: #ECF3FC;
+}
+.w-60 {
+    width: 60% !important;
+}
