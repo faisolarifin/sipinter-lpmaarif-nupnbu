@@ -18,18 +18,21 @@ class Kabupaten extends Seeder
                 'kode_kab' => '01',
                 'kode_kab_kd' => '052800',
                 'nama_kab' => 'Kabupaten Kediri'
-            ],
-            [
+            ],[
                 'id_prov' => 1,
                 'kode_kab' => '02',
                 'kode_kab_kd' => '052801',
                 'nama_kab' => 'Kabupaten Lumajang'
-            ],
-            [
+            ],[
                 'id_prov' => 1,
                 'kode_kab' => '03',
                 'kode_kab_kd' => '052802',
                 'nama_kab' => 'Kabupaten Ngawi'
+            ],[
+                'id_prov' => 1,
+                'kode_kab' => '04',
+                'kode_kab_kd' => '052800',
+                'nama_kab' => 'Kabupaten Sumenep'
             ],
         ];
         foreach ($kabupaten as $row) {

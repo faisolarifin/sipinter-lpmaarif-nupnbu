@@ -13,14 +13,22 @@
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
                         </a>
                         <p class="text-center fw-medium">Sistem Administrasi Pendidikan <br> LP Ma'arif Nahdlatul Ulama</p>
-                        <form>
+                        @include('template.alert')
+                        <form action="{{ route('login.proses') }}" method="post">
+                            @csrf
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username">
+                                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}">
+                                <div class="invalid-feedback">
+                                    @error('username') {{ $message }} @enderror
+                                </div>
                             </div>
                             <div class="mb-4">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                                <div class="invalid-feedback">
+                                    @error('password') {{ $message }} @enderror
+                                </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <div class="form-check">

@@ -27,11 +27,12 @@ class Satpen extends Model
         'thn_berdiri',
         'alamat',
         'kelurahan',
+        'kecamatan',
         'aset_tanah',
         'nm_pemilik',
         'tgl_registrasi',
         'status',
-        'logo',
+        'fax',
     ];
 
     public function provinsi() {

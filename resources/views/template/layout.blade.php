@@ -8,6 +8,7 @@
   <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.png') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/timeline.css') }}" />
   <link rel="stylesheet" href="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.css')}}" />
 </head>
 
@@ -19,21 +20,16 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
-              <div class="d-flex align-items-center">
-                <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" width="90" alt="" />
-                <div>
-                  <h6 class="ms-1 mb-0 fw-bolder">SIAPIN <br> LP Ma’arif NU</h6>
-                </div>
-              </div>
+        <div class="brand-logo d-flex align-items-center justify-content-center">
+          <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
+            <img src="{{ asset('assets/images/logos/logo.png') }}" width="180" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
           </div>
         </div>
         <!-- Sidebar navigation-->
-        @include('template.navadmin')
+        @yield('navbar')
         <!-- End Sidebar navigation -->
       </div>
       <!-- End Sidebar scroll-->
@@ -71,14 +67,10 @@
                       <p class="mb-0 fs-3">My Profile</p>
                     </a>
                     <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
+                      <i class="ti ti-key fs-6"></i>
+                      <p class="mb-0 fs-3">Ganti Password</p>
                     </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
-                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                    <a href="{{ route('logout') }}" class="btn btn-outline-primary mx-3 mt-3 d-block">Logout</a>
                   </div>
                 </div>
               </li>

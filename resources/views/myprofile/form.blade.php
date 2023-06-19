@@ -39,13 +39,3 @@
     </div>
 </div>
 @endsection
-
-@section('scripts')
-<script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
-<script>
-    $(document).ready(function () {
-        $('#mytable').DataTable();
-    });
-</script>
-@endsection

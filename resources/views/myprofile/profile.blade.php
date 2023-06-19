@@ -2,6 +2,10 @@
     'title' => 'SIAPIN - Dashboard'
 ])
 
+@section('navbar')
+    @include('template.nav')
+@endsection
+
 @section('container')
 <!--  Row 1 -->
 <div class="row">

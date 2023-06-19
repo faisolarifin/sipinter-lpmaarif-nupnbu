@@ -73,7 +73,7 @@ return new class extends Migration
             $table->string('yayasan', 255);
             $table->string('kepsek', 100);
             $table->string('telpon', 15);
-            $table->string('fax', 15);
+            $table->string('fax', 15)->nullable();
             $table->string('email', 100);
             $table->year('thn_berdiri');
             $table->string('kecamatan', 255);

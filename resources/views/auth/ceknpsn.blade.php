@@ -12,19 +12,24 @@
                         <a href="./index.html" class="text-nowrap text-center logo-img d-block py-2 w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
                         </a>
-                        <p class="text-center fw-medium">Sistem Administrasi Pendidikan <br> LP Ma'arif Nahdlatul Ulama</p>
-                        <form class="mt-5">
+                        <p class="text-center fw-medium mb-4">Sistem Administrasi Pendidikan <br> LP Ma'arif Nahdlatul Ulama</p>
+                        @include('template.alert')
+                        <form class="pt-3" action="{{ route('ceknpsn.proses') }}" method="post">
+                            @csrf
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between">
                                     <label for="npsn" class="form-label">NPSN</label>
                                     <small>verifikasi npsn untuk melakukan registrasi</small>
                                 </div>
-                                <input type="text" class="form-control" id="npsn" name="npsn">
+                                <input type="text" class="form-control @error('npsn') is-invalid @enderror" id="npsn" name="npsn" value="{{ old('npsn') }}">
+                                <div class="invalid-feedback">
+                                    @error('npsn') {{ $message }} @enderror
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Verifikasi NPSN</button>
                             <div class="d-flex align-items-center justify-content-center">
                                 <p class="fs-4 mb-0 fw-bold">Sudah Punya Akun?</p>
-                                <a class="text-primary fw-bold ms-2" href="./authentication-register.html">Masuk Portal</a>
+                                <a class="text-primary fw-bold ms-2" href="{{ route('login') }}">Masuk Portal</a>
                             </div>
                         </form>
                     </div>
