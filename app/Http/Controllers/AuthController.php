@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\DapoKemdikbud;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
 use App\Models\Satpen;
+use App\Models\User;
+use App\Helpers\DapoKemdikbud;
 use App\Http\Requests\CekNpsnRequest;
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
+use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
@@ -123,6 +124,27 @@ class AuthController extends Controller
     {
         if (!Session::get('regNumber')) return redirect()->route('login');
         return view('auth.registerSuccess');
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $user = User::find(auth()->user()->id_user);
+        /**
+         * If input user password not equal with stored password
+         */
+        if (!Hash::check($request->password_lama, auth()->user()->password)) return redirect()->back()->with('error', 'Password lama salah');
+        /**
+         * Update db.users.password
+         */
+        try {
+            $user->update(
+                ["password" => Hash::make($request->password_baru)]
+            );
+            return redirect()->route('login')->with('success', 'Password berhasil diganti');
+
+        } catch (\Exception $e) {
+            dd($e);
+        }
     }
 
     /**

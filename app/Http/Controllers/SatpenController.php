@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\RegisterUpdateRequest;
 use App\Mail\RegisterMail;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
 use App\Models\Provinsi;
 use App\Models\Satpen;
 use App\Models\Timeline;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\RegisterUpdateRequest;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -129,9 +129,9 @@ class SatpenController extends Controller
              */
             $orderedNumber = substr($satpen->no_registrasi, strlen($satpen->no_registrasi) - 4);
             if (strtolower($request->yayasan) <> 'bhpnu') {
-                $registerNumber .= $prefix. $request->kode_prov. $request->kode_kab. $orderedNumber;
+                $registerNumber .= $prefix. $request->propinsi. $request->kabupaten. $orderedNumber;
             } else {
-                $registerNumber .= $request->kode_prov. $request->kode_kab. $orderedNumber;
+                $registerNumber .= $request->propinsi. $request->kabupaten. $orderedNumber;
             }
             /**
              * Determine kategori

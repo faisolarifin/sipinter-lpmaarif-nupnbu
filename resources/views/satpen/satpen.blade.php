@@ -125,7 +125,7 @@
                                 @foreach($satpenProfile->timeline as $row)
                                 <li>
                                     <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
-                                    <a href="#" class="float-end">{{ $row->keterangan }}</a>
+                                    <small class="float-end">{{ $row->keterangan }}</small>
                                     <p>{{ $row->tgl_status }}</p>
                                 </li>
                                 @endforeach

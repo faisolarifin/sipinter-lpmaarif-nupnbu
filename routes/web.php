@@ -22,12 +22,22 @@ Route::post('/register', [SatpenController::class, 'registerProses'])->name('reg
 Route::get('/ceknpsn', [AuthController::class, 'cekNpsnPage'])->name('ceknpsn');
 Route::post('/ceknpsn', [AuthController::class, 'checkNpsn'])->name('ceknpsn.proses');
 Route::get('/register/success', [AuthController::class, 'registerSuccess'])->name('register.success');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', [OperatorController::class, 'dashboardPage'])->name('dashboard');
-Route::get('/satpen', [OperatorController::class, 'mySatpenPage'])->name('mysatpen');
-Route::get('/satpen/edit', [OperatorController::class, 'editSatpenPage'])->name('mysatpen.revisi');
-Route::put('/satpen/edit', [SatpenController::class, 'revisionProses'])->name('mysatpen.revisi');
-Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
-Route::get('/oss', [OperatorController::class, 'underConstruction'])->name('oss');
-Route::get('/bhpnu', [OperatorController::class, 'underConstruction'])->name('bhpnu');
+Route::middleware('mustlogin')->group(function() {
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::middleware('onlyoperator')->group(function() {
+        Route::get('/dashboard', [OperatorController::class, 'dashboardPage'])->name('dashboard');
+        Route::get('/satpen', [OperatorController::class, 'mySatpenPage'])->name('mysatpen');
+        Route::get('/satpen/edit', [OperatorController::class, 'editSatpenPage'])->name('mysatpen.revisi');
+        Route::put('/satpen/edit', [SatpenController::class, 'revisionProses'])->name('mysatpen.revisi');
+        Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
+        Route::get('/oss', [OperatorController::class, 'underConstruction'])->name('oss');
+        Route::get('/bhpnu', [OperatorController::class, 'underConstruction'])->name('bhpnu');
+    });
+
+    Route::middleware('onlyadmin')->prefix('admin')->group(function() {
+
+    });
+});
