@@ -13,12 +13,13 @@
         <div class="row justify-content-center mt-3 mt-sm-5">
             <div class="col-sm-9 d-flex flex-column text-center">
                 <div class="card shadow-none">
-                    <div class="card-body">
-                        <div class="mb-4 text-start">
-                            <h5 class="card-title fw-medium mb-0">Pemetaan Satpen</h5>
-                            <small>pemetaan jumlah satuan pendidikan tiap propinsi</small>
-                        </div>
-                        <img src="{{ asset('assets/images/backgrounds/colorful-indonesia-map-symbol-vector 1.png') }}" class="w-100" alt="Map Indonesia">
+                    <div class="card-body py-0">
+{{--                        <div class="mb-4 text-start">--}}
+{{--                            <h5 class="card-title fw-medium mb-0">Pemetaan Satpen</h5>--}}
+{{--                            <small>pemetaan jumlah satuan pendidikan tiap propinsi</small>--}}
+{{--                        </div>--}}
+{{--                        <img src="{{ asset('assets/images/backgrounds/colorful-indonesia-map-symbol-vector 1.png') }}" class="w-100" alt="Map Indonesia">--}}
+                        <div id="map-indonesia"></div>
                     </div>
                 </div>
             </div>
@@ -120,4 +121,73 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script>
+        (async () => {
+
+            const topology = await fetch(
+                'https://code.highcharts.com/mapdata/countries/id/id-all.topo.json'
+            ).then(response => response.json());
+
+    // Prepare demo data. The data is joined to map using value of 'hc-key'
+    // property by default. See API docs for 'joinBy' for more info on linking
+    // data and map.
+            const data = [
+                ['id-3700', 10], ['id-ac', 11], ['id-jt', 12], ['id-be', 13],
+                ['id-bt', 14], ['id-kb', 15], ['id-bb', 16], ['id-ba', 17],
+                ['id-ji', 18], ['id-ks', 19], ['id-nt', 20], ['id-se', 21],
+                ['id-kr', 22], ['id-ib', 23], ['id-su', 24], ['id-ri', 25],
+                ['id-sw', 26], ['id-ku', 27], ['id-la', 28], ['id-sb', 29],
+                ['id-ma', 30], ['id-nb', 31], ['id-sg', 32], ['id-st', 33],
+                ['id-pa', 34], ['id-jr', 35], ['id-ki', 36], ['id-1024', 37],
+                ['id-jk', 38], ['id-go', 39], ['id-yo', 40], ['id-sl', 41],
+                ['id-sr', 42], ['id-ja', 43], ['id-kt', 44]
+            ];
+
+    // Create the chart
+            Highcharts.mapChart('map-indonesia', {
+                chart: {
+                    map: topology
+                },
+
+                title: {
+                    text: 'Pemetaan Satuan Pendidikan'
+                },
+
+                subtitle: {
+                    text: 'pemetaan jumlah satuan pendidikan tiap propinsi'
+                },
+
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                colorAxis: {
+                    min: 0
+                },
+
+                series: [{
+                    data: data,
+                    name: 'Random data',
+                    states: {
+                        hover: {
+                            color: '#BADA55'
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+                }]
+            });
+
+        })();
+    </script>
 @endsection
