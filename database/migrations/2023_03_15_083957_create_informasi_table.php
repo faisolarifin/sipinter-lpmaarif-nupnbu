@@ -15,15 +15,18 @@ return new class extends Migration
             $table->id('id_info');
             $table->enum('type', ['SK', 'Piagam', 'Berita', 'Pengumuman']);
             $table->string('headline', 255);
+            $table->dateTime('tgl_upload');
             $table->text('content');
+            $table->string('image', 255);
+            $table->string('tag', 100);
             $table->timestamps();
         });
         Schema::create('informasi_file', function (Blueprint $table) {
             $table->id('id_file');
             $table->unsignedBigInteger('id_info');
-            $table->string('fileupload', 255);
             $table->foreign('id_info')->references('id_info')->on('informasi')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->string('fileupload', 255);
             $table->timestamps();
         });
     }

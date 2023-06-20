@@ -41,3 +41,5 @@ Route::middleware('mustlogin')->group(function() {
 
     });
 });
+
+Route::get('test', [GeneralController::class, 'totalSatpenByJenjang']);
