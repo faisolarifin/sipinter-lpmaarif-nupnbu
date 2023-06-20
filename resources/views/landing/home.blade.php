@@ -60,8 +60,8 @@
             <div class="row justify-content-center justify-content-sm-start">
                 @php($num=0)
                 @foreach($jmlSatpenByJenjang as $row)
-                    <div class="col-10 col-sm-3">
-                        <div class="card">
+                    <div class="col-10 col-sm-3 px-sm-0 pe-sm-1">
+                        <div class="card mb-1">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>

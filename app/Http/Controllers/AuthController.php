@@ -123,7 +123,7 @@ class AuthController extends Controller
     public function registerSuccess()
     {
         if (!Session::get('regNumber')) return redirect()->route('login');
-        return view('auth.registerSuccess');
+        return view('auth.registersuccess');
     }
 
     public function changePassword(ChangePasswordRequest $request)
