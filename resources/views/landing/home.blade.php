@@ -36,7 +36,7 @@
                                     <li class="list-group-item list-group-item-action">
                                         <h6 class="fw-bold my-2">{{ $row->headline }}</h6>
                                         <div class="mt-3 d-flex justify-content-between">
-                                            <span class="badge bg-primary rounded-pill">{{ $row->type }}</span>
+                                            <span class="badge bg-primary fs-1 rounded-pill">{{ $row->type }}</span>
                                             <small>{{ \App\Helpers\Date::tglIndo($row->tgl_upload) }}</small>
                                         </div>
                                     </li>
