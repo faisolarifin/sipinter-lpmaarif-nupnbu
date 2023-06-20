@@ -19,10 +19,10 @@ class Jenjang extends Seeder
               "keterangan"  => 'Pendidikan Anak Usia Dini',
             ],[
                 "nm_jenjang" => 'KB',
-                "keterangan"  => 'Keluarga besar',
+                "keterangan"  => 'Kelompok Bermain',
             ],[
                 "nm_jenjang" => 'TPQ',
-                "keterangan"  => 'Taman Quran',
+                "keterangan"  => 'Taman Pendidikan Qur`an',
             ],[
                 "nm_jenjang" => 'RA',
                 "keterangan"  => 'Raudataul Atfal',

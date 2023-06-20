@@ -10,9 +10,9 @@ body {
     margin-bottom: 1.4rem;
 }
 .sum-satpen .card-body {
-    padding: 1.4rem;
+    padding: 1.2rem;
 }
-.sum-satpen .card-body h1 {
+.sum-satpen .card-body h4:not(.num) {
     font-weight: 600;
     color: #4F73D9;
     margin-bottom: 0;
@@ -22,9 +22,11 @@ body {
 }
 .sum-satpen .card-body p {
     margin-bottom: 0;
+    font-size: .7em;
+    word-spacing: 100vw;
 }
-.sum-satpen .card-body {
-    min-height: 8rem;
+.sum-satpen .card-body>div {
+    min-height: 5.8rem;
 }
 .card-jml-perkab {
     max-height: 29rem;

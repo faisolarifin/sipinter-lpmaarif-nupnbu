@@ -60,21 +60,21 @@
             <div class="row justify-content-center justify-content-sm-start">
                 @php($num=0)
                 @foreach($jmlSatpenByJenjang as $row)
-                    <div class="col-10 col-sm-3 px-sm-0 pe-sm-1">
+                    <div class="col-5 col-sm-2 px-0 pe-1">
                         <div class="card mb-1">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h2>{{ $row->jml_satpen }}</h2>
+                                        <h4 class="num">{{ $row->jml_satpen }}</h4>
                                         <p class="text-uppercase">{{ $row->keterangan }}</p>
                                     </div>
-                                    <h1>{{ $row->nm_jenjang }}</h1>
+                                    <h4 class="mb-0">{{ $row->nm_jenjang }}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @php(++$num)
-                    @if($num >= 4)
+                    @if($num >= 6)
                         </div>
                         <div class="row justify-content-center justify-content-sm-start">
                         @php($num=0)
