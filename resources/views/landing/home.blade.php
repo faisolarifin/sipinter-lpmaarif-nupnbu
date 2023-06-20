@@ -60,26 +60,39 @@
             <div class="row justify-content-center justify-content-sm-start">
                 @php($num=0)
                 @foreach($jmlSatpenByJenjang as $row)
-                    <div class="col-5 col-sm-2 px-0 pe-1">
+                    <div class="col-3 col-sm-1 px-0 pe-1">
                         <div class="card mb-1">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h4 class="num">{{ $row->jml_satpen }}</h4>
-                                        <p class="text-uppercase">{{ $row->keterangan }}</p>
+                                <div class="d-flex flex-column justify-content-start">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="num">{{ $row->jml_satpen }}</h5>
+                                        <h5 class="mb-0">{{ $row->nm_jenjang }}</h5>
                                     </div>
-                                    <h4 class="mb-0">{{ $row->nm_jenjang }}</h4>
+                                    <p class="text-uppercase">{{ $row->keterangan }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @php(++$num)
-                    @if($num >= 6)
+                    @if($num >= 8)
                         </div>
                         <div class="row justify-content-center justify-content-sm-start">
                         @php($num=0)
                     @endif
                 @endforeach
+                <div class="col-3 col-sm-1 px-0 pe-1">
+                    <div class="card mb-1">
+                        <div class="card-body">
+                            <div class="d-flex flex-column justify-content-start">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="num">15200</h5>
+                                    <h5 class="mb-0">ALL</h5>
+                                </div>
+                                <p class="text-uppercase">Total Satpen</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
