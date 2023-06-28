@@ -85,7 +85,7 @@
                         <div class="card-body">
                             <div class="d-flex flex-column justify-content-start">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="num">15200</h5>
+                                    <h5 class="num">{{ $countSatpen }}</h5>
                                     <h5 class="mb-0">ALL</h5>
                                 </div>
                                 <p class="text-uppercase">Total Satpen</p>

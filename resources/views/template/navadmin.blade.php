@@ -5,7 +5,7 @@
             <span class="hide-menu">Home</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="./index.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('a.dash') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -17,7 +17,7 @@
             <span class="hide-menu">Satpen</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('a.satpen') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
@@ -25,7 +25,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('a.rekapsatpen') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-alert-circle"></i>
                 </span>
@@ -37,7 +37,7 @@
             <span class="hide-menu">Permohonan</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('a.oss') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-login"></i>
                 </span>
@@ -45,7 +45,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-user-plus"></i>
                 </span>

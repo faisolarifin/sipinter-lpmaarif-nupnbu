@@ -3,12 +3,18 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ $title }}</title>
-  <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.png') }}" />
+  <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/rounded-logo.png') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
   <link rel="stylesheet" href="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.css')}}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+    <style>
+        body {
+            background: url("/assets/images/backgrounds/layout_bg.jpg") no-repeat #F5F5F5;
+        }
+    </style>
   @yield('style')
 </head>
 
@@ -58,7 +64,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                  <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="" width="35" height="35" class="rounded-circle">
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
@@ -83,6 +89,8 @@
 
         @yield('container')
 
+        @yield('modals')
+
         <div class="py-6 px-6 text-center">
           <p class="mb-0 fs-4"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan LP Ma'arif Nahdatul Ulama </p>
         </div>
@@ -96,6 +104,7 @@
   <script src="{{ asset('assets/js/app.min.js') }}"></script>
 
   @yield('scripts')
+  @yield('extendscripts')
 
 </body>
 

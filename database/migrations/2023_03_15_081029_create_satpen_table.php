@@ -104,7 +104,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_satpen');
             $table->string('status_verifikasi', 45);
             $table->dateTime('tgl_status');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->foreign('id_satpen')->references('id_satpen')->on('satpen')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();

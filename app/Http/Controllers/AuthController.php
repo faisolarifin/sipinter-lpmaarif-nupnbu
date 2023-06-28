@@ -43,7 +43,12 @@ class AuthController extends Controller
                 return redirect()->back()->with('error', 'Invalid username or password');
             }
 
-            return redirect()->route('dashboard');
+            if (auth()->user()->role == 'operator') {
+                return redirect()->route('dashboard');
+            }
+            elseif (auth()->user()->role == 'admin') {
+                return redirect()->route('a.dash');
+            }
 
         } catch (\Exception $e) {
             dd($e);

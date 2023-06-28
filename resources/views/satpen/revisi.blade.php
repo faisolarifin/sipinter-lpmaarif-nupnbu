@@ -11,11 +11,12 @@
         <div class="col-sm-12">
 
             <nav class="mt-2 mb-4" aria-label="breadcrumb">
-                <ol class="breadcrumb fw-bold">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Satpen</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">My Satpen</li>
-                </ol>
+                <ul id="breadcrumb" class="mb-0">
+                    <li><a href="#"><i class="ti ti-home"></i></a></li>
+                    <li><a href="#"><span class=" fa fa-info-circle"> </span> Permohonan</a></li>
+                    <li><a href="#"><span class="fa fa-snowflake-o"></span> My Satpen</a></li>
+                    <li><a href="#"><span class="fa fa-snowflake-o"></span> Revisi</a></li>
+                </ul>
             </nav>
 
             @include('template.alert')

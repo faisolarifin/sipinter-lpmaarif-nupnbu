@@ -196,10 +196,10 @@ class SatpenController extends Controller
                     && Storage::exists("sk/".$satpenData->file->file_sk)) {
                     return response()->download(storage_path("app/sk/".$satpenData->file->file_sk));
                 }
-                elseif ($document == 'piagam'
+                elseif ($document == 'template'
                     && $satpenData->file->file_sk
-                    && Storage::exists("piagam/".$satpenData->file->file_piagam)) {
-                    return response()->download(storage_path("app/piagam/".$satpenData->file->file_piagam));
+                    && Storage::exists("template/".$satpenData->file->file_piagam)) {
+                    return response()->download(storage_path("app/template/".$satpenData->file->file_piagam));
                 }
                 else return redirect()->back()->with('error', 'dokumen tidak ditemukan');
             }

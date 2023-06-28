@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'SIAPIN - Satpen'
+    'title' => 'Siapin Admin - Detail Satpen'
 ])
 
 @section('style')
@@ -7,7 +7,7 @@
 @endsection
 
 @section('navbar')
-    @include('template.nav')
+    @include('template.navadmin')
 @endsection
 
 @section('container')
@@ -16,11 +16,11 @@
         <div class="col-sm-12">
 
             <nav class="mt-2 mb-4" aria-label="breadcrumb">
-                <ul id="breadcrumb" class="mb-0">
-                    <li><a href="#"><i class="ti ti-home"></i></a></li>
-                    <li><a href="#"><span class=" fa fa-info-circle"> </span> Permohonan</a></li>
-                    <li><a href="#"><span class="fa fa-snowflake-o"></span> MySatpen</a></li>
-                </ul>
+                <ol class="breadcrumb fw-bold">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Satpen</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Satpen</li>
+                </ol>
             </nav>
 
             @include('template.alert')
@@ -29,12 +29,12 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="card-title fw-semibold mb-1">My SATPEN</h5>
-                            <small>detail profile satuan pendidikan anda</small>
+                            <h5 class="card-title fw-semibold mb-1">DETAIL SATPEN</h5>
+                            <small>detail profile satuan pendidikan</small>
                         </div>
                         <div>
-                            <a href="{{ route('mysatpen.revisi') }}" class="btn btn-sm btn-info"><i class="ti ti-edit"></i>
-                                Revisi</a>
+                            <a href="{{ route('a.rekapsatpen') }}" class="btn btn-sm btn-info">back
+                                <i class="ti ti-chevrons-right"></i></a>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -43,8 +43,13 @@
 
                                 <tbody>
                                 <tr>
-                                    <td width={140}>Nama Satpen</td>
-                                    <td width={50}>:</td>
+                                    <td width="140">NPSN</td>
+                                    <td width="50">:</td>
+                                    <td>{{ $satpenProfile->npsn }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nama Satpen</td>
+                                    <td>:</td>
                                     <td>{{ $satpenProfile->nm_satpen }}</td>
                                 </tr>
                                 <tr>
@@ -141,13 +146,13 @@
                         <div class="col d-flex justify-content-center align-items-md-center text-center">
                             <div class="file-download-box">
                                 <p class="mb-3">Piagam Ma'arif</p>
-                                <a href="{{ route('download', 'template') }}" class="btn btn-sm btn-primary"><i class="ti ti-download"></i>
-                                    unduh</a>
+                                <a href="{{ route('download', 'template') }}" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
+                                    tampil</a>
                             </div>
                             <div class="file-download-box">
                                 <p class="mb-3">SK Satpen</p>
-                                <a href="{{ route('download', 'sk') }}" class="btn btn-sm btn-primary"><i class="ti ti-download"></i>
-                                    unduh</a>
+                                <a href="{{ route('download', 'sk') }}" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
+                                    tampil</a>
                             </div>
                         </div>
                         <div class="col">

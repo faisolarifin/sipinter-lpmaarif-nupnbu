@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AuthController,GeneralController,SatpenController,OperatorController};
+use App\Http\Controllers\{AuthController,GeneralController,SatpenController,
+    OperatorController,AdminController,ApiController,ExportController};
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,19 @@ Route::middleware('mustlogin')->group(function() {
     });
 
     Route::middleware('onlyadmin')->prefix('admin')->group(function() {
+        Route::get('/dashboard', [AdminController::class, 'dashboardPage'])->name('a.dash');
+        Route::get('/satpen', [AdminController::class, 'permohonanRegisterSatpen'])->name('a.satpen');
+        Route::put('/satpen/{satpen}/status', [AdminController::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
+        Route::get('/rekapsatpen', [AdminController::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
+        Route::get('/rekapsatpen/{satpenId}/detail', [AdminController::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
+        Route::get('/oss', [AdminController::class, 'underConstruction'])->name('a.oss');
+        Route::get('/bhpnu', [AdminController::class, 'underConstruction'])->name('a.bhpnu');
+    });
+    Route::middleware('onlyadmin')->prefix('api')->group(function () {
+       Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
+    });
+    Route::middleware('onlyadmin')->prefix('unduh')->group(function() {
+       Route::get('/piagam', [ExportController::class, 'exportPiagamDocument'])->name('export.piagam');
 
     });
 });

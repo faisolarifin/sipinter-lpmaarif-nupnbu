@@ -1,0 +1,23 @@
+[23-Jun-2023 00:41:27 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[23-Jun-2023 00:41:28 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[23-Jun-2023 00:41:30 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[23-Jun-2023 00:41:30 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_sybase_ct.dll' - The specified module could not be found.
+ in Unknown on line 0
+[23-Jun-2023 02:41:32 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 5.6.40. in D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 25
+[23-Jun-2023 02:41:32 Europe/Amsterdam] PHP Stack trace:
+[23-Jun-2023 02:41:32 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\artisan:0
+[23-Jun-2023 02:41:32 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\artisan:18
+[23-Jun-2023 02:41:32 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\autoload.php:12
+[23-Jun-2023 02:41:32 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[23-Jun-2023 02:41:32 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\platform_check.php:25
+[24-Jun-2023 08:32:40 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[24-Jun-2023 08:32:40 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[24-Jun-2023 08:32:42 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[24-Jun-2023 08:32:42 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_sybase_ct.dll' - The specified module could not be found.
+ in Unknown on line 0
