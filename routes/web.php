@@ -46,13 +46,13 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/rekapsatpen/{satpenId}/detail', [AdminController::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
         Route::get('/oss', [AdminController::class, 'underConstruction'])->name('a.oss');
         Route::get('/bhpnu', [AdminController::class, 'underConstruction'])->name('a.bhpnu');
+        Route::get('/pdfviewer/{fileName?}', [AdminController::class, 'pdfViewer'])->name('viewerpdf');
     });
     Route::middleware('onlyadmin')->prefix('api')->group(function () {
        Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
     });
     Route::middleware('onlyadmin')->prefix('unduh')->group(function() {
        Route::get('/piagam', [ExportController::class, 'exportPiagamDocument'])->name('export.piagam');
-
     });
 });
 

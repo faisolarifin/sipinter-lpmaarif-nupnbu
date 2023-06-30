@@ -174,3 +174,8 @@
     background-color: #327B32;
     color: #fff;
 }
+
+.card-box-detail {
+    border: .08rem solid #ebf1f6;
+    border-top: .3rem solid #ffc107;
+}

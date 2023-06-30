@@ -31,6 +31,9 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#dokumen" type="button" role="tab" aria-controls="dokumen" aria-selected="false">PROSES DOKUMEN</button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#dokumen" type="button" role="tab" aria-controls="dokumen" aria-selected="false">PERPANJANGAN</button>
+            </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="permohonan" role="tabpanel" aria-labelledby="home-tab">
@@ -130,6 +133,7 @@
                                 <th scope="col">Nama Satpen</th>
                                 <th scope="col">Provinsi</th>
                                 <th scope="col">Kabupaten</th>
+                                <th scope="col">Kecamatan</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                             </thead>
@@ -142,6 +146,7 @@
                                     <td>{{ $row->nm_satpen }}</td>
                                     <td>{{ $row->provinsi->nm_prov }}</td>
                                     <td>{{ $row->kabupaten->nama_kab }}</td>
+                                    <td>{{ $row->kecamatan }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalProsesDokumenBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
                                     </td>

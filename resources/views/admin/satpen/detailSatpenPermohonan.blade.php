@@ -82,27 +82,26 @@
         let modalDetailBackdrop = document.getElementById('modalDetailBackdrop')
         modalDetailBackdrop.addEventListener('show.bs.modal', function (event) {
             let satpenId = event.relatedTarget.getAttribute('data-bs')
-            let routeUrl = "{{ route('api.satpenbyid', ['satpenId' => ':param']) }}";
-            let routeChangeStatus = "{{ route('a.satpen.changestatus', ['satpen' => ':param']) }}";
-            let completeUrl = routeUrl.replace(':param', satpenId);
-            let completeRouteChangeStatus = routeChangeStatus.replace(':param', satpenId);
+            let routeGetData = "{{ route('api.satpenbyid', ['satpenId' => ':param']) }}".replace(':param', satpenId);
+            let routeChangeStatus = "{{ route('a.satpen.changestatus', ['satpen' => ':param']) }}".replace(':param', satpenId);
 
             $.ajax({
-                url: completeUrl,
+                url: routeGetData,
                 type: "GET",
                 dataType: 'json',
                 success: function(res) {
                     detailTag = `<div class="row mt-3 container-begin">`;
                     detailTag += createTableDetail(res);
-                    detailTag += `<div class="col d-flex flex-column justify-content-between">`;
+                    detailTag += createTableFiles(res);
+                    detailTag += `<div class="col-sm-4 px-3 d-flex flex-column justify-content-between">`;
                     detailTag += createTimeline(res);
                     detailTag += `<div class="text-center">
-                                    <form class="d-inline" action="${completeRouteChangeStatus}"
+                                    <form class="d-inline" action="${routeChangeStatus}"
                                                         method="post">
                                     @csrf
                                     @METHOD('PUT')
                                     <input type="hidden" name="status_verifikasi" value="proses dokumen">
-                                    <button type="submit" class="btn btn-success mx-1"><i class="ti ti-checkup-list"></i> Setujui
+                                    <button type="submit" class="btn btn-success mx-1"><i class="ti ti-checkup-list"></i> Terima
                                         </button>
                                     </form>
                                     <button class="btn btn-danger mx-1" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalRevisi" data-bs="${res.id_satpen}"><i class="ti ti-x"></i> Revisi</button>
@@ -128,22 +127,21 @@
         let modalProsesDokumenBackdrop = document.getElementById('modalProsesDokumenBackdrop')
         modalProsesDokumenBackdrop.addEventListener('show.bs.modal', function (event) {
             let satpenId = event.relatedTarget.getAttribute('data-bs')
-            let routeUrl = "{{ route('api.satpenbyid', ['satpenId' => ':param']) }}";
-            let completeUrl = routeUrl.replace(':param', satpenId);
+            let routeUrl = "{{ route('api.satpenbyid', ['satpenId' => ':param']) }}".replace(':param', satpenId);
 
             $.ajax({
-                url: completeUrl,
+                url: routeUrl,
                 type: "GET",
                 dataType: 'json',
                 success: function(res) {
                     detailTag = `<div class="row mt-3 container-begin">`;
                     detailTag += createTableDetail(res);
+                    detailTag += createTableFiles(res);
                     detailTag += `<div class="col d-flex flex-column justify-content-between">`;
                     detailTag += createTimeline(res);
                     detailTag += `<div class="text-center">
-                                       <a href="{{route('export.piagam')}}"><button class="btn btn-warning mx-1">
-                                       <i class="ti ti-printer"></i> Generate Piagam</button></a>
-                                       <button class="btn btn-primary mx-1" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs="${res.id_satpen}"><i class="ti ti-printer"></i> Generate Surat Keputusan</button>
+                                       <a href="{{route('export.piagam')}}"><button class="btn btn-primary mx-1">
+                                       <i class="ti ti-printer"></i> Generate Piagam dan SK</button></a>
                                     </div>
                                 </div>
                             </div>`;
@@ -155,12 +153,12 @@
         });
 
         function createTableDetail(res) {
-            return `<div class="col">
+            return `<div class="col-sm-4">
                         <table>
                         <tbody>
                         <tr>
                             <td width="140">NPSN</td>
-                            <td width="50">:</td>
+                            <td width="30">:</td>
                             <td>${res.npsn}</td>
                         </tr>
                         <tr>
@@ -246,6 +244,26 @@
                         </tbody>
                     </table>
                   </div>`;
+        }
+
+        function createTableFiles(res) {
+            cardFiles = `<div class="col-sm-4 px-3">
+                      <h5 class="mb-2 fs-4">File Pendukung</h5>`;
+            $.each(res.filereg, function(key, row) {
+                let routepdfViewer = "{{ route('viewerpdf', ['fileName' => ':param']) }}".replace(':param', row.filesurat);
+                cardFiles += `<div class="mb-3 px-3 py-2 card-box-detail">
+                        <h6 class="text-capitalize">${row.mapfile}</h6>
+                        <p class="mb-1">${row.nm_lembaga} ${row.daerah ?? ''}</p>
+                        <p>Nomor : ${row.nomor_surat}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>Tanggal ${row.tgl_surat}</small>
+                            <a href="${routepdfViewer}" target="_blank"><span class="badge fs-2 bg-primary">Lihat PDF</span></a>
+                        </div>
+                    </div>`;
+            });
+            cardFiles += `</div>`;
+
+            return cardFiles;
         }
 
         function createTimeline(res) {

@@ -15,6 +15,7 @@ class Satpen extends Model
         'id_user',
         'id_prov',
         'id_kab',
+        'id_pc',
         'id_kategori',
         'id_jenjang',
         'npsn',
@@ -57,5 +58,9 @@ class Satpen extends Model
 
     public function file() {
         return $this->hasOne(FileUpload::class, 'id_satpen');
+    }
+
+    public function filereg() {
+        return $this->hasMany(FileRegister::class, 'id_satpen');
     }
 }

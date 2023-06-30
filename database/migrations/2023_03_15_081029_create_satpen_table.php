@@ -31,7 +31,7 @@ return new class extends Migration
             $table->timestamps();
         });
         /**
-         * Tabel Provinsi
+         * Tabel Provinsi (kode_prov_kd => kode propinsi sesuai kemendikbud)
          */
         Schema::create('provinsi', function (Blueprint $table) {
             $table->id('id_prov');
@@ -41,14 +41,26 @@ return new class extends Migration
             $table->timestamps();
         });
         /**
-         * Tabel Kabupaten
+         * Tabel Kabupaten (kode_kab_kd => kode kabupaten susuai kemendikbud)
          */
         Schema::create('kabupaten', function (Blueprint $table) {
             $table->id('id_kab');
             $table->unsignedBigInteger('id_prov');
-            $table->string('kode_kab', 10);
             $table->string('kode_kab_kd', 45);
             $table->string('nama_kab', 255);
+            $table->foreign('id_prov')->references('id_prov')->on('provinsi')
+                ->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->timestamps();
+        });
+        /**
+         * Tabel Pengurus Cabang NU. kode kabupaten untuk nomor registrasi dari data ini,
+         * serta untuk pilihan pc pada upload surat
+         */
+        Schema::create('pengurus_cabang', function (Blueprint $table) {
+            $table->id('id_pc');
+            $table->unsignedBigInteger('id_prov');
+            $table->string('kode_kab', 10);
+            $table->string('nama_pc', 255);
             $table->foreign('id_prov')->references('id_prov')->on('provinsi')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
@@ -64,6 +76,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user')->unique();
             $table->unsignedBigInteger('id_prov');
             $table->unsignedBigInteger('id_kab');
+            $table->unsignedBigInteger('id_pc');
             $table->unsignedBigInteger('id_kategori');
             $table->unsignedBigInteger('id_jenjang');
 
@@ -82,13 +95,15 @@ return new class extends Migration
             $table->string('aset_tanah', 45);
             $table->string('nm_pemilik', 100);
             $table->dateTime('tgl_registrasi');
-            $table->enum('status', ['permohonan', 'revisi', 'setujui', 'proses dokumen', 'terima']);
-//            $table->string('logo', 255);
+            $table->enum('status', ['permohonan', 'revisi', 'setujui', 'proses dokumen', 'terima', 'expired', 'perpanjangan']);
+
             $table->foreign('id_user')->references('id_user')->on('users')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('id_prov')->references('id_prov')->on('provinsi')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('id_kab')->references('id_kab')->on('kabupaten')
+                ->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('id_pc')->references('id_pc')->on('pengurus_cabang')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('id_kategori')->references('id_kategori')->on('kategori_satpen')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
@@ -96,6 +111,23 @@ return new class extends Migration
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
         });
+        /**
+         * Tabel untuk File Surat Permohonan, Rekomendasi
+         */
+        Schema::create('file_register', function (Blueprint $table) {
+            $table->id('id_file');
+            $table->unsignedBigInteger('id_satpen');
+            $table->string('daerah', 100)->nullable();
+            $table->enum('mapfile', ['surat_permohonan', 'rekom_pc', 'rekom_pw']);
+            $table->string('nm_lembaga', 50);
+            $table->string('nomor_surat', 255);
+            $table->date('tgl_surat');
+            $table->string('filesurat', 255);
+            $table->foreign('id_satpen')->references('id_satpen')->on('satpen')
+                ->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->timestamps();
+        });
+
         /**
          * Tabel Timeline Registrasi
          */
@@ -115,12 +147,16 @@ return new class extends Migration
         Schema::create('file_upload', function (Blueprint $table) {
             $table->id('id_file');
             $table->unsignedBigInteger('id_satpen');
-            $table->string('file_piagam', 255);
-            $table->string('file_sk', 255);
+            $table->enum('typefile', ['sk', 'piagam']);
+            $table->string('no_file', 50)->nullable();
+            $table->string('qrcode', 255)->nullable();
+            $table->string('nm_file', 255);
+            $table->date('tgl_file');
             $table->foreign('id_satpen')->references('id_satpen')->on('satpen')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
         });
+
     }
 
     /**
@@ -130,7 +166,9 @@ return new class extends Migration
     {
         Schema::dropIfExists('file_upload');
         Schema::dropIfExists('timeline_reg');
+        Schema::dropIfExists('file_register');
         Schema::dropIfExists('satpen');
+        Schema::dropIfExists('pengurus_cabang');
         Schema::dropIfExists('kabupaten');
         Schema::dropIfExists('provinsi');
         Schema::dropIfExists('jenjang_pendidikan');

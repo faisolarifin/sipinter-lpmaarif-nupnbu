@@ -116,7 +116,7 @@ class AdminController extends Controller
 
             $permohonanSatpens = Satpen::with($relationTable)->where('status', '=', 'permohonan')->get($selectedColumns);
             $revisiSatpens = Satpen::with($relationTable)->where('status', '=', 'revisi')->get(array_merge($selectedColumns, ['kecamatan']));
-            $prosesDocuments = Satpen::with($relationTable)->where('status', '=', 'proses dokumen')->get($selectedColumns);
+            $prosesDocuments = Satpen::with($relationTable)->where('status', '=', 'proses dokumen')->get(array_merge($selectedColumns, ['kecamatan']));
 
             return view('admin.satpen.registersatpen', compact('permohonanSatpens', 'revisiSatpens', 'prosesDocuments'));
 
@@ -146,6 +146,13 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             dd($e);
         }
+    }
+
+    public function pdfViewer($fileName) {
+        $filepath = storage_path("app/uploads/".$fileName);
+
+        if (!file_exists($filepath)) return response("File not found!");
+        return response()->file($filepath);
     }
 
 
