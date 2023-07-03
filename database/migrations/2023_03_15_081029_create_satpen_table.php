@@ -95,7 +95,7 @@ return new class extends Migration
             $table->string('aset_tanah', 45);
             $table->string('nm_pemilik', 100);
             $table->dateTime('tgl_registrasi');
-            $table->enum('status', ['permohonan', 'revisi', 'setujui', 'proses dokumen', 'terima', 'expired', 'perpanjangan']);
+            $table->enum('status', ['permohonan', 'revisi', 'proses dokumen', 'setujui', 'expired', 'perpanjangan']);
 
             $table->foreign('id_user')->references('id_user')->on('users')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');

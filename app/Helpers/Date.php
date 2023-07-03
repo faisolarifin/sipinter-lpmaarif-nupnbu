@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers;
 
+use GeniusTS\HijriDate\Hijri;
+
 class Date {
     public static function tglIndo($tanggal)
     {
@@ -21,7 +23,73 @@ class Date {
         $pecahkan = explode(' ', $tanggal);
         $pecahkan = explode('-', $pecahkan[0]);
 
-        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] - 1 ] . ' ' . $pecahkan[0];
+    }
+
+    public static function tglMasehi($tanggal)
+    {
+        $bulan = array (
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode(' ', $tanggal);
+        $pecahkan = explode('-', $pecahkan[0]);
+
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] - 1 ] . ' ' . $pecahkan[0];
+    }
+
+    public static function tglHijriyah($tanggal)
+    {
+        $bulan = array (
+            'Muharam',
+            'Safar',
+            'Rabiul Awal',
+            'Rabiul Akhir',
+            'Jumadil Awal',
+            'Jumadil Akhir',
+            'Rajab',
+            'Syakban',
+            'Ramadhan',
+            'Syawal',
+            'Zulkaidah',
+            'Zulhijah'
+        );
+        $tglHijri = Hijri::convertToHijri('2023-07-02');
+        $pecahkan = explode(' ', $tglHijri);
+        $pecahkan = explode('-', $pecahkan[0]);
+
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] - 1 ] . ' ' . $pecahkan[0];
+    }
+
+    public static function bulanRomawi($tanggal)
+    {
+        $bulanRomawi = array (
+            'I',
+            'II',
+            'III',
+            'IV',
+            'V',
+            'VI',
+            'VII',
+            'VIII',
+            'IX',
+            'X',
+            'XI',
+            'XII'
+        );
+        $pecahkan = explode('-', $tanggal);
+
+        return $bulanRomawi[ (int)$pecahkan[1] - 1 ];
     }
 
     public static function tglReverse($tanggal)

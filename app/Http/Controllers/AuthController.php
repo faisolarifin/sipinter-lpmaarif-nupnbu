@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
+use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
 use App\Models\User;
@@ -25,10 +26,16 @@ class AuthController extends Controller
         if (!$cookieValue) return redirect()->route('ceknpsn');
 
         $cookieValue = json_decode($cookieValue);
-        $kabupaten = Kabupaten::orderBy('id_kab')->get();
+
+        $selectedProv = Provinsi::where('kode_prov_kd', '=', trim($cookieValue->kode_prop))->first();
+        $kabupaten = Kabupaten::where('id_prov', '=', $selectedProv->id_prov)
+                        ->orderBy('id_kab')->get();
+        $cabang = PengurusCabang::where('id_prov', '=', $selectedProv->id_prov)
+                        ->orderBy('id_pc')->get();
         $propinsi = Provinsi::orderBy('id_prov')->get();
         $jenjang = Jenjang::orderBy('id_jenjang')->get();
-        return view('auth.register', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang'));
+
+        return view('auth.register', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
     }
 
     public function loginPage() {

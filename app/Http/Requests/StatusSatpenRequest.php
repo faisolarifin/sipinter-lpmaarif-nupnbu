@@ -24,7 +24,7 @@ class StatusSatpenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status_verifikasi' => 'required|string|in:revisi,setujui,proses dokumen,terima',
+            'status_verifikasi' => 'required|string|in:revisi,proses dokumen,terima,expired,perpanjangan',
         ];
     }
 }

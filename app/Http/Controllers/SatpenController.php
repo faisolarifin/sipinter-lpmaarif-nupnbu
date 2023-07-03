@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\RegisterMail;
+use App\Models\FileRegister;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
+use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
 use App\Models\Timeline;
@@ -23,11 +25,11 @@ class SatpenController extends Controller
 
         try {
             $provinsi = Provinsi::where('kode_prov_kd', '=', $request->propinsi)->first();
-            $kabupaten = Kabupaten::where('kode_kab_kd', '=', $request->kabupaten)->first();
+            $cabang = PengurusCabang::find($request->cabang);
             $lastOfSatpen = Satpen::orderBy('id_satpen', 'desc')->first();
 
             if (!$provinsi) return redirect()->back()->with('error', 'Provinsi code not found');
-            else if (!$kabupaten) return redirect()->back()->with('error', 'Kabupaten code not found');
+            else if (!$cabang) return redirect()->back()->with('error', 'Cabang code not found');
             /**
              * Generate registration number
              */
@@ -41,15 +43,24 @@ class SatpenController extends Controller
              * Generated number is combined of Kode Provinsi + Kode Kabupaten + 4 digit ordered number
              */
             if (strtolower($request->yayasan) <> 'bhpnu') {
-                $registerNumber .= $prefix. $provinsi->kode_prov. $kabupaten->kode_kab. $orderedNumber;
+                $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
             } else {
-                $registerNumber .= $provinsi->kode_prov. $kabupaten->kode_kab. $orderedNumber;
+                $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
             }
             /**
              * Determined kategori of yayasan based on type yayasan and aset tanah
              */
             $makeCategorySatpen = SatpenController::makekategori(strtolower($request->yayasan), strtolower($request->aset_tanah));
             if ($makeCategorySatpen) {
+
+                if ($request->file('file_permohonan')->isValid()
+                        && $request->file('file_rekom_pc')->isValid()
+                        && $request->file('file_rekom_pw')->isValid()) {
+                    $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
+                    $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
+                    $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
+                }
+
                 /**
                  * Make account on db.users
                  */
@@ -61,13 +72,14 @@ class SatpenController extends Controller
                     $satpen = Satpen::create([
                         'id_user' => $user->id_user,
                         'id_prov' => $provinsi->id_prov,
-                        'id_kab' => $kabupaten->id_kab,
+                        'id_kab' => $request->kabupaten,
+                        'id_pc' => $cabang->id_pc,
                         'id_kategori' => $makeCategorySatpen->id_kategori,
                         'id_jenjang' => $request->jenjang,
                         'npsn' => $request->npsn,
                         'no_registrasi' => $registerNumber,
                         'nm_satpen' => $request->nm_satpen,
-                        'yayasan' => $request->yayasan,
+                        'yayasan' => $request->yayasan <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
                         'kepsek' => $request->kepsek,
                         'telpon' => $request->telp,
                         'email' => $request->email,
@@ -81,6 +93,33 @@ class SatpenController extends Controller
                         'tgl_registrasi' => Date::now(),
                         'status' => 'permohonan',
                     ]);
+
+                    FileRegister::insert([[
+                        'id_satpen' => $satpen->id_satpen,
+                        'mapfile' => 'surat_permohonan',
+                        'nm_lembaga' => $satpen->nm_satpen,
+                        'daerah' => '',
+                        'nomor_surat' => $request->no_srt_permohonan,
+                        'tgl_surat' => $request->tgl_srt_permohonan,
+                        'filesurat' =>  $pathFilePermohonan,
+                    ], [
+                        'id_satpen' => $satpen->id_satpen,
+                        'mapfile' => 'rekom_pc',
+                        'daerah' => $request->cabang_rekom_pc,
+                        'nm_lembaga' => $request->nm_rekom_pc,
+                        'nomor_surat' => $request->no_srt_rekom_pc,
+                        'tgl_surat' => $request->tgl_srt_rekom_pc,
+                        'filesurat' =>  $pathFileRekomPC,
+                    ], [
+                        'id_satpen' => $satpen->id_satpen,
+                        'mapfile' => 'rekom_pw',
+                        'daerah' => $request->wilayah_rekom_pw,
+                        'nm_lembaga' => $request->nm_rekom_pw,
+                        'nomor_surat' => $request->no_srt_rekom_pw,
+                        'tgl_surat' => $request->tgl_srt_rekom_pw,
+                        'filesurat' =>  $pathFileRekomPW,
+                    ]]);
+
                     Timeline::create([
                         'id_satpen' => $satpen->id_satpen,
                         'status_verifikasi' => 'permohonan',
@@ -191,15 +230,17 @@ class SatpenController extends Controller
                 ->first();
             if ($satpenData->file)
             {
-                if ($document == 'sk'
-                    && $satpenData->file->file_sk
-                    && Storage::exists("sk/".$satpenData->file->file_sk)) {
-                    return response()->download(storage_path("app/sk/".$satpenData->file->file_sk));
+                if ($document == 'piagam'
+                    && $satpenData->file[0]->nm_file
+                    && Storage::exists("generated/piagam/".$satpenData->file[0]->nm_file)) {
+                    return response()->download(
+                        storage_path("app/generated/piagam/".$satpenData->file[0]->nm_file));
                 }
-                elseif ($document == 'template'
-                    && $satpenData->file->file_sk
-                    && Storage::exists("template/".$satpenData->file->file_piagam)) {
-                    return response()->download(storage_path("app/template/".$satpenData->file->file_piagam));
+                elseif ($document == 'sk'
+                    && $satpenData->file[1]->nm_file
+                    && Storage::exists("generated/sk/".$satpenData->file[1]->nm_file)) {
+                    return response()->download(
+                        storage_path("app/generated/sk/".$satpenData->file[1]->nm_file));
                 }
                 else return redirect()->back()->with('error', 'dokumen tidak ditemukan');
             }

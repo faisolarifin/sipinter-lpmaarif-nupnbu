@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Date;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
+use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
 
@@ -29,13 +31,16 @@ class OperatorController extends Controller
             $satpenProfile = Satpen::where('id_user', '=', auth()->user()->id_user)->first();
 
             if ($satpenProfile->status != 'revisi') return redirect()->back()
-                ->with('error', 'Status satpen bukan revisi');
+                ->with('error', 'Status satpen bukan dalam masa revisi atau expired');
 
-            $kabupaten = Kabupaten::orderBy('id_kab')->get();
+            $kabupaten = Kabupaten::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_kab')->get();
+            $cabang = PengurusCabang::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_pc')->get();
             $propinsi = Provinsi::orderBy('id_prov')->get();
             $jenjang = Jenjang::orderBy('id_jenjang')->get();
 
-            return view('satpen.revisi', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten'));
+            return view('satpen.revisi', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
 
         } catch (\Exception $e) {
             dd($e);

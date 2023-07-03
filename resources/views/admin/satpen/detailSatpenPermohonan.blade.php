@@ -75,6 +75,27 @@
         </div>
     </div>
 
+    <!-- Modal Perpanjangan -->
+    <div class="modal fade" id="modalPerpanjangBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content rounded-2">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title mb-0" id="exampleModalLabel">Detail Satpen</h5>
+                        <small>perbaharui dokumen untuk perpanjangan satpen</small>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-detail-perpanjang">
+                    ...
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('extendscripts')
@@ -99,7 +120,7 @@
                                     <form class="d-inline" action="${routeChangeStatus}"
                                                         method="post">
                                     @csrf
-                                    @METHOD('PUT')
+                                    @method('PUT')
                                     <input type="hidden" name="status_verifikasi" value="proses dokumen">
                                     <button type="submit" class="btn btn-success mx-1"><i class="ti ti-checkup-list"></i> Terima
                                         </button>
@@ -137,16 +158,64 @@
                     detailTag = `<div class="row mt-3 container-begin">`;
                     detailTag += createTableDetail(res);
                     detailTag += createTableFiles(res);
-                    detailTag += `<div class="col d-flex flex-column justify-content-between">`;
+                    detailTag += `<div class="col-sm-4 d-flex flex-column justify-content-between">`;
                     detailTag += createTimeline(res);
-                    detailTag += `<div class="text-center">
-                                       <a href="{{route('export.piagam')}}"><button class="btn btn-primary mx-1">
-                                       <i class="ti ti-printer"></i> Generate Piagam dan SK</button></a>
-                                    </div>
+                    detailTag += `<div class="px-2">
+                                       <form class="d-flex align-items-end" action="{{route('generate.document')}}"
+                                        method="post">
+                                        @csrf
+                                        <div>
+                                            <label class="form-label mb-1">Tanggal Dokumen</label>
+                                            <input type="hidden" name="satpenid" value="${satpenId}">
+                                            <input type="date" name="tgl_doc" class="form-control form-control-sm" required>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary mx-2 btn-generate-padding"><i class="ti ti-printer"></i> Generate Dokumen</button>
+                                        </div>
+                                        </form>
+                                  </div>
                                 </div>
                             </div>`;
 
                     $("#modal-detail-dokumen").html(detailTag);
+
+                }
+            });
+        });
+
+        let modalPerpanjangBackdrop = document.getElementById('modalPerpanjangBackdrop')
+        modalPerpanjangBackdrop.addEventListener('show.bs.modal', function (event) {
+            let satpenId = event.relatedTarget.getAttribute('data-bs')
+            let routeUrl = "{{ route('api.satpenbyid', ['satpenId' => ':param']) }}".replace(':param', satpenId);
+
+            $.ajax({
+                url: routeUrl,
+                type: "GET",
+                dataType: 'json',
+                success: function(res) {
+                    detailTag = `<div class="row mt-3 container-begin">`;
+                    detailTag += createTableDetail(res);
+                    detailTag += createTableFiles(res);
+                    detailTag += `<div class="col-sm-4 d-flex flex-column justify-content-between">`;
+                    detailTag += createTimeline(res);
+                    detailTag += `<div class="px-2">
+                                       <form class="d-flex align-items-end" action="{{route('regenerate.document')}}"
+                                        method="post">
+                                        @csrf
+                                        <div>
+                                            <label class="form-label mb-1">Tanggal Dokumen</label>
+                                            <input type="hidden" name="satpenid" value="${satpenId}">
+                                            <input type="date" name="tgl_doc" class="form-control form-control-sm" required>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-success mx-2 btn-generate-padding"><i class="ti ti-printer"></i> Regenerate Dokumen</button>
+                                        </div>
+                                        </form>
+                                  </div>
+                                </div>
+                            </div>`;
+
+                    $("#modal-detail-perpanjang").html(detailTag);
 
                 }
             });

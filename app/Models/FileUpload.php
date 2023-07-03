@@ -13,7 +13,10 @@ class FileUpload extends Model
     protected $hidden = ['created_at', 'updated_at'];
     protected $fillable = [
         'id_satpen',
-        'file_piagam',
-        'file_sk',
+        'typefile',
+        'no_file',
+        'qrcode',
+        'nm_file',
+        'tgl_file',
     ];
 }

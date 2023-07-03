@@ -16,11 +16,12 @@
         <div class="col-sm-12">
 
             <nav class="mt-2 mb-4" aria-label="breadcrumb">
-                <ol class="breadcrumb fw-bold">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Satpen</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">My Satpen</li>
-                </ol>
+                <ul id="breadcrumb" class="mb-0">
+                    <li><a href="#"><i class="ti ti-home"></i></a></li>
+                    <li><a href="#"><span class=" fa fa-info-circle"> </span> Satpen</a></li>
+                    <li><a href="#"><span class="fa fa-snowflake-o"></span> Rekap Satpen</a></li>
+                    <li><a href="#"><span class="fa fa-snowflake-o"></span> Detail</a></li>
+                </ul>
             </nav>
 
             @include('template.alert')
@@ -38,13 +39,13 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col">
+                        <div class="col-sm-4">
                             <table>
 
                                 <tbody>
                                 <tr>
                                     <td width="140">NPSN</td>
-                                    <td width="50">:</td>
+                                    <td width="30">:</td>
                                     <td>{{ $satpenProfile->npsn }}</td>
                                 </tr>
                                 <tr>
@@ -130,7 +131,21 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col">
+                        <div class="col-sm-4 px-3">
+                            <h5 class="mb-2 fs-4">File Pendukung</h5>
+                            @foreach($satpenProfile->filereg as $row)
+                            <div class="mb-3 px-3 py-2 card-box-detail">
+                                <h6 class="text-capitalize">{{$row->mapfile}}</h6>
+                                <p class="mb-1">{{$row->nm_lembaga}} {{$row->daerah}}</p>
+                                <p>Nomor : {{$row->nomor_surat}}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small>Tanggal {{\App\Helpers\Date::tglMasehi($row->tgl_surat)}}</small>
+                                    <a href="{{route('viewerpdf', $row->filesurat)}}" target="_blank"><span class="badge fs-2 bg-primary">Lihat PDF</span></a>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="col-sm-4 d-flex flex-column justify-content-between">
                             <ul class="timeline">
                                 @foreach($satpenProfile->timeline as $row)
                                 <li>
@@ -140,23 +155,32 @@
                                 </li>
                                 @endforeach
                             </ul>
+                            <div class="px-2 py-2 text-center">
+                                <form class="d-inline" action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
+                                      method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="status_verifikasi" value="expired">
+                                    <button type="submit" class="btn btn-danger"><i class="ti ti-exchange"></i> Usangkan Dokumen</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="row mt-4">
-                        <div class="col d-flex justify-content-center align-items-md-center text-center">
+                    <div class="row border-2 border-top pt-3 mt-2 mx-sm-2">
+                        <div class="col-sm-5 d-flex justify-content-center align-items-md-center text-center">
                             <div class="file-download-box">
                                 <p class="mb-3">Piagam Ma'arif</p>
-                                <a href="{{ route('download', 'template') }}" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
+                                <a href="{{ route('pdf.generated', ["type"=> $satpenProfile->file[0]->typefile, "fileName" => $satpenProfile->file[0]->nm_file]) }}" target="_blank" href="{{ route('pdf.generated', ["type"=> $satpenProfile->file[0]->typefile, "fileName" => $satpenProfile->file[0]->nm_file.".pdf"]) }}" target="_blank" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
                                     tampil</a>
                             </div>
                             <div class="file-download-box">
                                 <p class="mb-3">SK Satpen</p>
-                                <a href="{{ route('download', 'sk') }}" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
+                                <a href="{{ route('pdf.generated', ["type"=> $satpenProfile->file[1]->typefile, "fileName" => $satpenProfile->file[1]->nm_file]) }}" target="_blank" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
                                     tampil</a>
                             </div>
                         </div>
-                        <div class="col">
-                            <table class="table table-bordered w-75 text-center mx-auto">
+                        <div class="col-sm-7 d-flex justify-content-center align-items-md-end">
+                            <table class="table table-bordered w-50 text-center my-0">
                                 <thead>
                                 <tr>
                                     <th>Status Registrasi</th>

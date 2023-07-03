@@ -38,13 +38,18 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col">
+                        <div class="col-sm-4">
                             <table>
 
                                 <tbody>
                                 <tr>
-                                    <td width={140}>Nama Satpen</td>
-                                    <td width={50}>:</td>
+                                    <td width="140">NPSN</td>
+                                    <td width="30">:</td>
+                                    <td>{{ $satpenProfile->npsn }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nama Satpen</td>
+                                    <td>:</td>
                                     <td>{{ $satpenProfile->nm_satpen }}</td>
                                 </tr>
                                 <tr>
@@ -125,7 +130,21 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col">
+                        <div class="col-sm-4 px-3">
+                            <h5 class="mb-2 fs-4">File Pendukung</h5>
+                            @foreach($satpenProfile->filereg as $row)
+                                <div class="mb-3 px-3 py-2 card-box-detail">
+                                    <h6 class="text-capitalize">{{$row->mapfile}}</h6>
+                                    <p class="mb-1">{{$row->nm_lembaga}} {{$row->daerah}}</p>
+                                    <p>Nomor : {{$row->nomor_surat}}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small>Tanggal {{\App\Helpers\Date::tglMasehi($row->tgl_surat)}}</small>
+                                        <a href="{{route('viewerpdf', $row->filesurat)}}" target="_blank"><span class="badge fs-2 bg-primary">Lihat PDF</span></a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="col-sm-4">
                             <ul class="timeline">
                                 @foreach($satpenProfile->timeline as $row)
                                 <li>
@@ -137,11 +156,12 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row border-2 border-top pt-3 mt-2 mx-sm-2">
                         <div class="col d-flex justify-content-center align-items-md-center text-center">
+                            @if($satpenProfile->status == "setujui")
                             <div class="file-download-box">
                                 <p class="mb-3">Piagam Ma'arif</p>
-                                <a href="{{ route('download', 'template') }}" class="btn btn-sm btn-primary"><i class="ti ti-download"></i>
+                                <a href="{{ route('download', 'piagam') }}" class="btn btn-sm btn-primary"><i class="ti ti-download"></i>
                                     unduh</a>
                             </div>
                             <div class="file-download-box">
@@ -149,6 +169,7 @@
                                 <a href="{{ route('download', 'sk') }}" class="btn btn-sm btn-primary"><i class="ti ti-download"></i>
                                     unduh</a>
                             </div>
+                            @endif
                         </div>
                         <div class="col">
                             <table class="table table-bordered w-75 text-center mx-auto">

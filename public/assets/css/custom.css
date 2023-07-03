@@ -126,27 +126,31 @@
     background-color: #efeeee;
     padding: .8rem 1.3rem;
     border-radius: .3rem;
-    margin: 0 2.4rem;
+    margin-right: 1.9rem;
 }
 /*mytable style*/
-#mytable td, #mytable1 td, #mytable2 td {
+#mytable td, #mytable1 td, #mytable2 td, #mytable2 td {
     font-size: .9em;
     font-weight: 500;
     vertical-align: middle;
     padding: .388rem;
 }
-#mytable th, #mytable1 th, #mytable2 th {
+#mytable th, #mytable1 th, #mytable2 th, #mytable3 th {
     background-color: rgba(50, 123, 50, .199);
     padding: .4rem;
 }
 #mytable td:last-child, #mytable td:first-child,
 #mytable1 td:last-child, #mytable1 td:first-child,
-#mytable2 td:last-child, #mytable2 td:first-child  {
+#mytable2 td:last-child, #mytable2 td:first-child,
+#mytable3 td:last-child, #mytable3 td:first-child  {
     text-align: center;
 }
-#mytable button, #mytable1 button, #mytable2 button {
+#mytable button, #mytable1 button, #mytable2 button, #mytable3 button {
     padding: .1rem .3rem;
     margin-right: .3rem;
+}
+#mytable .expired {
+    background-color: rgba(252, 201, 194, 0.5);
 }
 .card .form-filter .form-select-sm {
     min-height: calc(1.5em + 0.3rem + calc(var(--bs-border-width) * 2));
@@ -179,3 +183,8 @@
     border: .08rem solid #ebf1f6;
     border-top: .3rem solid #ffc107;
 }
+
+.btn-generate-padding {
+    padding: .34rem .6rem;
+}
+

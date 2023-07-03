@@ -38,7 +38,20 @@ class RegisterRequest extends FormRequest
             "alamat" => "required|string",
             "aset_tanah" => "required|in:jamiyah,masyarakat nu",
             "nm_pemilik" => "required|string",
-            "password" => "required|string"
+            "password" => "required|string",
+            "no_srt_permohonan" => "required",
+            "tgl_srt_permohonan" => "required",
+            "file_permohonan" => "required",
+            "nm_rekom_pc" => "required",
+            "cabang_rekom_pc" => "required",
+            "no_srt_rekom_pc" => "required",
+            "tgl_srt_rekom_pc" => "required",
+            "file_rekom_pc" => "required",
+            "nm_rekom_pw" => "required",
+            "wilayah_rekom_pw" => "required",
+            "no_srt_rekom_pw" => "required",
+            "tgl_srt_rekom_pw" => "required",
+            "file_rekom_pw" => "required",
         ];
     }
 

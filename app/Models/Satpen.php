@@ -10,7 +10,7 @@ class Satpen extends Model
     use HasFactory;
     protected $table = 'satpen';
     protected $primaryKey = 'id_satpen';
-    protected $hidden = ['created_at', 'updated_at', 'id_prov', 'id_kab', 'id_kategori', 'id_jenjang'];
+    protected $hidden = ['created_at', 'updated_at', 'id_prov', 'id_kab', 'id_kategori', 'id_jenjang', 'id_pc'];
     protected $fillable = [
         'id_user',
         'id_prov',
@@ -57,7 +57,7 @@ class Satpen extends Model
     }
 
     public function file() {
-        return $this->hasOne(FileUpload::class, 'id_satpen');
+        return $this->hasMany(FileUpload::class, 'id_satpen');
     }
 
     public function filereg() {

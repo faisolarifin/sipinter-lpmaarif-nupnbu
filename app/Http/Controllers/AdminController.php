@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Export\ExportDocument;
+use App\Helpers\GenerateQr;
+use App\Models\FileUpload;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
 use App\Models\Provinsi;
@@ -11,7 +14,6 @@ use App\Models\Timeline;
 use Illuminate\Support\Facades\Date;
 use App\Http\Requests\StatusSatpenRequest;
 use Illuminate\Http\Request;
-
 
 class AdminController extends Controller
 {
@@ -27,10 +29,10 @@ class AdminController extends Controller
     public function getAllSatpenOrFilter(Request $request)
     {
         $paginatePerPage = 10;
-        $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status'];
+        $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi'];
         try {
             /**
-             * If request without satpenid show all satpen where status 'terima'
+             * If request without satpenid show all satpen where status 'setujui'
              */
             if ($request->jenjang
                     || $request->kabupaten
@@ -53,7 +55,8 @@ class AdminController extends Controller
                         'jenjang:id_jenjang,nm_jenjang',
                     ])
                         ->select($selectedColumns)
-                        ->where('status', '=', 'terima')
+                        ->where('status', '=', 'setujui')
+                        ->orWhere('status', '=', 'expired')
                         ->where($filter)
                         ->paginate($paginatePerPage);
                 }
@@ -66,7 +69,8 @@ class AdminController extends Controller
                     'jenjang:id_jenjang,nm_jenjang',
                 ])
                     ->select($selectedColumns)
-                    ->where('status', '=', 'terima')
+                    ->where('status', '=', 'setujui')
+                    ->orWhere('status', '=', 'expired')
                     ->paginate($paginatePerPage);
             }
 
@@ -91,8 +95,8 @@ class AdminController extends Controller
     public function getSatpenById(string $satpenId=null) {
         try {
             if ($satpenId) {
-                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'timeline'])
-                    ->where('id_user', '=', $satpenId)
+                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'timeline', 'filereg'])
+                    ->where('id_satpen', '=', $satpenId)
                     ->first();
                 if (!$satpenProfile) return redirect()->back()->with('error', 'Forbidden to access satpen profile');
 
@@ -117,8 +121,9 @@ class AdminController extends Controller
             $permohonanSatpens = Satpen::with($relationTable)->where('status', '=', 'permohonan')->get($selectedColumns);
             $revisiSatpens = Satpen::with($relationTable)->where('status', '=', 'revisi')->get(array_merge($selectedColumns, ['kecamatan']));
             $prosesDocuments = Satpen::with($relationTable)->where('status', '=', 'proses dokumen')->get(array_merge($selectedColumns, ['kecamatan']));
+            $perpanjanganDocuments = Satpen::with($relationTable)->where('status', '=', 'perpanjangan')->get(array_merge($selectedColumns, ['kecamatan']));
 
-            return view('admin.satpen.registersatpen', compact('permohonanSatpens', 'revisiSatpens', 'prosesDocuments'));
+            return view('admin.satpen.registersatpen', compact('permohonanSatpens', 'revisiSatpens', 'prosesDocuments', 'perpanjanganDocuments'));
 
         } catch (\Exception $e) {
             dd($e);
@@ -141,20 +146,182 @@ class AdminController extends Controller
                 'keterangan' => $request->keterangan,
             ]);
 
-            return redirect()->route('a.satpen')->with('success', 'Status satpen telah diupdate menjadi '. $request->status_verifikasi);
+            return redirect()->back()->with('success', 'Status satpen telah diupdate menjadi '. $request->status_verifikasi);
 
         } catch (\Exception $e) {
             dd($e);
         }
     }
 
-    public function pdfViewer($fileName) {
-        $filepath = storage_path("app/uploads/".$fileName);
+    public function pdfUploadViewer(string $fileName) {
+        if ($fileName) {
+            $filepath = storage_path("app/uploads/".$fileName);
 
-        if (!file_exists($filepath)) return response("File not found!");
-        return response()->file($filepath);
+            if (!file_exists($filepath)) return response("File not found!");
+            return response()->file($filepath);
+        }
+        return response("Invalid Document!");
     }
 
+    public function pdfGeneratedViewer(string $type=null, string $fileName=null) {
+        if ($fileName && $type) {
+            $filepath = storage_path("app/generated/".$type."/".$fileName);
+
+            if (!file_exists($filepath)) return response("File not found!");
+            return response()->file($filepath);
+        }
+        return response("Invalid Document!");
+    }
+
+    public function generatePiagamAndSK(Request $request) {
+        try {
+            $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
+            $skFilename = "SK Satuan Pendidikan BHPNU - ";
+            /**
+             * generate ordered nomor surat
+             */
+            $autoNomorSurat = 1;
+            $maxNomorSurat = FileUpload::where('typefile', '=', 'sk')->max('no_file');
+            if (!$maxNomorSurat) {
+                $autoNomorSurat = (int) ++$maxNomorSurat;
+            }
+            /**
+             * get selected satpen
+             */
+            $satpen = Satpen::find($request->satpenid);
+
+            if ($satpen) {
+                /**
+                 * create file data in db.file_upload
+                 */
+                $piagamFilename .= $satpen->nm_satpen.".pdf";
+                $skFilename .= $satpen->nm_satpen.".pdf";
+                //create piagam
+                FileUpload::create([
+                    'id_satpen' => $satpen->id_satpen,
+                    'typefile' => "piagam",
+                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "sk"),
+                    'nm_file' => $piagamFilename,
+                    'tgl_file' => $request->tgl_doc,
+                ]);
+                FileUpload::create([
+                    'id_satpen' => $satpen->id_satpen,
+                    'typefile' => "sk",
+                    'no_file' => $autoNomorSurat,
+                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "piagam"),
+                    'nm_file' => $skFilename,
+                    'tgl_file' => $request->tgl_doc,
+                ]);
+
+                /**
+                 * get relation data
+                 */
+                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'filereg', 'file'])
+                    ->where('id_satpen', '=', $satpen->id_satpen)
+                    ->first();
+
+                /**
+                 * Create pdf document and save in server
+                 */
+                ExportDocument::makePiagamDokumen($satpenProfile);
+                ExportDocument::makeSKDokumen($satpenProfile);
+
+                /**
+                 * update status satpen menjadi disetujui
+                 */
+                $satpen->update([
+                    'tgl_registrasi' => Date::now(),
+                ]);
+
+                $this->updateSatpenStatus((new StatusSatpenRequest())
+                    ->merge(["status_verifikasi" => "setujui"]),
+                    $satpen);
+
+                return redirect()->back()->with('success', 'Dokumen Surat Keputusan dan Piagam telah generate');
+            }
+
+            return redirect()->back()->with('error', 'satpen tidak ditemukan!');
+
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function reGeneratePiagamAndSK(Request $request) {
+        try {
+            $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
+            $skFilename = "SK Satuan Pendidikan BHPNU - ";
+            /**
+             * generate ordered nomor surat
+             */
+            $autoNomorSurat = 1;
+            $maxNomorSurat = FileUpload::where('typefile', '=', 'sk')->max('no_file');
+            if (!$maxNomorSurat) {
+                $autoNomorSurat = (int) ++$maxNomorSurat;
+            }
+            /**
+             * get selected satpen
+             */
+            $satpen = Satpen::find($request->satpenid);
+
+            if ($satpen) {
+                /**
+                 * create file data in db.file_upload
+                 */
+                $piagamFilename .= $satpen->nm_satpen.".pdf";
+                $skFilename .= $satpen->nm_satpen.".pdf";
+                //create piagam
+                FileUpload::where([
+                    'id_satpen' => $satpen->id_satpen,
+                    'typefile' => "piagam",
+                ])->update([
+                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "sk"),
+                    'nm_file' => $piagamFilename,
+                    'tgl_file' => $request->tgl_doc,
+                ]);
+                FileUpload::where([
+                    'id_satpen' => $satpen->id_satpen,
+                    'typefile' => "sk",
+                ])->update([
+                    'no_file' => $autoNomorSurat,
+                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "piagam"),
+                    'nm_file' => $skFilename,
+                    'tgl_file' => $request->tgl_doc,
+                ]);
+
+                /**
+                 * get relation data
+                 */
+                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'filereg', 'file'])
+                    ->where('id_satpen', '=', $satpen->id_satpen)
+                    ->first();
+
+                /**
+                 * Create pdf document and save in server
+                 */
+                ExportDocument::makePiagamDokumen($satpenProfile);
+                ExportDocument::makeSKDokumen($satpenProfile);
+
+                /**
+                 * update status satpen menjadi disetujui
+                 */
+                $satpen->update([
+                    'tgl_registrasi' => Date::now(),
+                ]);
+
+                $this->updateSatpenStatus((new StatusSatpenRequest())
+                    ->merge(["status_verifikasi" => "setujui"]),
+                    $satpen);
+
+                return redirect()->back()->with('success', 'Dokumen Surat Keputusan dan Piagam telah regenerate');
+            }
+
+            return redirect()->back()->with('error', 'satpen tidak ditemukan!');
+
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
 
 
     public function underConstruction() {

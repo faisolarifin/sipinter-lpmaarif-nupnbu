@@ -41,5 +41,12 @@ class GenerateQr {
 
     }
 
+    public static function encodeQr($code, $type) {
+        return base64_encode(json_encode([
+            "code" => $code,
+            "type" => $type,
+        ]));
+    }
+
 
 }
