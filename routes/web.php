@@ -33,7 +33,9 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/dashboard', [OperatorController::class, 'dashboardPage'])->name('dashboard');
         Route::get('/satpen', [OperatorController::class, 'mySatpenPage'])->name('mysatpen');
         Route::get('/satpen/edit', [OperatorController::class, 'editSatpenPage'])->name('mysatpen.revisi');
+        Route::get('/satpen/perpanjang', [OperatorController::class, 'perpanjangSatpenPage'])->name('mysatpen.perpanjang');
         Route::put('/satpen/edit', [SatpenController::class, 'revisionProses'])->name('mysatpen.revisi');
+        Route::put('/satpen/perpanjang', [SatpenController::class, 'revisionProses'])->name('mysatpen.perpanjang');
         Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
         Route::get('/oss', [OperatorController::class, 'underConstruction'])->name('oss');
         Route::get('/bhpnu', [OperatorController::class, 'underConstruction'])->name('bhpnu');

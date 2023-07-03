@@ -15,7 +15,7 @@
                     <li><a href="#"><i class="ti ti-home"></i></a></li>
                     <li><a href="#"><span class=" fa fa-info-circle"> </span> Permohonan</a></li>
                     <li><a href="#"><span class="fa fa-snowflake-o"></span> My Satpen</a></li>
-                    <li><a href="#"><span class="fa fa-snowflake-o"></span> Revisi</a></li>
+                    <li><a href="#"><span class="fa fa-snowflake-o"></span> Perpanjagan</a></li>
                 </ul>
             </nav>
 
@@ -25,8 +25,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="card-title fw-semibold mb-1">REVISI SATPEN</h5>
-                            <small>perbaiki kesalahan profile satuan pendidikan anda</small>
+                            <h5 class="card-title fw-semibold mb-1">PERBAIKAN SATPEN</h5>
+                            <small>profile satuan pendidikan dapat diperbaiki jika ada kesalahan</small>
                         </div>
                         <div>
                             <a href="{{ route('mysatpen') }}" class="btn btn-sm btn-info">My Satpen
@@ -377,7 +377,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-sm fs-3 rounded-2 mt-2">Simpan Perubahan</button>
+                        <button class="btn btn-success btn-sm fs-3 rounded-2 mt-2">Ajukan Perpanjangan</button>
                     </form>
                 </div>
             </div>

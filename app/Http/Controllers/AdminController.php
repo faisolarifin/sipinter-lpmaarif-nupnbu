@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Export\ExportDocument;
 use App\Helpers\GenerateQr;
+use App\Mail\StatusMail;
 use App\Models\FileUpload;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
@@ -14,6 +15,7 @@ use App\Models\Timeline;
 use Illuminate\Support\Facades\Date;
 use App\Http\Requests\StatusSatpenRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -145,6 +147,8 @@ class AdminController extends Controller
                 'tgl_status' => Date::now(),
                 'keterangan' => $request->keterangan,
             ]);
+
+            Mail::to($satpen->email)->send(new StatusMail($request->status_verifikasi));
 
             return redirect()->back()->with('success', 'Status satpen telah diupdate menjadi '. $request->status_verifikasi);
 

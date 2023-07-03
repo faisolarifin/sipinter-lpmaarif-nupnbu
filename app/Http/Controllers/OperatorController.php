@@ -31,7 +31,7 @@ class OperatorController extends Controller
             $satpenProfile = Satpen::where('id_user', '=', auth()->user()->id_user)->first();
 
             if ($satpenProfile->status != 'revisi') return redirect()->back()
-                ->with('error', 'Status satpen bukan dalam masa revisi atau expired');
+                ->with('error', 'Status satpen bukan dalam masa revisi');
 
             $kabupaten = Kabupaten::where('id_prov', '=', $satpenProfile->id_prov)
                 ->orderBy('id_kab')->get();
@@ -41,6 +41,26 @@ class OperatorController extends Controller
             $jenjang = Jenjang::orderBy('id_jenjang')->get();
 
             return view('satpen.revisi', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
+
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+    public function perpanjangSatpenPage() {
+        try {
+            $satpenProfile = Satpen::where('id_user', '=', auth()->user()->id_user)->first();
+
+            if ($satpenProfile->status != 'expired') return redirect()->back()
+                ->with('error', 'Status dokumen satpen belum expired');
+
+            $kabupaten = Kabupaten::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_kab')->get();
+            $cabang = PengurusCabang::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_pc')->get();
+            $propinsi = Provinsi::orderBy('id_prov')->get();
+            $jenjang = Jenjang::orderBy('id_jenjang')->get();
+
+            return view('satpen.perpanjang', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
 
         } catch (\Exception $e) {
             dd($e);

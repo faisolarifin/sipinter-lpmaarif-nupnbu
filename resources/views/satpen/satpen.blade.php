@@ -33,8 +33,13 @@
                             <small>detail profile satuan pendidikan anda</small>
                         </div>
                         <div>
+                            @if($satpenProfile->status == "revisi")
                             <a href="{{ route('mysatpen.revisi') }}" class="btn btn-sm btn-info"><i class="ti ti-edit"></i>
                                 Revisi</a>
+                            @elseif($satpenProfile->status == "expired")
+                            <a href="{{ route('mysatpen.perpanjang') }}" class="btn btn-sm btn-info"><i class="ti ti-edit"></i>
+                                Perpanjangan</a>
+                            @endif
                         </div>
                     </div>
                     <div class="row mt-3">
