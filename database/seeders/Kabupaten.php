@@ -16,39 +16,43 @@ class Kabupaten extends Seeder
             [
                 'id_prov' => 1,
                 'kode_kab_kd' => '052800',
-                'nama_kab' => 'Kabupaten Kediri'
-            ],[
-                'id_prov' => 1,
-                'kode_kab_kd' => '052801',
-                'nama_kab' => 'Kabupaten Lumajang'
-            ],[
-                'id_prov' => 1,
-                'kode_kab_kd' => '052802',
-                'nama_kab' => 'Kabupaten Ngawi'
-            ],[
-                'id_prov' => 1,
-                'kode_kab_kd' => '052800',
                 'nama_kab' => 'Kabupaten Sumenep'
             ],[
-                'id_prov' => 2,
-                'kode_kab_kd' => '052801',
+                'id_prov' => 1,
+                'kode_kab_kd' => '052600',
                 'nama_kab' => 'Kabupaten Pamekasan'
             ],[
-                'id_prov' => 2,
-                'kode_kab_kd' => '052802',
+                'id_prov' => 1,
+                'kode_kab_kd' => '052700',
                 'nama_kab' => 'Kabupaten Sampang'
             ],[
-                'id_prov' => 2,
-                'kode_kab_kd' => '052803',
+                'id_prov' => 1,
+                'kode_kab_kd' => '052900',
                 'nama_kab' => 'Kabupaten Bangkalan'
             ],[
                 'id_prov' => 2,
-                'kode_kab_kd' => '052804',
-                'nama_kab' => 'Kabupaten Pasuruan'
+                'kode_kab_kd' => '036300',
+                'nama_kab' => 'Kota Semarang'
             ],[
                 'id_prov' => 2,
-                'kode_kab_kd' => '052805',
-                'nama_kab' => 'Kabupaten Probolinggo'
+                'kode_kab_kd' => '031800',
+                'nama_kab' => 'Kabupaten Pati'
+            ],[
+                'id_prov' => 2,
+                'kode_kab_kd' => '030900',
+                'nama_kab' => 'Kabupaten Boyolali'
+            ],[
+                'id_prov' => 3,
+                'kode_kab_kd' => '026300',
+                'nama_kab' => 'Kabupaten Cirebon'
+            ],[
+                'id_prov' => 3,
+                'kode_kab_kd' => '021400',
+                'nama_kab' => 'Kabupaten Ciamis'
+            ],[
+                'id_prov' => 3,
+                'kode_kab_kd' => '021800',
+                'nama_kab' => 'Kabupaten Indramayu'
             ],
         ];
         foreach ($kabupatens as $kabupaten) {

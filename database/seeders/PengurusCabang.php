@@ -15,40 +15,44 @@ class PengurusCabang extends Seeder
         $pcnu = [
             [
                 'id_prov' => 1,
-                'kode_kab' => '01',
-                'nama_pc' => 'Kabupaten Kediri'
-            ],[
-                'id_prov' => 1,
-                'kode_kab' => '02',
-                'nama_pc' => 'Kabupaten Lumajang'
-            ],[
-                'id_prov' => 1,
-                'kode_kab' => '03',
-                'nama_pc' => 'Kabupaten Ngawi'
-            ],[
-                'id_prov' => 1,
-                'kode_kab' => '04',
+                'kode_kab' => '42',
                 'nama_pc' => 'Kabupaten Sumenep'
             ],[
-                'id_prov' => 2,
-                'kode_kab' => '05',
+                'id_prov' => 1,
+                'kode_kab' => '38',
                 'nama_pc' => 'Kabupaten Pamekasan'
             ],[
-                'id_prov' => 2,
-                'kode_kab' => '06',
+                'id_prov' => 1,
+                'kode_kab' => '21',
                 'nama_pc' => 'Kabupaten Sampang'
             ],[
-                'id_prov' => 2,
-                'kode_kab' => '07',
+                'id_prov' => 1,
+                'kode_kab' => '28',
                 'nama_pc' => 'Kabupaten Bangkalan'
             ],[
                 'id_prov' => 2,
-                'kode_kab' => '08',
-                'nama_pc' => 'Kabupaten Pasuruan'
+                'kode_kab' => '11',
+                'nama_pc' => 'Kota Semarang'
             ],[
                 'id_prov' => 2,
+                'kode_kab' => '12',
+                'nama_pc' => 'Kabupaten Pati'
+            ],[
+                'id_prov' => 2,
+                'kode_kab' => '17',
+                'nama_pc' => 'Kabupaten Boyolali'
+            ],[
+                'id_prov' => 3,
+                'kode_kab' => '08',
+                'nama_pc' => 'Kabupaten Ciamis'
+            ],[
+                'id_prov' => 3,
                 'kode_kab' => '09',
-                'nama_pc' => 'Kabupaten Probolinggo'
+                'nama_pc' => 'Kabupaten Cirebon'
+            ],[
+                'id_prov' => 3,
+                'kode_kab' => '03',
+                'nama_pc' => 'Kabupaten Indramayu'
             ],
         ];
         foreach ($pcnu as $row) {

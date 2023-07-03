@@ -20,7 +20,12 @@ class Provinsi extends Seeder
             ],
             [
                 'kode_prov' => '2',
-                'kode_prov_kd' => '050001',
+                'kode_prov_kd' => '030000',
+                'nm_prov' => 'Jawa Tengah'
+            ],
+            [
+                'kode_prov' => '10',
+                'kode_prov_kd' => '020000',
                 'nm_prov' => 'Jawa Tengah'
             ]
         ];
