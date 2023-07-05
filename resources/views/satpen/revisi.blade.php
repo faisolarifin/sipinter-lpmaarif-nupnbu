@@ -117,7 +117,7 @@
                                     <label for="cabang" class="form-label">Cabang</label>
                                     <select class="form-select form-select-sm @error('cabang') is-invalid @enderror" name="cabang">
                                         @foreach($cabang as $row)
-                                            <option value="{{ $row->kode_kab }}" {{$satpenProfile->id_pc == $row->id_pc ? 'selected' : ''}}>{{ $row->nama_pc }}</option>
+                                            <option value="{{ $row->id_pc }}" {{$satpenProfile->id_pc == $row->id_pc ? 'selected' : ''}}>{{ $row->nama_pc }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">
