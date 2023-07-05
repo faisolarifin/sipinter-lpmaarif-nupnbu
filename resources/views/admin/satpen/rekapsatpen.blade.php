@@ -39,6 +39,7 @@
                         </div>
                         <div class="me-2">
                             <select class="form-select form-select-sm" name="kabupaten">
+                                <option value=''>KABUPATEN</option>
                                 <!-- value by ajax -->
                             </select>
                         </div>
