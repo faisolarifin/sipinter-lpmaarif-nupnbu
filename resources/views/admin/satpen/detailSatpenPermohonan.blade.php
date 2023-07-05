@@ -136,7 +136,6 @@
             });
         });
 
-
         let modalRevisi = document.getElementById('modalRevisi')
         modalRevisi.addEventListener('show.bs.modal', function (event) {
             let satpenId = event.relatedTarget.getAttribute('data-bs')

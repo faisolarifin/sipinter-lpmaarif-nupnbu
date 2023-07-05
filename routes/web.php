@@ -54,6 +54,7 @@ Route::middleware('mustlogin')->group(function() {
     });
     Route::middleware('onlyadmin')->prefix('api')->group(function () {
        Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
+       Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov');
     });
     Route::middleware('onlyadmin')->group(function() {
         Route::get('/generate/{type?}/{fileName?}', [AdminController::class, 'pdfGeneratedViewer'])->name('pdf.generated');

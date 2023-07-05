@@ -39,10 +39,7 @@
                         </div>
                         <div class="me-2">
                             <select class="form-select form-select-sm" name="kabupaten">
-                                <option value="">KABUPATEN</option>
-                                @foreach($kabupaten as $row)
-                                    <option value="{{ $row->id_kab }}" {{ $row->id_kab == request()->kabupaten ? 'selected' : '' }}>{{ $row->nama_kab }}</option>
-                                @endforeach
+                                <!-- value by ajax -->
                             </select>
                         </div>
                         <div class="me-2">
@@ -121,5 +118,31 @@
     $(document).ready(function () {
         $('#mytable').DataTable();
     });
+    $("select[name='provinsi']").on('change', function() {
+        getKabupaten();
+    });
+
+    function getKabupaten() {
+        let routeGetData = "{{ route('api.kabupatenbyprov', ['provId' => ':param']) }}".replace(':param', $("select[name='provinsi']").val());
+
+        $.ajax({
+            url: routeGetData,
+            type: "GET",
+            dataType: 'json',
+            success: function(res) {
+
+                $element = "<option value=''>KABUPATEN</option>";
+                $.each(res,function(key, value)
+                {
+                    $element += '<option value=' + value.id_kab + '>' + value.nama_kab + '</option>';
+                });
+                $("select[name='kabupaten']").html($element);
+
+            }
+        })
+    }
+
+    getKabupaten();
+
 </script>
 @endsection

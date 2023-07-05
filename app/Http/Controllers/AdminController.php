@@ -57,8 +57,7 @@ class AdminController extends Controller
                         'jenjang:id_jenjang,nm_jenjang',
                     ])
                         ->select($selectedColumns)
-                        ->where('status', '=', 'setujui')
-                        ->orWhere('status', '=', 'expired')
+                        ->whereIn('status', ['setujui', 'expired'])
                         ->where($filter)
                         ->paginate($paginatePerPage);
                 }
@@ -71,8 +70,7 @@ class AdminController extends Controller
                     'jenjang:id_jenjang,nm_jenjang',
                 ])
                     ->select($selectedColumns)
-                    ->where('status', '=', 'setujui')
-                    ->orWhere('status', '=', 'expired')
+                    ->whereIn('status', ['setujui', 'expired'])
                     ->paginate($paginatePerPage);
             }
 
@@ -82,12 +80,11 @@ class AdminController extends Controller
             if (!$satpenProfile) return redirect()->back()->with('error', 'Forbidden to access satpen profile');
 
             $propinsi = Provinsi::all();
-            $kabupaten = Kabupaten::all();
             $jenjang = Jenjang::all();
             $kategori = Kategori::all();
 
             return view('admin.satpen.rekapsatpen', compact('satpenProfile',
-                'propinsi', 'kabupaten', 'jenjang', 'kategori'));
+                'propinsi', 'jenjang', 'kategori'));
 
         } catch (\Exception $e) {
             dd($e);

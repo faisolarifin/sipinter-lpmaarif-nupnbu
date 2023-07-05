@@ -26,7 +26,7 @@ class Provinsi extends Seeder
             [
                 'kode_prov' => '10',
                 'kode_prov_kd' => '020000',
-                'nm_prov' => 'Jawa Tengah'
+                'nm_prov' => 'Jawa Barat'
             ]
         ];
         foreach ($provinsi as $row) {
