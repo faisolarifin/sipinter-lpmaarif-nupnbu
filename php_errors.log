@@ -21,3 +21,35 @@
  in Unknown on line 0
 [24-Jun-2023 08:32:42 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_sybase_ct.dll' - The specified module could not be found.
  in Unknown on line 0
+[07-Jul-2023 00:13:50 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:13:50 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:13:52 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:13:52 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_sybase_ct.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 02:13:54 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 5.6.40. in D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 25
+[07-Jul-2023 02:13:54 Europe/Amsterdam] PHP Stack trace:
+[07-Jul-2023 02:13:54 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\artisan:0
+[07-Jul-2023 02:13:54 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\artisan:18
+[07-Jul-2023 02:13:54 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\autoload.php:12
+[07-Jul-2023 02:13:54 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[07-Jul-2023 02:13:54 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\platform_check.php:25
+[07-Jul-2023 00:14:01 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:01 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:02 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:02 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_sybase_ct.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:03 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:03 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:03 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:03 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_sybase_ct.dll' - The specified module could not be found.
+ in Unknown on line 0
+[07-Jul-2023 00:14:04 UTC] PHP Warning:  Constant folding feature in Zend OPcache is not compatible with XCache's __DIR__ handling, please set opcache.optimization_level=0 or disable Zend OPcache in Unknown on line 0

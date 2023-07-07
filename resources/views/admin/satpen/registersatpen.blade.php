@@ -47,35 +47,37 @@
                                 <small>data permohonan satpen baru</small>
                             </div>
                         </div>
-                        <table class="table" id="mytable">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">NPSN</th>
-                                <th scope="col">No. Registrasi</th>
-                                <th scope="col">Nama Satpen</th>
-                                <th scope="col">Provinsi</th>
-                                <th scope="col">Kabupaten</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php($no=0)
-                            @foreach($permohonanSatpens as $row)
-                            <tr>
-                                <td>{{ ++$no }}</td>
-                                <td>{{ $row->npsn }}</td>
-                                <td>{{ $row->no_registrasi }}</td>
-                                <td>{{ $row->nm_satpen }}</td>
-                                <td>{{ $row->provinsi->nm_prov }}</td>
-                                <td>{{ $row->kabupaten->nama_kab }}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
-                                </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table" id="mytable">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">NPSN</th>
+                                    <th scope="col">No. Registrasi</th>
+                                    <th scope="col">Nama Satpen</th>
+                                    <th scope="col">Provinsi</th>
+                                    <th scope="col">Kabupaten</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php($no=0)
+                                @foreach($permohonanSatpens as $row)
+                                <tr>
+                                    <td>{{ ++$no }}</td>
+                                    <td>{{ $row->npsn }}</td>
+                                    <td>{{ $row->no_registrasi }}</td>
+                                    <td>{{ $row->nm_satpen }}</td>
+                                    <td>{{ $row->provinsi->nm_prov }}</td>
+                                    <td>{{ $row->kabupaten->nama_kab }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,33 +92,35 @@
                                 <small>data satpen yang dalam masa perbaikan</small>
                             </div>
                         </div>
-                        <table class="table" id="mytable1">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">NPSN</th>
-                                <th scope="col">No. Registrasi</th>
-                                <th scope="col">Nama Satpen</th>
-                                <th scope="col">Provinsi</th>
-                                <th scope="col">Kabupaten</th>
-                                <th scope="col">Kecamatan</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php($no=0)
-                            @foreach($revisiSatpens as $row)
+                        <div class="table-responsive">
+                            <table class="table" id="mytable1">
+                                <thead>
                                 <tr>
-                                    <td>{{ ++$no }}</td>
-                                    <td>{{ $row->npsn }}</td>
-                                    <td>{{ $row->no_registrasi }}</td>
-                                    <td>{{ $row->nm_satpen }}</td>
-                                    <td>{{ $row->provinsi->nm_prov }}</td>
-                                    <td>{{ $row->kabupaten->nama_kab }}</td>
-                                    <td>{{ $row->kecamatan }}</td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">NPSN</th>
+                                    <th scope="col">No. Registrasi</th>
+                                    <th scope="col">Nama Satpen</th>
+                                    <th scope="col">Provinsi</th>
+                                    <th scope="col">Kabupaten</th>
+                                    <th scope="col">Kecamatan</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @php($no=0)
+                                @foreach($revisiSatpens as $row)
+                                    <tr>
+                                        <td>{{ ++$no }}</td>
+                                        <td>{{ $row->npsn }}</td>
+                                        <td>{{ $row->no_registrasi }}</td>
+                                        <td>{{ $row->nm_satpen }}</td>
+                                        <td>{{ $row->provinsi->nm_prov }}</td>
+                                        <td>{{ $row->kabupaten->nama_kab }}</td>
+                                        <td>{{ $row->kecamatan }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,35 +135,37 @@
                                 <small>buatkan </small>
                             </div>
                         </div>
-                        <table class="table" id="mytable2">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">No. Registrasi</th>
-                                <th scope="col">Nama Satpen</th>
-                                <th scope="col">Provinsi</th>
-                                <th scope="col">Kabupaten</th>
-                                <th scope="col">Kecamatan</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php($no=0)
-                            @foreach($prosesDocuments as $row)
+                        <div class="table-responsive">
+                            <table class="table" id="mytable2">
+                                <thead>
                                 <tr>
-                                    <td>{{ ++$no }}</td>
-                                    <td>{{ $row->no_registrasi }}</td>
-                                    <td>{{ $row->nm_satpen }}</td>
-                                    <td>{{ $row->provinsi->nm_prov }}</td>
-                                    <td>{{ $row->kabupaten->nama_kab }}</td>
-                                    <td>{{ $row->kecamatan }}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalProsesDokumenBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
-                                    </td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">No. Registrasi</th>
+                                    <th scope="col">Nama Satpen</th>
+                                    <th scope="col">Provinsi</th>
+                                    <th scope="col">Kabupaten</th>
+                                    <th scope="col">Kecamatan</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @php($no=0)
+                                @foreach($prosesDocuments as $row)
+                                    <tr>
+                                        <td>{{ ++$no }}</td>
+                                        <td>{{ $row->no_registrasi }}</td>
+                                        <td>{{ $row->nm_satpen }}</td>
+                                        <td>{{ $row->provinsi->nm_prov }}</td>
+                                        <td>{{ $row->kabupaten->nama_kab }}</td>
+                                        <td>{{ $row->kecamatan }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalProsesDokumenBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,35 +180,37 @@
                                 <small>permohonan perpanjangan dokumen </small>
                             </div>
                         </div>
-                        <table class="table" id="mytable3">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">No. Registrasi</th>
-                                <th scope="col">Nama Satpen</th>
-                                <th scope="col">Provinsi</th>
-                                <th scope="col">Kabupaten</th>
-                                <th scope="col">Kecamatan</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php($no=0)
-                            @foreach($perpanjanganDocuments as $row)
+                        <div class="table-responsive">
+                            <table class="table" id="mytable3">
+                                <thead>
                                 <tr>
-                                    <td>{{ ++$no }}</td>
-                                    <td>{{ $row->no_registrasi }}</td>
-                                    <td>{{ $row->nm_satpen }}</td>
-                                    <td>{{ $row->provinsi->nm_prov }}</td>
-                                    <td>{{ $row->kabupaten->nama_kab }}</td>
-                                    <td>{{ $row->kecamatan }}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalPerpanjangBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
-                                    </td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">No. Registrasi</th>
+                                    <th scope="col">Nama Satpen</th>
+                                    <th scope="col">Provinsi</th>
+                                    <th scope="col">Kabupaten</th>
+                                    <th scope="col">Kecamatan</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @php($no=0)
+                                @foreach($perpanjanganDocuments as $row)
+                                    <tr>
+                                        <td>{{ ++$no }}</td>
+                                        <td>{{ $row->no_registrasi }}</td>
+                                        <td>{{ $row->nm_satpen }}</td>
+                                        <td>{{ $row->provinsi->nm_prov }}</td>
+                                        <td>{{ $row->kabupaten->nama_kab }}</td>
+                                        <td>{{ $row->kecamatan }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalPerpanjangBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

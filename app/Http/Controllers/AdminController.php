@@ -15,12 +15,35 @@ use App\Models\Timeline;
 use Illuminate\Support\Facades\Date;
 use App\Http\Requests\StatusSatpenRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
     public function dashboardPage() {
-        return view('admin.home.dashboard');
+
+        try {
+            $listProvinsi = Provinsi::get();
+            $countOfKabupaten = Kabupaten::count("id_kab");
+            $countOfPropinsi = Provinsi::count("id_prov");
+            $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired'])->count("id_satpen");
+            $recordPerPropinsi = DB::select("SELECT nm_prov,
+                                                    (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov) AS record_count
+                                                     FROM provinsi");
+
+            $countPerStatus = DB::select("SELECT (SELECT COUNT(id_satpen) FROM satpen WHERE status='permohonan') AS permohonan,
+                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='revisi') AS revisi,
+                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='proses dokumen') AS proses_dokumen,
+                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='expired') AS expired,
+                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='perpanjangan') AS perpanjangan ");
+
+            return view('admin.home.dashboard', compact("listProvinsi", "countOfKabupaten",
+                "countOfPropinsi", "countOfRecordSatpen",
+                            "recordPerPropinsi", "countPerStatus"));
+
+        } catch (\Exception $e) {
+            dd($e);
+        }
     }
 
     /**

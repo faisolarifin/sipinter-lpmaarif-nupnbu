@@ -92,7 +92,7 @@
         @yield('modals')
 
         <div class="py-6 px-6 text-center">
-          <p class="mb-0 fs-4"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan LP Ma'arif Nahdatul Ulama </p>
+          <p class="mb-0 fs-4"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan Terpadu LP Ma'arif Nahdatul Ulama </p>
         </div>
       </div>
     </div>

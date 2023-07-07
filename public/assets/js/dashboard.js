@@ -1,211 +1,201 @@
 $(function () {
-
-
   // =====================================
-  // Profit
+  // Propinsi
   // =====================================
-  var chart = {
-    series: [
-      { name: "Earnings this month:", data: [355, 390, 300, 350, 390, 180, 355, 390] },
-      { name: "Expense this month:", data: [280, 250, 325, 215, 250, 310, 280, 250] },
-    ],
+    $.ajax({
+        url: "/api/provcount",
+        type: "GET",
+        dataType: 'json',
+        success: function (res) {
 
-    chart: {
-      type: "bar",
-      height: 345,
-      offsetX: -15,
-      toolbar: { show: true },
-      foreColor: "#adb0bb",
-      fontFamily: 'inherit',
-      sparkline: { enabled: false },
-    },
+          let breakup = {
+            color: "#adb5bd",
+            series: res.map(item => item.record_count),
+            labels: res.map(item => item.nm_prov),
+            chart: {
+              width: 180,
+              type: "donut",
+              fontFamily: "Plus Jakarta Sans', sans-serif",
+              foreColor: "#adb0bb",
+            },
+            plotOptions: {
+              pie: {
+                startAngle: 0,
+                endAngle: 360,
+                donut: {
+                  size: '75%',
+                },
+              },
+            },
+            stroke: {
+              show: false,
+            },
 
+            dataLabels: {
+              enabled: false,
+            },
 
-    colors: ["#5D87FF", "#49BEFF"],
+            legend: {
+              show: false,
+            },
+            colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
 
+            responsive: [
+              {
+                breakpoint: 991,
+                options: {
+                  chart: {
+                    width: 150,
+                  },
+                },
+              },
+            ],
+            tooltip: {
+              theme: "dark",
+              fillSeriesColor: false,
+            },
+          };
 
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: "35%",
-        borderRadius: [6],
-        borderRadiusApplication: 'end',
-        borderRadiusWhenStacked: 'all'
-      },
-    },
-    markers: { size: 0 },
-
-    dataLabels: {
-      enabled: false,
-    },
-
-
-    legend: {
-      show: false,
-    },
-
-
-    grid: {
-      borderColor: "rgba(0,0,0,0.1)",
-      strokeDashArray: 3,
-      xaxis: {
-        lines: {
-          show: false,
-        },
-      },
-    },
-
-    xaxis: {
-      type: "category",
-      categories: ["16/08", "17/08", "18/08", "19/08", "20/08", "21/08", "22/08", "23/08"],
-      labels: {
-        style: { cssClass: "grey--text lighten-2--text fill-color" },
-      },
-    },
-
-
-    yaxis: {
-      show: true,
-      min: 0,
-      max: 400,
-      tickAmount: 4,
-      labels: {
-        style: {
-          cssClass: "grey--text lighten-2--text fill-color",
-        },
-      },
-    },
-    stroke: {
-      show: true,
-      width: 3,
-      lineCap: "butt",
-      colors: ["transparent"],
-    },
-
-
-    tooltip: { theme: "light" },
-
-    responsive: [
-      {
-        breakpoint: 600,
-        options: {
-          plotOptions: {
-            bar: {
-              borderRadius: 3,
-            }
-          },
+          $(".count-prop").text(res.length)
+          var chart = new ApexCharts(document.querySelector("#propinsi"), breakup);
+          chart.render();
         }
-      }
-    ]
+    });
 
+    // =====================================
+    // Kabupaten
+    // =====================================
+    function chartKabupaten(uri) {
+        //Reset Chart
+        $("#kabupaten").html("");
+        //Create Chart
+        $.ajax({
+            url: uri,
+            type: "GET",
+            dataType: 'json',
+            success: function (res) {
 
-  };
+                let breakup = {
+                    color: "#adb5bd",
+                    series: res.map(item => item.record_count),
+                    labels: res.map(item => item.nama_kab),
+                    chart: {
+                        width: 180,
+                        type: "donut",
+                        fontFamily: "Plus Jakarta Sans', sans-serif",
+                        foreColor: "#adb0bb",
+                    },
+                    plotOptions: {
+                        pie: {
+                            startAngle: 0,
+                            endAngle: 360,
+                            donut: {
+                                size: '75%',
+                            },
+                        },
+                    },
+                    stroke: {
+                        show: false,
+                    },
 
-  var chart = new ApexCharts(document.querySelector("#chart"), chart);
-  chart.render();
+                    dataLabels: {
+                        enabled: false,
+                    },
 
+                    legend: {
+                        show: false,
+                    },
+                    colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
 
-  // =====================================
-  // Breakup
-  // =====================================
-  var breakup = {
-    color: "#adb5bd",
-    series: [38, 40, 25],
-    labels: ["2022", "2021", "2020"],
-    chart: {
-      width: 180,
-      type: "donut",
-      fontFamily: "Plus Jakarta Sans', sans-serif",
-      foreColor: "#adb0bb",
-    },
-    plotOptions: {
-      pie: {
-        startAngle: 0,
-        endAngle: 360,
-        donut: {
-          size: '75%',
-        },
-      },
-    },
-    stroke: {
-      show: false,
-    },
+                    responsive: [
+                        {
+                            breakpoint: 991,
+                            options: {
+                                chart: {
+                                    width: 150,
+                                },
+                            },
+                        },
+                    ],
+                    tooltip: {
+                        theme: "dark",
+                        fillSeriesColor: false,
+                    },
+                };
 
-    dataLabels: {
-      enabled: false,
-    },
+                $(".count-kab").text(res.length)
+                var chart = new ApexCharts(document.querySelector("#kabupaten"), breakup);
+                chart.render();
+            }
+        });
+    }
+    chartKabupaten("/api/kabcount");
 
-    legend: {
-      show: false,
-    },
-    colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+    // =====================================
+    // Jenjang Pendidikan
+    // =====================================
+    $.ajax({
+        url: "/api/jenjangcount",
+        type: "GET",
+        dataType: 'json',
+        success: function (res) {
 
-    responsive: [
-      {
-        breakpoint: 991,
-        options: {
-          chart: {
-            width: 150,
-          },
-        },
-      },
-    ],
-    tooltip: {
-      theme: "dark",
-      fillSeriesColor: false,
-    },
-  };
+            let breakup = {
+                color: "#adb5bd",
+                series: res.map(item => item.record_count),
+                labels: res.map(item => item.nm_jenjang),
+                chart: {
+                    width: 180,
+                    type: "donut",
+                    fontFamily: "Plus Jakarta Sans', sans-serif",
+                    foreColor: "#adb0bb",
+                },
+                plotOptions: {
+                    pie: {
+                        startAngle: 0,
+                        endAngle: 360,
+                        donut: {
+                            size: '75%',
+                        },
+                    },
+                },
+                stroke: {
+                    show: false,
+                },
 
-  var chart = new ApexCharts(document.querySelector("#breakup"), breakup);
-  chart.render();
+                dataLabels: {
+                    enabled: false,
+                },
 
+                legend: {
+                    show: false,
+                },
+                colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
 
+                responsive: [
+                    {
+                        breakpoint: 991,
+                        options: {
+                            chart: {
+                                width: 150,
+                            },
+                        },
+                    },
+                ],
+                tooltip: {
+                    theme: "dark",
+                    fillSeriesColor: false,
+                },
+            };
 
-  // =====================================
-  // Earning
-  // =====================================
-  var earning = {
-    chart: {
-      id: "sparkline3",
-      type: "area",
-      height: 60,
-      sparkline: {
-        enabled: true,
-      },
-      group: "sparklines",
-      fontFamily: "Plus Jakarta Sans', sans-serif",
-      foreColor: "#adb0bb",
-    },
-    series: [
-      {
-        name: "Earnings",
-        color: "#49BEFF",
-        data: [25, 66, 20, 40, 12, 58, 20],
-      },
-    ],
-    stroke: {
-      curve: "smooth",
-      width: 2,
-    },
-    fill: {
-      colors: ["#f3feff"],
-      type: "solid",
-      opacity: 0.05,
-    },
+            $(".count-jp").text(res.length)
+            var chart = new ApexCharts(document.querySelector("#jenjang-pendidikan"), breakup);
+            chart.render();
+        }
+    });
 
-    markers: {
-      size: 0,
-    },
-    tooltip: {
-      theme: "dark",
-      fixed: {
-        enabled: true,
-        position: "right",
-      },
-      x: {
-        show: false,
-      },
-    },
-  };
-  new ApexCharts(document.querySelector("#earning"), earning).render();
+    $("#chartSelectProv").on('change', function() {
+        chartKabupaten("/api/kabcount/" + $(this).val());
+    });
+
 })

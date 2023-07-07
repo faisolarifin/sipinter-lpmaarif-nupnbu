@@ -22,14 +22,14 @@
         <div class="card w-100">
             <div class="card-body pt-3">
 
-                <div class="d-flex justify-content-between align-items-center mt-2 mb-3">
+                <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-3">
                     <div>
                         <h5 class="mb-0">Rekap Satpen</h5>
                         <small>data satpen yang telah diterima</small>
                     </div>
 
-                    <form class="d-flex align-items-end form-filter">
-                        <div class="me-2">
+                    <form class="d-flex flex-column flex-sm-row align-items-end form-filter">
+                        <div class="me-sm-2">
                             <select class="form-select form-select-sm" name="provinsi">
                                 <option value="">PROVINSI</option>
                                 @foreach($propinsi as $row)
@@ -37,13 +37,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="me-2">
+                        <div class="me-sm-2">
                             <select class="form-select form-select-sm" name="kabupaten">
                                 <option value=''>KABUPATEN</option>
                                 <!-- value by ajax -->
                             </select>
                         </div>
-                        <div class="me-2">
+                        <div class="me-sm-2">
                             <select class="form-select form-select-sm" name="jenjang">
                                 <option value="">JENJANG</option>
                                 @foreach($jenjang as $row)
@@ -51,7 +51,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="me-2">
+                        <div class="me-sm-2">
                             <select class="form-select form-select-sm" name="kategori">
                                 <option value="">KATEGORI</option>
                                 @foreach($kategori as $row)
@@ -66,45 +66,48 @@
                     </form>
                 </div>
 
-                <table class="table table-bordered" id="mytable">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">No. Registrasi</th>
-                        <th scope="col">Nama Satpen</th>
-                        <th scope="col">Yayasan</th>
-                        <th scope="col">Jenjang</th>
-                        <th scope="col">Provinsi</th>
-                        <th scope="col">Kabupaten</th>
-                        <th scope="col">Aktif</th>
-                        <th scope="col">Aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @php($no=0)
-                    @php($today=\Carbon\Carbon::now())
-                    @foreach($satpenProfile as $row)
-                        @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->tgl_registrasi)))
-                        <tr class="{{ $row->status == 'expired' ? 'expired' : '' }}">
-                            <td>{{ ++$no }}</td>
-                            <td>{{ $row->kategori->nm_kategori }}</td>
-                            <td>{{ $row->no_registrasi }}</td>
-                            <td>{{ $row->nm_satpen }}</td>
-                            <td>{{ $row->yayasan }}</td>
-                            <td>{{ $row->jenjang->nm_jenjang }}</td>
-                            <td>{{ $row->provinsi->nm_prov }}</td>
-                            <td>{{ $row->kabupaten->nama_kab }}</td>
-                            <td>{{ $diff .' bln' }}</td>
-                            <td>
-                                <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
-                                    <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>
-                                <button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
-                            </td>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="mytable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col">No. Registrasi</th>
+                            <th scope="col">Nama Satpen</th>
+                            <th scope="col">Yayasan</th>
+                            <th scope="col">Jenjang</th>
+                            <th scope="col">Provinsi</th>
+                            <th scope="col">Kabupaten</th>
+                            <th scope="col">Aktif</th>
+                            <th scope="col">Aksi</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @php($no=0)
+                        @php($today=\Carbon\Carbon::now())
+                        @foreach($satpenProfile as $row)
+                            @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->tgl_registrasi)))
+                            <tr class="{{ $row->status == 'expired' ? 'expired' : '' }}">
+                                <td>{{ ++$no }}</td>
+                                <td>{{ $row->kategori->nm_kategori }}</td>
+                                <td>{{ $row->no_registrasi }}</td>
+                                <td>{{ $row->nm_satpen }}</td>
+                                <td>{{ $row->yayasan }}</td>
+                                <td>{{ $row->jenjang->nm_jenjang }}</td>
+                                <td>{{ $row->provinsi->nm_prov }}</td>
+                                <td>{{ $row->kabupaten->nama_kab }}</td>
+                                <td>{{ $diff .' bln' }}</td>
+                                <td>
+                                    <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
+                                        <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>
+                                    <button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
 
@@ -137,8 +140,13 @@
                 {
                     $element += '<option value=' + value.id_kab + '>' + value.nama_kab + '</option>';
                 });
-                $("select[name='kabupaten']").html($element);
-
+                let kabParam = location.search;
+                if (kabParam) {
+                    kabParam = kabParam.split("&")[1].split("=")[1];
+                    $("select[name='kabupaten']").html($element).val(kabParam);
+                } else {
+                    $("select[name='kabupaten']").html($element);
+                }
             }
         })
     }
