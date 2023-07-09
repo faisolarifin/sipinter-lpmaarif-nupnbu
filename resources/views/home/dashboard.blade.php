@@ -51,6 +51,33 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 d-flex align-items-strech">
+        <div class="card w-100 shadow-none">
+            <div class="card-body py-4 text-center">
+                <div class="row short-profile">
+                    <div class="col-sm-4">
+                        <i class="ti ti-number"></i>
+                        <p class="mb-2">Nomor Registrasi</p>
+                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->no_registrasi }}</h5>
+                    </div>
+                    <div class="col-sm-4">
+                        <i class="ti ti-building"></i>
+                        <p class="mb-2">Nama Satpen</p>
+                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->nm_satpen }}</h5>
+                    </div>
+                    <div class="col-sm-4">
+                        <i class="ti ti-category"></i>
+                        <p class="mb-2">Kategori</p>
+                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->kategori->nm_kategori }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -138,34 +165,6 @@
                         <div class="d-flex justify-content-center">
                             <div id="jenjang-pendidikan"></div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
-<div class="row">
-    <div class="col-lg-12 d-flex align-items-strech">
-        <div class="card w-100 shadow-none">
-            <div class="card-body py-4 text-center">
-                <div class="row short-profile">
-                    <div class="col-sm-4">
-                        <i class="ti ti-number"></i>
-                        <p class="mb-2">Nomor Registrasi</p>
-                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->no_registrasi }}</h5>
-                    </div>
-                    <div class="col-sm-4">
-                        <i class="ti ti-building"></i>
-                        <p class="mb-2">Nama Satpen</p>
-                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->nm_satpen }}</h5>
-                    </div>
-                    <div class="col-sm-4">
-                        <i class="ti ti-category"></i>
-                        <p class="mb-2">Kategori</p>
-                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->kategori->nm_kategori }}</h5>
                     </div>
                 </div>
             </div>
