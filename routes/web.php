@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{AuthController,GeneralController,SatpenController,
     OperatorController,AdminController,ApiController,ExportController,InformasiController,
-    PropinsiController,KabupatenController,PengurusCabangController};
+    PropinsiController,KabupatenController,PengurusCabangController,JenjangPendidikanController};
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +43,14 @@ Route::middleware('mustlogin')->group(function() {
     });
 
     Route::middleware('onlyadmin')->prefix('admin')->group(function() {
+
+        Route::resource('/informasi', InformasiController::class);
+        Route::resource('/propinsi', PropinsiController::class);
+        Route::resource('/kabupaten', KabupatenController::class);
+        Route::resource('/cabang', PengurusCabangController::class);
+        Route::resource('/jenjang', JenjangPendidikanController::class);
+
+
         Route::get('/dashboard', [AdminController::class, 'dashboardPage'])->name('a.dash');
         Route::get('/satpen', [AdminController::class, 'permohonanRegisterSatpen'])->name('a.satpen');
         Route::put('/satpen/{satpen}/status', [AdminController::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
@@ -53,11 +61,6 @@ Route::middleware('mustlogin')->group(function() {
         Route::post('/doc/generate', [AdminController::class, 'generatePiagamAndSK'])->name('generate.document');
         Route::post('/doc/regenerate', [AdminController::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
 
-        Route::resource('/informasi', InformasiController::class);
-        Route::resource('/propinsi', PropinsiController::class);
-        Route::resource('/kabupaten', KabupatenController::class);
-        Route::resource('/cabang', PengurusCabangController::class);
-        Route::resource('/jenjang', PropinsiController::class);
     });
     Route::middleware('onlyadmin')->prefix('api')->group(function () {
        Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
