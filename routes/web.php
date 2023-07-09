@@ -62,7 +62,6 @@ Route::middleware('mustlogin')->group(function() {
         Route::resource('/cabang', PengurusCabangController::class);
         Route::resource('/jenjang', JenjangPendidikanController::class);
 
-
         Route::get('/dashboard', [AdminController::class, 'dashboardPage'])->name('a.dash');
         Route::get('/satpen', [AdminController::class, 'permohonanRegisterSatpen'])->name('a.satpen');
         Route::put('/satpen/{satpen}/status', [AdminController::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');

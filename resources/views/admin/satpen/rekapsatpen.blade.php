@@ -87,7 +87,7 @@
                         @php($today=\Carbon\Carbon::now())
                         @foreach($satpenProfile as $row)
                             @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->tgl_registrasi)))
-                            <tr class="{{ $row->status == 'expired' ? 'expired' : '' }}">
+                            <tr>
                                 <td>{{ ++$no }}</td>
                                 <td>{{ $row->kategori->nm_kategori }}</td>
                                 <td>{{ $row->no_registrasi }}</td>
@@ -96,7 +96,7 @@
                                 <td>{{ $row->jenjang->nm_jenjang }}</td>
                                 <td>{{ $row->provinsi->nm_prov }}</td>
                                 <td>{{ $row->kabupaten->nama_kab }}</td>
-                                <td>{{ $diff .' bln' }}</td>
+                                <td class="{{ $row->status == 'expired' ? 'expired' : '' }}">{{ $diff .' bln' }}</td>
                                 <td>
                                     <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
                                         <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>

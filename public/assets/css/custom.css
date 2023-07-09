@@ -150,7 +150,8 @@
     margin-right: .3rem;
 }
 #mytable .expired {
-    background-color: rgba(252, 201, 194, 0.5);
+    background-color: rgba(227, 53, 30, 0.8);
+    color: #fff;
 }
 .card .form-filter .form-select-sm {
     min-height: calc(1.5em + 0.3rem + calc(var(--bs-border-width) * 2));
