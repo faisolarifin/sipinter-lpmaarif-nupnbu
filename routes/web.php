@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{AuthController,GeneralController,SatpenController,
-    OperatorController,AdminController,ApiController,ExportController};
+    OperatorController,AdminController,ApiController,ExportController,InformasiController,PropinsiController};
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +51,9 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/bhpnu', [AdminController::class, 'underConstruction'])->name('a.bhpnu');
         Route::post('/doc/generate', [AdminController::class, 'generatePiagamAndSK'])->name('generate.document');
         Route::post('/doc/regenerate', [AdminController::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
+
+        Route::resource('/informasi', InformasiController::class);
+        Route::resource('/propinsi', PropinsiController::class);
     });
     Route::middleware('onlyadmin')->prefix('api')->group(function () {
        Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');

@@ -57,7 +57,7 @@
             <span class="hide-menu">Artikel</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('informasi.index') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-mood-happy"></i>
                 </span>

@@ -12,6 +12,7 @@ class InformasiFile extends Model
     protected $primaryKey = 'id_file';
     protected $hidden = ['created_at', 'updated_at'];
     protected $fillable = [
+        'id_info',
         'fileupload',
     ];
 }

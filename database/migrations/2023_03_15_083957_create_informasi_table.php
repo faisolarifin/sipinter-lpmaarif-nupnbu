@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('informasi', function (Blueprint $table) {
             $table->id('id_info');
+            $table->string('slug', 255)->unique();
             $table->enum('type', ['SK', 'Piagam', 'Berita', 'Pengumuman']);
             $table->string('headline', 255);
             $table->dateTime('tgl_upload');
             $table->text('content');
             $table->string('image', 255);
-            $table->string('tag', 100);
+            $table->string('tag', 100)->nullable();
             $table->timestamps();
         });
         Schema::create('informasi_file', function (Blueprint $table) {
