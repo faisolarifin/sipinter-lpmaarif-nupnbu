@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
-use App\Models\{Kabupaten, PengurusCabang, Provinsi};
+use App\Http\Controllers\Controller;
+use App\Models\{PengurusCabang, Provinsi};
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 

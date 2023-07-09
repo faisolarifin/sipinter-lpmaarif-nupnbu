@@ -1,9 +1,21 @@
 <?php
 
+use App\Http\Controllers\{AdminController,
+    ApiController,
+    AuthController,
+    ExportController,
+    GeneralController,
+    OperatorController,
+    SatpenController,
+};
+use App\Http\Controllers\Master\{
+    InformasiController,
+    JenjangPendidikanController,
+    PengurusCabangController,
+    PropinsiController,
+    KabupatenController,
+};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AuthController,GeneralController,SatpenController,
-    OperatorController,AdminController,ApiController,ExportController,InformasiController,
-    PropinsiController,KabupatenController,PengurusCabangController,JenjangPendidikanController};
 
 /*
 |--------------------------------------------------------------------------

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\EditInformasiRequest;
 use App\Http\Requests\PostInformasiRequest;
 use App\Models\Informasi;
