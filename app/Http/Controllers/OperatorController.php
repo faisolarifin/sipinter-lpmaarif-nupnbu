@@ -11,7 +11,13 @@ use App\Models\Satpen;
 class OperatorController extends Controller
 {
     public function dashboardPage() {
-        return view('myprofile.profile');
+        $listProvinsi = Provinsi::get();
+        $countOfKabupaten = Kabupaten::count("id_kab");
+        $countOfPropinsi = Provinsi::count("id_prov");
+        $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired'])->count("id_satpen");
+
+        return view('home.dashboard', compact('listProvinsi', 'countOfKabupaten',
+                                            'countOfPropinsi', 'countOfRecordSatpen'));
     }
     public function mySatpenPage() {
         try {
