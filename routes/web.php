@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{AuthController,GeneralController,SatpenController,
-    OperatorController,AdminController,ApiController,ExportController,InformasiController,PropinsiController};
+    OperatorController,AdminController,ApiController,ExportController,InformasiController,
+    PropinsiController,KabupatenController};
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,7 @@ Route::middleware('mustlogin')->group(function() {
 
         Route::resource('/informasi', InformasiController::class);
         Route::resource('/propinsi', PropinsiController::class);
-        Route::resource('/kabupaten', PropinsiController::class);
+        Route::resource('/kabupaten', KabupatenController::class);
         Route::resource('/cabang', PropinsiController::class);
         Route::resource('/jenjang', PropinsiController::class);
     });
