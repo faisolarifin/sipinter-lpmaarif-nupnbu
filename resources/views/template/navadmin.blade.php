@@ -69,7 +69,7 @@
             <span class="hide-menu">Master Data</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('a.oss') }}" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('propinsi.index') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-brand-mastercard"></i>
                 </span>
@@ -77,7 +77,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('kabupaten.index') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-mask"></i>
                 </span>
@@ -85,7 +85,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('cabang.index') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-git-branch"></i>
                 </span>
@@ -93,7 +93,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('jenjang.index') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-keyframe-align-vertical"></i>
                 </span>

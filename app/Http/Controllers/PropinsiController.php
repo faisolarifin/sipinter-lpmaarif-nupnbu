@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EditInformasiRequest;
-use App\Http\Requests\PostInformasiRequest;
-use App\Models\Informasi;
-use App\Models\InformasiFile;
 use App\Models\Provinsi;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class PropinsiController extends Controller
 {
@@ -19,95 +14,50 @@ class PropinsiController extends Controller
         return view('admin.master.datapropinsi', compact('listPropinsi'));
     }
 
-    public function create() {
-
-        return view('admin.informasi.tambah');
-    }
-
-    public function store(PostInformasiRequest $request) {
+    public function store(Request $request) {
         try {
-            $path = null;
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('public');
-            }
-            $post = Informasi::create([
-                'slug' => Str::slug($request->headline),
-                'headline' => $request->headline,
-                'type' => $request->type,
-                'content' => $request->contents,
-                'tgl_upload' => Carbon::now(),
-                'tag' => $request->tag,
-                'image' => $path,
+            Provinsi::create([
+                'kode_prov' => $request->kode_prov,
+                'kode_prov_kd' => $request->kode_prov_kd,
+                'nm_prov' => $request->nama_prov,
             ]);
-            if ($request->hasFile('fileuploads')) {
-                foreach ($request->file('fileuploads') as $file) {
-                    $path =  $file->store('fileInformasi');
-                    InformasiFile::create([
-                        'id_info' => $post->id_info,
-                        'fileupload' => $path,
-                    ]);
-                }
-            }
 
-            return redirect()->route('informasi.index')->with('success', 'Berhasil posting informasi');
+            return redirect()->route('propinsi.index')->with('success', 'Berhasil membuat propinsi');
 
         } catch (\Exception $e) {
             dd($e);
         }
     }
 
-    public function edit(Informasi $informasi) {
-        return view('admin.informasi.edit', compact('informasi'));
-    }
-
-    public function update(EditInformasiRequest $request, Informasi $informasi) {
+    public function show(Provinsi $propinsi) {
         try {
-            $path = null;
-            if ($request->hasFile('image')) {
-                Storage::delete($informasi->image);
-                $path = $request->file('image')->store('public');
-            }
-            $informasi->update([
-                'slug' => Str::slug($request->headline),
-                'headline' => $request->headline,
-                'type' => $request->type,
-                'content' => $request->contents,
-                'tag' => $request->tag,
-                'image' => $path ?? $informasi->image,
-            ]);
-            if ($request->hasFile('fileuploads')) {
-                $files = InformasiFile::where('id_info', '=', $informasi->id_info);
-                foreach ($files->get() as $file) {
-                    Storage::delete($file->fileupload);
-                }
-                $files->delete();
-                foreach ($request->file('fileuploads') as $file) {
-                    $path =  $file->store('fileInformasi');
-                    InformasiFile::create([
-                        'id_info' => $informasi->id_info,
-                        'fileupload' => $path,
-                    ]);
-                }
-            }
-
-            return redirect()->route('informasi.index')->with('success', 'Berhasil update informasi');
+            return response()->json($propinsi, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
             dd($e);
         }
     }
 
-    public function destroy(Informasi $informasi) {
+    public function update(Request $request, Provinsi $propinsi) {
         try {
-            $files = InformasiFile::where('id_info', '=', $informasi->id_info);
-            foreach ($files->get() as $file) {
-                Storage::delete($file->fileupload);
-            }
-            Storage::delete($informasi->image);
-            $files->delete();
-            $informasi->delete();
+            $propinsi->update([
+                'kode_prov' => $request->kode_prov,
+                'kode_prov_kd' => $request->kode_prov_kd,
+                'nm_prov' => $request->nama_prov,
+            ]);
 
-            return redirect()->route('informasi.index')->with('success', 'Berhasil menghapus informasi');
+            return redirect()->route('propinsi.index')->with('success', 'Berhasil update propinsi');
+
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function destroy(Provinsi $propinsi) {
+        try {
+            $propinsi->delete();
+
+            return redirect()->route('propinsi.index')->with('success', 'Berhasil menghapus propinsi');
 
         } catch (\Exception $e) {
             dd($e);

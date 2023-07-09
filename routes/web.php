@@ -54,6 +54,9 @@ Route::middleware('mustlogin')->group(function() {
 
         Route::resource('/informasi', InformasiController::class);
         Route::resource('/propinsi', PropinsiController::class);
+        Route::resource('/kabupaten', PropinsiController::class);
+        Route::resource('/cabang', PropinsiController::class);
+        Route::resource('/jenjang', PropinsiController::class);
     });
     Route::middleware('onlyadmin')->prefix('api')->group(function () {
        Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');

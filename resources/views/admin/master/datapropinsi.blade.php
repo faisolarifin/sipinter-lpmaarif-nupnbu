@@ -28,8 +28,8 @@
                         <small>list artikel informasi</small>
                     </div>
                     <div>
-                        <a href="{{ route('propinsi.create') }}" class="btn btn-primary btn-sm">
-                            <i class="ti ti-plus"></i> Propinsi Baru</a>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalFormBackdrop">
+                            <i class="ti ti-plus"></i> Propinsi Baru</button>
                     </div>
                 </div>
 
@@ -53,9 +53,8 @@
                                 <td>{{ $row->kode_prov_kd }}</td>
                                 <td>{{ $row->nm_prov }}</td>
                                 <td>
-                                    <a href="{{ route('propinsi.edit', $row->id_prov) }}">
-                                        <button class="btn btn-sm btn-warning"><i class="ti ti-edit"></i></button>
-                                    </a>
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalFormUpdateBackdrop" data-bs="{{ $row->id_prov }}">
+                                        <i class="ti ti-edit"></i></button>
                                     <form action="{{ route('propinsi.destroy', $row->id_prov) }}" method="post" class="d-inline deleteBtn">
                                         @csrf
                                         @method('DELETE')
@@ -75,6 +74,109 @@
 </div>
 @endsection
 
+
+@section('modals')
+
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="modalFormBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content rounded-2">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title mb-0" id="exampleModalLabel">Propinsi Baru</h5>
+                        <small>tambahkan list propinsi baru</small>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('propinsi.store') }}" method="post">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <label for="kode_prov" class="form-label">Kode Propinsi</label>
+                                <input type="text" class="form-control form-control-sm @error('kode_prov') is-invalid @enderror" id="kode_prov" name="kode_prov" value="{{ old('kode_prov') }}">
+                                <div class="invalid-feedback">
+                                    @error('kode_prov') {{ $message }} @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="kode_prov_kd" class="form-label">Kode Propinsi Dapo</label>
+                                <input type="text" class="form-control form-control-sm @error('kode_prov_kd') is-invalid @enderror" id="kode_prov_kd" name="kode_prov_kd" value="{{ old('kode_prov_kd') }}">
+                                <div class="invalid-feedback">
+                                    @error('kode_prov_kd') {{ $message }} @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="nama_prov" class="form-label">Nama Propinsi</label>
+                            <input type="text" class="form-control form-control-sm @error('nama_prov') is-invalid @enderror" id="nama_prov" name="nama_prov" value="{{ old('nama_prov') }}">
+                            <div class="invalid-feedback">
+                                @error('nama_prov') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Tambah -->
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="modalFormUpdateBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content rounded-2">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title mb-0" id="exampleModalLabel">Ubah Propinsi</h5>
+                        <small>koreksi kesalahan propinsi</small>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        @csrf
+                        @method('PUT')
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <label for="kode_prov" class="form-label">Kode Propinsi</label>
+                                <input type="text" class="form-control form-control-sm @error('kode_prov') is-invalid @enderror" id="kode_prov" name="kode_prov" value="{{ old('kode_prov') }}">
+                                <div class="invalid-feedback">
+                                    @error('kode_prov') {{ $message }} @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="kode_prov_kd" class="form-label">Kode Propinsi Dapo</label>
+                                <input type="text" class="form-control form-control-sm @error('kode_prov_kd') is-invalid @enderror" id="kode_prov_kd" name="kode_prov_kd" value="{{ old('kode_prov_kd') }}">
+                                <div class="invalid-feedback">
+                                    @error('kode_prov_kd') {{ $message }} @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="nama_prov" class="form-label">Nama Propinsi</label>
+                            <input type="text" class="form-control form-control-sm @error('nama_prov') is-invalid @enderror" id="nama_prov" name="nama_prov" value="{{ old('nama_prov') }}">
+                            <div class="invalid-feedback">
+                                @error('nama_prov') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success btn-sm">Update Propinsi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit -->
+
+@endsection
+
+
 @section('scripts')
 <script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
@@ -89,5 +191,24 @@
         }
         return false;
     })
+
+    let modalFormUpdateBackdrop = document.getElementById('modalFormUpdateBackdrop')
+    modalFormUpdateBackdrop.addEventListener('show.bs.modal', function (event) {
+
+        let provId = event.relatedTarget.getAttribute('data-bs')
+
+        $("#modalFormUpdateBackdrop form").attr("action", "{{ route('propinsi.update', ':param') }}".replace(':param', provId));
+        $.ajax({
+            url: "{{ route('propinsi.show', ':param') }}".replace(':param', provId),
+            type: "GET",
+            dataType: 'json',
+            success: function (res) {
+                $("input[name='kode_prov']").val(res.kode_prov);
+                $("input[name='kode_prov_kd']").val(res.kode_prov_kd);
+                $("input[name='nama_prov']").val(res.nm_prov);
+            }
+        });
+    });
+
 </script>
 @endsection
