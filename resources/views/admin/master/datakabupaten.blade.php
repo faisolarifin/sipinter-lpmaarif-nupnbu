@@ -19,6 +19,8 @@
             </ul>
         </nav>
 
+        @include('template.alert')
+
         <div class="card w-100">
             <div class="card-body pt-3">
 

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{AuthController,GeneralController,SatpenController,
     OperatorController,AdminController,ApiController,ExportController,InformasiController,
-    PropinsiController,KabupatenController};
+    PropinsiController,KabupatenController,PengurusCabangController};
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::resource('/informasi', InformasiController::class);
         Route::resource('/propinsi', PropinsiController::class);
         Route::resource('/kabupaten', KabupatenController::class);
-        Route::resource('/cabang', PropinsiController::class);
+        Route::resource('/cabang', PengurusCabangController::class);
         Route::resource('/jenjang', PropinsiController::class);
     });
     Route::middleware('onlyadmin')->prefix('api')->group(function () {
