@@ -19,6 +19,8 @@
             </ul>
         </nav>
 
+        @include('template.alert')
+
         <div class="card w-100">
             <div class="card-body pt-3">
 
@@ -108,7 +110,11 @@
                                     <td>
                                         <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
                                             <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>
-                                        <button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
+                                        <form action="{{ route('a.rekapsatpen.destroy', $row->id_satpen ) }}" method="post" class="d-inline deleteBtn">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -136,6 +142,14 @@
     //         pageLength: 25,
     //     });
     // });
+
+    $(".deleteBtn").on('click', function () {
+        if (confirm("benar anda akan menghapus data?")) {
+            return true;
+        }
+        return false;
+    });
+
     $("select[name='provinsi']").on('change', function() {
         getKabupaten();
     });

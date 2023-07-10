@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Export\ExportDocument;
 use App\Helpers\GenerateQr;
 use App\Mail\StatusMail;
+use App\Models\FileRegister;
 use App\Models\FileUpload;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
@@ -12,11 +13,13 @@ use App\Models\Provinsi;
 use App\Models\Satpen;
 use App\Models\Jenjang;
 use App\Models\Timeline;
+use App\Models\User;
 use Illuminate\Support\Facades\Date;
 use App\Http\Requests\StatusSatpenRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -350,6 +353,27 @@ class AdminController extends Controller
         }
     }
 
+    public function destroySatpen(Satpen $satpen) {
+        try {
+            $fileRegister = FileRegister::where('id_satpen', '=', $satpen->id_satpen);
+            foreach ($fileRegister->get() as $file) {
+                Storage::disk('uploads')->delete($file->filesurat);
+            }
+            $fileRegister->delete();
+            $fileUploads = FileUpload::where('id_satpen', '=', $satpen->id_satpen);
+            foreach ($fileUploads->get() as $file) {
+                Storage::delete("generated/".strtolower($file->typefile)."/".$file->nm_file);
+            }
+            $fileUploads->delete();
+            User::find($satpen->id_user)->delete();
+
+            return redirect()->back()->with('success', 'Berhasil menghapus satpen');
+
+        } catch (\Exception $e) {
+            dd($e);
+        }
+
+    }
 
     public function underConstruction() {
         return view('template.constructionad');

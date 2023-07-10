@@ -68,6 +68,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::put('/satpen/{satpen}/status', [AdminController::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
         Route::get('/rekapsatpen', [AdminController::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
         Route::get('/rekapsatpen/{satpenId}/detail', [AdminController::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
+        Route::delete('/rekapsatpen/{satpen}', [AdminController::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
         Route::get('/oss', [AdminController::class, 'underConstruction'])->name('a.oss');
         Route::get('/bhpnu', [AdminController::class, 'underConstruction'])->name('a.bhpnu');
         Route::post('/doc/generate', [AdminController::class, 'generatePiagamAndSK'])->name('generate.document');
