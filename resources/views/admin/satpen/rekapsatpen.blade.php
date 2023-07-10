@@ -22,10 +22,14 @@
         <div class="card w-100">
             <div class="card-body pt-3">
 
-                <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-3">
+                <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-4">
                     <div>
                         <h5 class="mb-0">Rekap Satpen</h5>
                         <small>data satpen yang telah diterima</small>
+                    </div>
+                    <div class="text-center">
+                        <h5 class="mb-0">{{ $countSatpen  }}</h5>
+                        <small>record satpen</small>
                     </div>
                 </div>
 
@@ -66,11 +70,11 @@
 
                         </div>
                         <div class="d-flex">
-                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Kata Kunci" value="{{ request()->keyword }}">
+                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">
                             <button type="submit" class="btn btn-primary btn-sm">Cari</button>
                         </div>
                     </form>
-                    <table class="table table-bordered" id="mytable">
+                    <table class="table table-hover" id="mytable">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -88,25 +92,29 @@
                         <tbody>
                         @php($no=0)
                         @php($today=\Carbon\Carbon::now())
-                        @foreach($satpenProfile as $row)
-                            @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->tgl_registrasi)))
-                            <tr>
-                                <td>{{ ++$no }}</td>
-                                <td>{{ $row->kategori->nm_kategori }}</td>
-                                <td>{{ $row->no_registrasi }}</td>
-                                <td>{{ $row->nm_satpen }}</td>
-                                <td>{{ $row->yayasan }}</td>
-                                <td>{{ $row->jenjang->nm_jenjang }}</td>
-                                <td>{{ $row->provinsi->nm_prov }}</td>
-                                <td>{{ $row->kabupaten->nama_kab }}</td>
-                                <td class="{{ $row->status == 'expired' ? 'expired' : '' }}">{{ $diff .' bln' }}</td>
-                                <td>
-                                    <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
-                                        <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>
-                                    <button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
-                                </td>
-                            </tr>
-                        @endforeach
+                        @if(count($satpenProfile) > 0)
+                            @foreach($satpenProfile as $row)
+                                @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->tgl_registrasi)))
+                                <tr>
+                                    <td>{{ ++$no }}</td>
+                                    <td>{{ $row->kategori->nm_kategori }}</td>
+                                    <td>{{ $row->no_registrasi }}</td>
+                                    <td>{{ $row->nm_satpen }}</td>
+                                    <td>{{ $row->yayasan }}</td>
+                                    <td>{{ $row->jenjang->nm_jenjang }}</td>
+                                    <td>{{ $row->provinsi->nm_prov }}</td>
+                                    <td>{{ $row->kabupaten->nama_kab }}</td>
+                                    <td class="{{ $row->status == 'expired' ? 'expired' : '' }}">{{ $diff .' bln' }}</td>
+                                    <td>
+                                        <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
+                                            <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>
+                                        <button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <td colspan="10">No data available in table</td>
+                        @endif
                         </tbody>
                     </table>
                     {{ $satpenProfile->links() }}
@@ -146,9 +154,9 @@
                 {
                     $element += '<option value=' + value.id_kab + '>' + value.nama_kab + '</option>';
                 });
-                let kabParam = location.search;
-                if (kabParam) {
-                    kabParam = kabParam.split("&")[1].split("=")[1];
+                let kabParam = location.search.split("&");
+                if (kabParam.length > 1) {
+                    kabParam = kabParam[1].split("=")[1];
                     $("select[name='kabupaten']").html($element).val(kabParam);
                 } else {
                     $("select[name='kabupaten']").html($element);

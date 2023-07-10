@@ -82,7 +82,6 @@ class AdminController extends Controller
                         ->select($selectedColumns)
                         ->whereIn('status', ['setujui', 'expired'])
                         ->where($filter)
-                        ->orWhere("no_registrasi", "like", "%". $request->keyword ."%")
                         ->paginate($paginatePerPage);
                 }
             }
@@ -106,9 +105,10 @@ class AdminController extends Controller
             $propinsi = Provinsi::all();
             $jenjang = Jenjang::all();
             $kategori = Kategori::all();
+            $countSatpen = Satpen::whereIn('status', ['setujui', 'expired'])->count();
 
             return view('admin.satpen.rekapsatpen', compact('satpenProfile',
-                'propinsi', 'jenjang', 'kategori'));
+                'propinsi', 'jenjang', 'kategori', 'countSatpen'));
 
         } catch (\Exception $e) {
             dd($e);

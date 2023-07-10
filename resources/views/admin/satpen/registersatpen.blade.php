@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table" id="mytable">
+                            <table class="table table-hover" id="mytable">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table" id="mytable1">
+                            <table class="table table-hover" id="mytable1">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -136,7 +136,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table" id="mytable2">
+                            <table class="table table-hover" id="mytable2">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table" id="mytable3">
+                            <table class="table table-hover" id="mytable3">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
