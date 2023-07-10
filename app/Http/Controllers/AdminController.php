@@ -77,8 +77,7 @@ class AdminController extends Controller
                         'kategori:id_kategori,nm_kategori',
                         'provinsi:id_prov,nm_prov',
                         'kabupaten:id_kab,nama_kab',
-                        'jenjang:id_jenjang,nm_jenjang',
-                    ])
+                        'jenjang:id_jenjang,nm_jenjang',])
                         ->select($selectedColumns)
                         ->whereIn('status', ['setujui', 'expired'])
                         ->where($filter)
@@ -90,8 +89,7 @@ class AdminController extends Controller
                     'kategori:id_kategori,nm_kategori',
                     'provinsi:id_prov,nm_prov',
                     'kabupaten:id_kab,nama_kab',
-                    'jenjang:id_jenjang,nm_jenjang',
-                ])
+                    'jenjang:id_jenjang,nm_jenjang',])
                     ->select($selectedColumns)
                     ->whereIn('status', ['setujui', 'expired'])
                     ->paginate($paginatePerPage);

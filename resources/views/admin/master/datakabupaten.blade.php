@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="mytable">
+                    <table class="table table-hover" id="mytable">
                         <thead>
                         <tr>
                             <th scope="col">#</th>

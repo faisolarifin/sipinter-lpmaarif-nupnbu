@@ -17,16 +17,6 @@ class ChangePasswordRequest extends FormRequest
     }
 
     /**
-     * @param Validator $validator
-     * @return void
-     * @throws MyValidationException
-     */
-    protected function failedValidation(Validator $validator) : MyValidationException
-    {
-        throw new MyValidationException($validator);
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
@@ -34,9 +24,9 @@ class ChangePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password_lama' => 'required',
-            'password_baru' => 'required',
-            'password_konfirm' => 'required|same:password_baru',
+            'last_pass' => 'required',
+            'new_pass' => 'required',
+            'confirm_pass' => 'required|same:new_pass',
         ];
     }
 }

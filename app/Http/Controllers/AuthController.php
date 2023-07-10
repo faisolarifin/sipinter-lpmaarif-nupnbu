@@ -148,14 +148,15 @@ class AuthController extends Controller
         /**
          * If input user password not equal with stored password
          */
-        if (!Hash::check($request->password_lama, auth()->user()->password)) return redirect()->back()->with('error', 'Password lama salah');
+        if (!Hash::check($request->last_pass, auth()->user()->password)) return redirect()->back()->with('error', 'Password lama salah');
         /**
          * Update db.users.password
          */
         try {
             $user->update(
-                ["password" => Hash::make($request->password_baru)]
+                ["password" => Hash::make($request->new_pass)]
             );
+            $this->logout();
             return redirect()->route('login')->with('success', 'Password berhasil diganti');
 
         } catch (\Exception $e) {

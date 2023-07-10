@@ -72,7 +72,7 @@
                       <i class="ti ti-user fs-6"></i>
                       <p class="mb-0 fs-3">My Profile</p>
                     </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item" data-bs-toggle="modal" data-bs-target="#modalChangePasswordBackdrop">
                       <i class="ti ti-key fs-6"></i>
                       <p class="mb-0 fs-3">Ganti Password</p>
                     </a>
@@ -90,6 +90,54 @@
         @yield('container')
 
         @yield('modals')
+
+      <!-- Modal Change Password -->
+      <div class="modal fade" id="modalChangePasswordBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content rounded-2">
+                  <div class="modal-header">
+                      <div>
+                          <h5 class="modal-title mb-0" id="exampleModalLabel">Ganti Password</h5>
+                          <small>ganti password lama anda</small>
+                      </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form action="{{ route('changepass') }}" method="post">
+                      <div class="modal-body">
+                          @csrf
+                          <div class="mb-2">
+                              <label for="last_pass" class="form-label">Password Lama</label>
+                              <input type="password" class="form-control form-control-sm @error('last_pass') is-invalid @enderror" id="nama_prov" name="last_pass" value="{{ old('last_pass') }}">
+                              <div class="invalid-feedback">
+                                  @error('last_pass') {{ $message }} @enderror
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-6">
+                                  <label for="new_pass" class="form-label">Password Baru</label>
+                                  <input type="password" class="form-control form-control-sm @error('new_pass') is-invalid @enderror" id="kode_prov" name="new_pass" value="{{ old('new_pass') }}">
+                                  <div class="invalid-feedback">
+                                      @error('new_pass') {{ $message }} @enderror
+                                  </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <label for="confirm_pass" class="form-label">Konfimasi Password</label>
+                                  <input type="password" class="form-control form-control-sm @error('confirm_pass') is-invalid @enderror" id="confirm_pass" name="confirm_pass" value="{{ old('confirm_pass') }}">
+                                  <div class="invalid-feedback">
+                                      @error('confirm_pass') {{ $message }} @enderror
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success btn-sm">Ganti Password</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <!-- End Modal Change Password -->
 
         <div class="py-6 px-6 text-center">
           <p class="mb-0 fs-4"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan Terpadu LP Ma'arif Nahdatul Ulama </p>

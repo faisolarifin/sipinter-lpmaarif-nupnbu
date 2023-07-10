@@ -40,6 +40,7 @@ Route::get('/register/success', [AuthController::class, 'registerSuccess'])->nam
 Route::middleware('mustlogin')->group(function() {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/gantipassword', [AuthController::class, 'changePassword'])->name('changepass');
     Route::get('/upload/{fileName?}', [AdminController::class, 'pdfUploadViewer'])->name('viewerpdf');
 
     Route::middleware('onlyoperator')->group(function() {
