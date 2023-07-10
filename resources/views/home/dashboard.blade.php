@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapin Admin - Dashboard'
+    'title' => 'Siapintar - Dashboard'
 ])
 
 @section('navbar')
@@ -23,7 +23,7 @@
         <div class="card w-100 shadow-none">
             <div class="card-body py-3">
                 <p class="mb-2">Halo,</p>
-                <h4>Operator {{ \Illuminate\Support\Facades\Session::get("satpen")->nm_satpen }}</h4>
+                <h4>Operator {{ Session::get("satpen")->nm_satpen }}</h4>
             </div>
         </div>
     </div>
@@ -62,17 +62,17 @@
                     <div class="col-sm-4">
                         <i class="ti ti-number"></i>
                         <p class="mb-2">Nomor Registrasi</p>
-                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->no_registrasi }}</h5>
+                        <h5>{{ Session::get("satpen")->no_registrasi }}</h5>
                     </div>
                     <div class="col-sm-4">
                         <i class="ti ti-building"></i>
                         <p class="mb-2">Nama Satpen</p>
-                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->nm_satpen }}</h5>
+                        <h5>{{ Session::get("satpen")->nm_satpen }}</h5>
                     </div>
                     <div class="col-sm-4">
                         <i class="ti ti-category"></i>
                         <p class="mb-2">Kategori</p>
-                        <h5>{{ \Illuminate\Support\Facades\Session::get("satpen")->kategori->nm_kategori }}</h5>
+                        <h5>{{ Session::get("satpen")->kategori->nm_kategori }}</h5>
                     </div>
                 </div>
             </div>

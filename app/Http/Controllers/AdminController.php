@@ -53,7 +53,7 @@ class AdminController extends Controller
 
     public function getAllSatpenOrFilter(Request $request)
     {
-        $paginatePerPage = 10;
+        $paginatePerPage = 25;
         $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi'];
         try {
             /**
@@ -62,7 +62,7 @@ class AdminController extends Controller
             if ($request->jenjang
                     || $request->kabupaten
                     || $request->provinsi
-                    || $request->kategori) {
+                    || $request->kategori || $request->keyword) {
 
                 $filter = [];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
@@ -70,7 +70,7 @@ class AdminController extends Controller
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
                 if ($request->kategori) $filter["id_kategori"] = $request->kategori;
 //                if ($request->yayasan) $filter["yayasan"] = $request->yayasan;
-//                if ($request->satpen) array_push($filter, ["nm_satpen", "like", "%". $request->satpen ."%"]);
+                if ($request->keyword) array_push($filter, ["nm_satpen", "like", "%". $request->keyword ."%"]);
 
                 if ($filter) {
                     $satpenProfile = Satpen::with([
@@ -82,6 +82,7 @@ class AdminController extends Controller
                         ->select($selectedColumns)
                         ->whereIn('status', ['setujui', 'expired'])
                         ->where($filter)
+                        ->orWhere("no_registrasi", "like", "%". $request->keyword ."%")
                         ->paginate($paginatePerPage);
                 }
             }

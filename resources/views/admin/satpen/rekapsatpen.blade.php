@@ -27,46 +27,49 @@
                         <h5 class="mb-0">Rekap Satpen</h5>
                         <small>data satpen yang telah diterima</small>
                     </div>
-
-                    <form class="d-flex flex-column flex-sm-row align-items-end form-filter">
-                        <div class="me-sm-2">
-                            <select class="form-select form-select-sm" name="provinsi">
-                                <option value="">PROVINSI</option>
-                                @foreach($propinsi as $row)
-                                    <option value="{{ $row->id_prov }}" {{ $row->id_prov == request()->provinsi ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="me-sm-2">
-                            <select class="form-select form-select-sm" name="kabupaten">
-                                <option value=''>KABUPATEN</option>
-                                <!-- value by ajax -->
-                            </select>
-                        </div>
-                        <div class="me-sm-2">
-                            <select class="form-select form-select-sm" name="jenjang">
-                                <option value="">JENJANG</option>
-                                @foreach($jenjang as $row)
-                                    <option value="{{ $row->id_jenjang }}" {{ $row->id_jenjang == request()->jenjang ? 'selected' : '' }}>{{ $row->nm_jenjang }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="me-sm-2">
-                            <select class="form-select form-select-sm" name="kategori">
-                                <option value="">KATEGORI</option>
-                                @foreach($kategori as $row)
-                                    <option value="{{ $row->id_kategori }}" {{ $row->id_kategori == request()->kategori ? 'selected' : '' }}>{{ $row->nm_kategori }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                        </div>
-
-                    </form>
                 </div>
 
                 <div class="table-responsive">
+                    <form class="d-flex justify-content-between mb-2">
+                        <div class="d-flex flex-column flex-sm-row">
+                            <div class="me-sm-2">
+                                <select class="form-select form-select-sm" name="provinsi">
+                                    <option value="">PROVINSI</option>
+                                    @foreach($propinsi as $row)
+                                        <option value="{{ $row->id_prov }}" {{ $row->id_prov == request()->provinsi ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="me-sm-2">
+                                <select class="form-select form-select-sm" name="kabupaten">
+                                    <option value=''>KABUPATEN</option>
+                                    <!-- value by ajax -->
+                                </select>
+                            </div>
+                            <div class="me-sm-2">
+                                <select class="form-select form-select-sm" name="jenjang">
+                                    <option value="">JENJANG</option>
+                                    @foreach($jenjang as $row)
+                                        <option value="{{ $row->id_jenjang }}" {{ $row->id_jenjang == request()->jenjang ? 'selected' : '' }}>{{ $row->nm_jenjang }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="me-sm-2">
+                                <select class="form-select form-select-sm" name="kategori">
+                                    <option value="">KATEGORI</option>
+                                    @foreach($kategori as $row)
+                                        <option value="{{ $row->id_kategori }}" {{ $row->id_kategori == request()->kategori ? 'selected' : '' }}>{{ $row->nm_kategori }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+
+                        </div>
+                        <div class="d-flex">
+                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Kata Kunci" value="{{ request()->keyword }}">
+                            <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+                        </div>
+                    </form>
                     <table class="table table-bordered" id="mytable">
                         <thead>
                         <tr>
@@ -106,6 +109,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {{ $satpenProfile->links() }}
                 </div>
 
             </div>
@@ -119,9 +123,11 @@
 <script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
 <script>
-    $(document).ready(function () {
-        $('#mytable').DataTable();
-    });
+    // $(document).ready(function () {
+    //     $('#mytable').DataTable({
+    //         pageLength: 25,
+    //     });
+    // });
     $("select[name='provinsi']").on('change', function() {
         getKabupaten();
     });
