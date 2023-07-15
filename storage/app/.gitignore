@@ -1,1 +1,6 @@
+public/*
+generated/sk/*
+generated/piagam/*
+templates/*
+uploads/*
 !.gitignore
