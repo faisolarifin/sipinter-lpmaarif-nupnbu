@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => 'Siapin - Home'
+    'title' => "Siapinter - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU"
 ])
 
 @section('style')
@@ -9,23 +9,18 @@
 @section('container')
     @include('template.navhome')
 
-    <div class="container">
-        <div class="row justify-content-center mt-3 mt-sm-5">
+    <div class="container container-body">
+        <div class="row justify-content-center row-slide-map py-4 px-2 mt-3 mt-sm-5">
             <div class="col-sm-9 d-flex flex-column text-center">
                 <div class="card shadow-none">
-                    <div class="card-body py-0">
-{{--                        <div class="mb-4 text-start">--}}
-{{--                            <h5 class="card-title fw-medium mb-0">Pemetaan Satpen</h5>--}}
-{{--                            <small>pemetaan jumlah satuan pendidikan tiap propinsi</small>--}}
-{{--                        </div>--}}
-{{--                        <img src="{{ asset('assets/images/backgrounds/colorful-indonesia-map-symbol-vector 1.png') }}" class="w-100" alt="Map Indonesia">--}}
+                    <div class="card-body py-0 px-1">
                         <div id="map-indonesia"></div>
                     </div>
                 </div>
             </div>
             <div class="col-11 col-sm-3">
-                <div class="card mb-3 card-jml-perkab">
-                    <div class="card-body px-0">
+                <div class="card mb-3 shadow-none card-jml-perkab">
+                    <div class="card-body p-0">
                         <div class="mx-3">
                             <h5 class="card-title fw-medium mb-0">Beranda Informasi</h5>
                             <small>update informasi terbaru</small>

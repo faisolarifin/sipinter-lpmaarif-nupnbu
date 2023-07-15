@@ -89,4 +89,4 @@ Route::middleware('mustlogin')->group(function() {
     });
 });
 
-Route::get('test', [GeneralController::class, 'totalSatpenByJenjang']);
+Route::get('test/{npsn?}', [GeneralController::class, 'totalSatpenByJenjang']);

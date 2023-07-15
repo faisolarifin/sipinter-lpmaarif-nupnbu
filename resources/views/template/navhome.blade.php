@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-navbar-landing py-3 shadow">
+    <div class="container container-navbar">
         <a class="navbar-brand" href="#">
             <img src="{{ asset('assets/images/logos/logo.png') }}" alt="Logo Nu" width="140">
         </a>
@@ -7,15 +7,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Beranda</a>
+                    <a class="nav-link" href="{{ route('home') }}">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Informasi</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Kontak</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Verifikasi Dokumen</a>
                 </li>
             </ul>
             @if(\Illuminate\Support\Facades\Auth::user() !== NULL)
@@ -42,8 +45,8 @@
             </ul>
             @else
             <div class="d-flex">
-                <a href="{{ route('ceknpsn') }}" class="btn btn-outline-primary me-2" type="submit">Daftar</a>
-                <a href="{{ route('login') }}" class="btn btn-success" type="submit">Masuk</a>
+                <a href="{{ route('ceknpsn') }}" class="btn btn-yellow mx-2" type="submit">Daftar</a>
+                <a href="{{ route('login') }}" class="btn btn-yellow" type="submit">Masuk</a>
             </div>
             @endif
         </div>

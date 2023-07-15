@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ReferensiKemdikbud;
 use App\Models\Informasi;
 use App\Models\Satpen;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,14 @@ class GeneralController extends Controller
         return view('landing.home', compact('jmlSatpenByJenjang', 'jmlSatpenByKabupaten', 'berandaInformasi', 'countSatpen'));
     }
 
-    public function totalSatpenByJenjang() {
-//        return response($satpen);
+    public function totalSatpenByJenjang($npsn=null) {
+
+        if ($npsn) {
+            $cloneSekolah = new ReferensiKemdikbud();
+            $cloneSekolah->clone($npsn);
+
+            return response($cloneSekolah->getResult());
+        }
+        return response("Invalid npsn");
     }
 }
