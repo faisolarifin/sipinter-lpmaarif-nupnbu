@@ -13,7 +13,6 @@ class Kabupaten extends Model
     protected $hidden = ['created_at', 'updated_at'];
     protected $fillable = [
         'id_prov',
-        'kode_kab_kd',
         'nama_kab',
     ];
     public function prov()

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ReferensiKemdikbud;
+use App\Helpers\Strings;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
 use App\Models\User;
-use App\Helpers\DapoKemdikbud;
 use App\Http\Requests\CekNpsnRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ChangePasswordRequest;
@@ -27,15 +28,20 @@ class AuthController extends Controller
 
         $cookieValue = json_decode($cookieValue);
 
-        $selectedProv = Provinsi::where('kode_prov_kd', '=', trim($cookieValue->kode_prop))->first();
-        $kabupaten = Kabupaten::where('id_prov', '=', $selectedProv->id_prov)
-                        ->orderBy('id_kab')->get();
-        $cabang = PengurusCabang::where('id_prov', '=', $selectedProv->id_prov)
-                        ->orderBy('id_pc')->get();
-        $propinsi = Provinsi::orderBy('id_prov')->get();
-        $jenjang = Jenjang::orderBy('id_jenjang')->get();
+        $keyProv = Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln);
+        $selectedProv = Provinsi::where('nm_prov', 'like', $keyProv)->first();
+        if ($selectedProv) {
+            $kabupaten = Kabupaten::where('id_prov', '=', $selectedProv->id_prov)
+                            ->orderBy('id_kab')->get();
+            $cabang = PengurusCabang::where('id_prov', '=', $selectedProv->id_prov)
+                            ->orderBy('id_pc')->get();
+            $propinsi = Provinsi::orderBy('id_prov')->get();
+            $jenjang = Jenjang::orderBy('id_jenjang')->get();
 
-        return view('auth.register', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
+            return view('auth.register', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
+        }
+
+        return redirect()->back()->with("error", "Provinsi belum ada pada sistem");
     }
 
     public function loginPage() {
@@ -74,29 +80,24 @@ class AuthController extends Controller
     {
         try {
             /**
-             * Cek npsn on kemendikbud server by api
+             * Cek npsn on referensi.data.kemdikbud.go.id/
              */
-            $cloneSekolah = new DapoKemdikbud();
+            $cloneSekolah = new ReferensiKemdikbud();
             $cloneSekolah->clone($request->npsn);
 
             if ($cloneSekolah->getStatus() && $cloneSekolah->getResult() !== null) {
                 $jsonResultSekolah = $cloneSekolah->getResult();
-
-                if (sizeof($jsonResultSekolah) <= 0) {
-                    return redirect()->back()->with('error', 'NPSN not found');
-                }
-                $jsonResultSekolah = $jsonResultSekolah[0];
                 /**
                  * Cek npsn on system based on npsn number
                  */
-                if (Satpen::where(['npsn' => $jsonResultSekolah->npsn])->first()) {
+                if (Satpen::where(['npsn' => $jsonResultSekolah["npsn"]])->first()) {
                     return redirect()->back()->with('error', 'NPSN already registered on system');
                 }
                 setcookie('dapo', json_encode($jsonResultSekolah), time() + (60 * 10), "/");
                 return redirect()->route('register');
             }
 
-            return redirect()->back()->with('error', 'Cannot Check NPSN');
+            return redirect()->back()->with('error', $cloneSekolah->getResult());
 
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e);

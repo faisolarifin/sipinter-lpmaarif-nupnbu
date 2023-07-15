@@ -19,7 +19,6 @@ class PropinsiController extends Controller
         try {
             Provinsi::create([
                 'kode_prov' => $request->kode_prov,
-                'kode_prov_kd' => $request->kode_prov_kd,
                 'nm_prov' => $request->nama_prov,
             ]);
 
@@ -43,7 +42,6 @@ class PropinsiController extends Controller
         try {
             $propinsi->update([
                 'kode_prov' => $request->kode_prov,
-                'kode_prov_kd' => $request->kode_prov_kd,
                 'nm_prov' => $request->nama_prov,
             ]);
 

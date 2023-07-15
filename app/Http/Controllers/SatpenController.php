@@ -23,7 +23,7 @@ class SatpenController extends Controller
         $prefix = "A";
 
         try {
-            $provinsi = Provinsi::where('kode_prov_kd', '=', $request->propinsi)->first();
+            $provinsi = Provinsi::find($request->propinsi);
             $cabang = PengurusCabang::find($request->cabang);
             $lastOfSatpen = Satpen::orderBy('id_satpen', 'desc')->first();
 

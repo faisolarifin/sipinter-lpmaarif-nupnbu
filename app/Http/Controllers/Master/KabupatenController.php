@@ -20,7 +20,6 @@ class KabupatenController extends Controller
         try {
             Kabupaten::create([
                 'id_prov' => $request->kode_prov,
-                'kode_kab_kd' => $request->kode_kab_kd,
                 'nama_kab' => $request->nama_kab,
             ]);
 
@@ -44,7 +43,6 @@ class KabupatenController extends Controller
         try {
             $kabupaten->update([
                 'id_prov' => $request->kode_prov,
-                'kode_kab_kd' => $request->kode_kab_kd,
                 'nama_kab' => $request->nama_kab,
             ]);
 

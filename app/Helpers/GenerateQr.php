@@ -12,7 +12,7 @@ use Mockery\Exception;
 
 class GenerateQr {
 
-    public static function make(string $content, $imagePath) {
+    public static function make(Strings $content, $imagePath) {
         try {
             // Generate QR code image using endroid/qr-code library
             $writer = new PngWriter();

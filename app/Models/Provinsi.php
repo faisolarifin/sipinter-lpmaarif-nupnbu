@@ -13,7 +13,6 @@ class Provinsi extends Model
     protected $hidden = ['created_at', 'updated_at'];
     protected $fillable = [
         'kode_prov',
-        'kode_prov_kd',
         'nm_prov',
     ];
 }

@@ -15,17 +15,14 @@ class Provinsi extends Seeder
         $provinsi = [
             [
                 'kode_prov' => '1',
-                'kode_prov_kd' => '050000',
                 'nm_prov' => 'Jawa Timur'
             ],
             [
                 'kode_prov' => '2',
-                'kode_prov_kd' => '030000',
                 'nm_prov' => 'Jawa Tengah'
             ],
             [
                 'kode_prov' => '10',
-                'kode_prov_kd' => '020000',
                 'nm_prov' => 'Jawa Barat'
             ]
         ];

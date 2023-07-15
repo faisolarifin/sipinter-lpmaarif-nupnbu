@@ -40,8 +40,7 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Propinsi</th>
-                            <th scope="col">Kode Kabupaten Dapo</th>
+                            <th scope="col">Provinsi</th>
                             <th scope="col">Nama Kabupaten</th>
                             <th scope="col" width="100">Aksi</th>
                         </tr>
@@ -51,7 +50,6 @@
                         @foreach($listKabupaten as $row)
                             <tr>
                                 <td>{{ ++$no }}</td>
-                                <td>{{ $row->kode_kab_kd }}</td>
                                 <td>{{ $row->prov->nm_prov }}</td>
                                 <td>{{ $row->nama_kab }}</td>
                                 <td>
@@ -81,7 +79,7 @@
 
     <!-- Modal Tambah -->
     <div class="modal fade" id="modalFormBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content rounded-2">
                 <div class="modal-header">
                     <div>
@@ -93,24 +91,15 @@
                 <form action="{{ route('kabupaten.store') }}" method="post">
                     <div class="modal-body">
                         @csrf
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <label for="kode_prov" class="form-label">Propinsi</label>
-                                <select name="kode_prov" id="kode_prov" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
-                                    @foreach($listPropinsi as $row)
-                                        <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="kode_kab_kd" class="form-label">Kode Kabupaten Dapo</label>
-                                <input type="text" class="form-control form-control-sm @error('kode_kab_kd') is-invalid @enderror" id="kode_kab_kd" name="kode_kab_kd" value="{{ old('kode_kab_kd') }}">
-                                <div class="invalid-feedback">
-                                    @error('kode_kab_kd') {{ $message }} @enderror
-                                </div>
-                            </div>
+                        <div class="mb-2">
+                            <label for="kode_prov" class="form-label">Propinsi</label>
+                            <select name="kode_prov" id="kode_prov" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
+                                @foreach($listPropinsi as $row)
+                                    <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col">
+                        <div class="mb-2">
                             <label for="nama_kab" class="form-label">Nama Kabupaten</label>
                             <input type="text" class="form-control form-control-sm @error('nama_kab') is-invalid @enderror" id="nama_kab" name="nama_kab" value="{{ old('nama_kab') }}">
                             <div class="invalid-feedback">
@@ -130,7 +119,7 @@
 
     <!-- Modal Edit -->
     <div class="modal fade" id="modalFormUpdateBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content rounded-2">
                 <div class="modal-header">
                     <div>
@@ -143,24 +132,15 @@
                     <div class="modal-body">
                         @csrf
                         @method('PUT')
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <label for="kode_prov" class="form-label">Propinsi</label>
-                                <select name="kode_prov" id="kode_prov" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
-                                    @foreach($listPropinsi as $row)
-                                        <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="kode_kab_kd" class="form-label">Kode Kabupaten Dapo</label>
-                                <input type="text" class="form-control form-control-sm @error('kode_kab_kd') is-invalid @enderror" id="kode_kab_kd" name="kode_kab_kd" value="{{ old('kode_kab_kd') }}">
-                                <div class="invalid-feedback">
-                                    @error('kode_kab_kd') {{ $message }} @enderror
-                                </div>
-                            </div>
+                        <div class="mb-2">
+                            <label for="kode_prov" class="form-label">Propinsi</label>
+                            <select name="kode_prov" id="kode_prov" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
+                                @foreach($listPropinsi as $row)
+                                    <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col">
+                        <div class="mb-2">
                             <label for="nama_kab" class="form-label">Nama Kabupaten</label>
                             <input type="text" class="form-control form-control-sm @error('nama_kab') is-invalid @enderror" id="nama_kab" name="nama_kab" value="{{ old('nama_kab') }}">
                             <div class="invalid-feedback">
@@ -208,7 +188,6 @@
             dataType: 'json',
             success: function (res) {
                 $("select[name='kode_prov']").val(res.id_prov);
-                $("input[name='kode_kab_kd']").val(res.kode_kab_kd);
                 $("input[name='nama_kab']").val(res.nama_kab);
             }
         });

@@ -19,7 +19,7 @@
 @include('template.alert')
 
 <div class="row">
-    <div class="col-lg-6 d-flex align-items-strech">
+    <div class="col-lg-8 d-flex align-items-strech">
         <div class="card w-100 shadow-none">
             <div class="card-body py-3">
                 <p class="mb-2">Halo,</p>
@@ -27,27 +27,11 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-4 d-flex align-items-strech">
         <div class="card w-100 shadow-none">
-            <div class="card-body p-3 text-center">
-                <p class="mb-2">TOTAL PROPINSI</p>
-                <h4>{{ $countOfPropinsi }}</h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="card w-100 shadow-none">
-            <div class="card-body p-3 text-center">
-                <p class="mb-2">TOTAL KABUPATEN</p>
-                <h4>{{ $countOfKabupaten }}</h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="card w-100 shadow-none">
-            <div class="card-body p-3 text-center">
-                <p class="mb-2">TOTAL SATPEN</p>
-                <h4>{{ $countOfRecordSatpen }}</h4>
+            <div class="card-body py-3">
+                <p class="mb-2">Tanggal Registrasi</p>
+                <h4>{{ Date::tglMasehi(Session::get("satpen")->tgl_registrasi) }}</h4>
             </div>
         </div>
     </div>
@@ -82,26 +66,16 @@
 </div>
 
 <!--  Row 1 -->
-<div class="row">
+<div class="row mb-sm-4">
     <div class="col-lg-4">
         <div class="card overflow-hidden">
             <div class="card-body p-4">
-                <h5 class="card-title mb-9 fw-semibold">Satpen Propinsi</h5>
+                <h5 class="card-title mb-9 fw-semibold">Piagam Registrasi</h5>
                 <div class="row align-items-center">
-                    <div class="col-8">
-                        <h4 class="fw-semibold mb-3 count-prop">0</h4>
-                        <div class="d-flex align-items-center mb-3">
-                          <span
-                              class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-arrow-up-left text-success"></i>
-                          </span>
-                            <p class="fs-3 mb-0">propinsi</p>
-                        </div>
-
-                    </div>
-                    <div class="col-4">
-                        <div class="d-flex justify-content-center">
-                            <div id="propinsi"></div>
+                    <div class="col-12 d-flex py-3">
+                        <h6>Piagam Nomor Registrasi Ma'arif - SMKN 1 PAMEKASAN.docx</h6>
+                        <div class="ms-sm-2">
+                            <button class="btn btn-primary"><i class="ti ti-download"></i></button>
                         </div>
                     </div>
                 </div>
@@ -112,32 +86,12 @@
     <div class="col-lg-4">
         <div class="card overflow-hidden">
             <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h5 class="card-title mb-0 fw-semibold">Satpen Kabupaten</h5>
-                    <form class="form">
-                        <select id="chartSelectProv" class="form-select form-select-sm">
-                            @foreach($listProvinsi as $row)
-                            <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                            @endforeach
-                        </select>
-                    </form>
-
-                </div>
+                <h5 class="card-title mb-9 fw-semibold">SK Satuan Pendidikan</h5>
                 <div class="row align-items-center">
-                    <div class="col-8">
-                        <h4 class="fw-semibold mb-3 count-kab">0</h4>
-                        <div class="d-flex align-items-center mb-3">
-                          <span
-                              class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-arrow-up-left text-success"></i>
-                          </span>
-                            <p class="fs-3 mb-0">kabupaten</p>
-                        </div>
-
-                    </div>
-                    <div class="col-4">
-                        <div class="d-flex justify-content-center">
-                            <div id="kabupaten"></div>
+                    <div class="col-12 d-flex py-3">
+                        <h6>SK Satuan Pendidikan BHPNU - SMKN 1 PAMEKASAN.docx</h6>
+                        <div class="ms-sm-2">
+                            <button class="btn btn-primary"><i class="ti ti-download"></i></button>
                         </div>
                     </div>
                 </div>
@@ -148,23 +102,11 @@
     <div class="col-lg-4">
         <div class="card overflow-hidden">
             <div class="card-body p-4">
-                <h5 class="card-title mb-9 fw-semibold">Satpen Jenjang</h5>
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <h4 class="fw-semibold mb-3 count-jp">0</h4>
-                        <div class="d-flex align-items-center mb-3">
-                          <span
-                              class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-arrow-up-left text-success"></i>
-                          </span>
-                            <p class="fs-3 mb-0">jenjang pendidikan</p>
-                        </div>
-
-                    </div>
-                    <div class="col-4">
-                        <div class="d-flex justify-content-center">
-                            <div id="jenjang-pendidikan"></div>
-                        </div>
+                <h5 class="card-title mb-9 fw-semibold text-center">Status Registrasi</h5>
+                <div class="row text-center">
+                    <div class="col-12 py-3">
+                        <h6 class="text-uppercase mb-1">Permohonan</h6>
+                        <p class="mb-0">12 Juli 2023</p>
                     </div>
                 </div>
             </div>
@@ -174,10 +116,4 @@
 </div>
 
 
-@endsection
-
-@section('scripts')
-<script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-<script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
-<script src="{{ asset('assets/js/dashboard.js') }}"></script>
 @endsection

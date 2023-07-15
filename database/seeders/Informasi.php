@@ -17,6 +17,7 @@ class Informasi extends Seeder
         $jenjang = [
             [
               "type" => "SK",
+                "slug" => "slug-example1",
               "headline" => "Peluncuran Aplikasi Siapin LP Ma'arif",
               "tgl_upload" => Date::now(),
               "content" => "peluncuran informasi",
@@ -24,6 +25,7 @@ class Informasi extends Seeder
               "tag" => "#halo #test"
             ],[
               "type" => "SK",
+                "slug" => "slug-example2",
               "headline" => "Revamp Siapin LP Ma'arif",
               "tgl_upload" => Date::now(),
               "content" => "peluncuran informasi saat ini",
@@ -31,6 +33,7 @@ class Informasi extends Seeder
               "tag" => "#halo #test"
             ],[
               "type" => "SK",
+                "slug" => "slug-example3",
               "headline" => "Revamp Siapin LP Ma'arif",
               "tgl_upload" => Date::now(),
               "content" => "peluncuran informasi saat ini",
@@ -38,6 +41,7 @@ class Informasi extends Seeder
               "tag" => "#halo #test"
             ],[
               "type" => "SK",
+                "slug" => "slug-example4",
               "headline" => "Revamp Siapin LP Ma'arif",
               "tgl_upload" => Date::now(),
               "content" => "peluncuran informasi saat ini",
@@ -45,6 +49,7 @@ class Informasi extends Seeder
               "tag" => "#halo #test"
             ],[
               "type" => "SK",
+                "slug" => "slug-example5",
               "headline" => "Revamp Siapin LP Ma'arif",
               "tgl_upload" => Date::now(),
               "content" => "peluncuran informasi saat ini",
@@ -52,6 +57,7 @@ class Informasi extends Seeder
               "tag" => "#halo #test"
             ],[
               "type" => "SK",
+                "slug" => "slug-example6",
               "headline" => "Revamp Siapin LP Ma'arif",
               "tgl_upload" => Date::now(),
               "content" => "peluncuran informasi saat ini",

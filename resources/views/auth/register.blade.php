@@ -38,7 +38,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="nm_satpen" class="form-label">Nama Satpen</label>
-                                        <input type="text" class="form-control form-control-sm @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama_sekolah }}">
+                                        <input type="text" class="form-control form-control-sm @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama }}">
                                         <div class="invalid-feedback">
                                             @error('nm_satpen') {{ $message }} @enderror
                                         </div>
@@ -63,7 +63,7 @@
                                         <label for="jenjang" class="form-label">Jenjang Pendidikan</label>
                                         <select class="form-select form-select-sm @error('jenjang') is-invalid @enderror" name="jenjang">
                                             @foreach($jenjang as $row)
-                                                <option value="{{ $row->id_jenjang }}">{{ $row->nm_jenjang }}</option>
+                                                <option value="{{ $row->id_jenjang }}"  {{ strtolower($row->nm_jenjang) == strtolower($cookieValue->bentuk_pendidikan) ? 'selected' : '' }}>{{ $row->nm_jenjang }}</option>
                                             @endforeach
                                         </select>
                                         <div class="invalid-feedback">
@@ -89,7 +89,7 @@
                                         <label for="propinsi" class="form-label">Propinsi</label>
                                         <select class="form-select form-select-sm @error('propinsi') is-invalid @enderror" name="propinsi">
                                             @foreach($propinsi as $row)
-                                                <option value="{{ $row->kode_prov_kd }}" {{ $row->kode_prov_kd == $cookieValue->kode_prop ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
+                                                <option value="{{ $row->id_prov }}" {{ strtolower($row->nm_prov) == Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln) ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
                                             @endforeach
                                         </select>
                                         <div class="invalid-feedback">
@@ -102,7 +102,7 @@
                                         <label for="kabupaten" class="form-label">Kabupaten</label>
                                         <select class="form-select form-select-sm @error('kabupaten') is-invalid @enderror" name="kabupaten">
                                             @foreach($kabupaten as $row)
-                                                <option value="{{ $row->id_kab }}" {{ $row->kode_kab_kd == $cookieValue->kode_kab ? 'selected' : '' }}>{{ $row->nama_kab }}</option>
+                                                <option value="{{ $row->id_kab }}" {{ Strings::removeFirstWord($row->nama_kab) == Strings::removeFirstWord($cookieValue->kabkotanegara_ln) ? 'selected' : '' }}>{{ $row->nama_kab }}</option>
                                             @endforeach
                                         </select>
                                         <div class="invalid-feedback">
@@ -128,7 +128,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="kecamatan" class="form-label">Kecamatan</label>
-                                        <input type="text" class="form-control form-control-sm @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan" value="{{ $cookieValue->kecamatan }}">
+                                        <input type="text" class="form-control form-control-sm @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan" value="{{ $cookieValue->kecamatankota_ln }}">
                                         <div class="invalid-feedback">
                                             @error('kecamatan') {{ $message }} @enderror
                                         </div>
@@ -139,7 +139,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="kelurahan" class="form-label">Kelurahan</label>
-                                        <input type="text" class="form-control form-control-sm @error('kelurahan') is-invalid @enderror" id="kelurahan" name="kelurahan" value="{{ old('kelurahan') }}">
+                                        <input type="text" class="form-control form-control-sm @error('kelurahan') is-invalid @enderror" id="kelurahan" name="kelurahan" value="{{ $cookieValue->desakelurahan }}">
                                         <div class="invalid-feedback">
                                             @error('kelurahan') {{ $message }} @enderror
                                         </div>
@@ -148,7 +148,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="alamat" class="form-label">Alamat</label>
-                                        <input type="text" class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ $cookieValue->alamat_jalan }}">
+                                        <input type="text" class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ $cookieValue->alamat }}">
                                         <div class="invalid-feedback">
                                             @error('alamat') {{ $message }} @enderror
                                         </div>
@@ -277,7 +277,7 @@
                                         <label for="nm_rekom_pc" class="form-label">Pemberi Rekomendasi</label>
                                         <select class="form-select form-select-sm @error('nm_rekom_pc') is-invalid @enderror" id="nm_rekom_pc" name="nm_rekom_pc">
                                             <option value="PCNU">PCNU</option>
-                                            <option value="LP Ma'arif PCNU">LP Ma'arif PCNU</option>
+                                            <option value="LP Ma'arif PCNU">LP Ma'arif NU PCNU</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             @error('nm_rekom_pc') {{ $message }} @enderror
@@ -334,7 +334,7 @@
                                         <label for="nm_rekom_pw" class="form-label">Pemberi Rekomendasi</label>
                                         <select class="form-select form-select-sm @error('nm_rekom_pw') is-invalid @enderror" id="nm_rekom_pw" name="nm_rekom_pw">
                                             <option value="PC">PWNU</option>
-                                            <option value="LP Ma'arif PWNU">LP Ma'arif PWNU</option>
+                                            <option value="LP Ma'arif PWNU">LP Ma'arif NU PWNU</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             @error('nm_rekom_pw') {{ $message }} @enderror
@@ -345,7 +345,7 @@
                                     <label for="wilayah_rekom_pw" class="form-label">Nama Wilayah</label>
                                     <select class="form-select form-select-sm @error('wilayah_rekom_pw') is-invalid @enderror" name="wilayah_rekom_pw">
                                         @foreach($propinsi as $row)
-                                            <option value="{{ $row->nm_prov }}" {{ $row->kode_prov_kd == $cookieValue->kode_prop ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
+                                            <option value="{{ $row->nm_prov }}" {{ strtolower($row->nm_prov) == Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln) ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">

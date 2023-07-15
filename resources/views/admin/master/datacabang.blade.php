@@ -40,7 +40,7 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Kode Kabupaten</th>
+                            <th scope="col" width="180">Kode Kabupaten</th>
                             <th scope="col">Propinsi</th>
                             <th scope="col">Pengurus Cabang</th>
                             <th scope="col" width="100">Aksi</th>

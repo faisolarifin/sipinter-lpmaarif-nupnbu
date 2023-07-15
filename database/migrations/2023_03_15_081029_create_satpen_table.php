@@ -36,7 +36,6 @@ return new class extends Migration
         Schema::create('provinsi', function (Blueprint $table) {
             $table->id('id_prov');
             $table->string('kode_prov', 10);
-            $table->string('kode_prov_kd', 45);
             $table->string('nm_prov', 100);
             $table->timestamps();
         });
@@ -46,7 +45,6 @@ return new class extends Migration
         Schema::create('kabupaten', function (Blueprint $table) {
             $table->id('id_kab');
             $table->unsignedBigInteger('id_prov');
-            $table->string('kode_kab_kd', 45);
             $table->string('nama_kab', 255);
             $table->foreign('id_prov')->references('id_prov')->on('provinsi')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
