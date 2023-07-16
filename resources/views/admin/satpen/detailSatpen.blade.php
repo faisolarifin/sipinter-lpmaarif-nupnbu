@@ -169,12 +169,12 @@
                     <div class="row border-2 border-top pt-3 mt-2 mx-sm-2">
                         <div class="col-sm-5 d-flex justify-content-center align-items-md-center text-center">
                             <div class="file-download-box">
-                                <p class="mb-3">Piagam Ma'arif</p>
+                                <p class="mb-3">Piagam LP Ma'arif</p>
                                 <a href="{{ route('pdf.generated', ["type"=> $satpenProfile->file[0]->typefile, "fileName" => $satpenProfile->file[0]->nm_file]) }}" target="_blank" href="{{ route('pdf.generated', ["type"=> $satpenProfile->file[0]->typefile, "fileName" => $satpenProfile->file[0]->nm_file.".pdf"]) }}" target="_blank" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
                                     tampil</a>
                             </div>
                             <div class="file-download-box">
-                                <p class="mb-3">SK Satpen</p>
+                                <p class="mb-3">SK Satuan Pendidikan</p>
                                 <a href="{{ route('pdf.generated', ["type"=> $satpenProfile->file[1]->typefile, "fileName" => $satpenProfile->file[1]->nm_file]) }}" target="_blank" class="btn btn-sm btn-primary"><i class="ti ti-eye"></i>
                                     tampil</a>
                             </div>

@@ -15,23 +15,23 @@ class Kategori extends Seeder
         $kategori = [
             [
                 'nm_kategori' => 'A',
-                'konotasi' => 'A',
-                'keterangan' => "yayasan bhpnu dan tanah milik nu (jami'yah)"
+                'konotasi' => "yayasan bhpnu dan tanah milik nu (jami'yah)",
+                'keterangan' => "Dan memberikan izin kepada satuan pendidikan tersebut untuk menyelenggarakan pendidikan menggunakan Akta Perkumpulan Nahdlatul Ulama (BHPNU).",
             ],
             [
                 'nm_kategori' => 'B',
-                'konotasi' => 'B',
-                'keterangan' => "yayasan bhpnu dan tanah milik masyarakat nu"
+                'konotasi' => "yayasan bhpnu dan tanah milik masyarakat nu",
+                'keterangan' => "Dan memberikan izin kepada satuan pendidikan tersebut untuk menyelenggarakan pendidikan menggunakan Akta Perkumpulan Nahdlatul Ulama (BHPNU).",
             ],
             [
                 'nm_kategori' => 'C',
-                'konotasi' => 'C',
-                'keterangan' => "yayasan non bhpnu dan tanah milik nu (jam'iyah)"
+                'konotasi' => "yayasan non bhpnu dan tanah milik nu (jam'iyah)",
+                'keterangan' => "",
             ],
             [
                 'nm_kategori' => 'D',
-                'konotasi' => 'D',
-                'keterangan' => "yayasan non bhpnu dan tanah milik masyarakat nu"
+                'konotasi' => "yayasan non bhpnu dan tanah milik masyarakat nu",
+                'keterangan' => "",
             ],
         ];
         foreach ($kategori as $row) {

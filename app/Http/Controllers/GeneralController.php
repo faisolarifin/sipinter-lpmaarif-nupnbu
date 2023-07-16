@@ -19,13 +19,16 @@ class GeneralController extends Controller
     }
 
     public function totalSatpenByJenjang($npsn=null) {
+//
+//        if ($npsn) {
+//            $cloneSekolah = new ReferensiKemdikbud();
+//            $cloneSekolah->clone($npsn);
+//
+//            return response($cloneSekolah->getResult());
+//        }
+//        return response("Invalid npsn");
 
-        if ($npsn) {
-            $cloneSekolah = new ReferensiKemdikbud();
-            $cloneSekolah->clone($npsn);
+        return route('coba');
 
-            return response($cloneSekolah->getResult());
-        }
-        return response("Invalid npsn");
     }
 }

@@ -88,3 +88,4 @@ Route::middleware('mustlogin')->group(function() {
 });
 
 Route::get('test/{npsn?}', [GeneralController::class, 'totalSatpenByJenjang']);
+Route::post("nyoba yaa")->name("coba");

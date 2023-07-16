@@ -50,7 +50,7 @@ class ExportDocument
 
 //                    if ($returnCode === 0) {
 //                        unlink($tempFilename);
-//                        uniqid($qrPath);
+                        unlink($qrPath);
 //                        return true;
 //                    } else {
 //                        echo 'Error converting Word document to PDF.';
@@ -103,6 +103,8 @@ class ExportDocument
                     $templateDocument->setValue('kabupaten', $satpenProfile->kabupaten->nama_kab);
                     $templateDocument->setValue('propinsi', $satpenProfile->provinsi->nm_prov);
                     $templateDocument->setValue('nomorregistrasi', $satpenProfile->no_registrasi);
+                    $templateDocument->setValue('kategori', $satpenProfile->kategori->nm_kategori);
+                    $templateDocument->setValue('ketkategori', $satpenProfile->kategori->keterangan);
 
                     $templateDocument->setValue('tglm', Date::tglMasehi($satpenProfile->file[1]->tgl_file));
                     $templateDocument->setValue('tglh', Date::tglHijriyah($satpenProfile->file[1]->tgl_file));
@@ -125,7 +127,7 @@ class ExportDocument
 //
 //                    if ($returnCode === 0) {
 //                        unlink($tempFilename);
-//                        unlink($qrPath);
+                        unlink($qrPath);
 //                        return true;
 //                    } else {
 //                        echo 'Error converting Word document to PDF.';

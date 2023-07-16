@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('kategori_satpen', function (Blueprint $table) {
             $table->id('id_kategori');
             $table->enum('nm_kategori', ['A', 'B', 'C', 'D']);
-            $table->string('konotasi', 45);
+            $table->string('konotasi', 100);
             $table->string('keterangan', 255)->nullable();
             $table->timestamps();
         });

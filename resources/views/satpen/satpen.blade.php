@@ -165,12 +165,12 @@
                         <div class="col d-flex justify-content-center align-items-md-center text-center">
                             @if($satpenProfile->status == "setujui")
                             <div class="file-download-box">
-                                <p class="mb-3">Piagam Ma'arif</p>
+                                <p class="mb-3">Piagam LP Ma'arif</p>
                                 <a href="{{ route('download', 'piagam') }}" class="btn btn-sm btn-primary"><i class="ti ti-download"></i>
                                     unduh</a>
                             </div>
                             <div class="file-download-box">
-                                <p class="mb-3">SK Satpen</p>
+                                <p class="mb-3">SK Satuan Pendidikan</p>
                                 <a href="{{ route('download', 'sk') }}" class="btn btn-sm btn-primary"><i class="ti ti-download"></i>
                                     unduh</a>
                             </div>
