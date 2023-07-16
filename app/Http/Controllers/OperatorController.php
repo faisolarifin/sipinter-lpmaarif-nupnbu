@@ -11,13 +11,11 @@ use App\Models\Satpen;
 class OperatorController extends Controller
 {
     public function dashboardPage() {
-        $listProvinsi = Provinsi::get();
-        $countOfKabupaten = Kabupaten::count("id_kab");
-        $countOfPropinsi = Provinsi::count("id_prov");
-        $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired'])->count("id_satpen");
+        $mySatpen = Satpen::with(['kategori', 'timeline', 'file'])
+            ->where('id_user', '=', auth()->user()->id_user)
+            ->first();
 
-        return view('home.dashboard', compact('listProvinsi', 'countOfKabupaten',
-                                            'countOfPropinsi', 'countOfRecordSatpen'));
+        return view('home.dashboard', compact('mySatpen'));
     }
     public function mySatpenPage() {
         try {

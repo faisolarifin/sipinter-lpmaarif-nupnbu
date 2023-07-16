@@ -23,7 +23,7 @@
         <div class="card w-100 shadow-none">
             <div class="card-body py-3">
                 <p class="mb-2">Halo,</p>
-                <h4>Operator {{ Session::get("satpen")->nm_satpen }}</h4>
+                <h4>Operator {{ $mySatpen->nm_satpen }}</h4>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         <div class="card w-100 shadow-none">
             <div class="card-body py-3">
                 <p class="mb-2">Tanggal Registrasi</p>
-                <h4>{{ Date::tglMasehi(Session::get("satpen")->tgl_registrasi) }}</h4>
+                <h4>{{ Date::tglMasehi($mySatpen->tgl_registrasi) }}</h4>
             </div>
         </div>
     </div>
@@ -46,17 +46,17 @@
                     <div class="col-sm-4">
                         <i class="ti ti-number"></i>
                         <p class="mb-2">Nomor Registrasi</p>
-                        <h5>{{ Session::get("satpen")->no_registrasi }}</h5>
+                        <h5>{{ $mySatpen->no_registrasi }}</h5>
                     </div>
                     <div class="col-sm-4">
                         <i class="ti ti-building"></i>
                         <p class="mb-2">Nama Satpen</p>
-                        <h5>{{ Session::get("satpen")->nm_satpen }}</h5>
+                        <h5>{{ $mySatpen->nm_satpen }}</h5>
                     </div>
                     <div class="col-sm-4">
                         <i class="ti ti-category"></i>
                         <p class="mb-2">Kategori</p>
-                        <h5>{{ Session::get("satpen")->kategori->nm_kategori }}</h5>
+                        <h5>{{ $mySatpen->kategori->nm_kategori }}</h5>
                     </div>
                 </div>
             </div>
@@ -71,13 +71,15 @@
         <div class="card overflow-hidden">
             <div class="card-body p-4">
                 <h5 class="card-title mb-9 fw-semibold">Piagam Registrasi</h5>
-                <div class="row align-items-center">
-                    <div class="col-12 d-flex py-3">
-                        <h6>Piagam Nomor Registrasi Ma'arif - SMKN 1 PAMEKASAN.docx</h6>
-                        <div class="ms-sm-2">
-                            <button class="btn btn-primary"><i class="ti ti-download"></i></button>
-                        </div>
+                <div class="d-flex py-3 px-2 col-file-dash">
+                    @if($mySatpen->status == "setujui")
+                    <h6>{{ $mySatpen->file[0]->nm_file }}</h6>
+                    <div class="ms-sm-2">
+                        <a href="{{ route('download', 'piagam') }}" class="btn btn-primary"><i class="ti ti-download"></i></a>
                     </div>
+                    @else
+                        <h6 class="mb-0">File not found!</h6>
+                    @endif
                 </div>
             </div>
         </div>
@@ -87,13 +89,15 @@
         <div class="card overflow-hidden">
             <div class="card-body p-4">
                 <h5 class="card-title mb-9 fw-semibold">SK Satuan Pendidikan</h5>
-                <div class="row align-items-center">
-                    <div class="col-12 d-flex py-3">
-                        <h6>SK Satuan Pendidikan BHPNU - SMKN 1 PAMEKASAN.docx</h6>
-                        <div class="ms-sm-2">
-                            <button class="btn btn-primary"><i class="ti ti-download"></i></button>
-                        </div>
+                <div class="d-flex py-3 px-2 col-file-dash">
+                    @if($mySatpen->status == "setujui")
+                    <h6>{{ $mySatpen->file[1]->nm_file }}</h6>
+                    <div class="ms-sm-2">
+                        <a href="{{ route('download', 'sk') }}" class="btn btn-primary"><i class="ti ti-download"></i></a>
                     </div>
+                    @else
+                        <h6 class="mb-0">File not found!</h6>
+                    @endif
                 </div>
             </div>
         </div>
@@ -105,8 +109,8 @@
                 <h5 class="card-title mb-9 fw-semibold text-center">Status Registrasi</h5>
                 <div class="row text-center">
                     <div class="col-12 py-3">
-                        <h6 class="text-uppercase mb-1">Permohonan</h6>
-                        <p class="mb-0">12 Juli 2023</p>
+                        <h6 class="text-uppercase mb-1">{{ $mySatpen->timeline[sizeof($mySatpen->timeline) - 1]->status_verifikasi }}</h6>
+                        <p class="mb-0">{{ Date::tglMasehi($mySatpen->timeline[sizeof($mySatpen->timeline) - 1]->tgl_status) }}</p>
                     </div>
                 </div>
             </div>

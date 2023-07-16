@@ -193,3 +193,8 @@
     font-size: 2em;
     margin-bottom: .5rem;
 }
+
+.col-file-dash {
+    background: rgba(224, 224, 224, 0.82);
+    border-radius: .2rem;
+}

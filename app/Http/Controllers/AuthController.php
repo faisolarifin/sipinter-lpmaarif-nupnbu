@@ -57,10 +57,6 @@ class AuthController extends Controller
             }
 
             if (auth()->user()->role == 'operator') {
-                $satpen = Satpen::with("kategori:id_kategori,nm_kategori")
-                    ->where("id_user", "=", \auth()->user()->id_user)
-                    ->first();
-                Session::put("satpen", $satpen);
                 return redirect()->route('dashboard');
             }
             elseif (auth()->user()->role == 'admin') {
