@@ -1,7 +1,9 @@
 <?php
 namespace App\Helpers;
 
-use GeniusTS\HijriDate\Hijri;
+
+use Alkoumi\LaravelHijriDate\Hijri;
+use Carbon\Carbon;
 
 class Date {
     public static function tglIndo($tanggal)
@@ -64,9 +66,9 @@ class Date {
             'Zulkaidah',
             'Zulhijah'
         );
-        $tglHijri = Hijri::convertToHijri('2023-07-02');
-        $pecahkan = explode(' ', $tglHijri);
-        $pecahkan = explode('-', $pecahkan[0]);
+        $date = Carbon::parse($tanggal);
+        $tglHijri = Hijri::ShortDate($date);;
+        $pecahkan = explode('/', $tglHijri);
 
         return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] - 1 ] . ' ' . $pecahkan[0];
     }

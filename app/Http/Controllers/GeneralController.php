@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Alkoumi\LaravelHijriDate\Hijri;
+use App\Helpers\Date;
 use App\Helpers\ReferensiKemdikbud;
 use App\Models\Informasi;
 use App\Models\Satpen;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class GeneralController extends Controller
@@ -27,8 +30,7 @@ class GeneralController extends Controller
 //            return response($cloneSekolah->getResult());
 //        }
 //        return response("Invalid npsn");
-
-        return route('coba');
+        return Date::tglHijriyah("2023-07-19");
 
     }
 }
