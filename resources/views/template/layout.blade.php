@@ -107,24 +107,39 @@
                           @csrf
                           <div class="mb-2">
                               <label for="last_pass" class="form-label">Password Lama</label>
-                              <input type="password" class="form-control form-control-sm @error('last_pass') is-invalid @enderror" id="nama_prov" name="last_pass" value="{{ old('last_pass') }}">
-                              <div class="invalid-feedback">
-                                  @error('last_pass') {{ $message }} @enderror
+                              <div class="input-group form-password">
+                                  <input type="password" class="form-control form-control-sm @error('last_pass') is-invalid @enderror" id="nama_prov" name="last_pass" value="{{ old('last_pass') }}">
+                                  <span class="input-group-text password-toggle">
+                                      <i class="ti ti-eye-off"></i>
+                                  </span>
+                                  <div class="invalid-feedback">
+                                      @error('last_pass') {{ $message }} @enderror
+                                  </div>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-sm-6">
                                   <label for="new_pass" class="form-label">Password Baru</label>
-                                  <input type="password" class="form-control form-control-sm @error('new_pass') is-invalid @enderror" id="kode_prov" name="new_pass" value="{{ old('new_pass') }}">
-                                  <div class="invalid-feedback">
-                                      @error('new_pass') {{ $message }} @enderror
+                                  <div class="input-group form-password">
+                                      <input type="password" class="form-control form-control-sm @error('new_pass') is-invalid @enderror" id="kode_prov" name="new_pass" value="{{ old('new_pass') }}">
+                                      <span class="input-group-text password-toggle">
+                                         <i class="ti ti-eye-off"></i>
+                                      </span>
+                                      <div class="invalid-feedback">
+                                          @error('new_pass') {{ $message }} @enderror
+                                      </div>
                                   </div>
                               </div>
                               <div class="col-sm-6">
                                   <label for="confirm_pass" class="form-label">Konfimasi Password</label>
-                                  <input type="password" class="form-control form-control-sm @error('confirm_pass') is-invalid @enderror" id="confirm_pass" name="confirm_pass" value="{{ old('confirm_pass') }}">
-                                  <div class="invalid-feedback">
-                                      @error('confirm_pass') {{ $message }} @enderror
+                                  <div class="input-group form-password">
+                                      <input type="password" class="form-control form-control-sm @error('confirm_pass') is-invalid @enderror" id="confirm_pass" name="confirm_pass" value="{{ old('confirm_pass') }}">
+                                      <span class="input-group-text password-toggle">
+                                          <i class="ti ti-eye-off"></i>
+                                      </span>
+                                      <div class="invalid-feedback">
+                                          @error('confirm_pass') {{ $message }} @enderror
+                                      </div>
                                   </div>
                               </div>
                           </div>
@@ -150,6 +165,20 @@
   <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
   <script src="{{ asset('assets/js/app.min.js') }}"></script>
+  <script>
+      $(".password-toggle").click(function() {
+          var passwordField = $(this).parent().find("input");
+          var toggleIcon = $(this).find("i");
+
+          if (passwordField.attr("type") === "password") {
+              passwordField.attr("type", "text");
+              toggleIcon.removeClass("ti-eye-off").addClass("ti-eye");
+          } else {
+              passwordField.attr("type", "password");
+              toggleIcon.removeClass("ti-eye").addClass("ti-eye-off");
+          }
+      });
+  </script>
 
   @yield('scripts')
   @yield('extendscripts')

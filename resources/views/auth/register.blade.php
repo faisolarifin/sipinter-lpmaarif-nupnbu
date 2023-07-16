@@ -8,7 +8,7 @@
             <div class="col-sm-10">
                 <a href="./index.html" class="text-nowrap logo-img d-block py-2 w-100">
                     <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
-                    <h6 class="fw-bold">Sistem Administrasi Pendidikan LP Ma'arif Nahdlatul Ulama</h6>
+                    <h6 class="fw-bold">Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU</h6>
                 </a>
             </div>
         </div>
@@ -147,6 +147,17 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
+                                        <label for="thn_berdiri" class="form-label">Tahun Berdiri</label>
+                                        <input type="text" class="form-control form-control-sm @error('thn_berdiri') is-invalid @enderror" id="thn_berdiri" name="thn_berdiri" value="{{ old('thn_berdiri') }}">
+                                        <div class="invalid-feedback">
+                                            @error('thn_berdiri') {{ $message }} @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-2">
                                         <label for="alamat" class="form-label">Alamat</label>
                                         <input type="text" class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ $cookieValue->alamat }}">
                                         <div class="invalid-feedback">
@@ -167,17 +178,6 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
-                                        <label for="thn_berdiri" class="form-label">Tahun Berdiri</label>
-                                        <input type="text" class="form-control form-control-sm @error('thn_berdiri') is-invalid @enderror" id="thn_berdiri" name="thn_berdiri" value="{{ old('thn_berdiri') }}">
-                                        <div class="invalid-feedback">
-                                            @error('thn_berdiri') {{ $message }} @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-sm-6">
-                                    <div class="mb-2">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
                                         <div class="invalid-feedback">
@@ -185,12 +185,23 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="telp" class="form-label">Telpon</label>
                                         <input type="text" class="form-control form-control-sm @error('telp') is-invalid @enderror" id="telp" name="telp" value="{{ old('telp') }}">
                                         <div class="invalid-feedback">
                                             @error('telp') {{ $message }} @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="mb-2">
+                                        <label for="fax" class="form-label">Fax</label>
+                                        <input type="text" class="form-control form-control-sm @error('fax') is-invalid @enderror" id="fax" name="fax" value="{{ old('fax') }}">
+                                        <div class="invalid-feedback">
+                                            @error('fax') {{ $message }} @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -221,19 +232,29 @@
                             <div class="row">
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
-                                        <label for="fax" class="form-label">Fax</label>
-                                        <input type="text" class="form-control form-control-sm @error('fax') is-invalid @enderror" id="fax" name="fax" value="{{ old('fax') }}">
-                                        <div class="invalid-feedback">
-                                            @error('fax') {{ $message }} @enderror
+                                        <label for="password" class="form-label">Password Akun</label>
+                                        <div class="input-group form-password">
+                                            <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password">
+                                            <span class="input-group-text password-toggle">
+                                               <i class="ti ti-eye-off"></i>
+                                            </span>
+                                            <div class="invalid-feedback">
+                                                @error('password') {{ $message }} @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
-                                        <label for="password" class="form-label">Password Akun</label>
-                                        <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password">
-                                        <div class="invalid-feedback">
-                                            @error('password') {{ $message }} @enderror
+                                        <label for="passconfirm" class="form-label">Konfirmasi Password</label>
+                                        <div class="input-group form-password">
+                                            <input type="password" class="form-control form-control-sm @error('passconfirm') is-invalid @enderror" id="passconfirm" name="passconfirm">
+                                            <span class="input-group-text password-toggle">
+                                               <i class="ti ti-eye-off"></i>
+                                            </span>
+                                            <div class="invalid-feedback">
+                                                @error('passconfirm') {{ $message }} @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -414,6 +435,19 @@
            } else {
                $(".row-nm-yayasan").slideUp();
            }
+        });
+
+        $(".password-toggle").click(function() {
+            var passwordField = $(this).parent().find("input");
+            var toggleIcon = $(this).find("i");
+
+            if (passwordField.attr("type") === "password") {
+                passwordField.attr("type", "text");
+                toggleIcon.removeClass("ti-eye-off").addClass("ti-eye");
+            } else {
+                passwordField.attr("type", "password");
+                toggleIcon.removeClass("ti-eye").addClass("ti-eye-off");
+            }
         });
     </script>
 @endsection

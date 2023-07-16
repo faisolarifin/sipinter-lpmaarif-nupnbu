@@ -198,3 +198,9 @@
     background: rgba(224, 224, 224, 0.82);
     border-radius: .2rem;
 }
+
+.form-password .input-group-text {
+    border: var(--bs-border-width) solid #DFE5EF;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}

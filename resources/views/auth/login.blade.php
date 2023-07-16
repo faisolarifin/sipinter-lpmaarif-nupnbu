@@ -12,7 +12,7 @@
                         <a href="./index.html" class="text-nowrap text-center logo-img d-block py-2 w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
                         </a>
-                        <p class="text-center fw-medium">Sistem Administrasi Pendidikan <br> LP Ma'arif Nahdlatul Ulama</p>
+                        <p class="text-center fw-medium">Sistem Administrasi Pendidikan Terpadu <br> LP Ma'arif NU PBNU</p>
                         @include('template.alert')
                         <form action="{{ route('login.proses') }}" method="post">
                             @csrf
@@ -25,9 +25,14 @@
                             </div>
                             <div class="mb-4">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                                <div class="invalid-feedback">
-                                    @error('password') {{ $message }} @enderror
+                                <div class="input-group form-password">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                                    <span class="input-group-text password-toggle">
+                                       <i class="ti ti-eye-off"></i>
+                                    </span>
+                                    <div class="invalid-feedback">
+                                        @error('password') {{ $message }} @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-4">
@@ -80,4 +85,21 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(".password-toggle").click(function() {
+            var passwordField = $(this).parent().find("input");
+            var toggleIcon = $(this).find("i");
+
+            if (passwordField.attr("type") === "password") {
+                passwordField.attr("type", "text");
+                toggleIcon.removeClass("ti-eye-off").addClass("ti-eye");
+            } else {
+                passwordField.attr("type", "password");
+                toggleIcon.removeClass("ti-eye").addClass("ti-eye-off");
+            }
+        });
+    </script>
 @endsection
