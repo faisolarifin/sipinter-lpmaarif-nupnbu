@@ -228,7 +228,7 @@ class AdminController extends Controller
                 FileUpload::create([
                     'id_satpen' => $satpen->id_satpen,
                     'typefile' => "piagam",
-                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "sk"),
+                    'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $piagamFilename,
                     'tgl_file' => $request->tgl_doc,
                 ]);
@@ -236,7 +236,7 @@ class AdminController extends Controller
                     'id_satpen' => $satpen->id_satpen,
                     'typefile' => "sk",
                     'no_file' => $autoNomorSurat,
-                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "piagam"),
+                    'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $skFilename,
                     'tgl_file' => $request->tgl_doc,
                 ]);
@@ -305,7 +305,7 @@ class AdminController extends Controller
                     'id_satpen' => $satpen->id_satpen,
                     'typefile' => "piagam",
                 ])->update([
-                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "sk"),
+                    'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $piagamFilename,
                     'tgl_file' => $request->tgl_doc,
                 ]);
@@ -314,7 +314,7 @@ class AdminController extends Controller
                     'typefile' => "sk",
                 ])->update([
                     'no_file' => $autoNomorSurat,
-                    'qrcode' => GenerateQr::encodeQr($satpen->id_satpen, "piagam"),
+                    'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $skFilename,
                     'tgl_file' => $request->tgl_doc,
                 ]);

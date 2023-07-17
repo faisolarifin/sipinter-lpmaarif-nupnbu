@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GeneralController::class, 'homePage'])->name('home');
+Route::get('/verify/{qrcode?}', [GeneralController::class, 'verifyDokumenPage'])->name('verify');
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProses'])->name('login.proses');
 Route::get('/register', [AuthController::class, 'registerPage'])->name('register');
@@ -63,6 +64,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::resource('/cabang', PengurusCabangController::class);
         Route::resource('/jenjang', JenjangPendidikanController::class);
 
+        Route::get('/', [AdminController::class, 'dashboardPage'])->name('a.dash');
         Route::get('/dashboard', [AdminController::class, 'dashboardPage'])->name('a.dash');
         Route::get('/satpen', [AdminController::class, 'permohonanRegisterSatpen'])->name('a.satpen');
         Route::put('/satpen/{satpen}/status', [AdminController::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');

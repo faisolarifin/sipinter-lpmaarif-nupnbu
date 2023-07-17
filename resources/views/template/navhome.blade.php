@@ -18,7 +18,7 @@
                     <a class="nav-link" href="#">Kontak</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Verifikasi Dokumen</a>
+                    <a class="nav-link" href="{{ route('verify') }}">Verifikasi Dokumen</a>
                 </li>
             </ul>
             @if(\Illuminate\Support\Facades\Auth::user() !== NULL)

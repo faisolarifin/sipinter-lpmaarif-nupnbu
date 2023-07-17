@@ -8,6 +8,7 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Logo\Logo;
+use Illuminate\Support\Str;
 use Mockery\Exception;
 
 class GenerateQr {
@@ -41,11 +42,8 @@ class GenerateQr {
 
     }
 
-    public static function encodeQr($code, $type) {
-        return base64_encode(json_encode([
-            "code" => $code,
-            "type" => $type,
-        ]));
+    public static function encodeQr() {
+        return route('verify', str_replace("-", "", Str::uuid()));
     }
 
 

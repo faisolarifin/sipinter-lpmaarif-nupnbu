@@ -12,7 +12,7 @@
                         <a href="./index.html" class="text-nowrap text-center logo-img d-block py-2 w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
                         </a>
-                        <p class="text-center fw-medium mb-4">Sistem Administrasi Pendidikan <br> LP Ma'arif Nahdlatul Ulama</p>
+                        <p class="text-center fw-medium mb-4">Sistem Administrasi Pendidikan Terpadu <br> Lembaga Pendidikan Ma'arif NU PBNU</p>
                         @include('template.alert')
                         <form class="pt-3" action="{{ route('ceknpsn.proses') }}" method="post">
                             @csrf

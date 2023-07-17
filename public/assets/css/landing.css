@@ -115,3 +115,15 @@ body {
     background: #fff;
     box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 }
+.h-row {
+    min-height: 20rem;
+}
+.bg-file-image {
+    background: #EAEFF4;
+    font-size: 4em;
+    height: 100%;
+}
+.card-verify {
+    background: #EAEFF4;
+    border: .3rem dotted #d3d4d5;
+}

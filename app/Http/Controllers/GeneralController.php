@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Alkoumi\LaravelHijriDate\Hijri;
 use App\Helpers\Date;
-use App\Helpers\ReferensiKemdikbud;
+use App\Models\FileUpload;
 use App\Models\Informasi;
 use App\Models\Satpen;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class GeneralController extends Controller
 {
@@ -21,6 +20,20 @@ class GeneralController extends Controller
         return view('landing.home', compact('jmlSatpenByJenjang', 'jmlSatpenByKabupaten', 'berandaInformasi', 'countSatpen'));
     }
 
+    public function verifyDokumenPage($qrcode = null) {
+        if ($qrcode) {
+            try {
+                $verifyData = FileUpload::where("qrcode", "=", request()->url())->first();
+                $satpenData = Satpen::find($verifyData->id_satpen);
+                return view('landing.resultverify', compact('verifyData', 'satpenData'));
+
+            } catch (\Exception $e) {
+
+            }
+        }
+        return view('landing.verify');
+    }
+
     public function totalSatpenByJenjang($npsn=null) {
 //
 //        if ($npsn) {
@@ -30,7 +43,7 @@ class GeneralController extends Controller
 //            return response($cloneSekolah->getResult());
 //        }
 //        return response("Invalid npsn");
-        return Date::tglHijriyah("2023-07-19");
+        return route('verify', str_replace("-", "", Str::uuid()));
 
     }
 }

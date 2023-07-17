@@ -8,7 +8,7 @@
             <div class="col-sm-10">
                 <a href="./index.html" class="text-nowrap logo-img d-block py-2 w-100">
                     <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
-                    <h6 class="fw-bold">Sistem Administrasi Pendidikan LP Ma'arif Nahdlatul Ulama</h6>
+                    <h6 class="fw-bold">Sistem Administrasi Pendidikan Terpadu Lembaga Pendidikan Ma'arif NU PBNU</h6>
                 </a>
             </div>
         </div>
