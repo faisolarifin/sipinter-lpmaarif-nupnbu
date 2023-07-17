@@ -68,14 +68,16 @@
                         <h5>Helpdesk</h5>
                         <div class="row">
                             <div class="col-sm-6">
-                                <p class="mb-1"><i class="ti ti-mail"></i>
-                                    faisolofficial99@gmail.com</p>
+                                <p><i class="ti ti-mail"></i>
+                                    Email. sekretariat@maarifnu.org</p>
                                 <p><i class="ti ti-phone"></i>
-                                    082335685138</p>
+                                    Telp. 021-3904115</p>
+                                <p><i class="ti ti-number"></i>
+                                    Fax. 021-31906679</p>
                             </div>
                             <div class="col-sm-6">
                                 <p><i class="ti ti-map"></i>
-                                    Jalan Asam Wulung Meddelan Tengah, Desa Meddelan, Kecematan Lenteng, Kabupaten Sumenep, Jawa Timur 69461</p>
+                                    Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ body {
 }
 .sum-satpen .card-body h5:not(.num) {
     font-weight: 600;
-    color: #4F73D9;
+    color: #327B32;
     margin-bottom: 0;
 }
 .sum-satpen .card-body h2 {
@@ -33,9 +33,12 @@ body {
     }
 
 }
-.card-jml-perkab {
+.card-infomasi {
     max-height: 29rem;
     overflow: auto;
+}
+.card-infomasi p {
+    font-weight: 300;
 }
 .flex-card .card {
     box-shadow: none;
@@ -66,7 +69,7 @@ body {
 }
 .menu-title .deff {
     font-weight: 600;
-    color: #4F73D9;
+    color: #F8B23E;
 }
 #map-indonesia {
     height: 500px;
@@ -126,4 +129,34 @@ body {
 .card-verify {
     background: #EAEFF4;
     border: .3rem dotted #d3d4d5;
+}
+.footer-up {
+    background: rgba(50, 123, 50, 0.95);
+    min-height: 10rem;
+}
+.footer-up img {
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: .3rem;
+}
+.footer-up p {
+    color: #fff;
+    font-weight: 400;
+}
+.footer-up .address p {
+    color: #fff;
+    margin-bottom: .2rem;
+}
+.footer-up .address p:nth-child(even) {
+    margin-bottom: .6rem;
+    font-weight: 400;
+}
+.footer-up .address p:nth-child(odd) {
+    color: #F8B23E;
+}
+.footer-down {
+    background: #E0BD66;
+    color: #111;
+}
+.bg-coksu {
+    background: #E0BD66;
 }

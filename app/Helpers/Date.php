@@ -96,7 +96,8 @@ class Date {
 
     public static function tglReverse($tanggal)
     {
-        $pecahkan = explode('-', $tanggal);
+        $pecahkan = explode(' ', $tanggal);
+        $pecahkan = explode('-', $pecahkan[0]);
 
         if (count($pecahkan) == 1) return "";
 
