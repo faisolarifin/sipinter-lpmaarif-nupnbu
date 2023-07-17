@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CatchErrorException;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
 use App\Models\Satpen;
@@ -22,7 +23,8 @@ class ApiController extends Controller
 
             }
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GET SATPEN BY ID] has error ". $e);
+
         }
     }
 
@@ -36,7 +38,8 @@ class ApiController extends Controller
 
             }
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GET KABUPATEN BY PROV] has error ". $e);
+
         }
     }
 
@@ -50,7 +53,8 @@ class ApiController extends Controller
             return response()->json($recordPerPropinsi, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GET PROV AND COUNT] has error ". $e);
+
         }
 
     }
@@ -65,7 +69,8 @@ class ApiController extends Controller
             return response()->json($recordPerKabupaten, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GET KAB AND COUNT] has error ". $e);
+
         }
     }
 
@@ -77,7 +82,8 @@ class ApiController extends Controller
             return response()->json($recordByJenjang, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GET JENJANG AND COUNT] has error ". $e);
+
         }
     }
 

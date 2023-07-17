@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Exceptions\CatchErrorException;
 use App\Http\Controllers\Controller;
 use App\Models\{PengurusCabang, Provinsi};
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class PengurusCabangController extends Controller
             return redirect()->route('cabang.index')->with('success', 'Berhasil membuat cabang');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[CABANG STORE] has error ". $e);
+
         }
     }
 
@@ -36,7 +38,8 @@ class PengurusCabangController extends Controller
             return response()->json($cabang, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[CABANG SHOW] has error ". $e);
+
         }
     }
 
@@ -51,7 +54,8 @@ class PengurusCabangController extends Controller
             return redirect()->route('cabang.index')->with('success', 'Berhasil update pengurus cabang');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[CABANG UPDATE] has error ". $e);
+
         }
     }
 
@@ -62,7 +66,8 @@ class PengurusCabangController extends Controller
             return redirect()->route('cabang.index')->with('success', 'Berhasil menghapus cabang');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[CABANG DESTROY] has error ". $e);
+
         }
     }
 }

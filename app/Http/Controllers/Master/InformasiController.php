@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Exceptions\CatchErrorException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditInformasiRequest;
 use App\Http\Requests\PostInformasiRequest;
@@ -52,7 +53,8 @@ class InformasiController extends Controller
             return redirect()->route('informasi.index')->with('success', 'Berhasil posting informasi');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[INFORMASI STORE] has error ". $e);
+
         }
     }
 
@@ -93,7 +95,8 @@ class InformasiController extends Controller
             return redirect()->route('informasi.index')->with('success', 'Berhasil update informasi');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[INFORMASI UPDATE] has error ". $e);
+
         }
     }
 
@@ -110,7 +113,8 @@ class InformasiController extends Controller
             return redirect()->route('informasi.index')->with('success', 'Berhasil menghapus informasi');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[INFORMASI DESTROY] has error ". $e);
+
         }
     }
 }

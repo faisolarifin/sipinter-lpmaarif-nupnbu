@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Exceptions\CatchErrorException;
 use App\Http\Controllers\Controller;
 use App\Models\Jenjang;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class JenjangPendidikanController extends Controller
             return redirect()->route('jenjang.index')->with('success', 'Berhasil membuat jenjang pendidikan');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[JENJANG STORE] has error ". $e);
+
         }
     }
 
@@ -34,7 +36,8 @@ class JenjangPendidikanController extends Controller
             return response()->json($jenjang, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[JENJANG SHOW] has error ". $e);
+
         }
     }
 
@@ -48,7 +51,8 @@ class JenjangPendidikanController extends Controller
             return redirect()->route('jenjang.index')->with('success', 'Berhasil update jenjang pendidikan');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[JENJANG UPDATE] has error ". $e);
+
         }
     }
 
@@ -59,7 +63,8 @@ class JenjangPendidikanController extends Controller
             return redirect()->route('jenjang.index')->with('success', 'Berhasil menghapus jenjang pendidikan');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[JENJANG DESTROY] has error ". $e);
+
         }
     }
 }

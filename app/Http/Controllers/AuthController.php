@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CatchErrorException;
 use App\Helpers\ReferensiKemdikbud;
 use App\Helpers\Strings;
 use App\Models\Jenjang;
@@ -21,27 +22,31 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     public function registerPage() {
-        $request = Request::capture();
-        $cookieValue = $request->cookie('dapo');
+        try {
+            $request = Request::capture();
+            $cookieValue = $request->cookie('dapo');
 
-        if (!$cookieValue) return redirect()->route('ceknpsn');
+            if (!$cookieValue) return redirect()->route('ceknpsn');
 
-        $cookieValue = json_decode($cookieValue);
+            $cookieValue = json_decode($cookieValue);
 
-        $keyProv = Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln);
-        $selectedProv = Provinsi::where('nm_prov', 'like', $keyProv)->first();
-        if ($selectedProv) {
-            $kabupaten = Kabupaten::where('id_prov', '=', $selectedProv->id_prov)
-                            ->orderBy('id_kab')->get();
-            $cabang = PengurusCabang::where('id_prov', '=', $selectedProv->id_prov)
-                            ->orderBy('id_pc')->get();
-            $propinsi = Provinsi::orderBy('id_prov')->get();
-            $jenjang = Jenjang::orderBy('id_jenjang')->get();
+            $keyProv = Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln);
+            $selectedProv = Provinsi::where('nm_prov', 'like', $keyProv)->first();
+            if ($selectedProv) {
+                $kabupaten = Kabupaten::where('id_prov', '=', $selectedProv->id_prov)
+                                ->orderBy('id_kab')->get();
+                $cabang = PengurusCabang::where('id_prov', '=', $selectedProv->id_prov)
+                                ->orderBy('id_pc')->get();
+                $propinsi = Provinsi::orderBy('id_prov')->get();
+                $jenjang = Jenjang::orderBy('id_jenjang')->get();
 
-            return view('auth.register', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
+                return view('auth.register', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
+            }
+            return redirect()->back()->with("error", "Provinsi belum ada pada sistem");
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[REGISTER PAGE] has error ". $e);
         }
-
-        return redirect()->back()->with("error", "Provinsi belum ada pada sistem");
     }
 
     public function loginPage() {
@@ -64,7 +69,7 @@ class AuthController extends Controller
             }
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[LOGIN PROSES] has error ". $e);
         }
     }
 
@@ -96,7 +101,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', $cloneSekolah->getResult());
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e);
+            throw new CatchErrorException("[CHECK NPSN] has error ". $e);
         }
     }
 
@@ -157,7 +162,7 @@ class AuthController extends Controller
             return redirect()->route('login')->with('success', 'Password berhasil diganti');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[CHANGE PASSWORD] has error ". $e);
         }
     }
 

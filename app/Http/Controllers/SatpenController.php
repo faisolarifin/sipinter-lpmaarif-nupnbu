@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CatchErrorException;
 use App\Http\Requests\StatusSatpenRequest;
 use App\Mail\RegisterMail;
 use App\Models\FileRegister;
@@ -128,8 +129,7 @@ class SatpenController extends Controller
                         $satpen);
 
                 } catch (\Exception $e) {
-//                    return redirect()->back()->with('error', $e);
-                    dd($e);
+                    throw new CatchErrorException("[REGISTER PROCESS INSERT] has error ". $e);
                 }
                 Mail::to($satpen->email)->send(new RegisterMail($registerNumber));
 
@@ -139,8 +139,7 @@ class SatpenController extends Controller
             return redirect()->back()->with('error', 'cannot create satpen kategori');
 
         } catch (\Exception $e) {
-//            return redirect()->back()->with('error', $e);
-            dd($e);
+            throw new CatchErrorException("[REGISTER PROCESS] has error ". $e);
         }
     }
 
@@ -277,7 +276,8 @@ class SatpenController extends Controller
             throw new \Exception("cannot create satpen kategori");
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[REVISION PROCESS] has error ". $e);
+
         }
     }
 
@@ -305,7 +305,8 @@ class SatpenController extends Controller
             return redirect()->back()->with('error', 'Document belum selesai');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[DOWNLOAD DOCUMENT] has error ". $e);
+
         }
     }
 

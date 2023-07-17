@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Exceptions\CatchErrorException;
 use App\Http\Controllers\Controller;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class PropinsiController extends Controller
             return redirect()->route('propinsi.index')->with('success', 'Berhasil membuat propinsi');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[PROPINSI STORE] has error ". $e);
+
         }
     }
 
@@ -34,7 +36,8 @@ class PropinsiController extends Controller
             return response()->json($propinsi, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[PROPINSI SHOW] has error ". $e);
+
         }
     }
 
@@ -48,7 +51,8 @@ class PropinsiController extends Controller
             return redirect()->route('propinsi.index')->with('success', 'Berhasil update propinsi');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[PROPINSI UPDATE] has error ". $e);
+
         }
     }
 
@@ -59,7 +63,8 @@ class PropinsiController extends Controller
             return redirect()->route('propinsi.index')->with('success', 'Berhasil menghapus propinsi');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[PROPINSI DESTROY] has error ". $e);
+
         }
     }
 }

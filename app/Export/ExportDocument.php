@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Export;
+use App\Exceptions\CatchErrorException;
 use App\Helpers\Date;
 use App\Helpers\GenerateQr;
 use App\Models\Satpen;
@@ -61,7 +62,8 @@ class ExportDocument
             return false;
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[MAKE PIAGAM DOKUMEN] has error ". $e);
+
         }
 
     }
@@ -138,7 +140,8 @@ class ExportDocument
             return false;
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[MAKE SK DOKUMEN] has error ". $e);
+
         }
 
     }

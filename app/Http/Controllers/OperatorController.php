@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CatchErrorException;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\PengurusCabang;
@@ -26,7 +27,8 @@ class OperatorController extends Controller
             return view('satpen.satpen', compact('satpenProfile'));
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[MYSATPEN PAGE] has error ". $e);
+
         }
     }
     public function editSatpenPage() {
@@ -46,7 +48,8 @@ class OperatorController extends Controller
             return view('satpen.revisi', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[EDIT SATPEN PAGE] has error ". $e);
+
         }
     }
     public function perpanjangSatpenPage() {
@@ -66,7 +69,8 @@ class OperatorController extends Controller
             return view('satpen.perpanjang', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[PERPANJANG SATPEN PAGE] has error ". $e);
+
         }
     }
 

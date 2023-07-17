@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CatchErrorException;
 use App\Helpers\Date;
 use App\Models\FileUpload;
 use App\Models\Informasi;
@@ -28,7 +29,7 @@ class GeneralController extends Controller
                 return view('landing.resultverify', compact('verifyData', 'satpenData'));
 
             } catch (\Exception $e) {
-
+                throw new CatchErrorException("[VERIFY DOCUMENT PAGE] has error ". $e);
             }
         }
         return view('landing.verify');

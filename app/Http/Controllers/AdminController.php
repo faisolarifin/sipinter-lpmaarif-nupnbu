@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CatchErrorException;
 use App\Export\ExportDocument;
 use App\Helpers\GenerateQr;
 use App\Mail\StatusMail;
@@ -45,7 +46,8 @@ class AdminController extends Controller
                             "recordPerPropinsi", "countPerStatus"));
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[DASHBOARD PAGE] has error ". $e);
+
         }
     }
 
@@ -112,7 +114,8 @@ class AdminController extends Controller
                 'propinsi', 'jenjang', 'kategori', 'countSatpen'));
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GET ALL SATPEN OR FILTER] has error ". $e);
+
         }
     }
 
@@ -128,7 +131,8 @@ class AdminController extends Controller
 
             }
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GET SATPEN BY ID] has error ". $e);
+
         }
     }
 
@@ -150,7 +154,8 @@ class AdminController extends Controller
             return view('admin.satpen.registersatpen', compact('permohonanSatpens', 'revisiSatpens', 'prosesDocuments', 'perpanjanganDocuments'));
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[PERMOHONAN REGISTER SATPEN] has error ". $e);
+
         }
     }
 
@@ -175,7 +180,8 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Status satpen telah diupdate menjadi '. $request->status_verifikasi);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[UPDATE SATPEN STATUS] has error ". $e);
+
         }
     }
 
@@ -271,7 +277,8 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'satpen tidak ditemukan!');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[GENERATE PIAGAM AND SK] has error ". $e);
+
         }
     }
 
@@ -349,7 +356,8 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'satpen tidak ditemukan!');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[REGENERATE PIAGAM AND SK] has error ". $e);
+
         }
     }
 
@@ -370,7 +378,8 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Berhasil menghapus satpen');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[DESTROY SATPEN] has error ". $e);
+
         }
 
     }

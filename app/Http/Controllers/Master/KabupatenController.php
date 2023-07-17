@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Exceptions\CatchErrorException;
 use App\Http\Controllers\Controller;
 use App\Models\{Kabupaten, Provinsi};
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class KabupatenController extends Controller
             return redirect()->route('kabupaten.index')->with('success', 'Berhasil membuat kabupaten');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[KABUPATEN STORE] has error ". $e);
+
         }
     }
 
@@ -35,7 +37,8 @@ class KabupatenController extends Controller
             return response()->json($kabupaten, HttpResponse::HTTP_OK);
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[KABUPATEN SHOW] has error ". $e);
+
         }
     }
 
@@ -49,7 +52,8 @@ class KabupatenController extends Controller
             return redirect()->route('kabupaten.index')->with('success', 'Berhasil update kabupaten');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[KABUPATEN UPDATE] has error ". $e);
+
         }
     }
 
@@ -60,7 +64,8 @@ class KabupatenController extends Controller
             return redirect()->route('kabupaten.index')->with('success', 'Berhasil menghapus kabupaten');
 
         } catch (\Exception $e) {
-            dd($e);
+            throw new CatchErrorException("[KABUPATEN DESTROY] has error ". $e);
+
         }
     }
 }
