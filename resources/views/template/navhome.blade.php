@@ -12,7 +12,7 @@
                     <a class="nav-link" href="{{ route('home') }}">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Informasi</a>
+                    <a class="nav-link" href="{{ route('informasi') }}">Informasi</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Kontak</a>

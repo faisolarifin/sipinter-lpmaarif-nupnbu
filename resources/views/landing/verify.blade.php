@@ -54,15 +54,8 @@
         </div>
     </div>
 
-    <div class="container-fluid login-side-right mt-5">
-        <div class="row justify-content-center">
-            <div class="col-sm-10">
-                <div class="py-6 px-6">
-                    <p class="mb-0 fs-4 py-3"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan LP Ma'arif NU </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('template.footer')
+
 @endsection
 
 @section('scripts')

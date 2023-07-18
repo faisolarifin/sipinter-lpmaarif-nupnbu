@@ -22,17 +22,34 @@ class GeneralController extends Controller
     }
 
     public function verifyDokumenPage($qrcode = null) {
-        if ($qrcode) {
-            try {
+        try {
+            if ($qrcode) {
                 $verifyData = FileUpload::where("qrcode", "=", request()->url())->first();
+                if (!$verifyData) {
+                    return view('landing.resultverify', compact('verifyData'));
+                }
                 $satpenData = Satpen::find($verifyData->id_satpen);
                 return view('landing.resultverify', compact('verifyData', 'satpenData'));
+            }
+            return view('landing.verify');
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[VERIFY DOCUMENT PAGE] has error ". $e);
+        }
+    }
+
+    public function readInformasiPage($slug = null) {
+            try {
+                $berandaInformasi = Informasi::orderBy('id_info')->limit(5)->get();
+                if ($slug) {
+                    $readInfo = Informasi::where('slug', '=', $slug)->first();
+                    return view('landing.informasi', compact('berandaInformasi', 'readInfo'));
+                }
+                return view('landing.informasi', compact('berandaInformasi'));
 
             } catch (\Exception $e) {
-                throw new CatchErrorException("[VERIFY DOCUMENT PAGE] has error ". $e);
+                throw new CatchErrorException("[READ INFORMASI PAGE] has error ". $e);
             }
-        }
-        return view('landing.verify');
     }
 
     public function totalSatpenByJenjang($npsn=null) {

@@ -50,8 +50,8 @@
             <div class="row">
                 <div class="col text-center">
                     <div class="border rounded py-4 px-3">
-                        <h2 style="color:#327B32;">SELAMAT DATANG DI LAYANAN SIAPINTAR</h2>
-                        <small>Sistem pelayanan administrasi pendidikan terpadu dalam naungan lembaga pendidikan Ma'arif Nu PBNU</small>
+                        <h2 style="color:#327B32;">SELAMAT DATANG DI LAYANAN SIAPINTER</h2>
+                        <small>Sistem pelayanan administrasi pendidikan terpadu dalam naungan lembaga pendidikan Ma'arif NU PBNU</small>
                         <hr class="w-60 mx-auto">
                         <a href="{{ route('verify') }}" class="btn btn-primary mb-1"><i class="ti ti-camera"></i> VALIDASI DOKUMEN</a>
                     </div>
@@ -110,47 +110,8 @@
 
     </div>
 
-    <div class="container-fluid footer-up mt-5">
-        <div class="row">
-            <div class="container">
-                <div class="row py-5">
-                    <div class="col-12 col-sm-6">
-                        <div class="d-flex">
-                            <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" width="100" alt="Logo NU">
-                            <p class="mx-2">Sistem Administrasi Pendidikan Terpadu (SIAPINTER) Lembaga Pendidikan Ma'arif NU PBNU merupakan sistem terpadu untuk pengurusan dokumen satuan pendidikan. </p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-2">
-                        <div class="text-center">
-                            <p class="mb-2">Intergrasi Data</p>
-                            <img src="{{ asset('assets/images/backgrounds/33ddc3bc2640689.png') }}" width="100" alt="">
+    @include('template.footer')
 
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <div class="address">
-                            <p>Alamat</p>
-                            <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320s</p>
-                            <p>Telp.</p>
-                            <p>021-3904115</p>
-                            <p>Email</p>
-                            <p>sekretariat@maarifnu.org</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid footer-down">
-        <div class="row justify-content-center">
-            <div class="col-sm-10">
-                <div class="py-6 px-6">
-                    <p class="mb-0 fs-4 py-3"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU </p>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('scripts')
@@ -174,7 +135,7 @@
                 ['id-sw', 26], ['id-ku', 27], ['id-la', 28], ['id-sb', 29],
                 ['id-ma', 30], ['id-nb', 31], ['id-sg', 32], ['id-st', 33],
                 ['id-pa', 34], ['id-jr', 35], ['id-ki', 36], ['id-1024', 37],
-                ['id-jk', 38], ['id-go', 39], ['id-yo', 40], ['id-sl', 100],
+                ['id-jk', 38], ['id-go', 39], ['id-yo', 40], ['id-sl', 20],
                 ['id-sr', 42], ['id-ja', 43], ['id-kt', 44]
             ];
 

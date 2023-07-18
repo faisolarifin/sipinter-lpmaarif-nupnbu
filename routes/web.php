@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GeneralController::class, 'homePage'])->name('home');
 Route::get('/verify/{qrcode?}', [GeneralController::class, 'verifyDokumenPage'])->name('verify');
-Route::get('/informasi/{slug?}', [GeneralController::class, 'verifyDokumenPage'])->name('informasi');
+Route::get('/informasi/{slug?}', [GeneralController::class, 'readInformasiPage'])->name('informasi');
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProses'])->name('login.proses');
 Route::get('/register', [AuthController::class, 'registerPage'])->name('register');

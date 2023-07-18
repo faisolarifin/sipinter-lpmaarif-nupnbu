@@ -35,6 +35,7 @@ return new class extends Migration
          */
         Schema::create('provinsi', function (Blueprint $table) {
             $table->id('id_prov');
+            $table->string('map', 10)->nullable();
             $table->string('kode_prov', 10);
             $table->string('nm_prov', 100);
             $table->timestamps();
