@@ -74,7 +74,7 @@ class AuthController extends Controller
     }
 
     public function cekNpsnPage() {
-        return view('auth.coba');
+        return view('auth.ceknpsn');
     }
 
     public function checkNpsn(CekNpsnRequest $request)
