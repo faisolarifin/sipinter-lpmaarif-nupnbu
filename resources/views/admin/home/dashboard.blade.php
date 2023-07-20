@@ -164,7 +164,7 @@
                         </thead>
                         <tbody>
                         @foreach($recordPerPropinsi as $row)
-                        <tr>
+                        <tr onclick="window.location='{{ route("a.rekapsatpen") . "?provinsi=".$row->id_prov }}'" class="cursor-pointer">
                             <td>{{ $row->nm_prov }}</td>
                             <td>{{ $row->record_count }}</td>
                         </tr>

@@ -21,7 +21,7 @@
                 <span>
                   <i class="ti ti-file-description"></i>
                 </span>
-                <span class="hide-menu">My Satpen</span>
+                <span class="hide-menu">My Profile</span>
             </a>
         </li>
         <li class="sidebar-item">

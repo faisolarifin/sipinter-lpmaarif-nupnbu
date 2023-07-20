@@ -31,7 +31,7 @@ class AdminController extends Controller
             $countOfKabupaten = Kabupaten::count("id_kab");
             $countOfPropinsi = Provinsi::count("id_prov");
             $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired'])->count("id_satpen");
-            $recordPerPropinsi = DB::select("SELECT nm_prov,
+            $recordPerPropinsi = DB::select("SELECT id_prov, nm_prov,
                                                     (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov) AS record_count
                                                      FROM provinsi");
 

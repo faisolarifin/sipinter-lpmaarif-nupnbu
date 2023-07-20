@@ -1,6 +1,11 @@
 @extends('template.general', [
     'title' => 'Siapin - Register'
 ])
+
+@section('style')
+    <script src="{{ asset('assets/libs/bootstrap-select/css/bootstrap-select.min.css') }}"></script>
+@endsection
+
 @section('container')
 <div class="d-flex flex-column align-items-center">
     <div class="container-fluid login-side-right">
@@ -87,7 +92,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="propinsi" class="form-label">Propinsi</label>
-                                        <select class="form-select form-select-sm @error('propinsi') is-invalid @enderror" name="propinsi">
+                                        <select class="form-select form-select-sm my-select @error('propinsi') is-invalid @enderror" name="propinsi">
                                             @foreach($propinsi as $row)
                                                 <option value="{{ $row->id_prov }}" {{ strtolower($row->nm_prov) == Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln) ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
                                             @endforeach
@@ -427,6 +432,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('assets/libs/bootstrap-select/js/bootstrap-select.js') }}"></script>
     <script>
         $(".row-nm-yayasan").hide();
         $("#yayasan").on('change', function(e) {
@@ -449,5 +455,7 @@
                 toggleIcon.removeClass("ti-eye").addClass("ti-eye-off");
             }
         });
+
+        $('.my-select').selectpicker();
     </script>
 @endsection

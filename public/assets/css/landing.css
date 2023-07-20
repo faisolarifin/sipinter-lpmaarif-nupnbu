@@ -139,10 +139,6 @@ body {
     background: rgba(50, 123, 50, 0.95);
     min-height: 10rem;
 }
-.footer-up img {
-    background: rgba(255, 255, 255, 0.94);
-    border-radius: .3rem;
-}
 .footer-up p {
     color: #fff;
     font-weight: 400;
