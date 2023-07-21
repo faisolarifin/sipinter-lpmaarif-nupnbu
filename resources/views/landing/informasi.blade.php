@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => "Siapinter - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU"
+    'title' => "Siapinter - ". $readInfo->headline
 ])
 
 @section('style')

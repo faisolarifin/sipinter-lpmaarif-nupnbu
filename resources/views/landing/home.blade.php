@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => "Siapinter - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU"
+    'title' => "Dashboard - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU"
 ])
 
 @section('style')
@@ -124,22 +124,29 @@
                 'https://code.highcharts.com/mapdata/countries/id/id-all.topo.json'
             ).then(response => response.json());
 
-    // Prepare demo data. The data is joined to map using value of 'hc-key'
-    // property by default. See API docs for 'joinBy' for more info on linking
-    // data and map.
-            const data = [
-                ['id-3700', 10], ['id-ac', 11], ['id-jt', 12], ['id-be', 13],
-                ['id-bt', 14], ['id-kb', 15], ['id-bb', 16], ['id-ba', 17],
-                ['id-ji', 18], ['id-ks', 19], ['id-nt', 20], ['id-se', 21],
-                ['id-kr', 22], ['id-ib', 23], ['id-su', 24], ['id-ri', 25],
-                ['id-sw', 26], ['id-ku', 27], ['id-la', 28], ['id-sb', 29],
-                ['id-ma', 30], ['id-nb', 31], ['id-sg', 32], ['id-st', 33],
-                ['id-pa', 34], ['id-jr', 35], ['id-ki', 36], ['id-1024', 37],
-                ['id-jk', 38], ['id-go', 39], ['id-yo', 40], ['id-sl', 20],
-                ['id-sr', 42], ['id-ja', 43], ['id-kt', 44]
-            ];
+            const apiUrl = "{{ route('provcount') }}";
 
-    // Create the chart
+            let data = [];
+            await fetch(apiUrl)
+                .then(response => {
+                    // Check if the response is successful (status code 2xx)
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Parse the JSON data from the response
+                    return response.json();
+                })
+                .then(resdata => {
+                    // Process the JSON data
+                    resdata.map((item, index) => {
+                        data.push([item.map, item.record_count]);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+            // Create the chart
             Highcharts.mapChart('map-indonesia', {
                 chart: {
                     map: topology

@@ -45,7 +45,7 @@ class ApiController extends Controller
 
     public function getProvAndCount() {
         try {
-            $recordPerPropinsi = DB::select("SELECT nm_prov,
+            $recordPerPropinsi = DB::select("SELECT nm_prov, map,
                                                         (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov) AS record_count
                                                          FROM provinsi");
             if (!$recordPerPropinsi) return response()->json(['error' => 'Forbidden to access record']);

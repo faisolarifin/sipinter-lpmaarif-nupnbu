@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => 'Siapin - Login'
+    'title' => 'Siapinter - Login'
 ])
 
 @section('container')
@@ -68,11 +68,11 @@
                         <h5>Helpdesk</h5>
                         <div class="row">
                             <div class="col-sm-6">
-                                <p><i class="ti ti-mail"></i>
+                                <p class="mb-1"><i class="ti ti-mail"></i>
                                     Email. sekretariat@maarifnu.org</p>
-                                <p><i class="ti ti-phone"></i>
+                                <p class="mb-1"><i class="ti ti-phone"></i>
                                     Telp. 021-3904115</p>
-                                <p><i class="ti ti-number"></i>
+                                <p><i class="ti ti-brand-telegram"></i>
                                     Fax. 021-31906679</p>
                             </div>
                             <div class="col-sm-6">

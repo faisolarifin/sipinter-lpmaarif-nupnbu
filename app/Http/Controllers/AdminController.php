@@ -67,24 +67,25 @@ class AdminController extends Controller
             if ($request->jenjang
                     || $request->kabupaten
                     || $request->provinsi
-                    || $request->kategori || $request->keyword) {
+                    || $request->kategori || $request->keyword || $request->status) {
 
                 $filter = [];
+                $statuses = ['setujui', 'expired'];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
                 if ($request->kategori) $filter["id_kategori"] = $request->kategori;
-//                if ($request->yayasan) $filter["yayasan"] = $request->yayasan;
+                if ($request->status) $statuses = [$request->status];
                 if ($request->keyword) array_push($filter, ["nm_satpen", "like", "%". $request->keyword ."%"]);
 
-                if ($filter) {
+                if ($filter || $statuses) {
                     $satpenProfile = Satpen::with([
                         'kategori:id_kategori,nm_kategori',
                         'provinsi:id_prov,nm_prov',
                         'kabupaten:id_kab,nama_kab',
                         'jenjang:id_jenjang,nm_jenjang',])
                         ->select($selectedColumns)
-                        ->whereIn('status', ['setujui', 'expired'])
+                        ->whereIn('status', $statuses)
                         ->where($filter)
                         ->paginate($paginatePerPage);
                 }

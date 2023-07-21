@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CatchErrorException;
-use App\Helpers\Date;
 use App\Models\FileUpload;
 use App\Models\Informasi;
 use App\Models\Satpen;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class GeneralController extends Controller
 {
@@ -50,18 +48,5 @@ class GeneralController extends Controller
             } catch (\Exception $e) {
                 throw new CatchErrorException("[READ INFORMASI PAGE] has error ". $e);
             }
-    }
-
-    public function totalSatpenByJenjang($npsn=null) {
-//
-//        if ($npsn) {
-//            $cloneSekolah = new ReferensiKemdikbud();
-//            $cloneSekolah->clone($npsn);
-//
-//            return response($cloneSekolah->getResult());
-//        }
-//        return response("Invalid npsn");
-        return route('verify', str_replace("-", "", Str::uuid()));
-
     }
 }

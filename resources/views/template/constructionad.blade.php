@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'SIAPIN - Under Construction'
+    'title' => 'Siapinter - Under Construction'
 ])
 
 @section('navbar')

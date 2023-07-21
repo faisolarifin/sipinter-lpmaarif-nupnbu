@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => 'Siapin - Register'
+    'title' => 'Siapinter - Register'
 ])
 
 @section('style')

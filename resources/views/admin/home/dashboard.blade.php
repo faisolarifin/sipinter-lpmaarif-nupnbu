@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapin Admin - Dashboard'
+    'title' => 'Siapinter Admin - Dashboard'
 ])
 
 @section('navbar')
@@ -87,7 +87,7 @@
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <h5 class="card-title mb-0 fw-semibold">Satpen Kabupaten</h5>
-                    <form class="form">
+                    <form class="form" style="width:40%;">
                         <select id="chartSelectProv" class="form-select form-select-sm">
                             @foreach($listProvinsi as $row)
                             <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
@@ -151,7 +151,7 @@
             <div class="card-body p-4">
                 <h5 class="card-title fw-semibold mb-4">Record Per Propinsi</h5>
                 <div class="table-responsive">
-                    <table class="table text-nowrap mb-0 align-middle" id="datatb">
+                    <table class="table table-hover text-nowrap mb-0 align-middle table-container" id="datatb">
                         <thead class="text-dark fs-4">
                         <tr>
                             <th>
@@ -164,7 +164,7 @@
                         </thead>
                         <tbody>
                         @foreach($recordPerPropinsi as $row)
-                        <tr onclick="window.location='{{ route("a.rekapsatpen") . "?provinsi=".$row->id_prov }}'" class="cursor-pointer">
+                        <tr class="cursor-pointer clickable-row" data-href="{{ route('a.rekapsatpen', ["provinsi" => $row->id_prov]) }}">
                             <td>{{ $row->nm_prov }}</td>
                             <td>{{ $row->record_count }}</td>
                         </tr>
@@ -180,25 +180,33 @@
             <div class="card-body p-4">
                 <h5 class="card-title fw-semibold mb-4">Pemetaan Status</h5>
                 <div class="table-responsive">
-                    <table class="table table-bordered text-nowrap mb-0 align-middle">
+                    <table class="table table-hover table-bordered text-nowrap mb-0 align-middle">
                         <tbody>
-                        <tr>
+                        <tr class="cursor-pointer clickable-sigle-row" data-link="{{ route('a.satpen'). "#permohonan" }}">
                             <td class="d-flex justify-content-between">
                                 <span>Permohonan</span>
                                 <span class="badge bg-primary rounded-3 fw-semibold">{{ $countPerStatus[0]->permohonan }}</span>
                             </td>
+                        </tr>
+                        <tr class="cursor-pointer clickable-sigle-row" data-link="{{ route('a.satpen'). "#dokumen" }}">
                             <td class="d-flex justify-content-between">
                                 <span>Proses Dokumen</span>
                                 <span class="badge bg-info rounded-3 fw-semibold">{{ $countPerStatus[0]->proses_dokumen }}</span>
                             </td>
+                        </tr>
+                        <tr class="cursor-pointer clickable-sigle-row" data-link="{{ route('a.satpen'). "#revisi" }}">
                             <td class="d-flex justify-content-between">
                                 <span>Revisi</span>
                                 <span class="badge bg-warning rounded-3 fw-semibold">{{ $countPerStatus[0]->revisi }}</span>
                             </td>
+                        </tr>
+                        <tr class="cursor-pointer clickable-sigle-row" data-link="{{ route('a.rekapsatpen', ["status" => "expired"]) }}">
                             <td class="d-flex justify-content-between">
                                 <span>Expired</span>
                                 <span class="badge bg-danger rounded-3 fw-semibold">{{ $countPerStatus[0]->expired }}</span>
                             </td>
+                        </tr>
+                        <tr class="cursor-pointer clickable-sigle-row" data-link="{{ route('a.satpen'). "#perpanjang" }}">
                             <td class="d-flex justify-content-between">
                                 <span>Perpanjangan</span>
                                 <span class="badge bg-success rounded-3 fw-semibold">{{ $countPerStatus[0]->perpanjangan }}</span>
@@ -227,6 +235,15 @@
             paging: true,     // Enable pagination
             lengthChange: false, // Show "Entries" dropdown
             pageLength: 5,
+        });
+
+        $(".table-container").on("click", ".clickable-row", function() {
+            let url = $(this).attr("data-href");
+            window.location.href = url;
+        });
+        $(".clickable-sigle-row").on("click", function () {
+            let url = $(this).attr("data-link");
+            window.location.href = url;
         });
     });
 

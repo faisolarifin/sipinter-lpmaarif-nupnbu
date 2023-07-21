@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'SIAPIN - Table'
+    'title' => 'Siapinter - Rekapitulasi Satuan Pendidikan'
 ])
 
 @section('navbar')
@@ -68,6 +68,13 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="me-sm-2">
+                                <select class="form-select form-select-sm" name="status">
+                                    <option value="">STATUS</option>
+                                    <option value="setujui" {{ 'setujui' == request()->status ? 'selected' : '' }}>Active</option>
+                                    <option value="expired" {{ 'expired' == request()->status ? 'selected' : '' }}>Expired</option>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-primary btn-sm">Filter</button>
 
                         </div>
@@ -134,15 +141,7 @@
 @endsection
 
 @section('scripts')
-<script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
 <script>
-    // $(document).ready(function () {
-    //     $('#mytable').DataTable({
-    //         pageLength: 25,
-    //     });
-    // });
-
     $(".deleteBtn").on('click', function () {
         if (confirm("benar anda akan menghapus data?")) {
             return true;

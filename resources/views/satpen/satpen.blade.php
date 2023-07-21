@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'SIAPIN - Satpen'
+    'title' => 'Siapinter - Detail My Profile'
 ])
 
 @section('style')

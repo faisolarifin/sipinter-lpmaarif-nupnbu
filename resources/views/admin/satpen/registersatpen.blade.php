@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'SIAPIN - Table'
+    'title' => 'Siapinter - Tab Registrasi Satuan Pendidikan'
 ])
 
 @section('navbar')
@@ -231,6 +231,18 @@
         $('#mytable1').DataTable();
         $('#mytable2').DataTable();
         $('#mytable3').DataTable();
+
+        // Get the hash value from the URL (e.g., #profile)
+        let hash = window.location.hash;
+        // If a hash is present and corresponds to a tab, activate that tab
+        if (hash) {
+            $('.nav-link[data-bs-toggle="tab"][data-bs-target="' + hash + '"]').tab('show');
+        }
+        // Update the URL hash when a tab is clicked
+        $('.nav-link[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+            let target = $(e.target).attr('data-bs-target');
+            window.location.hash = target;
+        });
     });
 
 </script>

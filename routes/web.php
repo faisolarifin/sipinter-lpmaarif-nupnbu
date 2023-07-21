@@ -38,6 +38,7 @@ Route::post('/register', [SatpenController::class, 'registerProses'])->name('reg
 Route::get('/ceknpsn', [AuthController::class, 'cekNpsnPage'])->name('ceknpsn');
 Route::post('/ceknpsn', [AuthController::class, 'checkNpsn'])->name('ceknpsn.proses');
 Route::get('/register/success', [AuthController::class, 'registerSuccess'])->name('register.success');
+Route::get('/json/provcount', [ApiController::class, 'getProvAndCount'])->name('provcount');
 
 Route::middleware('mustlogin')->group(function() {
 
@@ -79,16 +80,13 @@ Route::middleware('mustlogin')->group(function() {
 
     });
     Route::prefix('api')->middleware('onlyadmin')->group(function () {
+        Route::get('/provcount', [ApiController::class, 'getProvAndCount'])->name('api.provcount');
         Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
-       Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov');
-       Route::get('/provcount', [ApiController::class, 'getProvAndCount'])->name('api.provcount');
-       Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
-       Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
+        Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov');
+        Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
+        Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
     });
     Route::middleware('onlyadmin')->group(function() {
         Route::get('/generate/{type?}/{fileName?}', [AdminController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
     });
 });
-
-Route::get('test/{npsn?}', [GeneralController::class, 'totalSatpenByJenjang']);
-Route::post("nyoba yaa")->name("coba");
