@@ -23,6 +23,6 @@ class Informasi extends Model
 
     public function file()
     {
-        return $this->belongsTo(InformasiFile::class, 'id_info');
+        return $this->hasMany(InformasiFile::class, 'id_info');
     }
 }

@@ -30,7 +30,7 @@
                                 <a href="{{ route('informasi', $row->slug) }}">
                                     <li class="list-group-item list-group-item-action">
                                         <h6 class="fw-bold mt-2 mb-1">{{ $row->headline }}</h6>
-                                        <p>{{ Str::limit($row->content, 70) }}</p>
+                                        {!! Str::limit($row->content, 70)  !!}
                                         <div class="mt-3 d-flex justify-content-between">
                                             <span class="badge bg-coksu fs-1 rounded">{{ $row->type }}</span>
                                             <small>{{ \App\Helpers\Date::tglReverse($row->tgl_upload) }}</small>

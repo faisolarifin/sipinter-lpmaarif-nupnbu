@@ -7,6 +7,7 @@ use App\Models\FileUpload;
 use App\Models\Informasi;
 use App\Models\Satpen;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class GeneralController extends Controller
 {
@@ -40,13 +41,31 @@ class GeneralController extends Controller
             try {
                 $berandaInformasi = Informasi::orderBy('id_info')->limit(5)->get();
                 if ($slug) {
-                    $readInfo = Informasi::where('slug', '=', $slug)->first();
-                    return view('landing.informasi', compact('berandaInformasi', 'readInfo'));
+                    $readInfo = Informasi::with("file")->where('slug', '=', $slug)->first();
+                    return view('landing.readinformasi', compact('berandaInformasi', 'readInfo'));
                 }
-                return view('landing.informasi', compact('berandaInformasi'));
+                $listInformasi = Informasi::orderBy('id_info', 'DESC')->get();
+                return view('landing.informasi', compact('listInformasi'));
 
             } catch (\Exception $e) {
                 throw new CatchErrorException("[READ INFORMASI PAGE] has error ". $e);
             }
+    }
+
+    public function downloadFileInformasi($filename = null) {
+        try {
+            if (Storage::exists("fileinformasi/".$filename)){
+                return response()->download(
+                    storage_path("app/fileinformasi/" . $filename));
+            }
+            return response("File Not Found!");
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[DOWNLOAD FILE INFORMASI] has error ". $e);
+        }
+    }
+
+    public function contactPage() {
+        return view('landing.kontak');
     }
 }
