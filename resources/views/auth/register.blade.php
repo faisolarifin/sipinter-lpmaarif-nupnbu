@@ -3,7 +3,8 @@
 ])
 
 @section('style')
-    <script src="{{ asset('assets/libs/bootstrap-select/css/bootstrap-select.min.css') }}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
 @endsection
 
 @section('container')
@@ -66,7 +67,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="jenjang" class="form-label">Jenjang Pendidikan</label>
-                                        <select class="form-select form-select-sm @error('jenjang') is-invalid @enderror" name="jenjang">
+                                        <select class="selectpicker @error('jenjang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="jenjang">
                                             @foreach($jenjang as $row)
                                                 <option value="{{ $row->id_jenjang }}"  {{ strtolower($row->nm_jenjang) == strtolower($cookieValue->bentuk_pendidikan) ? 'selected' : '' }}>{{ $row->nm_jenjang }}</option>
                                             @endforeach
@@ -90,9 +91,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-sm-6">
-                                    <div class="mb-2">
+                                    <div class="mb-2 d-flex flex-column">
                                         <label for="propinsi" class="form-label">Propinsi</label>
-                                        <select class="form-select form-select-sm my-select @error('propinsi') is-invalid @enderror" name="propinsi">
+                                        <select class="selectpicker @error('propinsi') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="propinsi">
                                             @foreach($propinsi as $row)
                                                 <option value="{{ $row->id_prov }}" {{ strtolower($row->nm_prov) == Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln) ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
                                             @endforeach
@@ -105,7 +106,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="kabupaten" class="form-label">Kabupaten</label>
-                                        <select class="form-select form-select-sm @error('kabupaten') is-invalid @enderror" name="kabupaten">
+                                        <select class="selectpicker @error('kabupaten') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="kabupaten">
                                             @foreach($kabupaten as $row)
                                                 <option value="{{ $row->id_kab }}" {{ Strings::removeFirstWord($row->nama_kab) == Strings::removeFirstWord($cookieValue->kabkotanegara_ln) ? 'selected' : '' }}>{{ $row->nama_kab }}</option>
                                             @endforeach
@@ -120,7 +121,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="mb-2">
                                         <label for="cabang" class="form-label">Cabang</label>
-                                        <select class="form-select form-select-sm @error('cabang') is-invalid @enderror" name="cabang">
+                                        <select class="selectpicker @error('cabang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="cabang">
                                             @foreach($cabang as $row)
                                                 <option value="{{ $row->id_pc }}">{{ $row->nama_pc }}</option>
                                             @endforeach
@@ -312,7 +313,7 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <label for="cabang_rekom_pc" class="form-label">Nama Cabang</label>
-                                    <select class="form-select form-select-sm @error('cabang_rekom_pc') is-invalid @enderror" name="cabang_rekom_pc">
+                                    <select class="selectpicker @error('cabang_rekom_pc') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="cabang_rekom_pc">
                                         @foreach($cabang as $row)
                                             <option value="{{ $row->nama_pc }}">{{ $row->nama_pc }}</option>
                                         @endforeach
@@ -369,7 +370,7 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <label for="wilayah_rekom_pw" class="form-label">Nama Wilayah</label>
-                                    <select class="form-select form-select-sm @error('wilayah_rekom_pw') is-invalid @enderror" name="wilayah_rekom_pw">
+                                    <select class="selectpicker @error('wilayah_rekom_pw') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="wilayah_rekom_pw">
                                         @foreach($propinsi as $row)
                                             <option value="{{ $row->nm_prov }}" {{ strtolower($row->nm_prov) == Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln) ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
                                         @endforeach
@@ -432,7 +433,9 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets/libs/bootstrap-select/js/bootstrap-select.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script>
         $(".row-nm-yayasan").hide();
         $("#yayasan").on('change', function(e) {
@@ -455,7 +458,5 @@
                 toggleIcon.removeClass("ti-eye").addClass("ti-eye-off");
             }
         });
-
-        $('.my-select').selectpicker();
     </script>
 @endsection
