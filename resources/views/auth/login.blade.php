@@ -2,14 +2,20 @@
     'title' => 'Siapinter - Login'
 ])
 
+@section('style')
+    <style>
+        body {background: #fafafa;}
+    </style>
+@endsection
+
 @section('container')
 <div class="d-flex align-items-center" style="height: 100vh;">
     <div class="container-fluid">
         <div class="row" style="height: 100vh;">
             <div class="col-sm-7 d-flex align-items-center justify-content-center order-sm-2">
-                <div class="card shadow-none w-50">
+                <div class="card w-50">
                     <div class="card-body">
-                        <a href="./index.html" class="text-nowrap text-center logo-img d-block py-2 w-100">
+                        <a href="{{ route('home') }}" class="text-nowrap text-center logo-img d-block py-2 w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
                         </a>
                         <p class="text-center fw-medium">Sistem Administrasi Pendidikan Terpadu <br> Lembaga Pendidikan Ma'arif NU PBNU</p>
@@ -58,26 +64,26 @@
                     <div class="mb-auto bd-highlight">
                         <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu" width="130">
                         <h5>Pelayanan Terpadu</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi deleniti enim illo impedit laudantium pariatur quisquam repudiandae ut vitae.</p>
+                        <p>Layanan yang komprehensif, efisien, dan efektif terintegrasi dengan data dari sistem Kementerian. </p>
                         <h5>Akses Sederhana</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus earum laborum omnis reprehenderit sunt voluptas.</p>
+                        <p>Efisensi untuk memperoleh dan menggunakan sistem dengan mudah tanpa kesulitan yang berarti.</p>
                         <h5>Validasi Akurat</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta doloribus eum fugiat harum repudiandae voluptatem voluptatibus!</p>
+                        <p>Memastikan data dan informasi memiliki tingkat kebenaran dan ketepatan yang tinggi sesuai dengan fakta atau standar yang berlaku.</p>
                     </div>
                     <div class="bd-highlight">
                         <h5>Helpdesk</h5>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <p class="mb-1"><i class="ti ti-mail"></i>
+                            <div class="col-sm-6 pt-1">
+                                <p class="mb-2 mt-3"><i class="ti ti-mail"></i>
                                     Email. sekretariat@maarifnu.org</p>
-                                <p class="mb-1"><i class="ti ti-phone"></i>
+                                <p class="mb-2"><i class="ti ti-phone"></i>
                                     Telp. 021-3904115</p>
                                 <p><i class="ti ti-brand-telegram"></i>
                                     Fax. 021-31906679</p>
                             </div>
-                            <div class="col-sm-6">
-                                <p><i class="ti ti-map"></i>
-                                    Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
+                            <div class="col-sm-6 text-center">
+                                <i class="ti ti-map-pin fs-5"></i>
+                                <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
                             </div>
                         </div>
                     </div>
