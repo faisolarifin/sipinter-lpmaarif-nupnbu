@@ -179,7 +179,7 @@
 
                 series: [{
                     data: data,
-                    name: 'Random data',
+                    name: 'Jumlah Satpen',
                     states: {
                         hover: {
                             color: '#BADA55'

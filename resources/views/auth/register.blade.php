@@ -12,7 +12,7 @@
     <div class="container-fluid login-side-right">
         <div class="row justify-content-sm-center align-items-center" style="height:25vh;">
             <div class="col-sm-10">
-                <a href="./index.html" class="text-nowrap logo-img d-block py-2 w-100">
+                <a href="{{ route('home') }}" class="text-nowrap logo-img d-block py-2 w-100">
                     <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
                     <h6 class="fw-bold">Sistem Administrasi Pendidikan Terpadu Lembaga Pendidikan Ma'arif NU PBNU</h6>
                 </a>

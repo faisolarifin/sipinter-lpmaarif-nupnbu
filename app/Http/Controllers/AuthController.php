@@ -40,7 +40,7 @@ class AuthController extends Controller
                 $propinsi = Provinsi::orderBy('id_prov')->get();
                 $jenjang = Jenjang::orderBy('id_jenjang')->get();
 
-                return view('auth.register', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
+                return view('auth.steapform', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
             }
             return redirect()->back()->with("error", "Provinsi belum ada pada sistem");
 

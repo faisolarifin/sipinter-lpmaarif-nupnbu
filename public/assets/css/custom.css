@@ -175,9 +175,14 @@
 }
 
 /*custom button in layout*/
-.container-begin .btn-green {
+.container-begin .btn-green, .btn-green  {
     background-color: #327B32;
     color: #fff;
+}
+
+.btn-green:hover, .btn-green:focus {
+    background-color: #296b29 !important;
+    color: #fff !important;
 }
 
 .card-box-detail {
@@ -203,4 +208,21 @@
     border: var(--bs-border-width) solid #DFE5EF;
     border-top-right-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
+}
+
+input[type='file'].form-control-sm {
+    line-height: 1.9;
+}
+
+.card-header-navs {
+    /*background-color: #3C8637;*/
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #ffc107;
+    color: #212529;
+}
+.nav-pills .nav-link {
+    font-weight: 500;
+    color: #212529;
 }
