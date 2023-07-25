@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row" style="height: 100vh;">
             <div class="col-sm-7 d-flex align-items-center justify-content-center order-sm-2">
-                <div class="card w-60">
+                <div class="card w-60 mt-4 mt-sm-0">
                     <div class="card-body">
                         <a href="{{ route('home') }}" class="text-nowrap text-center logo-img d-block py-2 w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">

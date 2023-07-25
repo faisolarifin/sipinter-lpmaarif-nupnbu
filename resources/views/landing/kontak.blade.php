@@ -12,7 +12,7 @@
     <div class="container container-body">
 
         <div class="row mt-3 mt-sm-5">
-            <div class="col px-0">
+            <div class="col px-3 px-sm-0">
                 <nav aria-label="breadcrumb">
                     <ul id="breadcrumb" class="m-0">
                         <li><a href="#"><i class="ti ti-home"></i></a></li>

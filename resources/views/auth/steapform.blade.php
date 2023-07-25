@@ -135,7 +135,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="nm_pemilik" class="form-label">Nama Pemilik</label>
-                                    <input type="text" class="form-control form-control-sm @error('nm_pemilik') is-invalid @enderror" id="nm_pemilik" name="nm_pemilik" value="{{ old('aset_tanah') }}">
+                                    <input type="text" class="form-control form-control-sm @error('nm_pemilik') is-invalid @enderror" id="nm_pemilik" name="nm_pemilik" value="{{ old('nm_pemilik') }}">
                                     <div class="invalid-feedback">
                                         @error('nm_pemilik') {{ $message }} @enderror
                                     </div>

@@ -226,3 +226,9 @@ input[type='file'].form-control-sm {
     font-weight: 500;
     color: #212529;
 }
+
+@media (max-width: 575.98px) {
+    .w-50, .w-60 {
+        width: 90% !important;
+    }
+}

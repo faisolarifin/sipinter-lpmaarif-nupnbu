@@ -22,11 +22,11 @@
         </div>
 
         <div class="row justify-content-center mt-3">
-            <div class="col-10 col-sm-12">
+            <div class="col-11 col-sm-12">
                 <div class="card-group">
                     @foreach($listInformasi as $row)
                     <a href="{{ route('informasi', $row->slug) }}">
-                    <div class="card me-4" style="width:13.6rem">
+                    <div class="card mx-auto me-sm-4" style="width:13.6rem">
                         <img src="{{ Storage::url("public/".$row->image) }}" class="card-img-top" alt="...">
                         <div class="card-body px-3 pt-3 pb-4">
                             <h6 class="card-title fs-4">{{ $row->headline }}</h6>

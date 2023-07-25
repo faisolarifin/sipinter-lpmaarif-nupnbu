@@ -10,7 +10,7 @@
     @include('template.navhome')
 
     <div class="container">
-        <div class="row-slide-map h-row py-4 px-5 pb-5 mt-3 mt-sm-5">
+        <div class="row-slide-map h-row py-4 px-3 px-sm-5 pb-5 mt-3 mt-sm-5">
             <div class="row">
                 <div class="col d-flex align-items-center">
                     <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" width="80" alt="...">
@@ -47,49 +47,51 @@
                 <div class="col-12 col-sm-8">
                     <div class="card mb-0 shadow-none">
                         <div class="card-body py-0 px-1">
-                            <table class="table table-striped mb-0">
-                                <tr>
-                                    <td width="190">Status Dokumen</td>
-                                    <td width="30">:</td>
-                                    <td>
-                                        @if($satpenData->status == 'setujui')
-                                            <span class="badge bg-success text-uppercase">Active</span>
-                                        @elseif($satpenData->status == 'expired')
-                                            <span class="badge bg-danger text-uppercase">{{ $satpenData->status }}</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                <td>Nomor Seri</td>
-                                    <td>:</td>
-                                    <td>{{ last(explode('/', $verifyData->qrcode)) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Nama File</td>
-                                    <td>:</td>
-                                    <td>{{ $verifyData->nm_file }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tipe</td>
-                                    <td>:</td>
-                                    <td>{{ strtoupper($verifyData->typefile) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>No. Registrasi</td>
-                                    <td>:</td>
-                                    <td>{{ $satpenData->no_registrasi }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Nama Sekolah</td>
-                                    <td>:</td>
-                                    <td>{{ $satpenData->nm_satpen }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Registrasi</td>
-                                    <td>:</td>
-                                    <td>{{ Date::tglMasehi($satpenData->tgl_registrasi) }}</td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <tr>
+                                        <td width="190">Status Dokumen</td>
+                                        <td width="30">:</td>
+                                        <td>
+                                            @if($satpenData->status == 'setujui')
+                                                <span class="badge bg-success text-uppercase">Active</span>
+                                            @else
+                                                <span class="badge bg-danger text-uppercase">{{ $satpenData->status }}</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <td>Nomor Seri</td>
+                                        <td>:</td>
+                                        <td>{{ last(explode('/', $verifyData->qrcode)) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama File</td>
+                                        <td>:</td>
+                                        <td>{{ $verifyData->nm_file }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipe</td>
+                                        <td>:</td>
+                                        <td>{{ strtoupper($verifyData->typefile) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Registrasi</td>
+                                        <td>:</td>
+                                        <td>{{ $satpenData->no_registrasi }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama Sekolah</td>
+                                        <td>:</td>
+                                        <td>{{ $satpenData->nm_satpen }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tanggal Registrasi</td>
+                                        <td>:</td>
+                                        <td>{{ Date::tglMasehi($satpenData->tgl_registrasi) }}</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

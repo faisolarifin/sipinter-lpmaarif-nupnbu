@@ -62,14 +62,14 @@
 
         <div class="mt-5 sum-satpen">
             <div class="row mb-3 justify-content-center">
-                <div class="col-10 col-sm-12">
+                <div class="col-11 col-sm-12">
                     <div class="menu-title d-flex align-items-center justify-content-between">
                         <h4><span class="deff">Rekap Data</span> Pendidikan</h4>
                         <div class="line-title"></div>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center justify-content-sm-start">
+            <div class="row px-3 px-sm-0 justify-content-center justify-content-sm-start">
                 @php($num=0)
                 @foreach($jmlSatpenByJenjang as $row)
                     <div class="col-3 col-sm-1 px-0 pe-1">

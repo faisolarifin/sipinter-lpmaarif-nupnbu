@@ -25,7 +25,7 @@
                 <div class="col-12">
                     <div class="card shadow-none py-2 px-2 mb-0">
                         <div class="card-body py-0 px-1">
-                            <div class="card-verify d-flex flex-column align-items-center py-5 px-3">
+                            <div class="card-verify d-flex flex-column align-items-center py-5 px-3 text-center">
                                 <h5 class="mb-4">VALIDASI DOKUMEN SATUAN PENDIDIKAN ANDA</h5>
                                 <button class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#scannerBackdrop"><i class="ti ti-camera"></i> BUKA SCANNER</button>
                                 <small>Tekan tombol BUKA SCANNER untuk memvalidasi keotentikan dari dokumen stauan pendidikan anda.</small>
