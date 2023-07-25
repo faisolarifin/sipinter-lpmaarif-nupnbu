@@ -21,18 +21,19 @@ class GenerateQr {
             $qrCode = QrCode::create($content)
                 ->setEncoding(new Encoding('UTF-8'))
                 ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-                ->setSize(300)
+                ->setSize(130)
                 ->setMargin(10)
                 ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
                 ->setForegroundColor(new Color(0, 0, 0))
                 ->setBackgroundColor(new Color(255, 255, 255));
 
             // Create generic logo
-            $logo = Logo::create(public_path('assets/images/logos/rounded-logo.png'))
-                ->setResizeToWidth(60)
-                ->setPunchoutBackground(true);
+//            $logo = Logo::create(public_path('assets/images/logos/rounded-logo.png'))
+//                ->setResizeToWidth(60)
+//                ->setPunchoutBackground(true);
 
-            $result = $writer->write($qrCode, $logo);
+//            $result = $writer->write($qrCode, $logo);
+            $result = $writer->write($qrCode);
             $result->saveToFile($imagePath);
 
             return true;

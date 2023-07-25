@@ -313,7 +313,7 @@ class AdminController extends Controller
                     'id_satpen' => $satpen->id_satpen,
                     'typefile' => "piagam",
                 ])->update([
-                    'qrcode' => GenerateQr::encodeQr(),
+//                    'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $piagamFilename,
                     'tgl_file' => $request->tgl_doc,
                 ]);
@@ -322,7 +322,7 @@ class AdminController extends Controller
                     'typefile' => "sk",
                 ])->update([
                     'no_file' => $autoNomorSurat,
-                    'qrcode' => GenerateQr::encodeQr(),
+//                    'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $skFilename,
                     'tgl_file' => $request->tgl_doc,
                 ]);
