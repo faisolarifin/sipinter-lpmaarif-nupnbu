@@ -7,6 +7,7 @@ use App\Http\Controllers\{AdminController,
     GeneralController,
     OperatorController,
     SatpenController,
+    ForgotPasswordController,
 };
 use App\Http\Controllers\Master\{
     InformasiController,
@@ -91,4 +92,14 @@ Route::middleware('mustlogin')->group(function() {
     Route::middleware('onlyadmin')->group(function() {
         Route::get('/generate/{type?}/{fileName?}', [AdminController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
     });
+});
+
+/**
+ * Forgot Password
+ */
+Route::prefix("auth")->group(function() {
+    Route::get('forgot', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forgot');
+    Route::post('forgot', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.send');
+    Route::get('reset/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset');
+    Route::post('reset', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.send');
 });
