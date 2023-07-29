@@ -8,6 +8,7 @@ use App\Http\Controllers\{AdminController,
     OperatorController,
     SatpenController,
     ForgotPasswordController,
+    OSSController,
 };
 use App\Http\Controllers\Master\{
     InformasiController,
@@ -15,6 +16,9 @@ use App\Http\Controllers\Master\{
     PengurusCabangController,
     PropinsiController,
     KabupatenController,
+};
+use App\Http\Controllers\Admin\{
+    OSSController as OSSControllerAdmin,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +54,9 @@ Route::middleware('mustlogin')->group(function() {
     Route::get('/upload/{fileName?}', [AdminController::class, 'pdfUploadViewer'])->name('viewerpdf');
 
     Route::middleware('onlyoperator')->group(function() {
+        /**
+         * Satpen
+         */
         Route::get('/dashboard', [OperatorController::class, 'dashboardPage'])->name('dashboard');
         Route::get('/satpen', [OperatorController::class, 'mySatpenPage'])->name('mysatpen');
         Route::get('/satpen/edit', [OperatorController::class, 'editSatpenPage'])->name('mysatpen.revisi');
@@ -57,7 +64,19 @@ Route::middleware('mustlogin')->group(function() {
         Route::put('/satpen/edit', [SatpenController::class, 'revisionProses'])->name('mysatpen.revisi');
         Route::put('/satpen/perpanjang', [SatpenController::class, 'revisionProses'])->name('mysatpen.perpanjang');
         Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
-        Route::get('/oss', [OperatorController::class, 'underConstruction'])->name('oss');
+        /**
+         * OSS
+         */
+        Route::group(["prefix" => "oss"], function() {
+            Route::get('/', [OSSController::class, 'permohonanOSSPage'])->name('oss');
+            Route::put('/', [OSSController::class, 'storePermohonanOSS'])->name('oss.save');
+            Route::get('/new', [OSSController::class, 'permohonanBaruOSS'])->name('oss.new');
+            Route::get('/file/{fileName?}', [OSSController::class, 'viewBuktiPembayaran'])->name('oss.file');
+            Route::get('/history', [OSSController::class, 'historyPermohonan'])->name('oss.history');
+        });
+        /**
+         * BHPNU
+         */
         Route::get('/bhpnu', [OperatorController::class, 'underConstruction'])->name('bhpnu');
     });
 
@@ -80,6 +99,18 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/bhpnu', [AdminController::class, 'underConstruction'])->name('a.bhpnu');
         Route::post('/doc/generate', [AdminController::class, 'generatePiagamAndSK'])->name('generate.document');
         Route::post('/doc/regenerate', [AdminController::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
+
+        /**
+         * OSS
+         */
+        Route::group(["prefix" => "oss"], function() {
+            Route::get('/', [OSSControllerAdmin::class, 'listPermohonanOSS'])->name('a.oss');
+            Route::get('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
+            Route::put('/appear/{oss}', [OSSControllerAdmin::class, 'setIzinTerbitOSS'])->name('a.oss.appear');
+            Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
+            Route::get('/file/{fileName?}', [OSSControllerAdmin::class, 'viewBuktiPembayaran'])->name('a.oss.file');
+            Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');
+        });
 
     });
     Route::prefix('api')->middleware('onlyadmin')->group(function () {

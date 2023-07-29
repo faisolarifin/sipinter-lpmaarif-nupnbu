@@ -227,6 +227,34 @@ input[type='file'].form-control-sm {
     color: #212529;
 }
 
+.step-status i.ti {
+    font-size: 1.4em;
+    background-color: #eaeaea;
+    color: #fff;
+    padding: .5rem;
+    border-radius: 50%;
+}
+
+.step-status i.ti.success {
+    background-color: #D3EEE5;
+    color: #52BD97;
+}
+
+.step-status i.ti.failed {
+    background-color: #eed8d3;
+    color: #bd6252;
+}
+
+.step-status p {
+    font-size: 1em;
+    margin-top: .7rem;
+    margin-bottom: 0;
+}
+
+hr {
+    opacity: 0.18;
+}
+
 @media (max-width: 575.98px) {
     .w-50, .w-60 {
         width: 90% !important;

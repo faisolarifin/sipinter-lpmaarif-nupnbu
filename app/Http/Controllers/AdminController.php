@@ -176,7 +176,7 @@ class AdminController extends Controller
                 'keterangan' => $request->keterangan,
             ]);
 
-            Mail::to($satpen->email)->send(new StatusMail($request->status_verifikasi));
+//            Mail::to($satpen->email)->send(new StatusMail($request->status_verifikasi));
 
             return redirect()->back()->with('success', 'Status satpen telah diupdate menjadi '. $request->status_verifikasi);
 
