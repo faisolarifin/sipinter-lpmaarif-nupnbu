@@ -112,7 +112,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::group(["prefix" => "satpen"], function() {
             Route::get('/', [SATPENControllerAdmin::class, 'permohonanRegisterSatpen'])->name('a.satpen');
             Route::put('/{satpen}/status', [SATPENControllerAdmin::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
-            Route::get('/satpen/rekap', [SATPENControllerAdmin::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
+            Route::get('/rekap', [SATPENControllerAdmin::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
             Route::get('/{satpenId}/detail', [SATPENControllerAdmin::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
             Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
             Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
