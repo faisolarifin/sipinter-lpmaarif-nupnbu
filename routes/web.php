@@ -1,28 +1,26 @@
 <?php
 
-use App\Http\Controllers\{AdminController,
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{
     ApiController,
     AuthController,
-    ExportController,
-    GeneralController,
-    OperatorController,
-    SatpenController,
-    ForgotPasswordController,
-    OSSController,
     BHPNUController,
+    ForgotPasswordController,
+    GeneralController,
+    OSSController,
+    SatpenController,
 };
+use App\Http\Controllers\Admin\{
+    SATPENController as SATPENControllerAdmin,
+    BHPNUController as BHPNUControllerAdmin,
+    OSSController as OSSControllerAdmin,};
 use App\Http\Controllers\Master\{
     InformasiController,
     JenjangPendidikanController,
+    KabupatenController,
     PengurusCabangController,
     PropinsiController,
-    KabupatenController,
 };
-use App\Http\Controllers\Admin\{
-    OSSController as OSSControllerAdmin,
-    BHPNUController as BHPNUControllerAdmin,
-};
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,16 +54,19 @@ Route::middleware('mustlogin')->group(function() {
     Route::get('/upload/{fileName?}', [AdminController::class, 'pdfUploadViewer'])->name('viewerpdf');
 
     Route::middleware('onlyoperator')->group(function() {
+
+        Route::get('/dashboard', [SatpenController::class, 'dashboardPage'])->name('dashboard');
         /**
          * Satpen
          */
-        Route::get('/dashboard', [OperatorController::class, 'dashboardPage'])->name('dashboard');
-        Route::get('/satpen', [OperatorController::class, 'mySatpenPage'])->name('mysatpen');
-        Route::get('/satpen/edit', [OperatorController::class, 'editSatpenPage'])->name('mysatpen.revisi');
-        Route::get('/satpen/perpanjang', [OperatorController::class, 'perpanjangSatpenPage'])->name('mysatpen.perpanjang');
-        Route::put('/satpen/edit', [SatpenController::class, 'revisionProses'])->name('mysatpen.revisi');
-        Route::put('/satpen/perpanjang', [SatpenController::class, 'revisionProses'])->name('mysatpen.perpanjang');
-        Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
+        Route::group(["prefix" => "satpen"], function() {
+            Route::get('/', [SatpenController::class, 'mySatpenPage'])->name('mysatpen');
+            Route::get('/edit', [SatpenController::class, 'editSatpenPage'])->name('mysatpen.revisi');
+            Route::get('/perpanjang', [SatpenController::class, 'perpanjangSatpenPage'])->name('mysatpen.perpanjang');
+            Route::put('/edit', [SatpenController::class, 'revisionProses'])->name('mysatpen.revisi');
+            Route::put('/perpanjang', [SatpenController::class, 'revisionProses'])->name('mysatpen.perpanjang');
+            Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
+        });
         /**
          * OSS
          */
@@ -89,23 +90,34 @@ Route::middleware('mustlogin')->group(function() {
     });
 
     Route::middleware('onlyadmin')->prefix('admin')->group(function() {
+        /**
+         * Dashboard
+         */
+        Route::get('/', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
+        Route::get('/dashboard', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
 
+        /**
+         * Master
+         */
         Route::resource('/informasi', InformasiController::class);
         Route::resource('/propinsi', PropinsiController::class);
         Route::resource('/kabupaten', KabupatenController::class);
         Route::resource('/cabang', PengurusCabangController::class);
         Route::resource('/jenjang', JenjangPendidikanController::class);
 
-        Route::get('/', [AdminController::class, 'dashboardPage'])->name('a.dash');
-        Route::get('/dashboard', [AdminController::class, 'dashboardPage'])->name('a.dash');
-        Route::get('/satpen', [AdminController::class, 'permohonanRegisterSatpen'])->name('a.satpen');
-        Route::put('/satpen/{satpen}/status', [AdminController::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
-        Route::get('/rekapsatpen', [AdminController::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
-        Route::get('/rekapsatpen/{satpenId}/detail', [AdminController::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
-        Route::delete('/rekapsatpen/{satpen}', [AdminController::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
-        Route::post('/doc/generate', [AdminController::class, 'generatePiagamAndSK'])->name('generate.document');
-        Route::post('/doc/regenerate', [AdminController::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
-
+        /**
+         * Satpen
+         */
+        Route::group(["prefix" => "satpen"], function() {
+            Route::get('/', [SATPENControllerAdmin::class, 'permohonanRegisterSatpen'])->name('a.satpen');
+            Route::put('/{satpen}/status', [SATPENControllerAdmin::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
+            Route::get('/satpen/rekap', [SATPENControllerAdmin::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
+            Route::get('/{satpenId}/detail', [SATPENControllerAdmin::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
+            Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
+            Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
+            Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
+            Route::get('/reader/{type?}/{fileName?}', [SATPENControllerAdmin::class, 'pdfGeneratedViewer'])->name('pdf.generated');
+        });
         /**
          * OSS
          */
@@ -131,15 +143,15 @@ Route::middleware('mustlogin')->group(function() {
         });
 
     });
+    /**
+     * API Json
+     */
     Route::prefix('api')->middleware('onlyadmin')->group(function () {
         Route::get('/provcount', [ApiController::class, 'getProvAndCount'])->name('api.provcount');
         Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
         Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov');
         Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
         Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
-    });
-    Route::middleware('onlyadmin')->group(function() {
-        Route::get('/generate/{type?}/{fileName?}', [AdminController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
     });
 });
 

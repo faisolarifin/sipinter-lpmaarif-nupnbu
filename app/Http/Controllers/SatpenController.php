@@ -3,21 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CatchErrorException;
+use App\Http\Controllers\Admin\SATPENController as SatpenControllerAdmin;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\RegisterUpdateRequest;
 use App\Http\Requests\StatusSatpenRequest;
 use App\Mail\RegisterMail;
 use App\Models\FileRegister;
+use App\Models\Jenjang;
+use App\Models\Kabupaten;
 use App\Models\Kategori;
 use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\RegisterUpdateRequest;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class SatpenController extends Controller
 {
+    public function dashboardPage() {
+        $mySatpen = Satpen::with(['kategori', 'timeline', 'file'])
+            ->where('id_user', '=', auth()->user()->id_user)
+            ->first();
+
+        return view('home.dashboard', compact('mySatpen'));
+    }
+
     public function registerProses(RegisterRequest $request)
     {
         $registerNumber = "";
@@ -121,7 +132,7 @@ class SatpenController extends Controller
                         'filesurat' =>  $pathFileRekomPW,
                     ]]);
 
-                    (new AdminController())->updateSatpenStatus((new StatusSatpenRequest())
+                    (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
                         ->merge([
                             "status_verifikasi" => "permohonan",
                             "keterangan" => "",
@@ -255,14 +266,14 @@ class SatpenController extends Controller
                 ]);
 
                 if ($satpen->status == "revisi") {
-                    (new AdminController())->updateSatpenStatus((new StatusSatpenRequest())
+                    (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
                         ->merge([
                             "status_verifikasi" => "permohonan",
                             "keterangan" => "permohonan setelah revisi",
                         ]),
                         $satpen);
                 } elseif ($satpen->status == "expired") {
-                    (new AdminController())->updateSatpenStatus((new StatusSatpenRequest())
+                    (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
                         ->merge([
                             "status_verifikasi" => "perpanjangan",
                             "keterangan" => "permohonan perpanjangan dokumen",
@@ -306,6 +317,62 @@ class SatpenController extends Controller
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[DOWNLOAD DOCUMENT] has error ". $e);
+
+        }
+    }
+
+    public function mySatpenPage() {
+        try {
+            $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'timeline'])
+                ->where('id_user', '=', auth()->user()->id_user)
+                ->first();
+
+            return view('satpen.satpen', compact('satpenProfile'));
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[MYSATPEN PAGE] has error ". $e);
+
+        }
+    }
+    public function editSatpenPage() {
+        try {
+            $satpenProfile = Satpen::where('id_user', '=', auth()->user()->id_user)->first();
+
+            if ($satpenProfile->status != 'revisi') return redirect()->back()
+                ->with('error', 'Status satpen bukan dalam masa revisi');
+
+            $kabupaten = Kabupaten::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_kab')->get();
+            $cabang = PengurusCabang::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_pc')->get();
+            $propinsi = Provinsi::orderBy('id_prov')->get();
+            $jenjang = Jenjang::orderBy('id_jenjang')->get();
+
+            return view('satpen.revisi', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[EDIT SATPEN PAGE] has error ". $e);
+
+        }
+    }
+    public function perpanjangSatpenPage() {
+        try {
+            $satpenProfile = Satpen::where('id_user', '=', auth()->user()->id_user)->first();
+
+            if ($satpenProfile->status != 'expired') return redirect()->back()
+                ->with('error', 'Status dokumen satpen belum expired');
+
+            $kabupaten = Kabupaten::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_kab')->get();
+            $cabang = PengurusCabang::where('id_prov', '=', $satpenProfile->id_prov)
+                ->orderBy('id_pc')->get();
+            $propinsi = Provinsi::orderBy('id_prov')->get();
+            $jenjang = Jenjang::orderBy('id_jenjang')->get();
+
+            return view('satpen.perpanjang', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[PERPANJANG SATPEN PAGE] has error ". $e);
 
         }
     }

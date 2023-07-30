@@ -1,28 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\CatchErrorException;
 use App\Export\ExportDocument;
 use App\Helpers\GenerateQr;
-use App\Mail\StatusMail;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StatusSatpenRequest;
 use App\Models\FileRegister;
 use App\Models\FileUpload;
+use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
 use App\Models\Provinsi;
 use App\Models\Satpen;
-use App\Models\Jenjang;
 use App\Models\Timeline;
 use App\Models\User;
-use Illuminate\Support\Facades\Date;
-use App\Http\Requests\StatusSatpenRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-class AdminController extends Controller
+class SATPENController extends Controller
 {
     public function dashboardPage() {
 
