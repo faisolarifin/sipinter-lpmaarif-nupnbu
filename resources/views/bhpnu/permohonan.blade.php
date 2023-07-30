@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Permohonan OSS'
+    'title' => 'Siapinter - Permohonan BHPNU'
 ])
 
 @section('style')
@@ -19,7 +19,7 @@
                 <ul id="breadcrumb" class="mb-0">
                     <li><a href="#"><i class="ti ti-home"></i></a></li>
                     <li><a href="#"><span class=" fa fa-info-circle"> </span> Permohonan</a></li>
-                    <li><a href="#"><span class="fa fa-snowflake-o"></span> OSS</a></li>
+                    <li><a href="#"><span class="fa fa-snowflake-o"></span> BHPNU</a></li>
                 </ul>
             </nav>
 
@@ -29,22 +29,22 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="card-title fw-semibold mb-1">Permohonan OSS</h5>
-                            <small>permohonan oss dengan mengisi kode unik dan bukti pembayaran</small>
+                            <h5 class="card-title fw-semibold mb-1">Permohonan BHPNU</h5>
+                            <small>permohonan bhpnu dengan mengunggah bukti pembayaran</small>
                         </div>
                         <div>
-                            @if(!$oss || @$oss->status == 'izin terbit')
-                                <a href="{{ route('oss.new') }}" class="btn btn-sm btn-primary mx-1"><i class="ti ti-new-section"></i> Permohonan Baru</a>
+                            @if(!$bhpnu || @$bhpnu->status == 'dokumen dikirim')
+                                <a href="{{ route('bhpnu.new') }}" class="btn btn-sm btn-primary mx-1"><i class="ti ti-new-section"></i> Permohonan Baru</a>
                             @endif
-                                <a href="{{ route('oss.history') }}" class="btn btn-sm btn-green"><i class="ti ti-note"></i> History Permohonan</a>
+                                <a href="{{ route('bhpnu.history') }}" class="btn btn-sm btn-green"><i class="ti ti-note"></i> History Permohonan</a>
                         </div>
                     </div>
 
-                    @if($oss)
+                    @if($bhpnu)
                         <div class="row justify-content-center mt-5 mb-2">
                             <div class="col col-sm-10 py-3">
                                 <ul class="d-flex justify-content-between text-center mb-0 step-status">
-                                    @foreach($oss->ossstatus as $row)
+                                    @foreach($bhpnu->bhpnustatus as $row)
                                     <li>
                                         <i class="ti {{ $row->icon }} {{ $row->status }}"></i>
                                         <p>{{ $row->textstatus }}</p>
@@ -66,31 +66,18 @@
                             </div>
                         </div>
 
-                        @if($oss->status == 'mengisi persyaratan' || $oss->status == 'perbaikan')
+                        @if($bhpnu->status == 'mengisi persyaratan' || $bhpnu->status == 'perbaikan')
 
                         <div class="row justify-content-center">
                             <div class="col col-sm-11 border px-2 py-2">
-                                <form action="{{ route('oss.save') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('bhpnu.save') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="ossId" value="{{ $oss->id_oss }}">
+                                    <input type="hidden" name="bhpnuId" value="{{ $bhpnu->id_bhpnu }}">
                                     <table class="table mb-0">
                                         <tr>
-                                            <td colspan="2">
-                                                <p class="mb-0">MELENGKAPI DATA DI LINK</p>
-                                                <small><a href="#">https://www.hackerearth.com/challenges/hackathon/intel-oneapi-hackathon-for-open-innovation/</a></small>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-bottom-0" width="300">
-                                                <label class="form-label" for="kode_unik">Kode Unik</label>
-                                                <input type="text" name="kode_unik" id="kode_unik" placeholder="Masukkan kode unik dari email" class="form-control form-control-sm @error('kode_unik') is-invalid @enderror" value="{{ $oss->kode_unik }}">
-                                                <div class="invalid-feedback">
-                                                    @error('kode_unik') {{ $message }} @enderror
-                                                </div>
-                                            </td>
                                             <td class="border-bottom-0">
-                                                <label class="form-label" for="bukti_bayar">Bukti Pembayaran</label>
+                                                <label class="form-label" for="bukti_bayar">Unggah Bukti Pembayaran</label>
                                                 <input type="file" name="bukti_bayar" id="bukti_bayar" class="form-control form-control-sm @error('bukti_bayar') is-invalid @enderror">
                                                 <div class="invalid-feedback">
                                                     @error('bukti_bayar') {{ $message }} @enderror
@@ -111,19 +98,11 @@
                             <div class="col col-sm-11 border px-3 py-3">
                                 <table class="table table-bordered mb-0 table-striped">
                                     <tr>
-                                        <td class="border-bottom-0 align-middle" width="200">
-                                            <p class="mb-0">KODE UNIK</p>
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            <h5>{{ $oss->kode_unik }}</h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border-bottom-0 align-middle">
+                                        <td class="border-bottom-0 align-middle" width="240">
                                             <p class="mb-0">BUKTI PEMBAYARAN</p>
                                         </td>
                                         <td class="border-bottom-0">
-                                            <a href="{{ route('oss.file', $oss->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('oss.file', $bhpnu->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -133,7 +112,7 @@
                     @else
                         <div class="row align-items-center mt-4">
                             <div class="col text-center">
-                                <div class="alert alert-danger">Belum ada pengajuan OSS</div>
+                                <div class="alert alert-danger">Belum ada pengajuan BHPNU</div>
                             </div>
                         </div>
                     @endif

@@ -28,12 +28,12 @@
         </div>
     </div>
 
-    <!-- Modal Izin -->
-    <div class="modal fade" id="modalIzin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Dikirim -->
+    <div class="modal fade" id="modalDikirim" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Terbitkan Izin</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Kirim Dokumen</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
@@ -42,9 +42,23 @@
                         @method('PUT')
                         <div class="mb-2">
                             <label for="keterangan" class="form-label">Keterangan</label>
-                            <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" placeholder="Keterangan Penerbitan" value="{{ old('keterangan') }}">
+                            <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" placeholder="Keterangan" value="{{ old('keterangan') }}">
                             <div class="invalid-feedback">
                                 @error('keterangan') {{ $message }} @enderror
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="nomor_resi" class="form-label">Nomor Resi</label>
+                            <input type="text" class="form-control form-control-sm @error('nomor_resi') is-invalid @enderror" id="nomor_resi" name="nomor_resi" placeholder="Nomor Resi" value="{{ old('nomor_resi') }}">
+                            <div class="invalid-feedback">
+                                @error('nomor_resi') {{ $message }} @enderror
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="tgl_dikirim" class="form-label">Tanggal Dikirim</label>
+                            <input type="date" class="form-control form-control-sm @error('tgl_dikirim') is-invalid @enderror" id="tgl_dikirim" name="tgl_dikirim" value="{{ old('tgl_dikirim') }}">
+                            <div class="invalid-feedback">
+                                @error('tgl_dikirim') {{ $message }} @enderror
                             </div>
                         </div>
                         <div>
@@ -57,7 +71,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Terbitkan</button>
+                        <button type="submit" class="btn btn-success">Kirim</button>
                     </div>
                 </form>
             </div>
@@ -72,15 +86,15 @@
         let modalTolak = document.getElementById('modalTolak')
         modalTolak.addEventListener('show.bs.modal', function (event) {
             let ossId = event.relatedTarget.getAttribute('data-bs')
-            let routeReject = "{{ route('a.oss.reject', ['oss' => ':param']) }}".replace(':param', ossId);
+            let routeReject = "{{ route('a.bhpnu.reject', ['bhpnu' => ':param']) }}".replace(':param', ossId);
             $("#modalTolak form").attr('action', routeReject);
         });
 
-        let modalIzin = document.getElementById('modalIzin')
-        modalIzin.addEventListener('show.bs.modal', function (event) {
+        let modalDikirim = document.getElementById('modalDikirim')
+        modalDikirim.addEventListener('show.bs.modal', function (event) {
             let ossId = event.relatedTarget.getAttribute('data-bs')
-            let routeAppear = "{{ route('a.oss.appear', ['oss' => ':param']) }}".replace(':param', ossId);
-            $("#modalIzin form").attr('action', routeAppear);
+            let routeAppear = "{{ route('a.bhpnu.appear', ['bhpnu' => ':param']) }}".replace(':param', ossId);
+            $("#modalDikirim form").attr('action', routeAppear);
         });
 
     </script>

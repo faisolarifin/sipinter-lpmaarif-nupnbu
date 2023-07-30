@@ -9,6 +9,7 @@ use App\Http\Controllers\{AdminController,
     SatpenController,
     ForgotPasswordController,
     OSSController,
+    BHPNUController,
 };
 use App\Http\Controllers\Master\{
     InformasiController,
@@ -19,6 +20,7 @@ use App\Http\Controllers\Master\{
 };
 use App\Http\Controllers\Admin\{
     OSSController as OSSControllerAdmin,
+    BHPNUController as BHPNUControllerAdmin,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -77,7 +79,13 @@ Route::middleware('mustlogin')->group(function() {
         /**
          * BHPNU
          */
-        Route::get('/bhpnu', [OperatorController::class, 'underConstruction'])->name('bhpnu');
+        Route::group(["prefix" => "bhpnu"], function() {
+            Route::get('/', [BHPNUController::class, 'permohonanBHPNUPage'])->name('bhpnu');
+            Route::put('/', [BHPNUController::class, 'storePermohonanBHPNU'])->name('bhpnu.save');
+            Route::get('/new', [BHPNUController::class, 'permohonanBaruBHPNU'])->name('bhpnu.new');
+            Route::get('/file/{fileName?}', [BHPNUController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
+            Route::get('/history', [BHPNUController::class, 'historyPermohonan'])->name('bhpnu.history');
+        });
     });
 
     Route::middleware('onlyadmin')->prefix('admin')->group(function() {
@@ -95,8 +103,6 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/rekapsatpen', [AdminController::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
         Route::get('/rekapsatpen/{satpenId}/detail', [AdminController::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
         Route::delete('/rekapsatpen/{satpen}', [AdminController::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
-        Route::get('/oss', [AdminController::class, 'underConstruction'])->name('a.oss');
-        Route::get('/bhpnu', [AdminController::class, 'underConstruction'])->name('a.bhpnu');
         Route::post('/doc/generate', [AdminController::class, 'generatePiagamAndSK'])->name('generate.document');
         Route::post('/doc/regenerate', [AdminController::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
 
@@ -110,6 +116,18 @@ Route::middleware('mustlogin')->group(function() {
             Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
             Route::get('/file/{fileName?}', [OSSControllerAdmin::class, 'viewBuktiPembayaran'])->name('a.oss.file');
             Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');
+        });
+
+        /**
+         * BHPNU
+         */
+        Route::group(["prefix" => "bhpnu"], function() {
+            Route::get('/', [BHPNUControllerAdmin::class, 'listPermohonanBHPNU'])->name('a.bhpnu');
+            Route::get('/acc/{bhpnu}', [BHPNUControllerAdmin::class, 'setAcceptBHPNU'])->name('a.bhpnu.acc');
+            Route::put('/appear/{bhpnu}', [BHPNUControllerAdmin::class, 'setIzinTerbitBHPNU'])->name('a.bhpnu.appear');
+            Route::put('/reject/{bhpnu}', [BHPNUControllerAdmin::class, 'setRejectBHPNU'])->name('a.bhpnu.reject');
+            Route::get('/file/{fileName?}', [BHPNUControllerAdmin::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file');
+            Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy');
         });
 
     });
