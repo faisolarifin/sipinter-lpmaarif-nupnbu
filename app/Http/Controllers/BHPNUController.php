@@ -90,14 +90,14 @@ class BHPNUController extends Controller
         ]);
 
         BHPNUStatus::where([
-            'id_bhpnu' => $request->bhpnuId,
+            'id_bhpnu' => $bhpnu->id_bhpnu,
             'statusType' => 'verifikasi',
         ])->update([
             'status' => 'success',
         ]);
 
         BHPNUStatus::where([
-            'id_bhpnu' => $request->bhpnuId,
+            'id_bhpnu' => $bhpnu->id_bhpnu,
             'statusType' => 'perbaikan',
         ])->update([
             'status' => null,
