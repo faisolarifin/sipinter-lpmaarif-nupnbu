@@ -97,7 +97,7 @@
                                             <p class="mb-0">BUKTI PEMBAYARAN</p>
                                         </td>
                                         <td class="border-bottom-0">
-                                            <a href="{{ route('oss.file', $bhpnu->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('bhpnu.file', $bhpnu->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                     </tr>
                                 </table>

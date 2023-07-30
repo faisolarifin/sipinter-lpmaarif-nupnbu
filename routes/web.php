@@ -9,7 +9,7 @@ use App\Http\Controllers\{
     GeneralController,
     OSSController,
     SatpenController,
-};
+    FileViewerController,};
 use App\Http\Controllers\Admin\{
     SATPENController as SATPENControllerAdmin,
     BHPNUController as BHPNUControllerAdmin,
@@ -19,8 +19,7 @@ use App\Http\Controllers\Master\{
     JenjangPendidikanController,
     KabupatenController,
     PengurusCabangController,
-    PropinsiController,
-};
+    PropinsiController,};
 
 /*
 |--------------------------------------------------------------------------
@@ -75,8 +74,8 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/', [OSSController::class, 'permohonanOSSPage'])->name('oss');
             Route::get('/new', [OSSController::class, 'permohonanBaruOSS'])->name('oss.new');
             Route::put('/{oss}', [OSSController::class, 'storePermohonanOSS'])->name('oss.save');
-            Route::get('/file/{fileName?}', [OSSController::class, 'viewBuktiPembayaran'])->name('oss.file');
             Route::get('/history', [OSSController::class, 'historyPermohonan'])->name('oss.history');
+            Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('oss.file');
         });
         /**
          * BHPNU
@@ -86,8 +85,8 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/', [BHPNUController::class, 'permohonanBHPNUPage'])->name('bhpnu');
             Route::get('/new', [BHPNUController::class, 'permohonanBaruBHPNU'])->name('bhpnu.new');
             Route::put('/{bhpnu}', [BHPNUController::class, 'storePermohonanBHPNU'])->name('bhpnu.save');
-            Route::get('/file/{fileName?}', [BHPNUController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
             Route::get('/history', [BHPNUController::class, 'historyPermohonan'])->name('bhpnu.history');
+            Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
         });
     });
 
@@ -128,8 +127,8 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
             Route::put('/appear/{oss}', [OSSControllerAdmin::class, 'setIzinTerbitOSS'])->name('a.oss.appear');
             Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
-            Route::get('/file/{fileName?}', [OSSControllerAdmin::class, 'viewBuktiPembayaran'])->name('a.oss.file');
             Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');
+            Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.oss.file');
         });
 
         /**
@@ -140,8 +139,8 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/acc/{bhpnu}', [BHPNUControllerAdmin::class, 'setAcceptBHPNU'])->name('a.bhpnu.acc');
             Route::put('/appear/{bhpnu}', [BHPNUControllerAdmin::class, 'setIzinTerbitBHPNU'])->name('a.bhpnu.appear');
             Route::put('/reject/{bhpnu}', [BHPNUControllerAdmin::class, 'setRejectBHPNU'])->name('a.bhpnu.reject');
-            Route::get('/file/{fileName?}', [BHPNUControllerAdmin::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file');
             Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy');
+            Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file');
         });
 
     });
