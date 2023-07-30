@@ -121,4 +121,8 @@ class BHPNUController extends Controller
 
         return view('bhpnu.history', compact('bhpnuHistory'));
     }
+
+    public function forbiddenPage() {
+        return view('bhpnu.forbidden');
+    }
 }

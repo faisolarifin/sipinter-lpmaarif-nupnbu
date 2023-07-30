@@ -2,10 +2,6 @@
     'title' => 'Siapinter - Permohonan BHPNU'
 ])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/timeline.css') }}" />
-@endsection
-
 @section('navbar')
     @include('template.nav')
 @endsection

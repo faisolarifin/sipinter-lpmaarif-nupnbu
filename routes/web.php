@@ -70,7 +70,8 @@ Route::middleware('mustlogin')->group(function() {
         /**
          * OSS
          */
-        Route::group(["prefix" => "oss"], function() {
+        Route::get('/oss/forbidden', [OSSController::class, 'forbiddenPage'])->name('oss.403');
+        Route::group(["prefix" => "oss", "middleware" => "verifysatpenactive"], function() {
             Route::get('/', [OSSController::class, 'permohonanOSSPage'])->name('oss');
             Route::put('/', [OSSController::class, 'storePermohonanOSS'])->name('oss.save');
             Route::get('/new', [OSSController::class, 'permohonanBaruOSS'])->name('oss.new');
@@ -80,7 +81,8 @@ Route::middleware('mustlogin')->group(function() {
         /**
          * BHPNU
          */
-        Route::group(["prefix" => "bhpnu"], function() {
+        Route::get('/bhpnu/forbidden', [BHPNUController::class, 'forbiddenPage'])->name('bhpnu.403');
+        Route::group(["prefix" => "bhpnu", "middleware" => "verifysatpenactive"], function() {
             Route::get('/', [BHPNUController::class, 'permohonanBHPNUPage'])->name('bhpnu');
             Route::put('/', [BHPNUController::class, 'storePermohonanBHPNU'])->name('bhpnu.save');
             Route::get('/new', [BHPNUController::class, 'permohonanBaruBHPNU'])->name('bhpnu.new');

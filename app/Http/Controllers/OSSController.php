@@ -6,7 +6,6 @@ use App\Http\Requests\OSSRequest;
 use App\Models\OSS;
 use App\Models\OSSStatus;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class OSSController extends Controller
@@ -122,5 +121,9 @@ class OSSController extends Controller
             ->get();
 
         return view('oss.history', compact('ossHistory'));
+    }
+
+    public function forbiddenPage() {
+        return view('oss.forbidden');
     }
 }

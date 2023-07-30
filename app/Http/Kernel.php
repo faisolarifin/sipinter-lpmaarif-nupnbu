@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'mustlogin' => \App\Http\Middleware\MustLogin::class,
         'onlyoperator' => \App\Http\Middleware\OnlyOperator::class,
         'onlyadmin' => \App\Http\Middleware\OnlyAdmin::class,
+        'verifysatpenactive' => \App\Http\Middleware\VerifySatpenActive::class,
     ];
 }
