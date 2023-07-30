@@ -185,26 +185,6 @@ class SATPENController extends Controller
         }
     }
 
-    public function pdfUploadViewer(string $fileName) {
-        if ($fileName) {
-            $filepath = storage_path("app/uploads/".$fileName);
-
-            if (!file_exists($filepath)) return response("File not found!");
-            return response()->file($filepath);
-        }
-        return response("Invalid Document!");
-    }
-
-    public function pdfGeneratedViewer(string $type=null, string $fileName=null) {
-        if ($fileName && $type) {
-            $filepath = storage_path("app/generated/".$type."/".$fileName);
-
-            if (!file_exists($filepath)) return response("File not found!");
-            return response()->file($filepath);
-        }
-        return response("Invalid Document!");
-    }
-
     public function generatePiagamAndSK(Request $request) {
         try {
             $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
@@ -387,6 +367,5 @@ class SATPENController extends Controller
     public function underConstruction() {
         return view('template.constructionad');
     }
-
 
 }

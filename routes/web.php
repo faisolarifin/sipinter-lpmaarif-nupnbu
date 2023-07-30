@@ -50,7 +50,7 @@ Route::middleware('mustlogin')->group(function() {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/gantipassword', [AuthController::class, 'changePassword'])->name('changepass');
-    Route::get('/upload/{fileName?}', [AdminController::class, 'pdfUploadViewer'])->name('viewerpdf');
+    Route::get('/upload/{fileName?}', [FileViewerController::class, 'pdfUploadViewer'])->name('viewerpdf');
 
     Route::middleware('onlyoperator')->group(function() {
 
@@ -117,7 +117,7 @@ Route::middleware('mustlogin')->group(function() {
             Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
             Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
             Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
-            Route::get('/reader/{type?}/{fileName?}', [SATPENControllerAdmin::class, 'pdfGeneratedViewer'])->name('pdf.generated');
+            Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
         });
         /**
          * OSS
