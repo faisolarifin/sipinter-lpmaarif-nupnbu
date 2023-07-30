@@ -75,11 +75,15 @@ class OSSController extends Controller
 
     }
 
-    public function storePermohonanOSS(OSSRequest $request) {
+    public function storePermohonanOSS(OSSRequest $request, OSS $oss) {
 
-        $pathBuktiBayar = Storage::disk('buktibayar')->putFile(null, $request->file('bukti_bayar'));
+        if ($request->file('bukti_bayar')
+            && $request->file('bukti_bayar')->isValid()) {
+            $pathBuktiBayar = Storage::disk('buktibayar')->putFile(null, $request->file('bukti_bayar'));
+            Storage::disk("buktibayar")->delete($oss->bukti_bayar);
+        }
 
-        OSS::find($request->ossId)->update([
+        $oss->update([
             'kode_unik' => $request->kode_unik,
             'bukti_bayar' => $pathBuktiBayar,
             'tanggal' => Carbon::now(),
@@ -87,14 +91,14 @@ class OSSController extends Controller
         ]);
 
         OSSStatus::where([
-            'id_oss' => $request->ossId,
+            'id_oss' => $oss->id_oss,
             'statusType' => 'verifikasi',
         ])->update([
             'status' => 'success',
         ]);
 
         OSSStatus::where([
-            'id_oss' => $request->ossId,
+            'id_oss' => $oss->id_oss,
             'statusType' => 'perbaikan',
         ])->update([
             'status' => null,

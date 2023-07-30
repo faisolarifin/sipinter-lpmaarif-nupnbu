@@ -32,7 +32,7 @@
 
                     <div class="row align-items-center mt-4">
                         <div class="col text-center">
-                            <div class="alert alert-danger">Anda tidak bisa melakukan pengajuan OSS, status satuan pendidikan anda tidak aktif.</div>
+                            <div class="alert alert-danger">Anda tidak bisa melakukan pengajuan permohonan OSS, status satuan pendidikan anda tidak aktif.</div>
                         </div>
                     </div>
 

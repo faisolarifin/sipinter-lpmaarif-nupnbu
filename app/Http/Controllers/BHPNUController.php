@@ -75,11 +75,15 @@ class BHPNUController extends Controller
 
     }
 
-    public function storePermohonanBHPNU(BHPNURequest $request) {
+    public function storePermohonanBHPNU(BHPNURequest $request, BHPNU $bhpnu) {
 
-        $pathBuktiBayar = Storage::disk('buktibayar')->putFile(null, $request->file('bukti_bayar'));
+        if ($request->file('bukti_bayar')
+            && $request->file('bukti_bayar')->isValid()) {
+            $pathBuktiBayar = Storage::disk('buktibayar')->putFile(null, $request->file('bukti_bayar'));
+            Storage::disk("buktibayar")->delete($bhpnu->bukti_bayar);
+        }
 
-        BHPNU::find($request->bhpnuId)->update([
+        $bhpnu->update([
             'bukti_bayar' => $pathBuktiBayar,
             'tanggal' => Carbon::now(),
             'status' => 'verifikasi',
@@ -100,7 +104,7 @@ class BHPNUController extends Controller
             'keterangan' => null,
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil melakukan permohonan BHPNu');
+        return redirect()->back()->with('success', 'Berhasil melakukan permohonan BHPNU');
     }
     public function viewBuktiPembayaran(string $fileName) {
         if ($fileName) {

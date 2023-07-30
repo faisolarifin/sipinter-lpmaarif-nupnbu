@@ -24,7 +24,6 @@ class OSSRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ossId' => 'required',
             'kode_unik' => 'required',
             'bukti_bayar' => 'required',
         ];

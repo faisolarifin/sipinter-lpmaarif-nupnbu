@@ -66,10 +66,9 @@
 
                         <div class="row justify-content-center">
                             <div class="col col-sm-11 border px-2 py-2">
-                                <form action="{{ route('oss.save') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('oss.save', $oss->id_oss) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="ossId" value="{{ $oss->id_oss }}">
                                     <table class="table mb-0">
                                         <tr>
                                             <td colspan="2">

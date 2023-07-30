@@ -24,7 +24,6 @@ class BHPNURequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bhpnuId' => 'required',
             'bukti_bayar' => 'required',
         ];
     }

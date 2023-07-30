@@ -66,10 +66,9 @@
 
                         <div class="row justify-content-center">
                             <div class="col col-sm-11 border px-2 py-2">
-                                <form action="{{ route('bhpnu.save') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('bhpnu.save', $bhpnu->id_bhpnu) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="bhpnuId" value="{{ $bhpnu->id_bhpnu }}">
                                     <table class="table mb-0">
                                         <tr>
                                             <td class="border-bottom-0">

@@ -73,8 +73,8 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/oss/forbidden', [OSSController::class, 'forbiddenPage'])->name('oss.403');
         Route::group(["prefix" => "oss", "middleware" => "verifysatpenactive"], function() {
             Route::get('/', [OSSController::class, 'permohonanOSSPage'])->name('oss');
-            Route::put('/', [OSSController::class, 'storePermohonanOSS'])->name('oss.save');
             Route::get('/new', [OSSController::class, 'permohonanBaruOSS'])->name('oss.new');
+            Route::put('/{oss}', [OSSController::class, 'storePermohonanOSS'])->name('oss.save');
             Route::get('/file/{fileName?}', [OSSController::class, 'viewBuktiPembayaran'])->name('oss.file');
             Route::get('/history', [OSSController::class, 'historyPermohonan'])->name('oss.history');
         });
@@ -84,8 +84,8 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/bhpnu/forbidden', [BHPNUController::class, 'forbiddenPage'])->name('bhpnu.403');
         Route::group(["prefix" => "bhpnu", "middleware" => "verifysatpenactive"], function() {
             Route::get('/', [BHPNUController::class, 'permohonanBHPNUPage'])->name('bhpnu');
-            Route::put('/', [BHPNUController::class, 'storePermohonanBHPNU'])->name('bhpnu.save');
             Route::get('/new', [BHPNUController::class, 'permohonanBaruBHPNU'])->name('bhpnu.new');
+            Route::put('/{bhpnu}', [BHPNUController::class, 'storePermohonanBHPNU'])->name('bhpnu.save');
             Route::get('/file/{fileName?}', [BHPNUController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
             Route::get('/history', [BHPNUController::class, 'historyPermohonan'])->name('bhpnu.history');
         });
