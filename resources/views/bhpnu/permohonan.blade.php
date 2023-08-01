@@ -92,6 +92,16 @@
                         <div class="row justify-content-center">
                             <div class="col col-sm-11 border px-3 py-3">
                                 <table class="table table-bordered mb-0 table-striped">
+                                    @if($bhpnu->no_resi)
+                                    <tr>
+                                        <td class="border-bottom-0" width="240">
+                                            NOMOR RESI
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            {{ $bhpnu->no_resi }}
+                                        </td>
+                                    </tr>
+                                    @endif
                                     <tr>
                                         <td class="border-bottom-0 align-middle" width="240">
                                             <p class="mb-0">BUKTI PEMBAYARAN</p>

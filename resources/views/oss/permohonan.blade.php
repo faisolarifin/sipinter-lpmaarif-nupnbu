@@ -72,14 +72,19 @@
                                     <table class="table mb-0">
                                         <tr>
                                             <td colspan="2">
-                                                <p class="mb-0">MELENGKAPI DATA DI LINK</p>
+                                                <p class="mb-0">MENGISI FORMULIR DATA PADA LINK</p>
                                                 <small><a href="#">https://www.hackerearth.com/challenges/hackathon/intel-oneapi-hackathon-for-open-innovation/</a></small>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-bottom-0" colspan="2">
+                                                <small>*) Kode unik didapatkan dari email setelah mengisi formulir.</small>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="border-bottom-0" width="300">
                                                 <label class="form-label" for="kode_unik">Kode Unik</label>
-                                                <input type="text" name="kode_unik" id="kode_unik" placeholder="Masukkan kode unik dari email" class="form-control form-control-sm @error('kode_unik') is-invalid @enderror" value="{{ $oss->kode_unik }}">
+                                                <input type="text" name="kode_unik" id="kode_unik" placeholder="Masukkan kode unik" class="form-control form-control-sm @error('kode_unik') is-invalid @enderror" value="{{ $oss->kode_unik }}">
                                                 <div class="invalid-feedback">
                                                     @error('kode_unik') {{ $message }} @enderror
                                                 </div>

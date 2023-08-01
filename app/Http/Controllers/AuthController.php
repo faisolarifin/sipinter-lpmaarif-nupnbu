@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Http\Requests\CekNpsnRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Models\VirtualNPSN;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
@@ -81,6 +83,32 @@ class AuthController extends Controller
     {
         try {
             /**
+             * Cek virtual npsn on db
+             */
+            $virtualNpsn = VirtualNPSN::with([
+                            "jenjang:id_jenjang,nm_jenjang",
+                            "provinsi:id_prov,nm_prov",
+                            "kabupaten:id_kab,nama_kab"])
+                            ->where("nomor_virtual", "=", $request->npsn)
+                            ->first();
+            if ($virtualNpsn) {
+                if (!Carbon::now()->gt(Carbon::parse($virtualNpsn->expired_after))){
+                    setcookie('dapo', json_encode([
+                        "nama" => $virtualNpsn->nama_sekolah,
+                        "npsn" => $virtualNpsn->nomor_virtual,
+                        "alamat" => $virtualNpsn->alamat,
+                        "desakelurahan" => $virtualNpsn->kelurahan,
+                        "kecamatankota_ln" => $virtualNpsn->kecamatan,
+                        "kabkotanegara_ln" => $virtualNpsn->kabupaten->nama_kab,
+                        "propinsiluar_negeri_ln" => "PROV. ". $virtualNpsn->provinsi->nm_prov,
+                        "bentuk_pendidikan" => $virtualNpsn->jenjang->nm_jenjang,
+                    ]), time() + (60 * 10), "/");
+                    return redirect()->route('register');
+                }
+                return redirect()->back()->with('error', 'Nomor NPSN Virtual sudah expired');
+            }
+
+            /**
              * Cek npsn on referensi.data.kemdikbud.go.id/
              */
             $cloneSekolah = new ReferensiKemdikbud();
@@ -92,7 +120,7 @@ class AuthController extends Controller
                  * Cek npsn on system based on npsn number
                  */
                 if (Satpen::where(['npsn' => $jsonResultSekolah["npsn"]])->first()) {
-                    return redirect()->back()->with('error', 'NPSN already registered on system');
+                    return redirect()->back()->with('error', 'NPSN sudah pernah terdaftar dalam sistem');
                 }
                 setcookie('dapo', json_encode($jsonResultSekolah), time() + (60 * 10), "/");
                 return redirect()->route('register');

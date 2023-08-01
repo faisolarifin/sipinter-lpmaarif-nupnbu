@@ -46,7 +46,7 @@ class ApiController extends Controller
     public function getProvAndCount() {
         try {
             $recordPerPropinsi = DB::select("SELECT nm_prov, map,
-                                                        (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov) AS record_count
+                                                        (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov and status IN ('setujui','expired')) AS record_count
                                                          FROM provinsi");
             if (!$recordPerPropinsi) return response()->json(['error' => 'Forbidden to access record']);
 
@@ -62,7 +62,7 @@ class ApiController extends Controller
     public function getKabAndCount(int $provId=null) {
         try {
             if (!$provId) $provId = Provinsi::min("id_prov");
-            $recordPerKabupaten = DB::select("SELECT nama_kab, (SELECT COUNT(id_kab) FROM satpen WHERE id_kab=kabupaten.id_kab) AS record_count FROM kabupaten WHERE id_prov='$provId'");
+            $recordPerKabupaten = DB::select("SELECT nama_kab, (SELECT COUNT(id_kab) FROM satpen WHERE id_kab=kabupaten.id_kab and status IN ('setujui','expired')) AS record_count FROM kabupaten WHERE id_prov='$provId'");
 
             if (!$recordPerKabupaten) return response()->json(['error' => 'Forbidden to access record']);
 
@@ -76,7 +76,7 @@ class ApiController extends Controller
 
     public function getJenjangAndCount() {
         try {
-            $recordByJenjang = DB::select("SELECT nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang) AS record_count FROM jenjang_pendidikan");
+            $recordByJenjang = DB::select("SELECT nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired')) AS record_count FROM jenjang_pendidikan");
             if (!$recordByJenjang) return response()->json(['error' => 'Forbidden to access record']);
 
             return response()->json($recordByJenjang, HttpResponse::HTTP_OK);
