@@ -17,8 +17,6 @@ class VirtualNPSN extends Model
         'id_jenjang',
         'nomor_virtual',
         'nama_sekolah',
-        'kecamatan',
-        'kelurahan',
         'alamat',
         'email',
         'expired_after'

@@ -41,10 +41,13 @@ Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProses'])->name('login.proses');
 Route::get('/register', [AuthController::class, 'registerPage'])->name('register');
 Route::post('/register', [SatpenController::class, 'registerProses'])->name('register.proses');
+Route::get('/register/success', [AuthController::class, 'registerSuccess'])->name('register.success');
 Route::get('/ceknpsn', [AuthController::class, 'cekNpsnPage'])->name('ceknpsn');
 Route::post('/ceknpsn', [AuthController::class, 'checkNpsn'])->name('ceknpsn.proses');
-Route::get('/register/success', [AuthController::class, 'registerSuccess'])->name('register.success');
+Route::get('/npsnvirtual', [AuthController::class, 'npsnVirtualPage'])->name('npsnvirtual');
+Route::post('/npsnvirtual', [AuthController::class, 'requestVirtualNPSN'])->name('npsnvirtual.request');
 Route::get('/json/provcount', [ApiController::class, 'getProvAndCount'])->name('provcount');
+Route::get('/json/kabbyprov/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('kabbyprov');
 
 Route::middleware('mustlogin')->group(function() {
 

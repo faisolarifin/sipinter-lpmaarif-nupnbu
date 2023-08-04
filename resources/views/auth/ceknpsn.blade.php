@@ -27,15 +27,19 @@
                                     <label for="npsn" class="form-label">NPSN</label>
                                     <small>verifikasi npsn untuk melakukan registrasi</small>
                                 </div>
-                                <input type="text" class="form-control @error('npsn') is-invalid @enderror" id="npsn" name="npsn" value="{{ old('npsn') }}">
+                                <input type="text" class="form-control @error('npsn') is-invalid @enderror" id="npsn" name="npsn" value="{{ old('npsn') }}" placeholder="Masukkan Nomor NPSN">
                                 <div class="invalid-feedback">
                                     @error('npsn') {{ $message }} @enderror
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Verifikasi NPSN</button>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <p class="fs-4 mb-0 fw-bold">Sudah Punya Akun?</p>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <p class="fs-3 mb-0 fw-bold">Sudah Punya Akun?</p>
                                 <a class="text-primary fw-bold ms-2" href="{{ route('login') }}">Masuk Portal</a>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <p class="fs-3 mb-0 fw-bold">Belum Punya NPSN?</p>
+                                <a class="text-primary fw-bold ms-2" href="{{ route('npsnvirtual') }}">Ajukan NPSN Virtual</a>
                             </div>
                         </form>
                     </div>

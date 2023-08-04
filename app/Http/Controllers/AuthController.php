@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\CatchErrorException;
 use App\Helpers\ReferensiKemdikbud;
 use App\Helpers\Strings;
+use App\Http\Requests\VirtualNPSNRequest;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\PengurusCabang;
@@ -23,6 +24,32 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    public function npsnVirtualPage() {
+        $jenjang = Jenjang::orderBy('id_jenjang')->get();
+        $provinsi = Provinsi::orderBy('id_prov')->get();
+        $kabupaten = Kabupaten::where('id_prov', '=', $provinsi[0]->id_prov)->get();
+
+        return view('auth.npsnvirtual', compact('jenjang', 'provinsi', 'kabupaten'));
+    }
+
+    public function requestVirtualNPSN(VirtualNPSNRequest $request) {
+        try {
+            VirtualNPSN::create([
+                'id_jenjang' => $request->jenjang,
+                'id_prov' => $request->provinsi,
+                'id_kab' => $request->kabupaten,
+                'alamat' => $request->alamat,
+                'nama_sekolah' => $request->nama_sekolah,
+                'email' => $request->email,
+            ]);
+            return redirect()->route('ceknpsn')->with("success", "Permohonan NPSN berhasil dikirimkan. Tunggu NPSN Virtual dikirimkan oleh admin pada email anda.");
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[REQUEST VIRTUAL NPSN] has error ". $e);
+        }
+    }
+
+
     public function registerPage() {
         try {
             $request = Request::capture();

@@ -24,7 +24,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}">
+                                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" placeholder="Masukkan Username">
                                 <div class="invalid-feedback">
                                     @error('username') {{ $message }} @enderror
                                 </div>
@@ -32,7 +32,7 @@
                             <div class="mb-4">
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group form-password">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Masukkan Password">
                                     <span class="input-group-text password-toggle">
                                        <i class="ti ti-eye-off"></i>
                                     </span>
@@ -52,7 +52,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Masuk</button>
                             <div class="d-flex align-items-center justify-content-center">
-                                <p class="fs-4 mb-0 fw-bold">Belum Punya Akun?</p>
+                                <p class="fs-3 mb-0 fw-bold">Belum Punya Akun?</p>
                                 <a class="text-primary fw-bold ms-2" href="{{ route('ceknpsn') }}">Buat akun baru</a>
                             </div>
                         </form>
