@@ -19,6 +19,7 @@ use App\Models\VirtualNPSN;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -42,13 +43,17 @@ class AuthController extends Controller
                 'nama_sekolah' => $request->nama_sekolah,
                 'email' => $request->email,
             ]);
-            return redirect()->route('ceknpsn')->with("success", "Permohonan NPSN berhasil dikirimkan. Tunggu NPSN Virtual dikirimkan oleh admin pada email anda.");
+            //send email
+            Mail::send('emails.noticevnpsn', ['sekolah' => $request->nama_sekolah], function($message) use($request){
+                $message->to($request->email);
+                $message->subject('Permohonan Virtual NPSN');
+            });
+            return redirect()->route('ceknpsn')->with("success", "Permohonan VNPSN berhasil dikirimkan. Tunggu NPSN Virtual dikirimkan oleh admin pada email anda. Jika dalam 2 hari kerja belum memperoleh balasan, silahkan kontak Admin.");
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[REQUEST VIRTUAL NPSN] has error ". $e);
         }
     }
-
 
     public function registerPage() {
         try {
@@ -123,9 +128,9 @@ class AuthController extends Controller
                     setcookie('dapo', json_encode([
                         "nama" => $virtualNpsn->nama_sekolah,
                         "npsn" => $virtualNpsn->nomor_virtual,
-                        "alamat" => $virtualNpsn->alamat,
-                        "desakelurahan" => $virtualNpsn->kelurahan,
-                        "kecamatankota_ln" => $virtualNpsn->kecamatan,
+                        "alamat" => "",
+                        "desakelurahan" => "",
+                        "kecamatankota_ln" => "",
                         "kabkotanegara_ln" => $virtualNpsn->kabupaten->nama_kab,
                         "propinsiluar_negeri_ln" => "PROV. ". $virtualNpsn->provinsi->nm_prov,
                         "bentuk_pendidikan" => $virtualNpsn->jenjang->nm_jenjang,

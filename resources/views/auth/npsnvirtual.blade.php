@@ -24,14 +24,15 @@
                         @include('template.alert')
                         <form action="{{ route('npsnvirtual.request') }}" method="post">
                             @csrf
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="nama_sekolah" class="form-label">Nama Sekolah</label>
                                 <input type="text" class="form-control form-control-sm @error('nama_sekolah') is-invalid @enderror" id="nama_sekolah" name="nama_sekolah" value="{{ old('nama_sekolah') }}" placeholder="Masukkan nama sekolah">
                                 <div class="invalid-feedback">
                                     @error('nama_sekolah') {{ $message }} @enderror
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <small>*) pastikan anda menerima email validasi setelah mengajukan permohonan, untuk memastikan email anda masih aktif.</small>
+                            <div class="mt-1 mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email anda">
                                 <div class="invalid-feedback">
@@ -79,7 +80,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100 py-2 fs-3 mb-3 rounded-2">Permohonan NPSN Virtual</button>
+                            <button type="submit" class="btn btn-primary w-100 py-2 fs-3 mb-3 rounded-2">Ajukan NPSN Virtual</button>
                             <div class="d-flex align-items-center justify-content-center">
                                 <p class="fs-3 mb-0 fw-bold">Sudah Punya NPSN?</p>
                                 <a class="text-primary fw-bold ms-2" href="{{ route('ceknpsn') }}">Daftar Sekarang</a>

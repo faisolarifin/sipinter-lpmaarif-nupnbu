@@ -13,7 +13,8 @@ use App\Http\Controllers\{
 use App\Http\Controllers\Admin\{
     SATPENController as SATPENControllerAdmin,
     BHPNUController as BHPNUControllerAdmin,
-    OSSController as OSSControllerAdmin,};
+    OSSController as OSSControllerAdmin,
+    VirtualNPSNController};
 use App\Http\Controllers\Master\{
     InformasiController,
     JenjangPendidikanController,
@@ -121,6 +122,15 @@ Route::middleware('mustlogin')->group(function() {
             Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
             Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
             Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
+        });
+        /**
+         * Virtual NPSN
+         */
+        Route::group(["prefix" => "virtualnpsn"], function() {
+            Route::get('/', [VirtualNPSNController::class, 'listPermohonanVNPSN'])->name('a.vnpsn');
+            Route::delete('/{virtualNPSN}', [VirtualNPSNController::class, 'destroyVNPSN'])->name('a.vnpsn.destroy');
+            Route::delete('/reject/{virtualNPSN}', [VirtualNPSNController::class, 'rejectPermohonanVNPSN'])->name('a.vnpsn.reject');
+            Route::put('/{virtualNPSN}', [VirtualNPSNController::class, 'generateVirtualNumber'])->name('a.vnpsn.accept');
         });
         /**
          * OSS

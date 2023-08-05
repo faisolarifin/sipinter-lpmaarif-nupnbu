@@ -29,7 +29,7 @@ class SATPENController extends Controller
             $listProvinsi = Provinsi::get();
             $countOfKabupaten = Kabupaten::count("id_kab");
             $countOfPropinsi = Provinsi::count("id_prov");
-            $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired'])->count("id_satpen");
+            $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired', 'perpanjangan'])->count("id_satpen");
             $recordPerPropinsi = DB::select("SELECT id_prov, nm_prov,
                                                     (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov) AS record_count
                                                      FROM provinsi");
@@ -69,7 +69,7 @@ class SATPENController extends Controller
                     || $request->kategori || $request->keyword || $request->status) {
 
                 $filter = [];
-                $statuses = ['setujui', 'expired'];
+                $statuses = ['setujui', 'expired', 'perpanjangan'];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
@@ -96,7 +96,7 @@ class SATPENController extends Controller
                     'kabupaten:id_kab,nama_kab',
                     'jenjang:id_jenjang,nm_jenjang',])
                     ->select($selectedColumns)
-                    ->whereIn('status', ['setujui', 'expired'])
+                    ->whereIn('status', ['setujui', 'expired', 'perpanjangan'])
                     ->paginate($paginatePerPage);
             }
 

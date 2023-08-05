@@ -17,6 +17,14 @@
             <span class="hide-menu">Satpen</span>
         </li>
         <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('a.vnpsn') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-message-code"></i>
+                </span>
+                <span class="hide-menu">NPSN Virtual</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.satpen') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-article"></i>
