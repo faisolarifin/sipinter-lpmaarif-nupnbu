@@ -146,15 +146,17 @@
                             @endforeach
                         </div>
                         <div class="col-sm-4 d-flex flex-column justify-content-between">
-                            <ul class="timeline">
-                                @foreach($satpenProfile->timeline as $row)
-                                <li>
-                                    <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
-                                    <small class="float-end">{{ $row->keterangan }}</small>
-                                    <p>{{ $row->tgl_status }}</p>
-                                </li>
-                                @endforeach
-                            </ul>
+                            <div style="max-height:35rem;overflow:auto;">
+                                <ul class="timeline">
+                                    @foreach($satpenProfile->timeline as $row)
+                                    <li>
+                                        <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
+                                        <small class="float-end">{{ $row->keterangan }}</small>
+                                        <p>{{ $row->tgl_status }}</p>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                             <div class="px-2 py-2 text-center">
                                 <form class="d-inline" action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
                                       method="post">

@@ -54,7 +54,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="nm_satpen" class="form-label">Nama Satpen</label>
-                                    <input type="text" class="form-control form-control-sm @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama }}">
+                                    <input type="text" class="form-control form-control-sm @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama }}" placeholder="Masukkan nama satpen">
                                     <div class="invalid-feedback">
                                         @error('nm_satpen') {{ $message }} @enderror
                                     </div>
@@ -92,7 +92,7 @@
                             <div class="col-12">
                                 <div class="mb-2">
                                     <label for="nm_yayasan" class="form-label">Nama Yayasan</label>
-                                    <input type="text" class="form-control form-control-sm @error('nm_yayasan') is-invalid @enderror" id="nm_yayasan" name="nm_yayasan">
+                                    <input type="text" class="form-control form-control-sm @error('nm_yayasan') is-invalid @enderror" id="nm_yayasan" name="nm_yayasan" placeholder="Masukkan nama yayasan">
                                     <div class="invalid-feedback">
                                         @error('nm_yayasan') {{ $message }} @enderror
                                     </div>
@@ -103,7 +103,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="kepsek" class="form-label">Kepala Sekolah</label>
-                                    <input type="text" class="form-control form-control-sm @error('kepsek') is-invalid @enderror" id="kepsek" name="kepsek" value="{{ old('kepsek') }}">
+                                    <input type="text" class="form-control form-control-sm @error('kepsek') is-invalid @enderror" id="kepsek" name="kepsek" value="{{ old('kepsek') }}" placeholder="Masukkan nama kepala sekolah">
                                     <div class="invalid-feedback">
                                         @error('kepsek') {{ $message }} @enderror
                                     </div>
@@ -112,7 +112,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="thn_berdiri" class="form-label">Tahun Berdiri</label>
-                                    <input type="text" class="form-control form-control-sm @error('thn_berdiri') is-invalid @enderror" id="thn_berdiri" name="thn_berdiri" value="{{ old('thn_berdiri') }}">
+                                    <input type="text" class="form-control form-control-sm @error('thn_berdiri') is-invalid @enderror" id="thn_berdiri" name="thn_berdiri" value="{{ old('thn_berdiri') }}" placeholder="Masukkan tahun berdiri sekolah">
                                     <div class="invalid-feedback">
                                         @error('thn_berdiri') {{ $message }} @enderror
                                     </div>
@@ -135,7 +135,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="nm_pemilik" class="form-label">Nama Pemilik</label>
-                                    <input type="text" class="form-control form-control-sm @error('nm_pemilik') is-invalid @enderror" id="nm_pemilik" name="nm_pemilik" value="{{ old('nm_pemilik') }}">
+                                    <input type="text" class="form-control form-control-sm @error('nm_pemilik') is-invalid @enderror" id="nm_pemilik" name="nm_pemilik" value="{{ old('nm_pemilik') }}" placeholder="Masukkan nama pemilik tanah">
                                     <div class="invalid-feedback">
                                         @error('nm_pemilik') {{ $message }} @enderror
                                     </div>
@@ -201,7 +201,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="kelurahan" class="form-label">Kelurahan</label>
-                                    <input type="text" class="form-control form-control-sm @error('kelurahan') is-invalid @enderror" id="kelurahan" name="kelurahan" value="{{ $cookieValue->desakelurahan }}">
+                                    <input type="text" class="form-control form-control-sm @error('kelurahan') is-invalid @enderror" id="kelurahan" name="kelurahan" value="{{ $cookieValue->desakelurahan }}" placeholder="Masukkan nama kelurahan">
                                     <div class="invalid-feedback">
                                         @error('kelurahan') {{ $message }} @enderror
                                     </div>
@@ -210,7 +210,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="alamat" class="form-label">Alamat</label>
-                                    <input type="text" class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ $cookieValue->alamat }}">
+                                    <input type="text" class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ $cookieValue->alamat }}" placeholder="Masukkan alamat sekolah">
                                     <div class="invalid-feedback">
                                         @error('alamat') {{ $message }} @enderror
                                     </div>
@@ -224,7 +224,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
+                                    <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email masih aktif">
                                     <div class="invalid-feedback">
                                         @error('email') {{ $message }} @enderror
                                     </div>
@@ -233,7 +233,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="telp" class="form-label">Telpon</label>
-                                    <input type="text" class="form-control form-control-sm @error('telp') is-invalid @enderror" id="telp" name="telp" value="{{ old('telp') }}">
+                                    <input type="text" class="form-control form-control-sm @error('telp') is-invalid @enderror" id="telp" name="telp" value="{{ old('telp') }}" placeholder="Masukkan nomor telpon sekolah">
                                     <div class="invalid-feedback">
                                         @error('telp') {{ $message }} @enderror
                                     </div>
@@ -244,7 +244,7 @@
                             <div class="col-12">
                                 <div class="mb-2">
                                     <label for="fax" class="form-label">Fax</label>
-                                    <input type="text" class="form-control form-control-sm @error('fax') is-invalid @enderror" id="fax" name="fax" value="{{ old('fax') }}">
+                                    <input type="text" class="form-control form-control-sm @error('fax') is-invalid @enderror" id="fax" name="fax" value="{{ old('fax') }}" placeholder="Masukkan nomor FAX (jika ada)">
                                     <div class="invalid-feedback">
                                         @error('fax') {{ $message }} @enderror
                                     </div>
@@ -259,7 +259,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="no_srt_permohonan" class="form-label">Nomor Surat</label>
-                                    <input type="text" class="form-control form-control-sm @error('no_srt_permohonan') is-invalid @enderror" id="no_srt_permohonan" name="no_srt_permohonan" value="{{ old('no_srt_permohonan') }}">
+                                    <input type="text" class="form-control form-control-sm @error('no_srt_permohonan') is-invalid @enderror" id="no_srt_permohonan" name="no_srt_permohonan" value="{{ old('no_srt_permohonan') }}" placeholder="Masukkan nomor dari surat permohonan">
                                     <div class="invalid-feedback">
                                         @error('no_srt_permohonan') {{ $message }} @enderror
                                     </div>
@@ -316,7 +316,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="no_srt_rekom_pc" class="form-label">Nomor Surat</label>
-                                    <input type="text" class="form-control form-control-sm @error('no_srt_rekom_pc') is-invalid @enderror" id="no_srt_rekom_pc" name="no_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') }}">
+                                    <input type="text" class="form-control form-control-sm @error('no_srt_rekom_pc') is-invalid @enderror" id="no_srt_rekom_pc" name="no_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') }}" placeholder="Masukkan nomor surat dari pengurus cabang">
                                     <div class="invalid-feedback">
                                         @error('no_srt_rekom_pc') {{ $message }} @enderror
                                     </div>
@@ -373,7 +373,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="no_srt_rekom_pw" class="form-label">Nomor Surat</label>
-                                    <input type="text" class="form-control form-control-sm @error('no_srt_rekom_pw') is-invalid @enderror" id="no_srt_rekom_pw" name="no_srt_rekom_pw" value="{{ old('no_srt_rekom_pw') }}">
+                                    <input type="text" class="form-control form-control-sm @error('no_srt_rekom_pw') is-invalid @enderror" id="no_srt_rekom_pw" name="no_srt_rekom_pw" value="{{ old('no_srt_rekom_pw') }}" placeholder="Masukkan nomor surat dari pengurus wilayah">
                                     <div class="invalid-feedback">
                                         @error('no_srt_rekom_pw') {{ $message }} @enderror
                                     </div>
@@ -408,7 +408,7 @@
                                 <div class="mb-2">
                                     <label for="password" class="form-label">Password Akun</label>
                                     <div class="input-group form-password">
-                                        <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password">
+                                        <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" placeholder="Masukkan password akun">
                                         <span class="input-group-text password-toggle">
                                        <i class="ti ti-eye-off"></i>
                                     </span>
@@ -422,7 +422,7 @@
                                 <div class="mb-2">
                                     <label for="passconfirm" class="form-label">Konfirmasi Password</label>
                                     <div class="input-group form-password">
-                                        <input type="password" class="form-control form-control-sm @error('passconfirm') is-invalid @enderror" id="passconfirm" name="passconfirm">
+                                        <input type="password" class="form-control form-control-sm @error('passconfirm') is-invalid @enderror" id="passconfirm" name="passconfirm" placeholder="Konfirmasi password akun">
                                         <span class="input-group-text password-toggle">
                                        <i class="ti ti-eye-off"></i>
                                     </span>

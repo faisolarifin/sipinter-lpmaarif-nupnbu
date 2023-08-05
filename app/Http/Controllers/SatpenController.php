@@ -15,6 +15,7 @@ use App\Models\Kategori;
 use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
+use App\Models\VirtualNPSN;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -25,8 +26,9 @@ class SatpenController extends Controller
         $mySatpen = Satpen::with(['kategori', 'timeline', 'file'])
             ->where('id_user', '=', auth()->user()->id_user)
             ->first();
+        $usingVNPSN = VirtualNPSN::where('nomor_virtual', '=', $mySatpen->npsn)->count('nomor_virtual');
 
-        return view('home.dashboard', compact('mySatpen'));
+        return view('home.dashboard', compact('mySatpen', 'usingVNPSN'));
     }
 
     public function registerProses(RegisterRequest $request)

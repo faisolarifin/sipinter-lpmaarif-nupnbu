@@ -18,6 +18,36 @@
 
 @include('template.alert')
 
+@if($usingVNPSN > 0)
+
+    <!-- Modal -->
+    <div class="modal fade" id="toggleMyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger mb-0">
+                        <div class="d-flex align-items-center">
+                            <i class="ti ti-alert-circle fs-6"></i>
+                            <p class="mb-0 ms-2">Satuan pendidikan anda masih menggunakan NPSN Virtual. Silahkan perbaharui NPSN satuan pendidikan anda menggunakan nomor nasional !</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section('scripts')
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('toggleMyModal'), {})
+            myModal.toggle()
+        </script>
+    @endsection
+@endif
+
 <div class="row">
     <div class="col-lg-8 d-flex align-items-strech">
         <div class="card w-100 shadow-none">
@@ -118,6 +148,5 @@
     </div>
 
 </div>
-
 
 @endsection

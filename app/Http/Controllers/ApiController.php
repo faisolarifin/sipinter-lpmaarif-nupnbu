@@ -14,7 +14,9 @@ class ApiController extends Controller
     public function getSatpenById(string $satpenId=null) {
         try {
             if ($satpenId) {
-                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'timeline', 'filereg'])
+                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'filereg', 'timeline' => function($query){
+                        $query->skip($query->count("*") - 7)->limit(7);
+                    }])
                     ->where('id_satpen', '=', $satpenId)
                     ->first();
                 if (!$satpenProfile) return response()->json(['error' => 'Forbidden to access satpen profile']);
