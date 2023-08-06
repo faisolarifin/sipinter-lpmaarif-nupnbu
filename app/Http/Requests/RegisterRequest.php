@@ -42,17 +42,17 @@ class RegisterRequest extends FormRequest
             "passconfirm" => "required|same:password",
             "no_srt_permohonan" => "required",
             "tgl_srt_permohonan" => "required",
-            "file_permohonan" => "requiredfile|mimes:pdf|max:2048",
+            "file_permohonan" => "required|file|mimes:pdf|max:2048",
             "nm_rekom_pc" => "required",
             "cabang_rekom_pc" => "required",
             "no_srt_rekom_pc" => "required",
             "tgl_srt_rekom_pc" => "required",
-            "file_rekom_pc" => "required|mimes:pdf|max:2048",
+            "file_rekom_pc" => "required|file|mimes:pdf|max:2048",
             "nm_rekom_pw" => "required",
             "wilayah_rekom_pw" => "required",
             "no_srt_rekom_pw" => "required",
             "tgl_srt_rekom_pw" => "required",
-            "file_rekom_pw" => "required|mimes:pdf|max:2048",
+            "file_rekom_pw" => "required|file|mimes:pdf|max:2048",
         ];
     }
 
