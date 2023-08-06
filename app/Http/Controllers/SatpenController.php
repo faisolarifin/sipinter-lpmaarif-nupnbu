@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CatchErrorException;
+use App\Helpers\ReferensiKemdikbud;
 use App\Http\Controllers\Admin\SATPENController as SatpenControllerAdmin;
+use App\Http\Requests\CekNpsnRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\RegisterUpdateRequest;
 use App\Http\Requests\StatusSatpenRequest;
@@ -23,12 +25,17 @@ use Illuminate\Support\Facades\Storage;
 class SatpenController extends Controller
 {
     public function dashboardPage() {
-        $mySatpen = Satpen::with(['kategori', 'timeline', 'file'])
+        try {
+            $mySatpen = Satpen::with(['kategori', 'timeline', 'file'])
             ->where('id_user', '=', auth()->user()->id_user)
             ->first();
-        $usingVNPSN = VirtualNPSN::where('nomor_virtual', '=', $mySatpen->npsn)->count('nomor_virtual');
+            $usingVNPSN = VirtualNPSN::where('nomor_virtual', '=', $mySatpen->npsn)->count('nomor_virtual');
 
-        return view('home.dashboard', compact('mySatpen', 'usingVNPSN'));
+            return view('home.dashboard', compact('mySatpen', 'usingVNPSN'));
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[DASHBOARD PAGE] has error ". $e);
+        }
     }
 
     public function registerProses(RegisterRequest $request)
@@ -376,6 +383,45 @@ class SatpenController extends Controller
         } catch (\Exception $e) {
             throw new CatchErrorException("[PERPANJANG SATPEN PAGE] has error ". $e);
 
+        }
+    }
+
+    public function changeNPSN(CekNpsnRequest $request, Satpen $satpen) {
+        try {
+            if ($request->npsn == $satpen->npsn) {
+                return redirect()->back()->with('error', 'Anda memasukkan npsn yang sama dengan saat ini');
+            }
+            /**
+             * Cek npsn on referensi.data.kemdikbud.go.id/
+             */
+            $cloneSekolah = new ReferensiKemdikbud();
+            $cloneSekolah->clone($request->npsn);
+
+            if ($cloneSekolah->getStatus() && $cloneSekolah->getResult() !== null) {
+                $jsonResultSekolah = $cloneSekolah->getResult();
+                /**
+                 * Cek npsn on system based on npsn number
+                 */
+                if (Satpen::where(['npsn' => $jsonResultSekolah["npsn"]])->first()) {
+                    return redirect()->back()->with('error', 'NPSN sudah pernah terdaftar dalam sistem');
+                }
+                $satpen->update([
+                   'npsn' => $jsonResultSekolah["npsn"],
+                   'nm_satpen' => $jsonResultSekolah["nama"],
+                ]);
+                (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
+                    ->merge([
+                        "status_verifikasi" => "perpanjangan",
+                        "keterangan" => "memperbaharui npsn",
+                    ]),
+                    $satpen);
+                return redirect()->back()->with('success', 'Berhasil memperbaharui npsn satuan pendidikan. Data sedang ditinjau oleh Admin');
+            }
+
+            return redirect()->back()->with('error', $cloneSekolah->getResult());
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[CHANGE NPSN] has error ". $e);
         }
     }
 

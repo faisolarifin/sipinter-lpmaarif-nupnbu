@@ -19,7 +19,7 @@
                 <ul id="breadcrumb" class="mb-0">
                     <li><a href="#"><i class="ti ti-home"></i></a></li>
                     <li><a href="#"><span class=" fa fa-info-circle"> </span> Permohonan</a></li>
-                    <li><a href="#"><span class="fa fa-snowflake-o"></span> MySatpen</a></li>
+                    <li><a href="#"><span class="fa fa-snowflake-o"></span> MyProfile</a></li>
                 </ul>
             </nav>
 
@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="card-title fw-semibold mb-1">My SATPEN</h5>
+                            <h5 class="card-title fw-semibold mb-1">My Profile</h5>
                             <small>detail profile satuan pendidikan anda</small>
                         </div>
                         <div>
@@ -50,7 +50,10 @@
                                 <tr>
                                     <td width="140">NPSN</td>
                                     <td width="30">:</td>
-                                    <td>{{ $satpenProfile->npsn }}</td>
+                                    <td class="d-flex justify-content-between align-items-center">
+                                        <span>{{ $satpenProfile->npsn }}</span>
+                                        <button title="Perbaharui NPSN" class="btn btn-sm btn-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#modalChangeNPSN"><i class="ti ti-pencil"></i></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Nama Satpen</td>
@@ -150,15 +153,17 @@
                             @endforeach
                         </div>
                         <div class="col-sm-4">
-                            <ul class="timeline">
-                                @foreach($satpenProfile->timeline as $row)
-                                <li>
-                                    <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
-                                    <small class="float-end">{{ $row->keterangan }}</small>
-                                    <p>{{ $row->tgl_status }}</p>
-                                </li>
-                                @endforeach
-                            </ul>
+                            <div style="max-height:35rem;overflow:auto;">
+                                <ul class="timeline">
+                                    @foreach($satpenProfile->timeline as $row)
+                                    <li>
+                                        <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
+                                        <small class="float-end">{{ $row->keterangan }}</small>
+                                        <p>{{ $row->tgl_status }}</p>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="row border-2 border-top pt-3 mt-2 mx-sm-2">
@@ -196,4 +201,36 @@
 
         </div>
     </div>
+@endsection
+
+@section('modals')
+    <!-- Modal -->
+    <div class="modal fade" id="modalChangeNPSN" tabindex="-1" aria-labelledby="modalChangeNPSN" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Perbaharui NPSN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('mysatpen.npsn', $satpenProfile->id_satpen) }}" method="post">
+                    <div class="modal-body pb-1">
+                        @csrf
+                        @method('PUT')
+                        <div>
+                            <label for="npsn" class="form-label">NPSN</label>
+                            <input type="text" class="form-control @error('npsn') is-invalid @enderror" id="npsn" name="npsn" placeholder="Masukkan nomor nasional anda">
+                            <div class="invalid-feedback">
+                                @error('npsn') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Perbaharui</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--End Modal-->
 @endsection

@@ -13,11 +13,16 @@ class GeneralController extends Controller
 {
     public function homePage()
     {
-        $jmlSatpenByKabupaten = DB::select("SELECT nama_kab, (SELECT COUNT(id_kab) FROM satpen WHERE id_kab=kabupaten.id_kab) AS jml_satpen FROM kabupaten");
-        $jmlSatpenByJenjang = DB::select("SELECT id_jenjang, nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan')) AS jml_satpen FROM jenjang_pendidikan");
-        $berandaInformasi = Informasi::orderBy('id_info')->limit(5)->get();
-        $countSatpen = Satpen::whereIn('status', ['setujui', 'expired','perpanjangan'])->count('id_satpen');
-        return view('landing.home', compact('jmlSatpenByJenjang', 'jmlSatpenByKabupaten', 'berandaInformasi', 'countSatpen'));
+        try {
+            $jmlSatpenByKabupaten = DB::select("SELECT nama_kab, (SELECT COUNT(id_kab) FROM satpen WHERE id_kab=kabupaten.id_kab) AS jml_satpen FROM kabupaten");
+            $jmlSatpenByJenjang = DB::select("SELECT id_jenjang, nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan')) AS jml_satpen FROM jenjang_pendidikan");
+            $berandaInformasi = Informasi::orderBy('id_info')->limit(5)->get();
+            $countSatpen = Satpen::whereIn('status', ['setujui', 'expired','perpanjangan'])->count('id_satpen');
+            return view('landing.home', compact('jmlSatpenByJenjang', 'jmlSatpenByKabupaten', 'berandaInformasi', 'countSatpen'));
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[HOME PAGE] has error ". $e);
+        }
     }
 
     public function verifyDokumenPage($qrcode = null) {

@@ -67,6 +67,7 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/edit', [SatpenController::class, 'editSatpenPage'])->name('mysatpen.revisi');
             Route::get('/perpanjang', [SatpenController::class, 'perpanjangSatpenPage'])->name('mysatpen.perpanjang');
             Route::put('/edit', [SatpenController::class, 'revisionProses'])->name('mysatpen.revisi');
+            Route::put('/change/npsn/{satpen}', [SatpenController::class, 'changeNPSN'])->name('mysatpen.npsn');
             Route::put('/perpanjang', [SatpenController::class, 'revisionProses'])->name('mysatpen.perpanjang');
             Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
         });

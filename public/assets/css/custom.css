@@ -255,6 +255,10 @@ hr {
     opacity: 0.18;
 }
 
+.modal-content {
+    border-radius: 0;
+}
+
 @media (max-width: 575.98px) {
     .w-50, .w-60 {
         width: 90% !important;
