@@ -391,6 +391,9 @@ class SatpenController extends Controller
             if ($request->npsn == $satpen->npsn) {
                 return redirect()->back()->with('error', 'Anda memasukkan npsn yang sama dengan saat ini');
             }
+            elseif ($satpen->status != 'setujui') {
+                return redirect()->back()->with('error', 'NPSN hanya boleh diperbaharui ketika satpen sudah disetujui');
+            }
             /**
              * Cek npsn on referensi.data.kemdikbud.go.id/
              */
