@@ -93,6 +93,12 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/history', [BHPNUController::class, 'historyPermohonan'])->name('bhpnu.history');
             Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
         });
+        /**
+         * API
+         */
+        Route::group(["prefix" => "api"], function () {
+            Route::get('/checknpsn/{npsn}', [ApiController::class, 'checkNPSNtoReferensiData'])->name('api.checknpsn');
+        });
     });
 
     Route::middleware('onlyadmin')->prefix('admin')->group(function() {

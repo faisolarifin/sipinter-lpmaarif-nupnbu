@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CatchErrorException;
+use App\Helpers\ReferensiKemdikbud;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
 use App\Models\Satpen;
@@ -85,6 +86,24 @@ class ApiController extends Controller
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET JENJANG AND COUNT] has error ". $e);
+
+        }
+    }
+
+    public function checkNPSNtoReferensiData(string $npsn=null) {
+        try {
+            if ($npsn) {
+                $cloneSekolah = new ReferensiKemdikbud();
+                $cloneSekolah->clone($npsn);
+
+                if ($cloneSekolah->getStatus() && $cloneSekolah->getResult() !== null) {
+                    $jsonResultSekolah = $cloneSekolah->getResult();
+                    return response()->json($jsonResultSekolah, HttpResponse::HTTP_OK);
+                }
+                return response()->json(['error' => $cloneSekolah->getResult()]);
+            }
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[GET SATPEN BY ID] has error ". $e);
 
         }
     }

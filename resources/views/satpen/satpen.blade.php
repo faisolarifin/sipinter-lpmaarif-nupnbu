@@ -52,7 +52,106 @@
                                     <td width="30">:</td>
                                     <td class="d-flex justify-content-between align-items-center">
                                         <span>{{ $satpenProfile->npsn }}</span>
-                                        <button title="Perbaharui NPSN" class="btn btn-sm btn-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#modalChangeNPSN"><i class="ti ti-pencil"></i></button>
+                                        @if($usingVNPSN > 0
+                                            || $satpenProfile->status == "expired"
+                                            || $satpenProfile->status == "revisi")
+                                            <button title="Perbaharui NPSN" class="btn btn-sm btn-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#modalChangeNPSN"><i class="ti ti-pencil"></i></button>
+                                            @section('modals')
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="modalChangeNPSN" tabindex="-1" aria-labelledby="modalChangeNPSN" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Perbaharui NPSN</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form action="{{ route('mysatpen.npsn', $satpenProfile->id_satpen) }}" method="post">
+                                                                <div class="modal-body">
+                                                                    <div class="alert alert-success">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <i class="ti ti-alert-circle fs-6"></i>
+                                                                            <small class="ms-1">Perubahan NPSN hanya dapat dilakukan <b>1 kali</b>. Lakukan <b>verfikasi</b> npsn terlebih dahulu sebelum menekan tombol perbaharui. Verifikasi untuk memastikan bahwa npsn yang anda masukah sudah sesuai. </small>
+                                                                        </div>
+                                                                    </div>
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div>
+                                                                        <label for="npsn" class="form-label">NPSN</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control @error('npsn') is-invalid @enderror" id="npsn" name="npsn" placeholder="Masukkan nomor nasional anda">
+                                                                            <button type="button" class="btn btn-primary verifikasi">Verifikasi</button>
+                                                                        </div>
+                                                                        <div class="invalid-feedback">
+                                                                            @error('npsn') {{ $message }} @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="table-validate-npsn">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-success">Perbaharui</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--End Modal-->
+                                            @endsection
+
+                                            @section('scripts')
+                                                <script>
+                                                    let hash = window.location.hash;
+                                                    if (hash == "#changenpsn") {
+                                                        let myModal = new bootstrap.Modal(document.getElementById('modalChangeNPSN'), {})
+                                                        myModal.toggle()
+                                                    }
+
+                                                    $(".verifikasi").on("click", function () {
+                                                        $.ajax({
+                                                            url: "{{ route('api.checknpsn', ['npsn' => ':param']) }}".replace(':param', $("input[name='npsn']").val()),
+                                                            type: "GET",
+                                                            dataType: 'json',
+                                                            success: function (res) {
+
+                                                                let tableresult = `
+                                                                    <table class="mt-3 mb-0 table table-hover">
+                                                                        <tr>
+                                                                            <td width="160">NPSN</td>
+                                                                            <td width="20">:</td>
+                                                                            <td>${res.npsn}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Nama Sekolah</td>
+                                                                            <td>:</td>
+                                                                            <td>${res.nama}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Jenjang Pendidikan</td>
+                                                                            <td>:</td>
+                                                                            <td>${res.bentuk_pendidikan}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Provinsi</td>
+                                                                            <td>:</td>
+                                                                            <td>${res.propinsiluar_negeri_ln}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Kabupaten</td>
+                                                                            <td>:</td>
+                                                                            <td>${res.kabkotanegara_ln}</td>
+                                                                        </tr>
+                                                                    </table>`;
+
+                                                                $("#table-validate-npsn").html(tableresult)
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+                                            @endsection
+
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -201,36 +300,4 @@
 
         </div>
     </div>
-@endsection
-
-@section('modals')
-    <!-- Modal -->
-    <div class="modal fade" id="modalChangeNPSN" tabindex="-1" aria-labelledby="modalChangeNPSN" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Perbaharui NPSN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('mysatpen.npsn', $satpenProfile->id_satpen) }}" method="post">
-                    <div class="modal-body pb-1">
-                        @csrf
-                        @method('PUT')
-                        <div>
-                            <label for="npsn" class="form-label">NPSN</label>
-                            <input type="text" class="form-control @error('npsn') is-invalid @enderror" id="npsn" name="npsn" placeholder="Masukkan nomor nasional anda">
-                            <div class="invalid-feedback">
-                                @error('npsn') {{ $message }} @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Perbaharui</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--End Modal-->
 @endsection

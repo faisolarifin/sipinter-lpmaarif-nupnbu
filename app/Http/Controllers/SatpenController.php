@@ -235,7 +235,7 @@ class SatpenController extends Controller
                     'id_kategori' => $makeCategorySatpen->id_kategori,
                     'id_jenjang' => $request->jenjang,
                     'id_pc' => $cabang->id_pc,
-                    'npsn' => $request->npsn,
+//                    'npsn' => $request->npsn,
                     'no_registrasi' => $registerNumber,
                     'nm_satpen' => $request->nm_satpen,
                     'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
@@ -335,8 +335,9 @@ class SatpenController extends Controller
             $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'timeline'])
                 ->where('id_user', '=', auth()->user()->id_user)
                 ->first();
+            $usingVNPSN = VirtualNPSN::where('nomor_virtual', '=', $satpenProfile->npsn)->count('nomor_virtual');
 
-            return view('satpen.satpen', compact('satpenProfile'));
+            return view('satpen.satpen', compact('satpenProfile', 'usingVNPSN'));
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[MYSATPEN PAGE] has error ". $e);
@@ -389,10 +390,7 @@ class SatpenController extends Controller
     public function changeNPSN(CekNpsnRequest $request, Satpen $satpen) {
         try {
             if ($request->npsn == $satpen->npsn) {
-                return redirect()->back()->with('error', 'Anda memasukkan npsn yang sama dengan saat ini');
-            }
-            elseif ($satpen->status != 'setujui') {
-                return redirect()->back()->with('error', 'NPSN hanya boleh diperbaharui ketika satpen sudah disetujui');
+                return redirect()->back()->with('error', 'Anda memasukkan npsn sama dengan yang saat ini');
             }
             /**
              * Cek npsn on referensi.data.kemdikbud.go.id/
@@ -408,16 +406,27 @@ class SatpenController extends Controller
                 if (Satpen::where(['npsn' => $jsonResultSekolah["npsn"]])->first()) {
                     return redirect()->back()->with('error', 'NPSN sudah pernah terdaftar dalam sistem');
                 }
+
+//                VirtualNPSN::where("nomor_virtual", "=", $satpen->npsn)->delete();
                 $satpen->update([
                    'npsn' => $jsonResultSekolah["npsn"],
                    'nm_satpen' => $jsonResultSekolah["nama"],
                 ]);
-                (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                    ->merge([
-                        "status_verifikasi" => "perpanjangan",
-                        "keterangan" => "memperbaharui npsn",
-                    ]),
-                    $satpen);
+                if ($satpen->status == "expired") {
+                    (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
+                        ->merge([
+                            "status_verifikasi" => "perpanjangan",
+                            "keterangan" => "memperbaharui npsn",
+                        ]),
+                        $satpen);
+                } elseif ($satpen->status == "revisi") {
+                    (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
+                        ->merge([
+                            "status_verifikasi" => "permohonan",
+                            "keterangan" => "memperbaharui npsn",
+                        ]),
+                        $satpen);
+                }
                 return redirect()->back()->with('success', 'Berhasil memperbaharui npsn satuan pendidikan. Data sedang ditinjau oleh Admin');
             }
 

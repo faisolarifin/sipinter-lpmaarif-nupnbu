@@ -32,7 +32,10 @@
                     <div class="alert alert-danger mb-0">
                         <div class="d-flex align-items-center">
                             <i class="ti ti-alert-circle fs-6"></i>
-                            <p class="mb-0 ms-2">Satuan pendidikan anda masih menggunakan NPSN Virtual. Silahkan perbaharui NPSN satuan pendidikan anda menggunakan nomor nasional !</p>
+                            <div class=" ms-2">
+                                <p class="mb-0">Satuan pendidikan anda masih menggunakan NPSN Virtual. Silahkan perbaharui NPSN satuan pendidikan anda menggunakan nomor nasional !</p>
+                                <p class="mb-0">Untuk pembaharuan NPSN satuan pendidikan dapat dilakukan <a href="{{ route('mysatpen')."#changenpsn" }}"><span class="badge bg-primary">disini</span></a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,7 +45,7 @@
 
     @section('scripts')
         <script>
-            var myModal = new bootstrap.Modal(document.getElementById('toggleMyModal'), {})
+            let myModal = new bootstrap.Modal(document.getElementById('toggleMyModal'), {})
             myModal.toggle()
         </script>
     @endsection
