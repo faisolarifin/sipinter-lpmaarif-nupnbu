@@ -15,7 +15,7 @@ class MustLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() !== NULL && in_array(auth()->user()->role, ['operator', 'admin'])) {
+        if (auth()->user() !== NULL && in_array(auth()->user()->role, ['operator', 'super admin', 'admin pusat', 'admin wilayah', 'admin cabang'])) {
             return $next($request);
         }
         return redirect()->route('login')->with('error', 'silahkan login terlebih dahulu');

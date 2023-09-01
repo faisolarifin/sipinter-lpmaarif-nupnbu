@@ -109,60 +109,63 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
         Route::get('/dashboard', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
 
-        /**
-         * Master
-         */
-        Route::resource('/informasi', InformasiController::class);
-        Route::resource('/propinsi', PropinsiController::class);
-        Route::resource('/kabupaten', KabupatenController::class);
-        Route::resource('/cabang', PengurusCabangController::class);
-        Route::resource('/jenjang', JenjangPendidikanController::class);
-        Route::resource('/users', UsersController::class);
+        Route::middleware('primaryadmin')->group(function() {
+            /**
+             * Master
+             */
+            Route::resource('/informasi', InformasiController::class);
+            Route::resource('/propinsi', PropinsiController::class);
+            Route::resource('/kabupaten', KabupatenController::class);
+            Route::resource('/cabang', PengurusCabangController::class);
+            Route::resource('/jenjang', JenjangPendidikanController::class);
+            Route::resource('/users', UsersController::class)->middleware('superadmin');
 
-        /**
-         * Satpen
-         */
-        Route::group(["prefix" => "satpen"], function() {
-            Route::get('/', [SATPENControllerAdmin::class, 'permohonanRegisterSatpen'])->name('a.satpen');
-            Route::put('/{satpen}/status', [SATPENControllerAdmin::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
-            Route::get('/rekap', [SATPENControllerAdmin::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen');
-            Route::get('/{satpenId}/detail', [SATPENControllerAdmin::class, 'getSatpenById'])->name('a.rekapsatpen.detail');
-            Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
-            Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
-            Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
-            Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
-        });
-        /**
-         * Virtual NPSN
-         */
-        Route::group(["prefix" => "virtualnpsn"], function() {
-            Route::get('/', [VirtualNPSNController::class, 'listPermohonanVNPSN'])->name('a.vnpsn');
-            Route::delete('/{virtualNPSN}', [VirtualNPSNController::class, 'destroyVNPSN'])->name('a.vnpsn.destroy');
-            Route::delete('/reject/{virtualNPSN}', [VirtualNPSNController::class, 'rejectPermohonanVNPSN'])->name('a.vnpsn.reject');
-            Route::put('/{virtualNPSN}', [VirtualNPSNController::class, 'generateVirtualNumber'])->name('a.vnpsn.accept');
-        });
-        /**
-         * OSS
-         */
-        Route::group(["prefix" => "oss"], function() {
-            Route::get('/', [OSSControllerAdmin::class, 'listPermohonanOSS'])->name('a.oss');
-            Route::get('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
-            Route::put('/appear/{oss}', [OSSControllerAdmin::class, 'setIzinTerbitOSS'])->name('a.oss.appear');
-            Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
-            Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');
-            Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.oss.file');
-        });
+            /**
+             * Satpen
+             */
+            Route::group(["prefix" => "satpen"], function() {
+                Route::get('/', [SATPENControllerAdmin::class, 'permohonanRegisterSatpen'])->name('a.satpen');
+                Route::put('/{satpen}/status', [SATPENControllerAdmin::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
+                Route::get('/rekap', [SATPENControllerAdmin::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen')->withoutMiddleware('primaryadmin');
+                Route::get('/{satpenId}/detail', [SATPENControllerAdmin::class, 'getSatpenById'])->name('a.rekapsatpen.detail')->withoutMiddleware('primaryadmin');
+                Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
+                Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
+                Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
+                Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
+            });
+            /**
+             * Virtual NPSN
+             */
+            Route::group(["prefix" => "virtualnpsn"], function() {
+                Route::get('/', [VirtualNPSNController::class, 'listPermohonanVNPSN'])->name('a.vnpsn');
+                Route::delete('/{virtualNPSN}', [VirtualNPSNController::class, 'destroyVNPSN'])->name('a.vnpsn.destroy');
+                Route::delete('/reject/{virtualNPSN}', [VirtualNPSNController::class, 'rejectPermohonanVNPSN'])->name('a.vnpsn.reject');
+                Route::put('/{virtualNPSN}', [VirtualNPSNController::class, 'generateVirtualNumber'])->name('a.vnpsn.accept');
+            });
+            /**
+             * OSS
+             */
+            Route::group(["prefix" => "oss"], function() {
+                Route::get('/', [OSSControllerAdmin::class, 'listPermohonanOSS'])->name('a.oss');
+                Route::get('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
+                Route::put('/appear/{oss}', [OSSControllerAdmin::class, 'setIzinTerbitOSS'])->name('a.oss.appear');
+                Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
+                Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');
+                Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.oss.file');
+            });
 
-        /**
-         * BHPNU
-         */
-        Route::group(["prefix" => "bhpnu"], function() {
-            Route::get('/', [BHPNUControllerAdmin::class, 'listPermohonanBHPNU'])->name('a.bhpnu');
-            Route::get('/acc/{bhpnu}', [BHPNUControllerAdmin::class, 'setAcceptBHPNU'])->name('a.bhpnu.acc');
-            Route::put('/appear/{bhpnu}', [BHPNUControllerAdmin::class, 'setIzinTerbitBHPNU'])->name('a.bhpnu.appear');
-            Route::put('/reject/{bhpnu}', [BHPNUControllerAdmin::class, 'setRejectBHPNU'])->name('a.bhpnu.reject');
-            Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy');
-            Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file');
+            /**
+             * BHPNU
+             */
+            Route::group(["prefix" => "bhpnu"], function() {
+                Route::get('/', [BHPNUControllerAdmin::class, 'listPermohonanBHPNU'])->name('a.bhpnu');
+                Route::get('/acc/{bhpnu}', [BHPNUControllerAdmin::class, 'setAcceptBHPNU'])->name('a.bhpnu.acc');
+                Route::put('/appear/{bhpnu}', [BHPNUControllerAdmin::class, 'setIzinTerbitBHPNU'])->name('a.bhpnu.appear');
+                Route::put('/reject/{bhpnu}', [BHPNUControllerAdmin::class, 'setRejectBHPNU'])->name('a.bhpnu.reject');
+                Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy');
+                Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file');
+            });
+
         });
 
     });

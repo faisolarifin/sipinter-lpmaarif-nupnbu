@@ -98,7 +98,7 @@ class AuthController extends Controller
             if (auth()->user()->role == 'operator') {
                 return redirect()->route('dashboard');
             }
-            elseif (auth()->user()->role == 'admin') {
+            elseif (in_array(auth()->user()->role, ["super admin", "admin pusat", "admin wilayah", "admin cabang"])) {
                 return redirect()->route('a.dash');
             }
 

@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class OnlyAdmin
+class SuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,7 @@ class OnlyAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (in_array(auth()->user()->role, ["super admin", "admin pusat", "admin wilayah", "admin cabang"])) {
-            if (auth()->user()->status_active == 'block') {
-                return redirect()->route('login')->with('error', 'this account has blocked');
-            }
+        if (in_array(auth()->user()->role, ["super admin"])) {
             return $next($request);
         }
         return redirect()->route('login')->with('error', 'user tidak memiliki privilages');

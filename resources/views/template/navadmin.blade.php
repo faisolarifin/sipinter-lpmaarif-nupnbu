@@ -12,6 +12,9 @@
                 <span class="hide-menu">Dashboard</span>
             </a>
         </li>
+
+        @if(in_array(auth()->user()->role, ["super admin", "admin pusat"]))
+
         <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu">Satpen</span>
@@ -72,18 +75,24 @@
                 <span class="hide-menu">Kelola Informasi</span>
             </a>
         </li>
-        <li class="nav-small-cap">
-            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-            <span class="hide-menu">Manajemen User</span>
-        </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
-                <span>
-                  <i class="ti ti-users"></i>
-                </span>
-                <span class="hide-menu">Kelola Admin</span>
-            </a>
-        </li>
+
+            @if(in_array(auth()->user()->role, ["super admin"]))
+
+            <li class="nav-small-cap">
+                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Manajemen User</span>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
+                    <span>
+                      <i class="ti ti-users"></i>
+                    </span>
+                    <span class="hide-menu">Kelola Admin</span>
+                </a>
+            </li>
+
+            @endif
+
         <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu">Master Data</span>
@@ -120,5 +129,23 @@
                 <span class="hide-menu">Jenjang Pendidikan</span>
             </a>
         </li>
+
+        @elseif(in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+
+            <li class="nav-small-cap">
+                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Satpen</span>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('a.rekapsatpen') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                    <span class="hide-menu">Rekap Satpen</span>
+                </a>
+            </li>
+
+        @endif
+
     </ul>
 </nav>
