@@ -14,7 +14,8 @@ use App\Http\Controllers\Admin\{
     SATPENController as SATPENControllerAdmin,
     BHPNUController as BHPNUControllerAdmin,
     OSSController as OSSControllerAdmin,
-    VirtualNPSNController};
+    VirtualNPSNController,
+    UsersController,};
 use App\Http\Controllers\Master\{
     InformasiController,
     JenjangPendidikanController,
@@ -116,6 +117,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::resource('/kabupaten', KabupatenController::class);
         Route::resource('/cabang', PengurusCabangController::class);
         Route::resource('/jenjang', JenjangPendidikanController::class);
+        Route::resource('/users', UsersController::class);
 
         /**
          * Satpen

@@ -16,9 +16,10 @@ return new class extends Migration
          */
         Schema::create('users', function (Blueprint $table) {
             $table->id('id_user');
+            $table->string('name', 100)->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role', ['admin', 'operator']);
+            $table->enum('role', ['super admin', 'admin pusat', 'admin wilayah', 'admin cabang', 'operator']);
             $table->enum('status_active', ['active', 'block']);
             $table->timestamps();
         });

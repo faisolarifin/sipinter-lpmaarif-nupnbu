@@ -27,7 +27,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.satpen') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-article"></i>
+                  <i class="ti ti-alert-circle"></i>
                 </span>
                 <span class="hide-menu">Registrasi Satpen</span>
             </a>
@@ -35,7 +35,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.rekapsatpen') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-alert-circle"></i>
+                  <i class="ti ti-article"></i>
                 </span>
                 <span class="hide-menu">Rekap Satpen</span>
             </a>
@@ -47,7 +47,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.oss') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-login"></i>
+                  <i class="ti ti-device-sim"></i>
                 </span>
                 <span class="hide-menu">Pemohon OSS</span>
             </a>
@@ -55,7 +55,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-user-plus"></i>
+                  <i class="ti ti-paperclip"></i>
                 </span>
                 <span class="hide-menu">Pemohon BHPNU</span>
             </a>
@@ -67,9 +67,21 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('informasi.index') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-mood-happy"></i>
+                  <i class="ti ti-news"></i>
                 </span>
                 <span class="hide-menu">Kelola Informasi</span>
+            </a>
+        </li>
+        <li class="nav-small-cap">
+            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+            <span class="hide-menu">Manajemen User</span>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-users"></i>
+                </span>
+                <span class="hide-menu">Kelola Admin</span>
             </a>
         </li>
         <li class="nav-small-cap">
