@@ -60,6 +60,16 @@ class SATPENController extends Controller
         $paginatePerPage = 25;
         $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi'];
         try {
+            $specificFilter = null;
+            if (in_array(auth()->user()->role, ["admin wilayah"])) {
+                $specificFilter = [
+                  "id_prov" => auth()->user()->id_wilayah,
+                ];
+            } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
+                $specificFilter = [
+                    "id_kab" => auth()->user()->id_wilayah,
+                ];
+            }
             /**
              * If request without satpenid show all satpen where status 'setujui'
              */
@@ -85,6 +95,7 @@ class SATPENController extends Controller
                         'jenjang:id_jenjang,nm_jenjang',])
                         ->select($selectedColumns)
                         ->whereIn('status', $statuses)
+                        ->where($specificFilter)
                         ->where($filter)
                         ->paginate($paginatePerPage);
                 }
@@ -97,6 +108,7 @@ class SATPENController extends Controller
                     'jenjang:id_jenjang,nm_jenjang',])
                     ->select($selectedColumns)
                     ->whereIn('status', ['setujui', 'expired', 'perpanjangan'])
+                    ->where($specificFilter)
                     ->paginate($paginatePerPage);
             }
 

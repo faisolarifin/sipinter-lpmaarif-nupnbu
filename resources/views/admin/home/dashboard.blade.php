@@ -143,8 +143,9 @@
             </div>
         </div>
     </div>
-
 </div>
+
+@if(in_array(auth()->user()->role, ["super admin", "admin pusat"]))
 <div class="row">
     <div class="col-lg-6 d-flex align-items-stretch">
         <div class="card w-100">
@@ -219,6 +220,7 @@
         </div>
     </div>
 </div>
+@endif
 
 @endsection
 

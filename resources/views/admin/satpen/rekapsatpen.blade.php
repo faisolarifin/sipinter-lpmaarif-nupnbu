@@ -38,20 +38,25 @@
                 <div class="table-responsive">
                     <form class="d-flex justify-content-between mb-2">
                         <div class="d-flex flex-column flex-sm-row">
-                            <div class="me-sm-2">
-                                <select class="form-select form-select-sm" name="provinsi">
-                                    <option value="">PROVINSI</option>
-                                    @foreach($propinsi as $row)
-                                        <option value="{{ $row->id_prov }}" {{ $row->id_prov == request()->provinsi ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                <div class="me-sm-2">
+                                    <select class="form-select form-select-sm" name="provinsi">
+                                        <option value="">PROVINSI</option>
+                                        @foreach($propinsi as $row)
+                                            <option value="{{ $row->id_prov }}" {{ $row->id_prov == request()->provinsi ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+                            @if(!in_array(auth()->user()->role, ["admin cabang"]))
                             <div class="me-sm-2">
                                 <select class="form-select form-select-sm" name="kabupaten">
                                     <option value=''>KABUPATEN</option>
                                     <!-- value by ajax -->
                                 </select>
                             </div>
+                            @endif
+
                             <div class="me-sm-2">
                                 <select class="form-select form-select-sm" name="jenjang">
                                     <option value="">JENJANG</option>
@@ -153,8 +158,9 @@
         getKabupaten();
     });
 
-    function getKabupaten() {
-        let routeGetData = "{{ route('api.kabupatenbyprov', ['provId' => ':param']) }}".replace(':param', $("select[name='provinsi']").val());
+    function getKabupaten(provId) {
+        provId = provId ? provId : $("select[name='provinsi']").val();
+        let routeGetData = "{{ route('api.kabupatenbyprov', ['provId' => ':param']) }}".replace(':param', provId);
 
         $.ajax({
             url: routeGetData,
@@ -178,7 +184,7 @@
         })
     }
 
-    getKabupaten();
+    getKabupaten({{ auth()->user()->id_wilayah }});
 
 </script>
 @endsection
