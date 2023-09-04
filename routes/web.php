@@ -15,7 +15,8 @@ use App\Http\Controllers\Admin\{
     BHPNUController as BHPNUControllerAdmin,
     OSSController as OSSControllerAdmin,
     VirtualNPSNController,
-    UsersController,};
+    UsersController,
+    ExportExcelController,};
 use App\Http\Controllers\Master\{
     InformasiController,
     JenjangPendidikanController,
@@ -132,6 +133,7 @@ Route::middleware('mustlogin')->group(function() {
                 Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
                 Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
                 Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
+                Route::get('/export_excel', [ExportExcelController::class, 'exportSatpentoExcel'])->name('satpen.excel')->withoutMiddleware('primaryadmin');
             });
             /**
              * Virtual NPSN
@@ -177,8 +179,10 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
         Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov');
         Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
+        Route::get('/pccount', [ApiController::class, 'getPCAndCount'])->name('api.pccount');
         Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
     });
+
 });
 
 /**

@@ -12,6 +12,7 @@ use App\Models\FileUpload;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
+use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
 use App\Models\Timeline;
@@ -26,19 +27,40 @@ class SATPENController extends Controller
     public function dashboardPage() {
 
         try {
-            $listProvinsi = Provinsi::get();
-            $countOfKabupaten = Kabupaten::count("id_kab");
-            $countOfPropinsi = Provinsi::count("id_prov");
-            $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired', 'perpanjangan'])->count("id_satpen");
-            $recordPerPropinsi = DB::select("SELECT id_prov, nm_prov,
-                                                    (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov) AS record_count
-                                                     FROM provinsi");
+            $specificFilter = null;
+            $provFilter = null;
+            if (in_array(auth()->user()->role, ["admin wilayah"])) {
+                $specificFilter = $provFilter = [
+                    "id_prov" => auth()->user()->provId,
+                ];
+            } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
+                $provFilter =  [
+                    "id_prov" => auth()->user()->provId,
+                ];
+                $specificFilter = [
+                    "id_pc" => auth()->user()->cabangId,
+                ];
+            }
+            $listProvinsi = Provinsi::where($provFilter)->get();
+            $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired', 'perpanjangan'])->where($specificFilter)->count("id_satpen");
 
-            $countPerStatus = DB::select("SELECT (SELECT COUNT(id_satpen) FROM satpen WHERE status='permohonan') AS permohonan,
-                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='revisi') AS revisi,
-                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='proses dokumen') AS proses_dokumen,
-                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='expired') AS expired,
-                                                            (SELECT COUNT(id_satpen) FROM satpen WHERE status='perpanjangan') AS perpanjangan ");
+            $countOfPropinsi = $recordPerPropinsi = $countPerStatus = null;
+
+            if (!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"])) {
+                $countOfKabupaten = Kabupaten::count("id_kab");
+                $countOfPropinsi = Provinsi::count("id_prov");
+                $recordPerPropinsi = DB::select("SELECT id_prov, nm_prov,
+                                                        (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov) AS record_count
+                                                         FROM provinsi");
+
+                $countPerStatus = DB::select("SELECT (SELECT COUNT(id_satpen) FROM satpen WHERE status='permohonan') AS permohonan,
+                                                                (SELECT COUNT(id_satpen) FROM satpen WHERE status='revisi') AS revisi,
+                                                                (SELECT COUNT(id_satpen) FROM satpen WHERE status='proses dokumen') AS proses_dokumen,
+                                                                (SELECT COUNT(id_satpen) FROM satpen WHERE status='expired') AS expired,
+                                                                (SELECT COUNT(id_satpen) FROM satpen WHERE status='perpanjangan') AS perpanjangan ");
+            } else {
+                $countOfKabupaten = PengurusCabang::where($specificFilter)->count("id_pc");
+            }
 
             return view('admin.home.dashboard', compact("listProvinsi", "countOfKabupaten",
                 "countOfPropinsi", "countOfRecordSatpen",
@@ -63,23 +85,23 @@ class SATPENController extends Controller
             $specificFilter = null;
             if (in_array(auth()->user()->role, ["admin wilayah"])) {
                 $specificFilter = [
-                  "id_prov" => auth()->user()->id_wilayah,
+                  "id_prov" => auth()->user()->provId,
                 ];
             } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
                 $specificFilter = [
-                    "id_kab" => auth()->user()->id_wilayah,
+                    "id_pc" => auth()->user()->cabangId,
                 ];
             }
             /**
              * If request without satpenid show all satpen where status 'setujui'
              */
+            $statuses = ['setujui', 'expired', 'perpanjangan'];
             if ($request->jenjang
                     || $request->kabupaten
                     || $request->provinsi
                     || $request->kategori || $request->keyword || $request->status) {
 
                 $filter = [];
-                $statuses = ['setujui', 'expired', 'perpanjangan'];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
@@ -107,7 +129,7 @@ class SATPENController extends Controller
                     'kabupaten:id_kab,nama_kab',
                     'jenjang:id_jenjang,nm_jenjang',])
                     ->select($selectedColumns)
-                    ->whereIn('status', ['setujui', 'expired', 'perpanjangan'])
+                    ->whereIn('status', $statuses)
                     ->where($specificFilter)
                     ->paginate($paginatePerPage);
             }
@@ -120,7 +142,7 @@ class SATPENController extends Controller
             $propinsi = Provinsi::all();
             $jenjang = Jenjang::all();
             $kategori = Kategori::all();
-            $countSatpen = Satpen::whereIn('status', ['setujui', 'expired'])->count();
+            $countSatpen = Satpen::whereIn('status', $statuses)->where($specificFilter)->count();
 
             return view('admin.satpen.rekapsatpen', compact('satpenProfile',
                 'propinsi', 'jenjang', 'kategori', 'countSatpen'));

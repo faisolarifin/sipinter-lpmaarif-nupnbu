@@ -19,14 +19,15 @@
 @include('template.alert')
 
 <div class="row">
-    <div class="col-lg-6 d-flex align-items-strech">
+    <div class="{{ !in_array(auth()->user()->role, ["admin wilayah"]) ? in_array(auth()->user()->role, ["admin cabang"]) ? 'col-lg-10' : 'col-lg-6' : 'col-lg-8' }} d-flex align-items-strech">
         <div class="card w-100 shadow-none">
             <div class="card-body py-3">
                 <p class="mb-2">Halo,</p>
-                <h4>Administrator</h4>
+                <h4>{{ auth()->user()->name ? auth()->user()->name : 'Administrator' }}</h4>
             </div>
         </div>
     </div>
+    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
     <div class="col-lg-2">
         <div class="card w-100 shadow-none">
             <div class="card-body p-3 text-center">
@@ -43,6 +44,17 @@
             </div>
         </div>
     </div>
+    @endif
+    @if(in_array(auth()->user()->role, ["admin wilayah"]))
+    <div class="col-lg-2">
+        <div class="card w-100 shadow-none">
+            <div class="card-body p-3 text-center">
+                <p class="mb-2">TOTAL CABANG</p>
+                <h4>{{ $countOfKabupaten }}</h4>
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="col-lg-2">
         <div class="card w-100 shadow-none">
             <div class="card-body p-3 text-center">
@@ -68,7 +80,7 @@
                               class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
                             <i class="ti ti-arrow-up-left text-success"></i>
                           </span>
-                            <p class="fs-3 mb-0">propinsi</p>
+                            <p class="fs-3 mb-0">PROPINSI</p>
                         </div>
 
                     </div>
@@ -82,6 +94,7 @@
         </div>
     </div>
 
+    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
     <div class="col-lg-4">
         <div class="card overflow-hidden">
             <div class="card-body p-4">
@@ -104,7 +117,7 @@
                               class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
                             <i class="ti ti-arrow-up-left text-success"></i>
                           </span>
-                            <p class="fs-3 mb-0">kabupaten</p>
+                            <p class="fs-3 mb-0">KABUPATEN</p>
                         </div>
 
                     </div>
@@ -117,6 +130,43 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="col-lg-4">
+        <div class="card overflow-hidden">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="card-title mb-0 fw-semibold">Satpen Cabang</h5>
+                    <form class="form" style="width:40%;">
+                        <select id="chartSelectProv" class="form-select form-select-sm">
+                            @foreach($listProvinsi as $row)
+                                <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                            @endforeach
+                        </select>
+                    </form>
+
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h4 class="fw-semibold mb-3 count-pc">0</h4>
+                        <div class="d-flex align-items-center mb-3">
+                      <span
+                          class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-arrow-up-left text-success"></i>
+                      </span>
+                            <p class="fs-3 mb-0">PANGURUS CABANG</p>
+                        </div>
+
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                            <div id="pc"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 
     <div class="col-lg-4">
         <div class="card overflow-hidden">
@@ -130,7 +180,7 @@
                               class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
                             <i class="ti ti-arrow-up-left text-success"></i>
                           </span>
-                            <p class="fs-3 mb-0">jenjang pendidikan</p>
+                            <p class="fs-3 mb-0">JENJANG PENDIDIKAN</p>
                         </div>
 
                     </div>

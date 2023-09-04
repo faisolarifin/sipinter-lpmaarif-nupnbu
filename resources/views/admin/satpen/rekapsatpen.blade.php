@@ -80,12 +80,13 @@
                                     <option value="expired" {{ 'expired' == request()->status ? 'selected' : '' }}>Expired</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-filter"></i> Filter</button>
+                            <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i class="ti ti-file-spreadsheet"></i> Export to Excel</a>
 
                         </div>
                         <div class="d-flex">
                             <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">
-                            <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>
                         </div>
                     </form>
                     <table class="table table-hover" id="mytable">
@@ -154,6 +155,8 @@
         return false;
     });
 
+    $("#export-btn").attr("href", "{{ route('satpen.excel') }}" + location.search);
+
     $("select[name='provinsi']").on('change', function() {
         getKabupaten();
     });
@@ -184,7 +187,7 @@
         })
     }
 
-    getKabupaten({{ auth()->user()->id_wilayah }});
+    getKabupaten({{ auth()->user()->provId }});
 
 </script>
 @endsection

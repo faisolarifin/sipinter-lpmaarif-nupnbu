@@ -48,9 +48,14 @@ class ApiController extends Controller
 
     public function getProvAndCount() {
         try {
+            $additionQuery = " ";
+            if (in_array(@auth()->user()->role, ["admin wilayah", "admin cabang"])) {
+                $provId = auth()->user()->provId;
+                $additionQuery .= "WHERE id_prov='$provId'";
+            }
             $recordPerPropinsi = DB::select("SELECT nm_prov, map,
                                                         (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov and status IN ('setujui','expired','perpanjangan')) AS record_count
-                                                         FROM provinsi");
+                                                         FROM provinsi $additionQuery");
             if (!$recordPerPropinsi) return response()->json(['error' => 'Forbidden to access record']);
 
             return response()->json($recordPerPropinsi, HttpResponse::HTTP_OK);
@@ -77,9 +82,41 @@ class ApiController extends Controller
         }
     }
 
+    public function getPCAndCount() {
+        try {
+            $additionQuery = " ";
+            if (in_array(auth()->user()->role, ["admin cabang"])) {
+                $pcId = auth()->user()->cabangId;
+                $additionQuery .= "WHERE id_pc='$pcId'";
+            } elseif (in_array(auth()->user()->role, ["admin wilayah"])) {
+                $provId = auth()->user()->provId;
+                $additionQuery .= "WHERE id_prov='$provId'";
+            }
+
+            $recordPerKabupaten = DB::select("SELECT nama_pc, (SELECT COUNT(id_pc) FROM satpen WHERE id_pc=pengurus_cabang.id_pc and status IN ('setujui','expired','perpanjangan')) AS record_count FROM pengurus_cabang $additionQuery");
+
+            if (!$recordPerKabupaten) return response()->json(['error' => 'Forbidden to access record']);
+
+            return response()->json($recordPerKabupaten, HttpResponse::HTTP_OK);
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[GET PC AND COUNT] has error ". $e);
+
+        }
+    }
+
     public function getJenjangAndCount() {
         try {
-            $recordByJenjang = DB::select("SELECT nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan')) AS record_count FROM jenjang_pendidikan");
+            $additionQuery = " ";
+            if (in_array(auth()->user()->role, ["admin wilayah"])) {
+                $provId = auth()->user()->provId;
+                $additionQuery .= "AND id_prov='$provId'";
+            }
+            elseif (in_array(auth()->user()->role, ["admin cabang"])) {
+                $pcId = auth()->user()->cabangId;
+                $additionQuery .= "AND id_pc='$pcId'";
+            }
+            $recordByJenjang = DB::select("SELECT nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan') $additionQuery ) AS record_count FROM jenjang_pendidikan");
             if (!$recordByJenjang) return response()->json(['error' => 'Forbidden to access record']);
 
             return response()->json($recordByJenjang, HttpResponse::HTTP_OK);

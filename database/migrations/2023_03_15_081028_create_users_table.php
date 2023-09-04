@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['super admin', 'admin pusat', 'admin wilayah', 'admin cabang', 'operator']);
             $table->enum('status_active', ['active', 'block']);
-            $table->string('id_wilayah', 20)->nullable();
+            $table->string('provId', 20)->nullable();
+            $table->string('cabangId', 20)->nullable();
             $table->timestamps();
         });
     }

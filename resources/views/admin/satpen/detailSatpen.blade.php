@@ -157,6 +157,7 @@
                                     @endforeach
                                 </ul>
                             </div>
+                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                             <div class="px-2 py-2 text-center">
                                 <form class="d-inline" action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
                                       method="post">
@@ -166,6 +167,7 @@
                                     <button type="submit" class="btn btn-danger"><i class="ti ti-exchange"></i> Usangkan Dokumen</button>
                                 </form>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row border-2 border-top pt-3 mt-2 mx-sm-2">
