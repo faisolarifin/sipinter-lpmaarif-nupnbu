@@ -155,14 +155,19 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>No. Registrasi</td>
+                                    <td>:</td>
+                                    <td>{{ $satpenProfile->no_registrasi }}</td>
+                                </tr>
+                                <tr>
                                     <td>Nama Satpen</td>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->nm_satpen }}</td>
                                 </tr>
                                 <tr>
-                                    <td>No. Registrasi</td>
+                                    <td>Jenjang Pendidikan</td>
                                     <td>:</td>
-                                    <td>{{ $satpenProfile->no_registrasi }}</td>
+                                    <td>{{ $satpenProfile->jenjang->nm_jenjang }}</td>
                                 </tr>
                                 <tr>
                                     <td>Kategori Satpen</td>
