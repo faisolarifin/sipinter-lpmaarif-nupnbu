@@ -43,6 +43,8 @@
                             <th scope="col">Nama User</th>
                             <th scope="col">Username</th>
                             <th scope="col">Role</th>
+                            <th scope="col">Wilayah</th>
+                            <th scope="col">Cabang</th>
                             <th scope="col">Status Akun</th>
                             <th scope="col" width="100">Aksi</th>
                         </tr>
@@ -55,6 +57,8 @@
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->username }}</td>
                                 <td>{{ strtoupper($row->role) }}</td>
+                                <td>{{ @$row->wilayah->nm_prov }}</td>
+                                <td>{{ @$row->cabang->nama_pc }}</td>
                                 <td><span class="badge {{ $row->status_active == 'active' ? 'bg-success' : 'bg-danger' }}">{{ $row->status_active }}</span></td>
                                 <td>
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalFormUpdateBackdrop" data-bs="{{ $row->id_user }}">
@@ -97,14 +101,14 @@
                         @csrf
                         <div class="mb-2">
                             <label for="name" class="form-label">Nama</label>
-                            <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" id="name" name="name" placeholder="Nama administrator" value="{{ old('name') }}">
                             <div class="invalid-feedback">
                                 @error('name') {{ $message }} @enderror
                             </div>
                         </div>
                         <div class="mb-2">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control form-control-sm @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}">
+                            <input type="text" class="form-control form-control-sm @error('username') is-invalid @enderror" id="username" name="username" placeholder="Buat username" value="{{ old('username') }}">
                             <div class="invalid-feedback">
                                 @error('username') {{ $message }} @enderror
                             </div>
@@ -121,11 +125,30 @@
                                 @error('role') {{ $message }} @enderror
                             </div>
                         </div>
+                        <div class="mb-2" style="display:none;">
+                            <label for="kode_prov" class="form-label">Wilayah</label>
+                            <select name="kode_prov" id="kode_prov" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
+                                @foreach($provList as $row)
+                                    <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2" style="display:none;">
+                            <label for="kode_pc" class="form-label">Cabang</label>
+                            <select name="kode_pc" id="kode_pc" class="form-select form-select-sm @error('kode_pc') is-invalid @enderror">
+                                <!-- element by jquery -->
+                            </select>
+                        </div>
                         <div class="mb-2">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}">
-                            <div class="invalid-feedback">
-                                @error('password') {{ $message }} @enderror
+                            <div class="input-group form-password">
+                                <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" placeholder="Buat unik password" value="{{ old('password') }}">
+                                <span class="input-group-text password-toggle">
+                                         <i class="ti ti-eye-off"></i>
+                                      </span>
+                                <div class="invalid-feedback">
+                                    @error('password') {{ $message }} @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -145,8 +168,8 @@
             <div class="modal-content rounded-2">
                 <div class="modal-header">
                     <div>
-                        <h5 class="modal-title mb-0" id="exampleModalLabel">Ubah Propinsi</h5>
-                        <small>koreksi kesalahan propinsi</small>
+                        <h5 class="modal-title mb-0" id="exampleModalLabel">Edit Akun Admin</h5>
+                        <small>edit akun administrator</small>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -156,21 +179,21 @@
                         @method('PUT')
                         <div class="mb-2">
                             <label for="name" class="form-label">Nama</label>
-                            <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" id="name" name="name" placeholder="Nama administrator" value="{{ old('name') }}">
                             <div class="invalid-feedback">
                                 @error('name') {{ $message }} @enderror
                             </div>
                         </div>
                         <div class="mb-2">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control form-control-sm @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}">
+                            <input type="text" class="form-control form-control-sm @error('username') is-invalid @enderror" id="username" name="username" placeholder="Buat username" value="{{ old('username') }}">
                             <div class="invalid-feedback">
                                 @error('username') {{ $message }} @enderror
                             </div>
                         </div>
                         <div class="mb-2">
-                            <label for="role" class="form-label">Role</label>
-                            <select name="role" id="role" class="form-select form-select-sm @error('role') is-invalid @enderror">
+                            <label for="role-edit" class="form-label">Role</label>
+                            <select name="role" id="role-edit" class="form-select form-select-sm @error('role') is-invalid @enderror">
                                 <option value="super admin">Super Admin</option>
                                 <option value="admin pusat">Admin Pusat</option>
                                 <option value="admin wilayah">Admin Wilayah</option>
@@ -180,11 +203,30 @@
                                 @error('role') {{ $message }} @enderror
                             </div>
                         </div>
+                        <div class="mb-2" style="display:none;">
+                            <label for="kode_prov-edit" class="form-label">Wilayah</label>
+                            <select name="kode_prov" id="kode_prov-edit" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
+                                @foreach($provList as $row)
+                                    <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2" style="display:none;">
+                            <label for="kode_pc-edit" class="form-label">Cabang</label>
+                            <select name="kode_pc" id="kode_pc-edit" class="form-select form-select-sm @error('kode_pc') is-invalid @enderror">
+                                <!-- element by jquery -->
+                            </select>
+                        </div>
                         <div class="mb-2">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" placeholder="kosongkan jika tidak ingin mengganti password" value="{{ old('password') }}">
-                            <div class="invalid-feedback">
-                                @error('password') {{ $message }} @enderror
+                            <div class="input-group form-password">
+                                <input type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" placeholder="kosongkan jika tidak ingin mengganti password" value="{{ old('password') }}">
+                                <span class="input-group-text password-toggle">
+                                         <i class="ti ti-eye-off"></i>
+                                      </span>
+                                <div class="invalid-feedback">
+                                    @error('password') {{ $message }} @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="mb-2">
@@ -224,7 +266,7 @@
             return true;
         }
         return false;
-    })
+    });
 
     let modalFormUpdateBackdrop = document.getElementById('modalFormUpdateBackdrop')
     modalFormUpdateBackdrop.addEventListener('show.bs.modal', function (event) {
@@ -241,8 +283,65 @@
                 $("input[name='username']").val(res.username);
                 $("select[name='role']").val(res.role);
                 $("select[name='status']").val(res.status_active);
+
+                $("#kode_prov-edit").val(res.provId);
+                selectOption($("#role-edit"), "#kode_prov-edit", "#kode_pc-edit", res.cabangId);
             }
         });
+    });
+
+    function getPengurusCabang(selector1, selector2, selectedValue) {
+        let routeGetData = "{{ route('api.pcbyprov', ['provId' => ':param']) }}".replace(':param', $(selector1).val());
+
+        $.ajax({
+            url: routeGetData,
+            type: "GET",
+            dataType: 'json',
+            success: function(res) {
+                let $select = $(selector2);
+                $select.empty();
+                $.each(res,function(key, value) {
+                    $select.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
+                });
+                if (selectedValue) $select.val(selectedValue);
+            }
+        })
+    }
+
+    function selectOption($this, selector1, selector2, value) {
+        if ($this.val() == "admin wilayah") {
+            $(selector1).parent().slideDown();
+            $(selector2).parent().slideUp();
+        }
+        else if ($this.val() == "admin cabang") {
+            $(selector1).parent().slideDown();
+            $(selector2).parent().slideDown();
+            getPengurusCabang(selector1, selector2, value);
+        }
+        else {
+            $(selector1).parent().slideUp();
+            $(selector2).parent().slideUp();
+        }
+    }
+
+    $("#role").on("change", function() {
+        selectOption($(this), "#kode_prov", "#kode_pc")
+    });
+
+    $("#kode_prov").on("change", function() {
+        if ($("#role").val() == "admin cabang") {
+            getPengurusCabang("#kode_prov", "#kode_pc");
+        }
+    });
+
+    $("#role-edit").on("change", function() {
+        selectOption($(this), "#kode_prov-edit", "#kode_pc-edit")
+    });
+
+    $("#kode_prov-edit").on("change", function() {
+        if ($("#role-edit").val() == "admin cabang") {
+            getPengurusCabang("#kode_prov-edit", "#kode_pc-edit");
+        }
     });
 
 </script>

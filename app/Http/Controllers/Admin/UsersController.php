@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\CatchErrorException;
 use App\Http\Controllers\Controller;
+use App\Models\Provinsi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,27 +13,31 @@ class UsersController extends Controller
 {
     public function index() {
 
-        $usersAdmin = User::whereIn("role", ["admin", "super admin", "admin pusat", "admin wilayah", "admin cabang"])
+        $provList = Provinsi::all();
+        $usersAdmin = User::with(["wilayah", "cabang"])->whereIn("role", ["admin", "super admin", "admin pusat", "admin wilayah", "admin cabang"])
                             ->get();
-        return view('admin.users.users', compact('usersAdmin'));
+
+        return view('admin.users.users', compact('usersAdmin', 'provList'));
 
     }
 
     public function store(Request $request) {
 
-        try {
-            $this->validate($request, [
-               'name' => 'required',
-               'username' => 'required',
-               'password' => 'required',
-               'role' => 'required|in:super admin,admin pusat,admin wilayah,admin cabang',
-            ]);
+        $request->validate([
+           'name' => 'required',
+           'username' => 'required|unique:users,username',
+           'password' => 'required',
+           'role' => 'required|in:super admin,admin pusat,admin wilayah,admin cabang',
+        ]);
 
+        try {
             User::create([
                'name' => $request->name,
                'username' => $request->username,
                'password' => Hash::make($request->password),
                'role' => $request->role,
+               'provId' => $request->kode_prov,
+               'cabangId' => $request->kode_pc,
             ]);
 
             return redirect()->back()->with('success', 'Berhasil membuat akun administrator');
@@ -56,12 +61,16 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user) {
 
+        $request-> validate([
+            'role' => 'in:super admin,admin pusat,admin wilayah,admin cabang',
+            'status' => 'in:active,block'
+        ]);
+
         try {
             if ($user) {
-                $this->validate($request, [
-                    'role' => 'in:super admin,admin pusat,admin wilayah,admin cabang',
-                    'status' => 'in:active,block'
-                ]);
+
+                $provId = in_array($request->role, ["admin wilayah", "admin cabang"]) && $request->kode_prov ? $request->kode_prov : "";
+                $cabangId = in_array($request->role, ["admin cabang"]) && $request->kode_pc ? $request->kode_pc : "";
 
                 if ($request->password) {
                     $user->update([
@@ -69,6 +78,8 @@ class UsersController extends Controller
                         'username' => $request->username,
                         'password' => Hash::make($request->password),
                         'role' => $request->role,
+                        'provId' => $provId,
+                        'cabangId' => $cabangId,
                         'status_active' => $request->status,
                     ]);
                 } else {
@@ -76,6 +87,8 @@ class UsersController extends Controller
                         'name' => $request->name,
                         'username' => $request->username,
                         'role' => $request->role,
+                        'provId' => $provId,
+                        'cabangId' => $cabangId,
                         'status_active' => $request->status,
                     ]);
                 }

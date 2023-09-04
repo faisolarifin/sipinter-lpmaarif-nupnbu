@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\CatchErrorException;
 use App\Helpers\ReferensiKemdikbud;
 use App\Models\Kabupaten;
+use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +43,21 @@ class ApiController extends Controller
             }
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET KABUPATEN BY PROV] has error ". $e);
+
+        }
+    }
+
+    public function getPCByProv(string $provId=null) {
+        try {
+            if ($provId) {
+                $provs = PengurusCabang::where('id_prov', '=', $provId)->get();
+                if (!$provs) return response()->json(['error' => 'Forbidden to access kabupaten']);
+
+                return response()->json($provs, HttpResponse::HTTP_OK);
+
+            }
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[GET PC BY PROV] has error ". $e);
 
         }
     }

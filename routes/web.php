@@ -178,6 +178,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/provcount', [ApiController::class, 'getProvAndCount'])->name('api.provcount');
         Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
         Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov');
+        Route::get('/pc/{provId}', [ApiController::class, 'getPCByProv'])->name('api.pcbyprov');
         Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
         Route::get('/pccount', [ApiController::class, 'getPCAndCount'])->name('api.pccount');
         Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');

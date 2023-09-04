@@ -78,6 +78,7 @@
                                     <option value="">STATUS</option>
                                     <option value="setujui" {{ 'setujui' == request()->status ? 'selected' : '' }}>Active</option>
                                     <option value="expired" {{ 'expired' == request()->status ? 'selected' : '' }}>Expired</option>
+                                    <option value="perpanjangan" {{ 'perpanjangan' == request()->status ? 'selected' : '' }}>Perpanjangan</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-filter"></i> Filter</button>
@@ -171,17 +172,18 @@
             dataType: 'json',
             success: function(res) {
 
-                $element = "<option value=''>KABUPATEN</option>";
-                $.each(res,function(key, value)
-                {
-                    $element += '<option value=' + value.id_kab + '>' + value.nama_kab + '</option>';
+                let $select = $("select[name='kabupaten']");
+                $select.empty();
+                $select.append("<option value=''>KABUPATEN</option>");
+
+                $.each(res,function(key, value) {
+                    $select.append('<option value=' + value.id_kab + '>' + value.nama_kab + '</option>');
                 });
+
                 let kabParam = location.search.split("&");
                 if (kabParam.length > 1) {
                     kabParam = kabParam[1].split("=")[1];
-                    $("select[name='kabupaten']").html($element).val(kabParam);
-                } else {
-                    $("select[name='kabupaten']").html($element);
+                    $select.val(kabParam);
                 }
             }
         })

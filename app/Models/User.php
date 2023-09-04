@@ -27,6 +27,8 @@ class User extends Authenticatable
         'username',
         'password',
         'role',
+        'provId',
+        'cabangId',
         'status_active',
     ];
 
@@ -47,4 +49,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function wilayah() {
+        return $this->belongsTo(Provinsi::class, 'provId', 'id_prov');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function cabang() {
+        return $this->belongsTo(PengurusCabang::class, 'cabangId', 'id_pc');
+    }
 }
