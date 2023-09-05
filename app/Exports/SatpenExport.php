@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Helpers\Date;
 use App\Models\Satpen;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
@@ -55,6 +56,7 @@ class SatpenExport implements FromCollection, WithMapping, WithHeadings, WithCol
             $row->alamat,
             $row->aset_tanah,
             $row->nm_pemilik,
+            Date::tglReverse($row->timeline[0]->tgl_status),
             $row->status,
         ];
     }
@@ -80,6 +82,7 @@ class SatpenExport implements FromCollection, WithMapping, WithHeadings, WithCol
             'Alamat',
             'Aset Tanah',
             'Nama Pemilik Tanah',
+            'Tanggal Registrasi',
             'Status Satpen',
         ];
     }
