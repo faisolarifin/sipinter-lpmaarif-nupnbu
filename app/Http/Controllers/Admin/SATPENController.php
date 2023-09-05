@@ -142,10 +142,9 @@ class SATPENController extends Controller
             $propinsi = Provinsi::all();
             $jenjang = Jenjang::all();
             $kategori = Kategori::all();
-            $countSatpen = Satpen::whereIn('status', $statuses)->where($specificFilter)->count();
 
             return view('admin.satpen.rekapsatpen', compact('satpenProfile',
-                'propinsi', 'jenjang', 'kategori', 'countSatpen'));
+                'propinsi', 'jenjang', 'kategori'));
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET ALL SATPEN OR FILTER] has error ". $e);

@@ -30,60 +30,71 @@
                         <small>data satpen yang telah diterima</small>
                     </div>
                     <div class="text-center">
-                        <h5 class="mb-0">{{ $countSatpen  }}</h5>
+                        <h5 class="mb-0">{{ $satpenProfile->count()  }}</h5>
                         <small>record satpen</small>
                     </div>
                 </div>
 
                 <div class="table-responsive">
-                    <form class="d-flex justify-content-between mb-2">
+                    <form class="d-flex justify-content-end mb-2">
                         <div class="d-flex flex-column flex-sm-row">
-                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
-                                <div class="me-sm-2">
-                                    <select class="form-select form-select-sm" name="provinsi">
-                                        <option value="">PROVINSI</option>
-                                        @foreach($propinsi as $row)
-                                            <option value="{{ $row->id_prov }}" {{ $row->id_prov == request()->provinsi ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
-                                        @endforeach
-                                    </select>
+                            <!-- offcanvas filter form -->
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasRightLabel" style="max-width:17rem;">
+                                <div class="offcanvas-header justify-content-end">
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
-                            @endif
-                            @if(!in_array(auth()->user()->role, ["admin cabang"]))
-                            <div class="me-sm-2">
-                                <select class="form-select form-select-sm" name="kabupaten">
-                                    <option value=''>KABUPATEN</option>
-                                    <!-- value by ajax -->
-                                </select>
-                            </div>
-                            @endif
+                                <div class="offcanvas-body">
+                                    <h5 class="mb-3">Filter Berdasarkan</h5>
+                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                        <div class="mb-3">
+                                            <select class="form-select form-select-sm" name="provinsi">
+                                                <option value="">PROVINSI</option>
+                                                @foreach($propinsi as $row)
+                                                    <option value="{{ $row->id_prov }}" {{ $row->id_prov == request()->provinsi ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
+                                    @if(!in_array(auth()->user()->role, ["admin cabang"]))
+                                        <div class="mb-3">
+                                            <select class="form-select form-select-sm" name="kabupaten">
+                                                <option value=''>KABUPATEN</option>
+                                                <!-- value by ajax -->
+                                            </select>
+                                        </div>
+                                    @endif
 
-                            <div class="me-sm-2">
-                                <select class="form-select form-select-sm" name="jenjang">
-                                    <option value="">JENJANG</option>
-                                    @foreach($jenjang as $row)
-                                        <option value="{{ $row->id_jenjang }}" {{ $row->id_jenjang == request()->jenjang ? 'selected' : '' }}>{{ $row->nm_jenjang }}</option>
-                                    @endforeach
-                                </select>
+                                    <div class="mb-3">
+                                        <select class="form-select form-select-sm" name="jenjang">
+                                            <option value="">JENJANG</option>
+                                            @foreach($jenjang as $row)
+                                                <option value="{{ $row->id_jenjang }}" {{ $row->id_jenjang == request()->jenjang ? 'selected' : '' }}>{{ $row->nm_jenjang }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select form-select-sm" name="kategori">
+                                            <option value="">KATEGORI</option>
+                                            @foreach($kategori as $row)
+                                                <option value="{{ $row->id_kategori }}" {{ $row->id_kategori == request()->kategori ? 'selected' : '' }}>{{ $row->nm_kategori }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select form-select-sm" name="status">
+                                            <option value="">STATUS</option>
+                                            <option value="setujui" {{ 'setujui' == request()->status ? 'selected' : '' }}>Active</option>
+                                            <option value="expired" {{ 'expired' == request()->status ? 'selected' : '' }}>Expired</option>
+                                            <option value="perpanjangan" {{ 'perpanjangan' == request()->status ? 'selected' : '' }}>Perpanjangan</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100"><i class="ti ti-filter"></i> Filter</button>
+                                </div>
                             </div>
-                            <div class="me-sm-2">
-                                <select class="form-select form-select-sm" name="kategori">
-                                    <option value="">KATEGORI</option>
-                                    @foreach($kategori as $row)
-                                        <option value="{{ $row->id_kategori }}" {{ $row->id_kategori == request()->kategori ? 'selected' : '' }}>{{ $row->nm_kategori }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="me-sm-2">
-                                <select class="form-select form-select-sm" name="status">
-                                    <option value="">STATUS</option>
-                                    <option value="setujui" {{ 'setujui' == request()->status ? 'selected' : '' }}>Active</option>
-                                    <option value="expired" {{ 'expired' == request()->status ? 'selected' : '' }}>Expired</option>
-                                    <option value="perpanjangan" {{ 'perpanjangan' == request()->status ? 'selected' : '' }}>Perpanjangan</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-filter"></i> Filter</button>
+                            <!-- end offcanvas -->
+
                             <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i class="ti ti-file-spreadsheet"></i> Export to Excel</a>
-
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i class="ti ti-filter"></i> Filter</button>
                         </div>
                         <div class="d-flex">
                             <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">
@@ -108,7 +119,7 @@
                         <tbody>
                         @php($no=0)
                         @php($today=\Carbon\Carbon::now())
-                        @if(count($satpenProfile) > 0)
+                        @if($satpenProfile->count() > 0)
                             @foreach($satpenProfile as $row)
                                 @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->tgl_registrasi)))
                                 <tr>
@@ -189,7 +200,7 @@
         })
     }
 
-    getKabupaten({{ auth()->user()->provId }});
+    getKabupaten({{ in_array(auth()->user()->role, ["admin wilayah"]) ? auth()->user()->provId : "" }});
 
 </script>
 @endsection
