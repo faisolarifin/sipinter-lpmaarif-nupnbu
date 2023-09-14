@@ -11,10 +11,6 @@
                             <p class="mb-0">Lembaga Pendidikan Ma'arif NU</p>
                             <p>Pengurus Besar Nahdlatul Ulama</p>
                         </div>
-                        <div>
-                            <p class="mb-2">Integrated By.</p>
-                            <img src="{{ asset('assets/images/backgrounds/33ddc3bc2640689.png') }}" width="60" alt="">
-                        </div>
                     </div>
                     <div class="col-12 col-sm-5">
                         <div class="address">

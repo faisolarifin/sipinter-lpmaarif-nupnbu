@@ -51,7 +51,7 @@
                 <div class="col text-center">
                     <div class="border rounded py-4 px-3">
                         <h2 style="color:#327B32;">SELAMAT DATANG DI LAYANAN SIAPINTER</h2>
-                        <small>Sistem pelayanan administrasi pendidikan terpadu dalam naungan lembaga pendidikan Ma'arif NU PBNU</small>
+                        <small>Sistem administrasi pendidikan terpadu lembaga pendidikan Ma'arif NU PBNU</small>
                         <hr class="w-60 mx-auto">
                         <a href="{{ route('verify') }}" class="btn btn-primary mb-1"><i class="ti ti-camera"></i> VALIDASI DOKUMEN</a>
                     </div>
