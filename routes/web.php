@@ -50,7 +50,6 @@ Route::post('/ceknpsn', [AuthController::class, 'checkNpsn'])->name('ceknpsn.pro
 Route::get('/npsnvirtual', [AuthController::class, 'npsnVirtualPage'])->name('npsnvirtual');
 Route::post('/npsnvirtual', [AuthController::class, 'requestVirtualNPSN'])->name('npsnvirtual.request');
 Route::get('/json/provcount', [ApiController::class, 'getProvAndCount'])->name('provcount');
-Route::get('/json/kabbyprov/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('kabbyprov');
 
 Route::middleware('mustlogin')->group(function() {
 
@@ -177,8 +176,8 @@ Route::middleware('mustlogin')->group(function() {
     Route::prefix('api')->middleware('onlyadmin')->group(function () {
         Route::get('/provcount', [ApiController::class, 'getProvAndCount'])->name('api.provcount');
         Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
-        Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov');
-        Route::get('/pc/{provId}', [ApiController::class, 'getPCByProv'])->name('api.pcbyprov');
+        Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov')->withoutMiddleware(["onlyadmin","mustlogin"]);
+        Route::get('/pc/{provId}', [ApiController::class, 'getPCByProv'])->name('api.pcbyprov')->withoutMiddleware(["onlyadmin","mustlogin"]);
         Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
         Route::get('/pccount', [ApiController::class, 'getPCAndCount'])->name('api.pccount');
         Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');

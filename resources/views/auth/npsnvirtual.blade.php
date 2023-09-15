@@ -26,7 +26,7 @@
                             @csrf
                             <div class="mb-2">
                                 <label for="nama_sekolah" class="form-label">Nama Sekolah</label>
-                                <input type="text" class="form-control form-control-sm @error('nama_sekolah') is-invalid @enderror" id="nama_sekolah" name="nama_sekolah" value="{{ old('nama_sekolah') }}" placeholder="Masukkan nama sekolah">
+                                <input type="text" class="form-control @error('nama_sekolah') is-invalid @enderror" id="nama_sekolah" name="nama_sekolah" value="{{ old('nama_sekolah') }}" placeholder="Masukkan nama sekolah">
                                 <div class="invalid-feedback">
                                     @error('nama_sekolah') {{ $message }} @enderror
                                 </div>
@@ -34,7 +34,7 @@
                             <small>*) pastikan anda menerima email validasi setelah mengajukan permohonan, untuk memastikan email anda masih aktif.</small>
                             <div class="mt-1 mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email anda">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email anda">
                                 <div class="invalid-feedback">
                                     @error('email') {{ $message }} @enderror
                                 </div>
@@ -126,7 +126,7 @@
     <script>
         $("select[name='provinsi']").on("change", function() {
             $.ajax({
-                url: "{{ route('kabbyprov', ':param') }}".replace(':param', $(this).val()),
+                url: "{{ route('api.kabupatenbyprov', ':param') }}".replace(':param', $(this).val()),
                 type: "GET",
                 dataType: 'json',
                 success: function (res) {

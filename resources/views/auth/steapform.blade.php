@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row row-nm-yayasan">
+                        <div class="row row-nm-yayasan" style="display:none;">
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="nm_yayasan" class="form-label required">Nama Yayasan</label>
@@ -467,7 +467,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script>
-        $(".row-nm-yayasan").hide();
         $("#yayasan").on('change', function(e) {
             if ($(this).val().toLowerCase() !== "bhpnu") {
                 $(".row-nm-yayasan").slideDown()
@@ -558,6 +557,43 @@
             return inputsValid;
         }
 
+        $("select[name='propinsi']").on('change', function() {
+
+            const provId = $(this).val();
+
+            $.ajax({
+                url: "{{ route('api.kabupatenbyprov', ['provId' => ':param']) }}".replace(':param', provId),
+                type: "GET",
+                dataType: 'json',
+                success: function(res) {
+
+                    let $select = $("select[name='kabupaten']");
+                    $select.empty();
+                    $.each(res,function(key, value) {
+                        $select.append('<option value=' + value.id_kab + '>' + value.nama_kab + '</option>');
+                    });
+
+                    $('.selectpicker').selectpicker('refresh');
+                }
+            })
+
+            $.ajax({
+                url: "{{ route('api.pcbyprov', ['provId' => ':param']) }}".replace(':param', provId),
+                type: "GET",
+                dataType: 'json',
+                success: function(res) {
+
+                    let $select = $("select[name='cabang']");
+                    $select.empty();
+                    $.each(res,function(key, value) {
+                        $select.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
+                    });
+
+                    $('.selectpicker').selectpicker('refresh');
+                }
+            });
+
+        });
 
     </script>
 @endsection
