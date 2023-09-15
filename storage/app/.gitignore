@@ -1,3 +1,7 @@
-*
-!public/
+public/*
+generated/sk/*
+generated/piagam/*
+uploads/*
+fileInformasi/*
+buktibayar/*
 !.gitignore

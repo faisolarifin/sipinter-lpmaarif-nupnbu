@@ -182,7 +182,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+         'Date' => App\Helpers\Date::class,
+         'Strings' => App\Helpers\Strings::class,
     ])->toArray(),
 
 ];
