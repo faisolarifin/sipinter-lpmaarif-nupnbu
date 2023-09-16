@@ -19,7 +19,7 @@ class ExportDocument
             $qrPath  = $filePath. "qrcode.png";
 
             $tempExportFilenameSplit = pathinfo($exportFilename);
-            $tempFilename = $filePath. $tempExportFilenameSplit['filename']."docx";
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".docx";
 
             $templateDocument = new TemplateProcessor($templateName);
 
@@ -82,7 +82,7 @@ class ExportDocument
             $qrPath  = $filePath. "qrcode.png";
 
             $tempExportFilenameSplit = pathinfo($exportFilename);
-            $tempFilename = $filePath. $tempExportFilenameSplit['filename']."docx";
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".docx";
 
             $templateDocument = new TemplateProcessor($templateName);
 
