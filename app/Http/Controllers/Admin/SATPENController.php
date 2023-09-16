@@ -239,10 +239,10 @@ class SATPENController extends Controller
                 /**
                  * create file data in db.file_upload
                  */
-//                $piagamFilename .= $satpen->nm_satpen.".pdf";
-                $piagamFilename .= $satpen->nm_satpen.".docx";
-//                $skFilename .= $satpen->nm_satpen.".pdf";
-                $skFilename .= $satpen->nm_satpen.".docx";
+                $piagamFilename .= $satpen->nm_satpen.".pdf";
+//                $piagamFilename .= $satpen->nm_satpen.".docx";
+                $skFilename .= $satpen->nm_satpen.".pdf";
+//                $skFilename .= $satpen->nm_satpen.".docx";
                 //create piagam
                 FileUpload::create([
                     'id_satpen' => $satpen->id_satpen,
@@ -316,10 +316,10 @@ class SATPENController extends Controller
                 /**
                  * create file data in db.file_upload
                  */
-//                $piagamFilename .= $satpen->nm_satpen.".pdf";
-                $piagamFilename .= $satpen->nm_satpen.".docx";
-//                $skFilename .= $satpen->nm_satpen.".pdf";
-                $skFilename .= $satpen->nm_satpen.".docx";
+                $piagamFilename .= $satpen->nm_satpen.".pdf";
+//                $piagamFilename .= $satpen->nm_satpen.".docx";
+                $skFilename .= $satpen->nm_satpen.".pdf";
+//                $skFilename .= $satpen->nm_satpen.".docx";
                 //create piagam
                 FileUpload::where([
                     'id_satpen' => $satpen->id_satpen,
