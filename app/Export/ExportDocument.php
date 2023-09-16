@@ -46,7 +46,7 @@ class ExportDocument
 //                    $templateDocument->saveAs($exportFilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportFilePath. $exportFilename);
-                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportFilePath. $exportFilename) . ' ' . escapeshellarg($tempFilename);
+                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportFilePath) . ' ' . escapeshellarg($tempFilename);
 
                     exec($command, $output, $returnCode);
 
@@ -125,7 +125,7 @@ class ExportDocument
 //                    $templateDocument->saveAs($exportfilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportfilePath. $exportFilename);
-                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportfilePath. $exportFilename) . ' ' . escapeshellarg($tempFilename);
+                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportfilePath) . ' ' . escapeshellarg($tempFilename);
 
                     exec($command, $output, $returnCode);
 //
