@@ -42,20 +42,21 @@ class ExportDocument
                     // Replace the QR code placeholder with the actual QR code image in the template
                     $templateDocument->setImageValue('qrcode',  array('path' => $qrPath, 'width' => 150, 'height' => 150));
 
-//                    $templateDocument->saveAs($tempFilename);
-                    $templateDocument->saveAs($exportFilePath. $exportFilename);
+                    $templateDocument->saveAs($tempFilename);
+//                    $templateDocument->saveAs($exportFilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportFilePath. $exportFilename);
+                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportFilePath. $exportFilename) . ' ' . escapeshellarg($tempFilename);
 
-//                    exec($command, $output, $returnCode);
+                    exec($command, $output, $returnCode);
 
-//                    if ($returnCode === 0) {
-//                        unlink($tempFilename);
+                    if ($returnCode === 0) {
+                        unlink($tempFilename);
                         unlink($qrPath);
-//                        return true;
-//                    } else {
-//                        echo 'Error converting Word document to PDF.';
-//                    }
+                        return true;
+                    } else {
+                        echo 'Error converting Word document to PDF.';
+                    }
                     return true;
                 }
             }
@@ -120,20 +121,21 @@ class ExportDocument
                     // Replace the QR code placeholder with the actual QR code image in the template
                     $templateDocument->setImageValue('qrcode',  array('path' => $qrPath, 'width' => 150, 'height' => 150));
 
-//                    $templateDocument->saveAs($tempFilename);
-                    $templateDocument->saveAs($exportfilePath. $exportFilename);
+                    $templateDocument->saveAs($tempFilename);
+//                    $templateDocument->saveAs($exportfilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportfilePath. $exportFilename);
+                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportfilePath. $exportFilename) . ' ' . escapeshellarg($tempFilename);
+
+                    exec($command, $output, $returnCode);
 //
-//                    exec($command, $output, $returnCode);
-//
-//                    if ($returnCode === 0) {
-//                        unlink($tempFilename);
+                    if ($returnCode === 0) {
+                        unlink($tempFilename);
                         unlink($qrPath);
-//                        return true;
-//                    } else {
-//                        echo 'Error converting Word document to PDF.';
-//                    }
+                        return true;
+                    } else {
+                        echo 'Error converting Word document to PDF.';
+                    }
                     return true;
                 }
             }
