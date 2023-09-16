@@ -17,7 +17,9 @@ class ExportDocument
             $templateName = $filePath. "Piagam_Template.docx";
             $exportFilename = $satpenProfile->file[0]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
-            $tempFilename = $filePath. "temp.docx";
+
+            $tempExportFilenameSplit = pathinfo($exportFilename);
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename']."docx";
 
             $templateDocument = new TemplateProcessor($templateName);
 
@@ -39,6 +41,7 @@ class ExportDocument
                     $templateDocument->setValue('fax', $satpenProfile->fax);
                     $templateDocument->setValue('email', $satpenProfile->email);
                     $templateDocument->setValue('tanggal', Date::tglMasehi($satpenProfile->file[0]->tgl_file));
+
                     // Replace the QR code placeholder with the actual QR code image in the template
                     $templateDocument->setImageValue('qrcode',  array('path' => $qrPath, 'width' => 150, 'height' => 150));
 
@@ -46,7 +49,7 @@ class ExportDocument
 //                    $templateDocument->saveAs($exportFilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportFilePath. $exportFilename);
-                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportFilePath) . ' ' . escapeshellarg($tempFilename);
+                    $command = "sudo /var/www/convertpdf.sh -i ". escapeshellarg($tempFilename) . ' -o ' . escapeshellarg($exportFilePath);
 
                     exec($command, $output, $returnCode);
 
@@ -77,7 +80,9 @@ class ExportDocument
             $templateName = $filePath. "SK_Template.docx";
             $exportFilename = $satpenProfile->file[1]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
-            $tempFilename = $filePath. "SK.docx";
+
+            $tempExportFilenameSplit = pathinfo($exportFilename);
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename']."docx";
 
             $templateDocument = new TemplateProcessor($templateName);
 
@@ -117,7 +122,6 @@ class ExportDocument
                     $templateDocument->setValue('tembusanlembagapc', $satpenProfile->filereg[1]->nm_lembaga);
                     $templateDocument->setValue('kabupatenpc', $satpenProfile->filereg[1]->daerah);
 
-
                     // Replace the QR code placeholder with the actual QR code image in the template
                     $templateDocument->setImageValue('qrcode',  array('path' => $qrPath, 'width' => 150, 'height' => 150));
 
@@ -125,7 +129,7 @@ class ExportDocument
 //                    $templateDocument->saveAs($exportfilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportfilePath. $exportFilename);
-                    $command = 'soffice --headless --convert-to pdf --outdir ' . escapeshellarg($exportfilePath) . ' ' . escapeshellarg($tempFilename);
+                    $command = "sudo /var/www/convertpdf.sh -i ". escapeshellarg($tempFilename) . ' -o ' . escapeshellarg($exportfilePath);
 
                     exec($command, $output, $returnCode);
 //
