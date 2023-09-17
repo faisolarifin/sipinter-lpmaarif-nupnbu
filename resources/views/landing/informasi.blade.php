@@ -27,7 +27,7 @@
                     @foreach($listInformasi as $row)
                     <a href="{{ route('informasi', $row->slug) }}">
                     <div class="card mx-auto me-sm-4" style="width:13.6rem">
-                        <img src="{{ Storage::url("public/".$row->image) }}" class="card-img-top" alt="...">
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="...">
                         <div class="card-body px-3 pt-3 pb-4">
                             <h6 class="card-title fs-4">{{ $row->headline }}</h6>
                             {!! Str::limit($row->content , 50)  !!}
