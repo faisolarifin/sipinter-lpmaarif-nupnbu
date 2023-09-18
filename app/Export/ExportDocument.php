@@ -14,12 +14,12 @@ class ExportDocument
         try {
             $filePath = storage_path('app/templates/');
             $exportFilePath = storage_path('app/generated/piagam/');
-            $templateName = $filePath. "Piagam_Template.doc";
+            $templateName = $filePath. "Piagam_Template.docx";
             $exportFilename = $satpenProfile->file[0]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
 
             $tempExportFilenameSplit = pathinfo($exportFilename);
-            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".doc";
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".docx";
 
             $templateDocument = new TemplateProcessor($templateName);
 
