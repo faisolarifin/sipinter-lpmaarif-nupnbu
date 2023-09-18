@@ -19,7 +19,7 @@ class ExportDocument
             $qrPath  = $filePath. "qrcode.png";
 
             $tempExportFilenameSplit = pathinfo($exportFilename);
-            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".docx";
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".doc";
 
             $templateDocument = new TemplateProcessor($templateName);
 
