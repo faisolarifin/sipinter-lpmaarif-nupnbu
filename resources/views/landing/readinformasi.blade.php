@@ -29,7 +29,7 @@
                                 <small>{{ Date::tglMasehi($readInfo->tgl_upload) }}</small>
 
                                 <div class="text-center mt-3 mb-4">
-                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" alt="..." width="70%">
+                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($readInfo->image) }}" alt="..." width="70%">
                                 </div>
 
                                 {!! $readInfo->content !!}
