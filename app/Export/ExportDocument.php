@@ -14,7 +14,7 @@ class ExportDocument
         try {
             $filePath = storage_path('app/templates/');
             $exportFilePath = storage_path('app/generated/piagam/');
-            $templateName = $filePath. "Piagam_Template.docx";
+            $templateName = $filePath. "Piagam_Template.doc";
             $exportFilename = $satpenProfile->file[0]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
 
