@@ -93,6 +93,7 @@ class ExportDocument
                     $templateDocument->setValue('bulanromawi', Date::bulanRomawi($satpenProfile->file[1]->tgl_file));
                     $templateDocument->setValue('namasekolah', $satpenProfile->filereg[0]->nm_lembaga);
                     $templateDocument->setValue('nosrtsatpen', $satpenProfile->filereg[0]->nomor_surat);
+                    $templateDocument->setValue('tglsuratsatpen', $satpenProfile->filereg[0]->tgl_surat);
 
                     $templateDocument->setValue('nmlembagapc', $satpenProfile->filereg[1]->nm_lembaga);
                     $templateDocument->setValue('pc', $satpenProfile->filereg[1]->daerah);
