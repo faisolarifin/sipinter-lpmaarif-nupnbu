@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => "Siapinter - ". $readInfo->headline
+    'title' => "Sipinter - ". $readInfo->headline
 ])
 
 @section('style')

@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Posting Informasi'
+    'title' => 'Sipinter - Posting Informasi'
 ])
 @section('navbar')
     @include('template.navadmin')

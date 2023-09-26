@@ -22,7 +22,8 @@ class CekNpsnRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "npsn" => "required|size:8",
+//            "npsn" => "required|size:8",
+            "npsn" => "required|min:3|max:8",
         ];
     }
 

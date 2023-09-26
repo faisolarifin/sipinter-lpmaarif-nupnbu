@@ -33,14 +33,15 @@ class VirtualNPSNController extends Controller
         try {
             if ($virtualNPSN) {
                 $orderedNum = 0;
-                $prefProv = str_pad($virtualNPSN->id_prov, 2, '0', STR_PAD_LEFT);
-                $prefJj = str_pad($virtualNPSN->id_jenjang, 2, '0', STR_PAD_LEFT);
+//                $prefProv = str_pad($virtualNPSN->id_prov, 2, '0', STR_PAD_LEFT);
+//                $prefJj = str_pad($virtualNPSN->id_jenjang, 2, '0', STR_PAD_LEFT);
                 $maxVNPSN = VirtualNPSN::max('nomor_virtual');
                 if ($maxVNPSN) {
                     $orderedNum = (int) substr($maxVNPSN, strlen($maxVNPSN) - 4);
                 }
                 $orderedNum = str_pad(++$orderedNum, 4, '0', STR_PAD_LEFT);
-                $new_VNPSN = $prefProv.$prefJj.$orderedNum;
+//                $new_VNPSN = $prefProv.$prefJj.$orderedNum;
+                $new_VNPSN = $orderedNum;
 
                 //save
                 $virtualNPSN->update([

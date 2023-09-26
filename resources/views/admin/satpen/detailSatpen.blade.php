@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter Admin - Detail Satuan Pendidikan'
+    'title' => 'Sipinter Admin - Detail Satuan Pendidikan'
 ])
 
 @section('style')

@@ -7,7 +7,7 @@
                     <div class="col-12 col-sm-7">
                         <div>
                             <img src="{{ asset('assets/images/logos/Logo_NU_Putih_PNG.png') }}" width="100" alt="Logo NU">
-                            <p class="mb-0 fs-4">Sistem Administrasi Pendidikan Terpadu (SIAPINTER)</p>
+                            <p class="mb-0 fs-4">Sistem Administrasi Pendidikan Terpadu (SIPINTER)</p>
                             <p class="mb-0">Lembaga Pendidikan Ma'arif NU</p>
                             <p>Pengurus Besar Nahdlatul Ulama</p>
                         </div>
