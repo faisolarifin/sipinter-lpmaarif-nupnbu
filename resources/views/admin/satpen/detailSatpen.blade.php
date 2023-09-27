@@ -109,6 +109,11 @@
                                     <td>{{ $satpenProfile->kabupaten->nama_kab }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Cabang</td>
+                                    <td>:</td>
+                                    <td>{{ $satpenProfile->cabang->nama_pc }}</td>
+                                </tr>
+                                <tr>
                                     <td>Kecamatan</td>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kecamatan }}</td>

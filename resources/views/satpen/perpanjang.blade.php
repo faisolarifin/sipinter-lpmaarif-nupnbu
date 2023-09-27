@@ -98,7 +98,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="propinsi" class="form-label required">Propinsi</label>
-                                    <select class="form-select @error('propinsi') is-invalid @enderror" name="propinsi">
+                                    <select class="form-select @error('propinsi') is-invalid @enderror" name="propinsi" disabled>
                                         @foreach($propinsi as $row)
                                             <option value="{{ $row->id_prov }}" {{$satpenProfile->id_prov == $row->id_prov ? 'selected' : ''}}>{{ $row->nm_prov }}</option>
                                         @endforeach
@@ -111,7 +111,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="kabupaten" class="form-label required">Kabupaten</label>
-                                    <select class="form-select @error('kabupaten') is-invalid @enderror" name="kabupaten">
+                                    <select class="form-select @error('kabupaten') is-invalid @enderror" name="kabupaten" disabled>
                                         @foreach($kabupaten as $row)
                                             <option value="{{ $row->id_kab }}" {{$satpenProfile->id_kab == $row->id_kab ? 'selected' : ''}}>{{ $row->nama_kab }}</option>
                                         @endforeach
@@ -126,7 +126,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="cabang" class="form-label required">Cabang</label>
-                                    <select class="form-select @error('cabang') is-invalid @enderror" name="cabang">
+                                    <select class="form-select @error('cabang') is-invalid @enderror" name="cabang" disabled>
                                         @foreach($cabang as $row)
                                             <option value="{{ $row->id_pc }}" {{$satpenProfile->id_pc == $row->id_pc ? 'selected' : ''}}>{{ $row->nama_pc }}</option>
                                         @endforeach

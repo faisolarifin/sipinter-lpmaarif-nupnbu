@@ -189,10 +189,14 @@ class SatpenController extends Controller
              * Update registration number
              */
             $orderedNumber = $satpen->no_urut;
-            if (strtolower($request->yayasan) <> 'bhpnu') {
-                $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+            if ($satpen->status == 'revisi') {
+                if (strtolower($request->yayasan) <> 'bhpnu') {
+                    $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                } else {
+                    $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                }
             } else {
-                $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                $registerNumber .= $satpen->no_registrasi;
             }
             /**
              * Determine kategori
@@ -230,12 +234,17 @@ class SatpenController extends Controller
                 /**
                  * Update satpen on db.satpen
                  */
-                $satpen->update([
-                    'id_prov' => $provinsi->id_prov,
-                    'id_kab' => $request->kabupaten,
+                $address = [];
+                if ($satpen->status == 'revisi') {
+                    $address = [
+                        'id_prov' => $provinsi->id_prov,
+                        'id_kab' => $request->kabupaten,
+                        'id_pc' => $cabang->id_pc,
+                    ];
+                }
+                $satpen->update( array_merge($address, [
                     'id_kategori' => $makeCategorySatpen->id_kategori,
                     'id_jenjang' => $request->jenjang,
-                    'id_pc' => $cabang->id_pc,
 //                    'npsn' => $request->npsn,
                     'no_registrasi' => $registerNumber,
                     'nm_satpen' => $request->nm_satpen,
@@ -250,7 +259,7 @@ class SatpenController extends Controller
                     'kecamatan' => $request->kecamatan,
                     'aset_tanah' => $request->aset_tanah,
                     'nm_pemilik' => $request->nm_pemilik,
-                ]);
+                ]));
                 /**
                  * Update file register
                  */

@@ -45,6 +45,10 @@ class Satpen extends Model
         return $this->belongsTo(Kabupaten::class, 'id_kab');
     }
 
+    public function cabang() {
+        return $this->belongsTo(PengurusCabang::class, 'id_pc');
+    }
+
     public function kategori() {
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }
