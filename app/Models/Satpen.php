@@ -20,6 +20,7 @@ class Satpen extends Model
         'id_jenjang',
         'npsn',
         'no_registrasi',
+        'no_urut',
         'nm_satpen',
         'yayasan',
         'kepsek',

@@ -89,7 +89,7 @@ class ExportDocument
             if ($satpenProfile) {
 
                 if (GenerateQr::make($satpenProfile->file[1]->qrcode, $qrPath)) {
-                    $templateDocument->setValue('nomor', $satpenProfile->file[1]->no_file);
+                    $templateDocument->setValue('nomor', $satpenProfile->no_urut);
                     $templateDocument->setValue('bulanromawi', Date::bulanRomawi($satpenProfile->file[1]->tgl_file));
                     $templateDocument->setValue('namasekolah', $satpenProfile->filereg[0]->nm_lembaga);
                     $templateDocument->setValue('nosrtsatpen', $satpenProfile->filereg[0]->nomor_surat);

@@ -55,7 +55,7 @@ class SatpenController extends Controller
              */
             $orderedNumber = 0;
             if ($lastOfSatpen !== null) {
-                $orderedNumber = (int) substr($lastOfSatpen->no_registrasi, strlen($lastOfSatpen->no_registrasi) - 4);
+                $orderedNumber = (int) $lastOfSatpen->no_urut;
             }
             $orderedNumber = str_pad(++$orderedNumber, 4, '0', STR_PAD_LEFT);
             /**
@@ -100,6 +100,7 @@ class SatpenController extends Controller
                         'id_jenjang' => $request->jenjang,
                         'npsn' => $request->npsn,
                         'no_registrasi' => $registerNumber,
+                        'no_urut' => $orderedNumber,
                         'nm_satpen' => $request->nm_satpen,
                         'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
                         'kepsek' => $request->kepsek,
@@ -187,7 +188,7 @@ class SatpenController extends Controller
             /**
              * Update registration number
              */
-            $orderedNumber = substr($satpen->no_registrasi, strlen($satpen->no_registrasi) - 4);
+            $orderedNumber = $satpen->no_urut;
             if (strtolower($request->yayasan) <> 'bhpnu') {
                 $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
             } else {

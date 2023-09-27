@@ -81,6 +81,7 @@ return new class extends Migration
 
             $table->string('npsn', 45)->unique();
             $table->string('no_registrasi', 45)->unique();
+            $table->string('no_urut', 10)->unique();
             $table->string('nm_satpen', 255);
             $table->string('yayasan', 255);
             $table->string('kepsek', 100);
@@ -147,7 +148,6 @@ return new class extends Migration
             $table->id('id_file');
             $table->unsignedBigInteger('id_satpen');
             $table->enum('typefile', ['sk', 'piagam']);
-            $table->string('no_file', 50)->nullable();
             $table->string('qrcode', 255)->nullable();
             $table->string('nm_file', 255);
             $table->date('tgl_file');

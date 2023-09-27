@@ -223,14 +223,6 @@ class SATPENController extends Controller
             $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
             $skFilename = "SK Satuan Pendidikan BHPNU - ";
             /**
-             * generate ordered nomor surat
-             */
-            $autoNomorSurat = 1;
-            $maxNomorSurat = FileUpload::where('typefile', '=', 'sk')->max('no_file');
-            if (!$maxNomorSurat) {
-                $autoNomorSurat = (int) ++$maxNomorSurat;
-            }
-            /**
              * get selected satpen
              */
             $satpen = Satpen::find($request->satpenid);
@@ -254,7 +246,6 @@ class SATPENController extends Controller
                 FileUpload::create([
                     'id_satpen' => $satpen->id_satpen,
                     'typefile' => "sk",
-                    'no_file' => $autoNomorSurat,
                     'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $skFilename,
                     'tgl_file' => $request->tgl_doc,
@@ -300,14 +291,6 @@ class SATPENController extends Controller
             $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
             $skFilename = "SK Satuan Pendidikan BHPNU - ";
             /**
-             * generate ordered nomor surat
-             */
-            $autoNomorSurat = 1;
-            $maxNomorSurat = FileUpload::where('typefile', '=', 'sk')->max('no_file');
-            if (!$maxNomorSurat) {
-                $autoNomorSurat = (int) ++$maxNomorSurat;
-            }
-            /**
              * get selected satpen
              */
             $satpen = Satpen::find($request->satpenid);
@@ -333,7 +316,6 @@ class SATPENController extends Controller
                     'id_satpen' => $satpen->id_satpen,
                     'typefile' => "sk",
                 ])->update([
-                    'no_file' => $autoNomorSurat,
 //                    'qrcode' => GenerateQr::encodeQr(),
                     'nm_file' => $skFilename,
                     'tgl_file' => $request->tgl_doc,
