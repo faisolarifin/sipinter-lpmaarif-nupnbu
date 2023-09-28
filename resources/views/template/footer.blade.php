@@ -7,7 +7,7 @@
                     <div class="col-12 col-sm-7">
                         <div>
                             <img src="{{ asset('assets/images/logos/Logo_NU_Putih_PNG.png') }}" width="100" alt="Logo NU">
-                            <p class="mb-0 fs-4">Sistem Administrasi Pendidikan Terpadu (SIPINTER)</p>
+                            <p class="mb-0">Sistem Administrasi Pendidikan Terpadu (SIPINTER)</p>
                             <p class="mb-0">Lembaga Pendidikan Ma'arif NU</p>
                             <p>Pengurus Besar Nahdlatul Ulama</p>
                         </div>
@@ -15,11 +15,11 @@
                     <div class="col-12 col-sm-5">
                         <div class="address">
                             <p>Alamat</p>
-                            <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320</p>
+                            <p>Gedung PBNU II, Lantai 2 <br> Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng <br> Jakarta Pusat 10320</p>
                             <p>Telp.</p>
                             <p>021-3904115</p>
                             <p>Email</p>
-                            <p>sekretariat@maarifnu.org</p>
+                            <p>bhp.maarifnu@gmail.com</p>
                         </div>
                     </div>
                 </div>

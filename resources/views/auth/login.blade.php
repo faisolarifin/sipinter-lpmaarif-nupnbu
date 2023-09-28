@@ -75,7 +75,7 @@
                         <div class="row">
                             <div class="col-sm-6 pt-1">
                                 <p class="mb-2 mt-3"><i class="ti ti-mail"></i>
-                                    Email. sekretariat@maarifnu.org</p>
+                                    Email. bhp.maarifnu@gmail.com</p>
                                 <p class="mb-2"><i class="ti ti-phone"></i>
                                     Telp. 021-3904115</p>
                                 <p><i class="ti ti-brand-telegram"></i>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="col-sm-6 text-center">
                                 <i class="ti ti-map-pin fs-5"></i>
-                                <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
+                                <p>Gedung PBNU II, Lantai 2 <br> Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng <br> Jakarta Pusat 10320</p>
                             </div>
                         </div>
                     </div>
