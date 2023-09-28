@@ -2,5 +2,5 @@
 
 ## SIPINTER LP MA'ARIF NU PBNU
 
-Sipinter LP Ma'arif NU PBNU merupakan sistem untuk melakukan pendataan satuan pendidikan secara dua arah. Sistem ini dibangun menggunakan teknologi PHP Laravel v10.
+Sipinter LP Ma'arif NU PBNU merupakan sistem untuk melakukan pendataan satuan pendidikan dua arah, yakni operator sekolah dengan admin LP Ma'arif NU PBNU. Sistem ini dibangun menggunakan teknologi PHP Laravel v10.
 
