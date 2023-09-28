@@ -417,7 +417,7 @@ class SatpenController extends Controller
                     return redirect()->back()->with('error', 'NPSN sudah pernah terdaftar dalam sistem');
                 }
 
-//                VirtualNPSN::where("nomor_virtual", "=", $satpen->npsn)->delete();
+                VirtualNPSN::where("nomor_virtual", "=", $satpen->npsn)->delete();
                 $satpen->update([
                    'npsn' => $jsonResultSekolah["npsn"],
                    'nm_satpen' => $jsonResultSekolah["nama"],

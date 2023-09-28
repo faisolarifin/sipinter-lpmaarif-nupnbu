@@ -39,7 +39,7 @@ class VirtualNPSNController extends Controller
                 if ($maxVNPSN) {
                     $orderedNum = (int) substr($maxVNPSN, strlen($maxVNPSN) - 4);
                 }
-                $orderedNum = str_pad(++$orderedNum, 4, '0', STR_PAD_LEFT);
+                $orderedNum = str_pad(++$orderedNum, 8, '0', STR_PAD_LEFT);
 //                $new_VNPSN = $prefProv.$prefJj.$orderedNum;
                 $new_VNPSN = $orderedNum;
 
