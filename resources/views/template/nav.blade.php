@@ -53,7 +53,7 @@
             <span>
               <i class="ti ti-award"></i>
             </span>
-                <span class="hide-menu">Layanan Beasiswa Pendidikan</span>
+                <span class="hide-menu">Layanan Beasiswa</span>
             </a>
         </li>
         <li class="sidebar-item">
