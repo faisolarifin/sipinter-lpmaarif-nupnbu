@@ -19,7 +19,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('mysatpen') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-file-description"></i>
+                  <i class="ti ti-article"></i>
                 </span>
                 <span class="hide-menu">My Profile</span>
             </a>
@@ -27,17 +27,41 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('oss') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-article"></i>
+                  <i class="ti ti-device-sim"></i>
                 </span>
-                <span class="hide-menu">Permohonan OSS</span>
+                <span class="hide-menu">Layanan OSS</span>
             </a>
         </li>
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('bhpnu') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-alert-circle"></i>
+                  <i class="ti ti-report"></i>
                 </span>
-                <span class="hide-menu">Permohonan BHPNU</span>
+                <span class="hide-menu">Layanan BHPNU</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('bantuan') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-help"></i>
+            </span>
+                <span class="hide-menu">Layanan Bantuan Sekolah</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('beasiswa') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-award"></i>
+            </span>
+                <span class="hide-menu">Layanan Beasiswa Pendidikan</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('katalog') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-paperclip"></i>
+            </span>
+                <span class="hide-menu">Katalog</span>
             </a>
         </li>
     </ul>

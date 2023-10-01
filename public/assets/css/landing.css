@@ -167,7 +167,7 @@ body {
     letter-spacing: .02rem;
 }
 .slip-file {
-    max-width: 20rem;
+    min-width: 5rem;
     margin-right: .4rem;
     border: .15rem dotted #d3d4d5;
     border-radius: 3px;

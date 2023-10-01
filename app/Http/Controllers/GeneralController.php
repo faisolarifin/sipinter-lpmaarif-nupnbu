@@ -57,7 +57,7 @@ class GeneralController extends Controller
             }
     }
 
-    public function downloadFileInformasi($filename = null) {
+    public function downloadFileInformasi(string $filename = null) {
         try {
             if (Storage::exists("fileinformasi/".$filename)){
                 return response()->download(

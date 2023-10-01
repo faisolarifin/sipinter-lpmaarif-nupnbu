@@ -43,9 +43,9 @@
                                 <div class="file-info d-flex mt-3">
                                     @foreach($readInfo->file as $row)
                                         <div class="d-flex justify-content-between align-items-center py-3 px-2 slip-file">
-                                            <h6 class="mb-0">{{ $row->fileupload }}</h6>
+                                            <h6 class="mb-0">{{ substr($row->fileupload, 14) }}</h6>
                                             <div class="ms-sm-2">
-                                                <a href="{{ route('informasi.download', $row->fileupload) }}" class="btn btn-sm"><i class="ti ti-download"></i></a>
+                                                <a href="{{ route('informasi.download', substr($row->fileupload, 14)) }}" class="btn btn-sm"><i class="ti ti-download"></i></a>
                                             </div>
                                         </div>
                                     @endforeach

@@ -52,15 +52,39 @@
                 <span>
                   <i class="ti ti-device-sim"></i>
                 </span>
-                <span class="hide-menu">Pemohon OSS</span>
+                <span class="hide-menu">Layanan OSS</span>
             </a>
         </li>
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-paperclip"></i>
+                  <i class="ti ti-report"></i>
                 </span>
-                <span class="hide-menu">Pemohon BHPNU</span>
+                <span class="hide-menu">Layanan BHPNU</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('a.bantuan') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-help"></i>
+            </span>
+                <span class="hide-menu">Layanan Bantuan Sekolah</span>
+            </a>
+        </li>
+            <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('a.beasiswa') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-award"></i>
+            </span>
+                <span class="hide-menu">Layanan Beasiswa Pendidikan</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('a.katalog') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-paperclip"></i>
+            </span>
+                <span class="hide-menu">Katalog</span>
             </a>
         </li>
         <li class="nav-small-cap">
