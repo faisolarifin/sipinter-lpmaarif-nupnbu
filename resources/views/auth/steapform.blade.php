@@ -279,14 +279,15 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="file_permohonan" class="form-label required">File Permohonan</label>
-                                    <input type="file" class="form-control  @error('file_permohonan') is-invalid @enderror" id="file_permohonan" name="file_permohonan" value="{{ old('file_permohonan') }}" required>
+                                    <input type="file" class="form-control mb-1 @error('file_permohonan') is-invalid @enderror" id="file_permohonan" name="file_permohonan" value="{{ old('file_permohonan') }}" accept="application/pdf" required>
+                                    <small class="text-primary">ukuran maksimum untuk dokumen pdf 1MB</small>
                                     <div class="invalid-feedback">
                                         @error('file_permohonan') {{ $message }} @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h5 class="my-3">Rekomendasi Cabang</h5>
+                        <h5 class="mt-2 mb-3">Rekomendasi Cabang</h5>
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
@@ -336,14 +337,15 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="file_rekom_pc" class="form-label required">File Rekomendasi PC</label>
-                                    <input type="file" class="form-control  @error('file_rekom_pc') is-invalid @enderror" id="file_rekom_pc" name="file_rekom_pc" value="{{ old('file_rekom_pc') }}" required>
+                                    <input type="file" class="form-control mb-1 @error('file_rekom_pc') is-invalid @enderror" id="file_rekom_pc" name="file_rekom_pc" value="{{ old('file_rekom_pc') }}" accept="application/pdf" required>
+                                    <small class="text-primary">ukuran maksimum untuk dokumen pdf 1MB</small>
                                     <div class="invalid-feedback">
                                         @error('file_rekom_pc') {{ $message }} @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h5 class="my-3">Rekomendasi Wilayah</h5>
+                        <h5 class="mt-2 mb-3">Rekomendasi Wilayah</h5>
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
@@ -393,7 +395,8 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="file_rekom_pw" class="form-label required">File Rekomendasi PW</label>
-                                    <input type="file" class="form-control  @error('file_rekom_pw') is-invalid @enderror" id="file_rekom_pw" name="file_rekom_pw" value="{{ old('file_rekom_pw') }}" required>
+                                    <input type="file" class="form-control mb-1  @error('file_rekom_pw') is-invalid @enderror" id="file_rekom_pw" name="file_rekom_pw" value="{{ old('file_rekom_pw') }}" accept="application/pdf" required>
+                                    <small class="text-primary">ukuran maksimum untuk dokumen pdf 1MB</small>
                                     <div class="invalid-feedback">
                                         @error('file_rekom_pw') {{ $message }} @enderror
                                     </div>

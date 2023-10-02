@@ -476,4 +476,9 @@ class SatpenController extends Controller
         }
         return Kategori::where('nm_kategori', '=', $kategori)->first();
     }
+
+    public function underConstruction() {
+        return view('template.construction');
+    }
+
 }

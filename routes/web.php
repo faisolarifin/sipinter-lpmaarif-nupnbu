@@ -95,15 +95,15 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
         });
         Route::group(["prefix" => "bantuan"], function() {
-            Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('bantuan');
+            Route::get('/', [SatpenController::class, 'underConstruction'])->name('bantuan');
         });
 
         Route::group(["prefix" => "beasiswa"], function() {
-            Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('beasiswa');
+            Route::get('/', [SatpenController::class, 'underConstruction'])->name('beasiswa');
         });
 
         Route::group(["prefix" => "katalog"], function() {
-            Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('katalog');
+            Route::get('/', [SatpenController::class, 'underConstruction'])->name('katalog');
         });
         /**
          * API
