@@ -20,6 +20,10 @@
                             <p>021-3904115</p>
                             <p>Email</p>
                             <p>bhp.maarifnu@gmail.com</p>
+                            <p>WA</p>
+                            <p><a href="https://wa.me/628176536731" class="text-white"><i class="ti ti-brand-whatsapp"></i>
+                                +628176536731</a></p>
+
                         </div>
                     </div>
                 </div>
