@@ -70,7 +70,7 @@
                             <ol class="ps-3" style="font-size:1.1em;">
                                 <li class="mb-2">Menjadi Pusat Data Satuan Pendidikan Ma’arif NU</li>
                                 <li class="mb-2">Layanan Izin Sistem OSS/NIB</li>
-                                <li class="mb-2">Layanan Badan Hukum NU (BHPNU</li>
+                                <li class="mb-2">Layanan Badan Hukum NU (BHPNU)</li>
                                 <li class="mb-2">Layanan Bantuan Pendidikan Ma’arif</li>
                                 <li class="mb-2">Layanan Beasiswa Pendidikan</li>
                             </ol>
