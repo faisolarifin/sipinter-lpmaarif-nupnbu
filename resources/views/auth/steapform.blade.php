@@ -232,7 +232,7 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="telp" class="form-label required">Telpon</label>
+                                    <label for="telp" class="form-label required">No. HP/WA</label>
                                     <input type="text" class="form-control  @error('telp') is-invalid @enderror" id="telp" name="telp" value="{{ old('telp') }}" placeholder="Masukkan nomor telepon sekolah" required>
                                     <div class="invalid-feedback">
                                         @error('telp') {{ $message }} @enderror
@@ -293,8 +293,8 @@
                                 <div class="mb-3">
                                     <label for="nm_rekom_pc" class="form-label required">Pemberi Rekomendasi</label>
                                     <select class="form-select  @error('nm_rekom_pc') is-invalid @enderror" id="nm_rekom_pc" name="nm_rekom_pc">
-                                        <option value="PCNU">PCNU</option>
                                         <option value="LP Ma'arif NU PCNU">LP Ma'arif NU PCNU</option>
+                                        <option value="PCNU">PCNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pc') {{ $message }} @enderror
@@ -351,8 +351,8 @@
                                 <div class="mb-3">
                                     <label for="nm_rekom_pw" class="form-label required">Pemberi Rekomendasi</label>
                                     <select class="form-select  @error('nm_rekom_pw') is-invalid @enderror" id="nm_rekom_pw" name="nm_rekom_pw">
-                                        <option value="PWNU">PWNU</option>
                                         <option value="LP Ma'arif NU PWNU">LP Ma'arif NU PWNU</option>
+                                        <option value="PWNU">PWNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pw') {{ $message }} @enderror

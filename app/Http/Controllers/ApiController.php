@@ -16,7 +16,7 @@ class ApiController extends Controller
     public function getSatpenById(string $satpenId=null) {
         try {
             if ($satpenId) {
-                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'filereg', 'timeline' => function($query){
+                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'cabang', 'jenjang', 'filereg', 'timeline' => function($query){
                         $query->skip($query->count("*") - 7)->limit(7);
                     }])
                     ->where('id_satpen', '=', $satpenId)

@@ -12,14 +12,31 @@ class BHPNUController extends Controller
 {
     public function listPermohonanBHPNU() {
 
+        $specificFilter = null;
+        if (in_array(auth()->user()->role, ["admin wilayah"])) {
+            $specificFilter = [
+                "id_prov" => auth()->user()->provId,
+            ];
+        } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
+            $specificFilter = [
+                "id_pc" => auth()->user()->cabangId,
+            ];
+        }
+
         $bhpnuVerifikasi = BHPNU::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'verifikasi')
-            ->orderBy('id_bhpnu', 'DESC') ->get();
+            ->whereHas('satpen', function($query) use ($specificFilter) {
+                $query->where($specificFilter);
+            })->orderBy('id_bhpnu', 'DESC') ->get();
 
         $bhpnuProses = BHPNU::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'dokumen diproses')
-            ->orderBy('id_bhpnu', 'DESC')->get();
+            ->whereHas('satpen', function($query) use ($specificFilter) {
+                $query->where($specificFilter);
+            })->orderBy('id_bhpnu', 'DESC')->get();
 
         $bhpnuDikirim = BHPNU::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'dokumen dikirim')
-            ->orderBy('id_bhpnu', 'DESC')->get();
+            ->whereHas('satpen', function($query) use ($specificFilter) {
+                $query->where($specificFilter);
+            })->orderBy('id_bhpnu', 'DESC')->get();
 
         return view('admin.bhpnu.bhpnu', compact('bhpnuVerifikasi', 'bhpnuProses', 'bhpnuDikirim'));
     }

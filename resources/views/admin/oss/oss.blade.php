@@ -42,12 +42,14 @@
                                 <h5 class="mb-0">Permohonan OSS</h5>
                                 <small>data permohonan oss baru</small>
                             </div>
+                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                             <div>
                                 <a target="_blank" href="https://docs.google.com/spreadsheets/d/1WiOIiTCyJ3hOpA7C1g8LxpK9J_wDX78IGeTcM5vtNGE/edit?usp=sharing" class="btn btn-success btn-sm">
                                     <i class="ti ti-file-spreadsheet"></i>
                                     Spreadsheet
                                 </a>
                             </div>
+                            @endif
                         </div>
                         <div class="table-responsive mt-4">
                             <table class="table table-stripped mt-4" id="dtable">
@@ -58,7 +60,9 @@
                                     <th>Kode Unik</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
+                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -74,6 +78,7 @@
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
+                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <a href="{{ route('a.oss.acc', $row->id_oss) }}" class="btn btn-sm btn-success me-1">
                                                 <i class="ti ti-checks"></i>
@@ -82,6 +87,7 @@
                                                 <i class="ti ti-x"></i>
                                             </button>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -110,7 +116,9 @@
                                     <th>Kode Unik</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
+                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -126,11 +134,13 @@
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
+                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}">
                                                 <i class="ti ti-checks"></i>
                                             </button>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -161,7 +171,9 @@
                                     <th>Permohonan</th>
                                     <th>Disetujui</th>
                                     <th>Expired Dokumen</th>
+                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -179,6 +191,7 @@
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_izin) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_expired) }}</td>
+                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <form action="{{ route('a.oss.destroy', $row->id_oss) }}" method="post" class="deleteBtn">
                                                 @csrf
@@ -188,6 +201,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

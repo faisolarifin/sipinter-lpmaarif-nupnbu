@@ -285,6 +285,11 @@
                             <td>${res.kabupaten.nama_kab}</td>
                         </tr>
                         <tr>
+                            <td>Cabang</td>
+                            <td>:</td>
+                            <td>${res.cabang.nama_pc}</td>
+                        </tr>
+                        <tr>
                             <td>Kecamatan</td>
                             <td>:</td>
                             <td>${res.kecamatan}</td>
