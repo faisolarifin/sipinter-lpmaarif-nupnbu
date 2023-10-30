@@ -32,7 +32,7 @@ class RegisterRequest extends FormRequest
             "yayasan" => "required|string",
             "kepsek" => "required|string",
             "telp" => "required|string",
-            "email" => "required|email|string",
+            "email" => "required|email|string|unique:satpen,email",
             "thn_berdiri" => "required|size:4",
             "kelurahan" => "required|string",
             "alamat" => "required|string",

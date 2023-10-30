@@ -72,7 +72,7 @@ class ForgotPasswordController extends Controller
         $request->validate([
             'email' => 'required|email|exists:satpen',
             'new_password' => 'required|string',
-            'password_confirm' => 'required:same:new_password'
+            'password_confirm' => 'required|same:new_password'
 
         ]);
 
