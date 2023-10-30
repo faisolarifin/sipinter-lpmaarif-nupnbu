@@ -66,7 +66,7 @@
                                 <tr>
                                     <td>Kategori Satpen</td>
                                     <td>:</td>
-                                    <td>{{ $satpenProfile->kategori->nm_kategori }}</td>
+                                    <td>{{ $satpenProfile->kategori?->nm_kategori }}</td>
                                 </tr>
                                 <tr>
                                     <td>Yayasan</td>

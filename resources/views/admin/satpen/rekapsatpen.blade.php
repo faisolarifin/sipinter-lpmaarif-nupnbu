@@ -121,10 +121,10 @@
                         @php($today=\Carbon\Carbon::now())
                         @if($satpenProfile->count() > 0)
                             @foreach($satpenProfile as $row)
-                                @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->tgl_registrasi)))
+                                @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->actived_date)))
                                 <tr>
                                     <td>{{ ++$no }}</td>
-                                    <td>{{ $row->kategori->nm_kategori }}</td>
+                                    <td>{{ $row->kategori?->nm_kategori }}</td>
                                     <td>{{ $row->no_registrasi }}</td>
                                     <td>{{ $row->nm_satpen }}</td>
                                     <td>{{ $row->yayasan }}</td>

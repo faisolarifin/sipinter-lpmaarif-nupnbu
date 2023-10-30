@@ -265,6 +265,11 @@ hr {
     display:inline;
 }
 
+.table-hover > tbody > tr:hover > .expired {
+    --bs-table-accent-bg: rgba(227, 53, 30, 0.8);
+    color: var(--bs-table-hover-color);
+}
+
 @media (max-width: 575.98px) {
     .w-50, .w-60 {
         width: 90% !important;

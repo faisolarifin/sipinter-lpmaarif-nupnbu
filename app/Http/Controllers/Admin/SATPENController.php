@@ -80,7 +80,7 @@ class SATPENController extends Controller
     public function getAllSatpenOrFilter(Request $request)
     {
         $paginatePerPage = 25;
-        $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi'];
+        $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi', 'actived_date'];
         try {
             $specificFilter = null;
             if (in_array(auth()->user()->role, ["admin wilayah"])) {
@@ -268,7 +268,7 @@ class SATPENController extends Controller
                  * update status satpen menjadi disetujui
                  */
                 $satpen->update([
-                    'tgl_registrasi' => Date::now(),
+                    'actived_date' => Date::now(),
                 ]);
 
                 $this->updateSatpenStatus((new StatusSatpenRequest())
@@ -338,7 +338,7 @@ class SATPENController extends Controller
                  * update status satpen menjadi disetujui
                  */
                 $satpen->update([
-                    'tgl_registrasi' => Date::now(),
+                    'actived_date' => Date::now(),
                 ]);
 
                 $this->updateSatpenStatus((new StatusSatpenRequest())
