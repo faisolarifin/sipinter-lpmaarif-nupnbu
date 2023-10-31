@@ -20,6 +20,18 @@ class OnlyAdmin
             if (auth()->user()->status_active == 'block') {
                 return redirect()->route('login')->with('error', 'this account has blocked');
             }
+            $specificFilter = null;
+            if (in_array(auth()->user()->role, ["admin wilayah"])) {
+                $specificFilter = [
+                    "id_prov" => auth()->user()->provId,
+                ];
+            } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
+                $specificFilter = [
+                    "id_pc" => auth()->user()->cabangId,
+                ];
+            }
+            $request->specificFilter = $specificFilter;
+
             return $next($request);
         }
         return redirect()->route('login')->with('error', 'user tidak memiliki privilages');

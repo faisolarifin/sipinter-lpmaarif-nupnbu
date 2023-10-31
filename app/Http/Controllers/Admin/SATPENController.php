@@ -27,22 +27,9 @@ class SATPENController extends Controller
     public function dashboardPage() {
 
         try {
-            $specificFilter = null;
             $provFilter = null;
-            if (in_array(auth()->user()->role, ["admin wilayah"])) {
-                $specificFilter = $provFilter = [
-                    "id_prov" => auth()->user()->provId,
-                ];
-            } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
-                $provFilter =  [
-                    "id_prov" => auth()->user()->provId,
-                ];
-                $specificFilter = [
-                    "id_pc" => auth()->user()->cabangId,
-                ];
-            }
             $listProvinsi = Provinsi::where($provFilter)->get();
-            $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired', 'perpanjangan'])->where($specificFilter)->count("id_satpen");
+            $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired', 'perpanjangan'])->where(request()->specificFilter)->count("id_satpen");
 
             $countOfPropinsi = $recordPerPropinsi = $countPerStatus = null;
 
@@ -59,7 +46,7 @@ class SATPENController extends Controller
                                                                 (SELECT COUNT(id_satpen) FROM satpen WHERE status='expired') AS expired,
                                                                 (SELECT COUNT(id_satpen) FROM satpen WHERE status='perpanjangan') AS perpanjangan ");
             } else {
-                $countOfKabupaten = PengurusCabang::where($specificFilter)->count("id_pc");
+                $countOfKabupaten = PengurusCabang::where(request()->specificFilter)->count("id_pc");
             }
 
             return view('admin.home.dashboard', compact("listProvinsi", "countOfKabupaten",
@@ -82,16 +69,6 @@ class SATPENController extends Controller
         $paginatePerPage = 25;
         $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi', 'actived_date'];
         try {
-            $specificFilter = null;
-            if (in_array(auth()->user()->role, ["admin wilayah"])) {
-                $specificFilter = [
-                  "id_prov" => auth()->user()->provId,
-                ];
-            } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
-                $specificFilter = [
-                    "id_pc" => auth()->user()->cabangId,
-                ];
-            }
             /**
              * If request without satpenid show all satpen where status 'setujui'
              */
@@ -117,7 +94,7 @@ class SATPENController extends Controller
                         'jenjang:id_jenjang,nm_jenjang',])
                         ->select($selectedColumns)
                         ->whereIn('status', $statuses)
-                        ->where($specificFilter)
+                        ->where(request()->specificFilter)
                         ->where($filter)
                         ->paginate($paginatePerPage);
                 }
@@ -130,7 +107,7 @@ class SATPENController extends Controller
                     'jenjang:id_jenjang,nm_jenjang',])
                     ->select($selectedColumns)
                     ->whereIn('status', $statuses)
-                    ->where($specificFilter)
+                    ->where(request()->specificFilter)
                     ->paginate($paginatePerPage);
             }
 
@@ -157,6 +134,7 @@ class SATPENController extends Controller
             if ($satpenId) {
                 $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'timeline', 'filereg'])
                     ->where('id_satpen', '=', $satpenId)
+                    ->where(request()->specificFilter)
                     ->first();
                 if (!$satpenProfile) return redirect()->back()->with('error', 'Forbidden to access satpen profile');
 

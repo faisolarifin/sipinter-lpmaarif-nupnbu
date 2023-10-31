@@ -13,16 +13,7 @@ class OSSController extends Controller
 {
     public function listPermohonanOSS() {
 
-        $specificFilter = null;
-        if (in_array(auth()->user()->role, ["admin wilayah"])) {
-            $specificFilter = [
-                "id_prov" => auth()->user()->provId,
-            ];
-        } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
-            $specificFilter = [
-                "id_pc" => auth()->user()->cabangId,
-            ];
-        }
+        $specificFilter = request()->specificFilter;
 
         $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'verifikasi')
             ->whereHas('satpen', function($query) use ($specificFilter) {

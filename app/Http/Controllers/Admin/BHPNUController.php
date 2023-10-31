@@ -12,16 +12,7 @@ class BHPNUController extends Controller
 {
     public function listPermohonanBHPNU() {
 
-        $specificFilter = null;
-        if (in_array(auth()->user()->role, ["admin wilayah"])) {
-            $specificFilter = [
-                "id_prov" => auth()->user()->provId,
-            ];
-        } elseif (in_array(auth()->user()->role, ["admin cabang"])) {
-            $specificFilter = [
-                "id_pc" => auth()->user()->cabangId,
-            ];
-        }
+        $specificFilter = request()->specificFilter;
 
         $bhpnuVerifikasi = BHPNU::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'verifikasi')
             ->whereHas('satpen', function($query) use ($specificFilter) {

@@ -42,7 +42,7 @@ class SatpenExport implements FromCollection, WithMapping, WithHeadings, WithCol
             $row->no_registrasi,
             $row->nm_satpen,
             $row->jenjang->nm_jenjang,
-            $row->kategori->nm_kategori,
+            $row->kategori?->nm_kategori,
             $row->yayasan,
             $row->kepsek,
             $row->thn_berdiri,
