@@ -89,7 +89,7 @@
                     <div class="col-sm-4">
                         <i class="ti ti-category"></i>
                         <p class="mb-2">Kategori</p>
-                        <h5>{{ $mySatpen->kategori->nm_kategori }}</h5>
+                        <h5>{{ $mySatpen->kategori?->nm_kategori }}</h5>
                     </div>
                 </div>
             </div>
