@@ -41,8 +41,6 @@ class SatpenController extends Controller
     public function registerProses(RegisterRequest $request)
     {
         $registerNumber = "";
-        $prefix = "A";
-
         try {
             $provinsi = Provinsi::find($request->propinsi);
             $cabang = PengurusCabang::find($request->cabang);
@@ -62,11 +60,7 @@ class SatpenController extends Controller
              * When yayasan is not bhp nu append prefix A in generated number
              * Generated number is combined of Kode Provinsi + Kode Kabupaten + 4 digit ordered number
              */
-            if (strtolower($request->yayasan) <> 'bhpnu') {
-                $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
-            } else {
-                $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
-            }
+            $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
             /**
              * Determined kategori of yayasan based on type yayasan and aset tanah
              */
@@ -167,7 +161,6 @@ class SatpenController extends Controller
     public function revisionProses(RegisterUpdateRequest $request)
     {
         $registerNumber = "";
-        $prefix = "A";
         try {
             /**
              * Get satpen by satpen.userid
@@ -185,16 +178,17 @@ class SatpenController extends Controller
              */
             elseif ($satpen->status !== 'revisi' && $satpen->status !== 'expired') return redirect()->back()
                 ->with('error', 'Satpen status is not revisi or expired');
+
+            elseif (!$request->file('file_permohonan')
+                || !$request->file('file_rekom_pc')
+                || !$request->file('file_rekom_pw'))  return redirect()->back()
+                ->with('error', 'semua file document harus dilengkapi');
             /**
              * Update registration number
              */
             $orderedNumber = $satpen->no_urut;
             if ($satpen->status == 'revisi') {
-                if (strtolower($request->yayasan) <> 'bhpnu') {
-                    $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
-                } else {
-                    $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
-                }
+                $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
             } else {
                 $registerNumber .= $satpen->no_registrasi;
             }
@@ -206,26 +200,28 @@ class SatpenController extends Controller
                 /**
                  * Replace and store files
                  */
-                if ($request->file('file_permohonan')
-                    && $request->file('file_permohonan')->isValid()) {
-                    $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
-                    Storage::disk("uploads")->delete($satpen->filereg[0]->filesurat);
-                } else {
-                    $pathFilePermohonan = $satpen->filereg[0]->filesurat;
-                }
-                if ($request->file('file_rekom_pc')
-                    && $request->file('file_rekom_pc')->isValid()) {
-                    $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
-                    Storage::disk("uploads")->delete($satpen->filereg[1]->filesurat);
-                } else {
-                    $pathFileRekomPC = $satpen->filereg[1]->filesurat;
-                }
-                if ($request->file('file_rekom_pw')
-                    && $request->file('file_rekom_pw')->isValid()) {
-                    $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
-                    Storage::disk("uploads")->delete($satpen->filereg[2]->filesurat);
-                } else {
-                    $pathFileRekomPW = $satpen->filereg[2]->filesurat;
+                if (!$satpen->filereg->isEmpty()) {
+                    if ($request->file('file_permohonan')
+                        && $request->file('file_permohonan')->isValid()) {
+                        $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
+                        Storage::disk("uploads")->delete($satpen->filereg[0]->filesurat);
+                    } else {
+                        $pathFilePermohonan = $satpen->filereg[0]->filesurat;
+                    }
+                    if ($request->file('file_rekom_pc')
+                        && $request->file('file_rekom_pc')->isValid()) {
+                        $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
+                        Storage::disk("uploads")->delete($satpen->filereg[1]->filesurat);
+                    } else {
+                        $pathFileRekomPC = $satpen->filereg[1]->filesurat;
+                    }
+                    if ($request->file('file_rekom_pw')
+                        && $request->file('file_rekom_pw')->isValid()) {
+                        $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
+                        Storage::disk("uploads")->delete($satpen->filereg[2]->filesurat);
+                    } else {
+                        $pathFileRekomPW = $satpen->filereg[2]->filesurat;
+                    }
                 }
                 /**
                  * Update account db.users.username
@@ -263,26 +259,67 @@ class SatpenController extends Controller
                 /**
                  * Update file register
                  */
-                FileRegister::find($satpen->filereg[0]->id_file)->update([
-                    'nm_lembaga' => $satpen->nm_satpen,
-                    'nomor_surat' => $request->no_srt_permohonan,
-                    'tgl_surat' => $request->tgl_srt_permohonan,
-                    'filesurat' =>  $pathFilePermohonan,
-                ]);
-                FileRegister::find($satpen->filereg[1]->id_file)->update([
-                    'daerah' => $request->cabang_rekom_pc,
-                    'nm_lembaga' => $request->nm_rekom_pc,
-                    'nomor_surat' => $request->no_srt_rekom_pc,
-                    'tgl_surat' => $request->tgl_srt_rekom_pc,
-                    'filesurat' =>  $pathFileRekomPC,
-                ]);
-                FileRegister::find($satpen->filereg[2]->id_file)->update([
-                    'daerah' => $request->wilayah_rekom_pw,
-                    'nm_lembaga' => $request->nm_rekom_pw,
-                    'nomor_surat' => $request->no_srt_rekom_pw,
-                    'tgl_surat' => $request->tgl_srt_rekom_pw,
-                    'filesurat' =>  $pathFileRekomPW,
-                ]);
+                if (!$satpen->filereg->isEmpty()) {
+                    FileRegister::find($satpen->filereg[0]->id_file)->update([
+                        'nm_lembaga' => $satpen->nm_satpen,
+                        'nomor_surat' => $request->no_srt_permohonan,
+                        'tgl_surat' => $request->tgl_srt_permohonan,
+                        'filesurat' =>  $pathFilePermohonan,
+                    ]);
+                    FileRegister::find($satpen->filereg[1]->id_file)->update([
+                        'daerah' => $request->cabang_rekom_pc,
+                        'nm_lembaga' => $request->nm_rekom_pc,
+                        'nomor_surat' => $request->no_srt_rekom_pc,
+                        'tgl_surat' => $request->tgl_srt_rekom_pc,
+                        'filesurat' =>  $pathFileRekomPC,
+                    ]);
+                    FileRegister::find($satpen->filereg[2]->id_file)->update([
+                        'daerah' => $request->wilayah_rekom_pw,
+                        'nm_lembaga' => $request->nm_rekom_pw,
+                        'nomor_surat' => $request->no_srt_rekom_pw,
+                        'tgl_surat' => $request->tgl_srt_rekom_pw,
+                        'filesurat' =>  $pathFileRekomPW,
+                    ]);
+                } else {
+                    /**
+                     * Store files
+                     */
+                    if ($request->file('file_permohonan')->isValid()
+                        && $request->file('file_rekom_pc')->isValid()
+                        && $request->file('file_rekom_pw')->isValid()) {
+                        $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
+                        $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
+                        $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
+                    }
+                    /**
+                     * Save files register
+                     */
+                    FileRegister::insert([[
+                        'id_satpen' => $satpen->id_satpen,
+                        'mapfile' => 'surat_permohonan',
+                        'nm_lembaga' => $satpen->nm_satpen,
+                        'daerah' => '',
+                        'nomor_surat' => $request->no_srt_permohonan,
+                        'tgl_surat' => $request->tgl_srt_permohonan,
+                        'filesurat' =>  $pathFilePermohonan,
+                    ], [
+                        'id_satpen' => $satpen->id_satpen,
+                        'mapfile' => 'rekom_pc',
+                        'daerah' => $request->cabang_rekom_pc,
+                        'nm_lembaga' => $request->nm_rekom_pc,
+                        'nomor_surat' => $request->no_srt_rekom_pc,
+                        'tgl_surat' => $request->tgl_srt_rekom_pc,
+                        'filesurat' =>  $pathFileRekomPC,
+                    ], [
+                        'id_satpen' => $satpen->id_satpen,
+                        'mapfile' => 'rekom_pw',
+                        'daerah' => $request->wilayah_rekom_pw,
+                        'nm_lembaga' => $request->nm_rekom_pw,
+                        'nomor_surat' => $request->no_srt_rekom_pw,
+                        'tgl_surat' => $request->tgl_srt_rekom_pw,
+                        'filesurat' =>  $pathFileRekomPW,
+                    ]]);
+                }
 
                 if ($satpen->status == "revisi") {
                     (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())

@@ -211,8 +211,8 @@
                                 <div class="mb-2">
                                     <label for="aset_tanah" class="form-label required">Aset Tanah</label>
                                     <select class="form-select @error('aset_tanah') is-invalid @enderror" name="aset_tanah">
-                                        <option value="jamiyah">Jamiyah</option>
-                                        <option value="masyarakat nu">Masyarakat NU</option>
+                                        <option value="jamiyah" {{$satpenProfile->aset_tanah == 'jamiyah' ? 'selected' : ''}}>Jamiyah</option>
+                                        <option value="masyarakat nu" {{$satpenProfile->aset_tanah == 'masyarakat nu' ? 'selected' : ''}}>Masyarakat NU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('aset_tanah') {{ $message }} @enderror
@@ -279,8 +279,8 @@
                                 <div class="mb-2">
                                     <label for="nm_rekom_pc" class="form-label required">Pemberi Rekomendasi</label>
                                     <select class="form-select @error('nm_rekom_pc') is-invalid @enderror" id="nm_rekom_pc" name="nm_rekom_pc">
-                                        <option value="PCNU" {{$satpenProfile->filereg[1]->nm_lembaga == 'PCNU' ? 'selected' : ''}}>PCNU</option>
                                         <option value="LP Ma'arif PCNU" {{$satpenProfile->filereg[1]->nm_lembaga == "LP Ma'arif PCNU" ? 'selected' : ''}}>LP Ma'arif PCNU</option>
+                                        <option value="PCNU" {{$satpenProfile->filereg[1]->nm_lembaga == 'PCNU' ? 'selected' : ''}}>PCNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pc') {{ $message }} @enderror
@@ -336,8 +336,8 @@
                                 <div class="mb-2">
                                     <label for="nm_rekom_pw" class="form-label required">Pemberi Rekomendasi</label>
                                     <select class="form-select @error('nm_rekom_pw') is-invalid @enderror" id="nm_rekom_pw" name="nm_rekom_pw">
-                                        <option value="PWNU" {{$satpenProfile->filereg[1]->nm_lembaga == 'PWNU' ? 'selected' : ''}}>PWNU</option>
                                         <option value="LP Ma'arif PWNU" {{$satpenProfile->filereg[1]->nm_lembaga == "LP Ma'arif PWNU" ? 'selected' : ''}}>LP Ma'arif PWNU</option>
+                                        <option value="PWNU" {{$satpenProfile->filereg[1]->nm_lembaga == 'PWNU' ? 'selected' : ''}}>PWNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pw') {{ $message }} @enderror
