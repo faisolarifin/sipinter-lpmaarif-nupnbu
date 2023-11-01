@@ -15,6 +15,7 @@ use App\Models\Provinsi;
 use App\Models\Satpen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class SyncController extends Controller
@@ -47,10 +48,6 @@ class SyncController extends Controller
             $jenjang = Jenjang::where('nm_jenjang', 'like', $jsonResultSekolah["bentuk_pendidikan"])->first();
 
             $registerNumber = "";
-            $prefix = "A";
-            $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
-            $skFilename = "SK Satuan Pendidikan BHPNU - ";
-            $currentDate = Date::now();
             $lastOfSatpen = Satpen::orderBy('id_satpen', 'desc')->first();
 
             $orderedNumber = 0;
@@ -62,64 +59,67 @@ class SyncController extends Controller
              * When yayasan is not bhp nu append prefix A in generated number
              * Generated number is combined of Kode Provinsi + Kode Kabupaten + 4 digit ordered number
              */
-            if (strtolower($request->yayasan) <> 'bhpnu') {
-                $registerNumber .= $prefix . $provinsi->kode_prov . $cabang->kode_kab . $orderedNumber;
-            } else {
-                $registerNumber .= $provinsi->kode_prov . $cabang->kode_kab . $orderedNumber;
-            }
+            $registerNumber .= $provinsi->kode_prov . $cabang->kode_kab . $orderedNumber;
 
-            $user = AuthController::register($registerNumber, $registerNumber);
+            return DB::transaction(function () use ($request, $registerNumber, $provinsi, $kabupaten, $cabang, $jenjang, $jsonResultSekolah, $orderedNumber) {
 
-            $satpen = Satpen::create([
-                'id_user' => $user->id_user,
-                'id_prov' => $provinsi->id_prov,
-                'id_kab' => $kabupaten->id_kab,
-                'id_pc' => $cabang->id_pc,
-                'id_jenjang' => $jenjang->id_jenjang,
-                'npsn' => $jsonResultSekolah["npsn"],
-                'no_registrasi' => $registerNumber,
-                'no_urut' => $orderedNumber,
-                'nm_satpen' => $jsonResultSekolah["nama"],
-                'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
-                'kepsek' => $request->kepsek,
-                'telpon' => $jsonResultSekolah["telepon"],
-                'email' => $jsonResultSekolah["email"],
-                'thn_berdiri' => $request->thn_berdiri,
-                'alamat' => $jsonResultSekolah["alamat"],
-                'kelurahan' => $jsonResultSekolah["desakelurahan"],
-                'kecamatan' => $jsonResultSekolah["kecamatankota_ln"],
-                'tgl_registrasi' => $currentDate,
-            ]);
-            if ($satpen) {
+                $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
+                $skFilename = "SK Satuan Pendidikan BHPNU - ";
+                $currentDate = Date::now();
 
-                $piagamFilename .= $satpen->nm_satpen . ".pdf";
-                $skFilename .= $satpen->nm_satpen . ".pdf";
+                $user = AuthController::register($registerNumber, $registerNumber);
 
-                //create piagam
-                FileUpload::create([
-                    'id_satpen' => $satpen->id_satpen,
-                    'typefile' => "piagam",
-                    'qrcode' => GenerateQr::encodeQr(),
-                    'nm_file' => $piagamFilename,
-                    'tgl_file' => $currentDate,
+                $satpen = Satpen::create([
+                    'id_user' => $user->id_user,
+                    'id_prov' => $provinsi->id_prov,
+                    'id_kab' => $kabupaten->id_kab,
+                    'id_pc' => $cabang->id_pc,
+                    'id_jenjang' => $jenjang->id_jenjang,
+                    'npsn' => $jsonResultSekolah["npsn"],
+                    'no_registrasi' => $registerNumber,
+                    'no_urut' => $orderedNumber,
+                    'nm_satpen' => $jsonResultSekolah["nama"],
+                    'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->yayasan : strtoupper($request->yayasan),
+                    'kepsek' => $request->kepsek,
+                    'telpon' => $request->telp,
+                    'email' => $request->email,
+                    'thn_berdiri' => $request->thn_berdiri,
+                    'alamat' => $jsonResultSekolah["alamat"],
+                    'kelurahan' => $jsonResultSekolah["desakelurahan"],
+                    'kecamatan' => $jsonResultSekolah["kecamatankota_ln"],
+                    'tgl_registrasi' => $currentDate,
                 ]);
-                FileUpload::create([
-                    'id_satpen' => $satpen->id_satpen,
-                    'typefile' => "sk",
-                    'qrcode' => GenerateQr::encodeQr(),
-                    'nm_file' => $skFilename,
-                    'tgl_file' => $currentDate,
-                ]);
+                if ($satpen) {
 
-                (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                    ->merge([
-                        "status_verifikasi" => "expired",
-                        "keterangan" => "import by system",
-                    ]),
-                    $satpen);
-            }
+                    $piagamFilename .= $satpen->nm_satpen . ".pdf";
+                    $skFilename .= $satpen->nm_satpen . ".pdf";
 
-            return response()->json($satpen, HttpResponse::HTTP_OK);
+                    //create piagam
+                    FileUpload::create([
+                        'id_satpen' => $satpen->id_satpen,
+                        'typefile' => "piagam",
+                        'qrcode' => GenerateQr::encodeQr(),
+                        'nm_file' => $piagamFilename,
+                        'tgl_file' => $currentDate,
+                    ]);
+                    FileUpload::create([
+                        'id_satpen' => $satpen->id_satpen,
+                        'typefile' => "sk",
+                        'qrcode' => GenerateQr::encodeQr(),
+                        'nm_file' => $skFilename,
+                        'tgl_file' => $currentDate,
+                    ]);
+
+                    (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
+                        ->merge([
+                            "status_verifikasi" => "expired",
+                            "keterangan" => "import by system",
+                        ]),
+                        $satpen);
+                }
+                return response()->json($satpen, HttpResponse::HTTP_OK);
+
+            });
         }
         return response()->json(['message' => $cloneSekolah->getResult()],
                     HttpResponse::HTTP_BAD_REQUEST);
