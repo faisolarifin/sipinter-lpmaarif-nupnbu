@@ -179,10 +179,11 @@ class SatpenController extends Controller
             elseif ($satpen->status !== 'revisi' && $satpen->status !== 'expired') return redirect()->back()
                 ->with('error', 'Satpen status is not revisi or expired');
 
-            elseif (!$request->file('file_permohonan')
-                || !$request->file('file_rekom_pc')
-                || !$request->file('file_rekom_pw'))  return redirect()->back()
-                ->with('error', 'semua file document harus dilengkapi');
+            elseif ($satpen->filereg->isEmpty() &&
+                (!$request->file('file_permohonan')
+                    || !$request->file('file_rekom_pc')
+                    || !$request->file('file_rekom_pw'))) return redirect()->back()
+                        ->with('error', 'lengkapi semua formg unggahan dokumen');
             /**
              * Update registration number
              */
