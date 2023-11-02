@@ -35,7 +35,7 @@ class SyncRequest extends FormRequest
     {
         return [
             'npsn' => 'required|unique:satpen,npsn|size:8',
-            'thn_berdiri' => 'nullable|numeric|size:4',
+            'thn_berdiri' => 'nullable|size:4',
             'telp' => 'nullable|max:12',
             'email' => 'nullable|email'
         ];
