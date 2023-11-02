@@ -7,6 +7,7 @@ use App\Helpers\ReferensiKemdikbud;
 use App\Helpers\Strings;
 use App\Http\Controllers\Admin\SATPENController as SatpenControllerAdmin;
 use App\Http\Requests\StatusSatpenRequest;
+use App\Http\Requests\SyncRequest;
 use App\Models\FileUpload;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
@@ -20,11 +21,7 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class SyncController extends Controller
 {
-    public function bypassExistingData(Request $request) {
-
-        $request->validate([
-            "npsn" => "required|size:8",
-        ]);
+    public function bypassExistingData(SyncRequest $request) {
 
         /**
          * Cek npsn on system based on npsn number
