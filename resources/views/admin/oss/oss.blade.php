@@ -171,6 +171,7 @@
                                     <th>Permohonan</th>
                                     <th>Disetujui</th>
                                     <th>Expired Dokumen</th>
+                                    <th>Keterangan</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
                                     @endif
@@ -191,6 +192,7 @@
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_izin) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_expired) }}</td>
+                                        <td>{{ $row->ossstatus[count($row->ossstatus)-1]->keterangan }}</td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <form action="{{ route('a.oss.destroy', $row->id_oss) }}" method="post" class="deleteBtn">
