@@ -80,9 +80,9 @@
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
-                                            <a href="{{ route('a.oss.acc', $row->id_oss) }}" class="btn btn-sm btn-success me-1">
+                                            <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalDiterima" data-bs="{{ $row->id_oss }}">
                                                 <i class="ti ti-checks"></i>
-                                            </a>
+                                            </button>
                                             <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="{{ $row->id_oss }}">
                                                 <i class="ti ti-x"></i>
                                             </button>
@@ -116,6 +116,7 @@
                                     <th>Kode Unik</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
+                                    <th>Catatan</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
                                     @endif
@@ -134,6 +135,7 @@
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
+                                        <td>{{ $row->ossstatus[count($row->ossstatus)-2]->keterangan }}</td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}">
@@ -171,7 +173,7 @@
                                     <th>Permohonan</th>
                                     <th>Disetujui</th>
                                     <th>Expired Dokumen</th>
-                                    <th>Keterangan</th>
+                                    <th>Catatan</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
                                     @endif

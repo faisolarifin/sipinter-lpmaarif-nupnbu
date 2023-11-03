@@ -1,6 +1,7 @@
 @section('modals')
+
     <!-- Modal -->
-    <div class="modal fade" id="modalTolak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalDiterima" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -8,7 +9,36 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
-                <div class="modal-body">
+                    <div class="modal-body pb-1">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-2">
+                            <label for="keterangan" class="form-label">Catatan</label>
+                            <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" placeholder="Catatan" value="{{ old('keterangan') }}">
+                            <div class="invalid-feedback">
+                                @error('keterangan') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Terima Permohonan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalTolak" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tolak Permohonan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+                <div class="modal-body pb-1">
                     @csrf
                     @method('PUT')
                     <div>
@@ -29,7 +59,7 @@
     </div>
 
     <!-- Modal Izin -->
-    <div class="modal fade" id="modalIzin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalIzin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -37,7 +67,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
-                    <div class="modal-body">
+                    <div class="modal-body pb-1">
                         @csrf
                         @method('PUT')
                         <div class="mb-2">
@@ -69,6 +99,13 @@
 
 @section('extendscripts')
     <script>
+        let modalTerima = document.getElementById('modalDiterima')
+        modalTerima.addEventListener('show.bs.modal', function (event) {
+            let ossId = event.relatedTarget.getAttribute('data-bs')
+            let routeAccept = "{{ route('a.oss.acc', ['oss' => ':param']) }}".replace(':param', ossId);
+            $("#modalDiterima form").attr('action', routeAccept);
+        });
+
         let modalTolak = document.getElementById('modalTolak')
         modalTolak.addEventListener('show.bs.modal', function (event) {
             let ossId = event.relatedTarget.getAttribute('data-bs')

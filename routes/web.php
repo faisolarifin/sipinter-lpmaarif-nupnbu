@@ -159,7 +159,7 @@ Route::middleware('mustlogin')->group(function() {
              */
             Route::group(["prefix" => "oss"], function() {
                 Route::get('/', [OSSControllerAdmin::class, 'listPermohonanOSS'])->name('a.oss')->withoutMiddleware('primaryadmin');
-                Route::get('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
+                Route::put('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
                 Route::put('/appear/{oss}', [OSSControllerAdmin::class, 'setIzinTerbitOSS'])->name('a.oss.appear');
                 Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
                 Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');

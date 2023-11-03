@@ -33,7 +33,7 @@ class OSSController extends Controller
         return view('admin.oss.oss', compact('ossVerifikasi', 'ossProses', 'ossTerbit'));
     }
 
-    public function setAcceptOSS(OSS $oss) {
+    public function setAcceptOSS(Request $request, OSS $oss) {
 
         try {
             if ($oss) {
@@ -52,6 +52,7 @@ class OSSController extends Controller
                     'statusType' => 'dokumen diproses',
                 ])->update([
                     'status' => 'success',
+                    'keterangan' => $request->keterangan,
                 ]);
 
                 return redirect()->back()->with('success', 'Berhasil menerima permohonan');
