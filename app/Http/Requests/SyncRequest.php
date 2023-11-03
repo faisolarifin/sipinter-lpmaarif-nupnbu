@@ -37,7 +37,8 @@ class SyncRequest extends FormRequest
             'npsn' => 'required|unique:satpen,npsn|size:8',
             'thn_berdiri' => 'nullable|size:4',
             'yayasan' => 'required',
-            'telp' => 'nullable|max:12',
+            'jenjang' => 'required',
+            'telp' => 'nullable|max:13',
             'email' => 'nullable|email'
         ];
     }

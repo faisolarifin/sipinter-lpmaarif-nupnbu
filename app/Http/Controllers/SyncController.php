@@ -42,7 +42,7 @@ class SyncController extends Controller
             $provinsi = Provinsi::where('nm_prov', 'like', $keyProv)->first();
             $kabupaten = Kabupaten::where('nama_kab', 'like', '%' . $keyKab . '%')->first();
             $cabang = PengurusCabang::where('nama_pc', 'like', '%' . $keyKab . '%')->first();
-            $jenjang = Jenjang::where('nm_jenjang', 'like', $jsonResultSekolah["bentuk_pendidikan"])->first();
+            $jenjang = Jenjang::where('nm_jenjang', 'like', $request->jenjang)->first();
 
             $registerNumber = "";
             $lastOfSatpen = Satpen::orderBy('id_satpen', 'desc')->first();
