@@ -6,6 +6,7 @@ use App\Exceptions\CatchErrorException;
 use App\Export\ExportDocument;
 use App\Helpers\GenerateQr;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Settings;
 use App\Http\Requests\StatusSatpenRequest;
 use App\Models\FileRegister;
 use App\Models\FileUpload;
@@ -66,7 +67,7 @@ class SATPENController extends Controller
 
     public function getAllSatpenOrFilter(Request $request)
     {
-        $paginatePerPage = 25;
+        $paginatePerPage = Settings::get("count_perpage");
         $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi', 'actived_date'];
         try {
             /**
@@ -198,8 +199,8 @@ class SATPENController extends Controller
 
     public function generatePiagamAndSK(Request $request) {
         try {
-            $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
-            $skFilename = "SK Satuan Pendidikan BHPNU - ";
+            $piagamFilename = Settings::get("prefix_piagam_name");
+            $skFilename = Settings::get("prefix_sk_name");
             /**
              * get selected satpen
              */
@@ -266,8 +267,8 @@ class SATPENController extends Controller
 
     public function reGeneratePiagamAndSK(Request $request) {
         try {
-            $piagamFilename = "Piagam Nomor Registrasi Ma'arif - ";
-            $skFilename = "SK Satuan Pendidikan BHPNU - ";
+            $piagamFilename = Settings::get("prefix_piagam_name");
+            $skFilename = Settings::get("prefix_sk_name");
             /**
              * get selected satpen
              */

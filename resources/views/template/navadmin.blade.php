@@ -104,7 +104,7 @@
 
             <li class="nav-small-cap">
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                <span class="hide-menu">Manajemen User</span>
+                <span class="hide-menu">Pengaturan</span>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
@@ -112,6 +112,15 @@
                       <i class="ti ti-users"></i>
                     </span>
                     <span class="hide-menu">Kelola Admin</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('a.setting') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-settings"></i>
+            </span>
+                    <span class="hide-menu">Konfigurasi</span>
                 </a>
             </li>
 

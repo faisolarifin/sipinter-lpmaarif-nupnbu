@@ -4,6 +4,7 @@ namespace App\Export;
 use App\Exceptions\CatchErrorException;
 use App\Helpers\Date;
 use App\Helpers\GenerateQr;
+use App\Http\Controllers\Settings;
 use App\Models\Satpen;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -14,7 +15,7 @@ class ExportDocument
         try {
             $filePath = storage_path('app/templates/');
             $exportFilePath = storage_path('app/generated/piagam/');
-            $templateName = $filePath. "Piagam_Template.docx";
+            $templateName = $filePath . Settings::get("template_piagam");
             $exportFilename = $satpenProfile->file[0]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
 
@@ -77,7 +78,7 @@ class ExportDocument
         try {
             $filePath = storage_path('app/templates/');
             $exportfilePath = storage_path('app/generated/sk/');
-            $templateName = $filePath. "SK_Template.docx";
+            $templateName = $filePath . Settings::get("template_sk");
             $exportFilename = $satpenProfile->file[1]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
 

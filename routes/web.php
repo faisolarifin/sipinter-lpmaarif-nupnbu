@@ -9,7 +9,8 @@ use App\Http\Controllers\{
     GeneralController,
     OSSController,
     SatpenController,
-    FileViewerController,};
+    FileViewerController,
+    Settings};
 use App\Http\Controllers\Admin\{
     SATPENController as SATPENControllerAdmin,
     BHPNUController as BHPNUControllerAdmin,
@@ -119,6 +120,8 @@ Route::middleware('mustlogin')->group(function() {
          */
         Route::get('/', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
         Route::get('/dashboard', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
+        Route::get('/setting', [Settings::class, 'pageSetting'])->name('a.setting');
+        Route::put('/setting', [Settings::class, 'saveSetting'])->name('a.setting.save');
 
         Route::middleware('primaryadmin')->group(function() {
             /**
