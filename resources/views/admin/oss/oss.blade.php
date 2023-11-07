@@ -141,6 +141,9 @@
                                             <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}">
                                                 <i class="ti ti-checks"></i>
                                             </button>
+                                            <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="{{ $row->id_oss }}">
+                                                <i class="ti ti-x"></i>
+                                            </button>
                                         </td>
                                         @endif
                                     </tr>

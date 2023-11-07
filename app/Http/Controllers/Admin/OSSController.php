@@ -79,6 +79,13 @@ class OSSController extends Controller
                     'status' => 'failed',
                     'keterangan' => $request->keterangan,
                 ]);
+                OSSStatus::where([
+                    'id_oss' => $oss->id_oss,
+                    'statusType' => 'dokumen diproses',
+                ])->update([
+                    'status' => null,
+                    'keterangan' => null
+                ]);
 
                 return redirect()->back()->with('success', 'Permohonan oss ditolak');
             }
