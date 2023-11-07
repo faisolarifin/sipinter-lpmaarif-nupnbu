@@ -66,17 +66,20 @@ class AuthController extends Controller
 
             $keyProv = Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln);
             $selectedProv = Provinsi::where('nm_prov', 'like', $keyProv)->first();
+            $kabupaten = [];
+            $cabang = [];
+
             if ($selectedProv) {
                 $kabupaten = Kabupaten::where('id_prov', '=', $selectedProv->id_prov)
                                 ->orderBy('id_kab')->get();
                 $cabang = PengurusCabang::where('id_prov', '=', $selectedProv->id_prov)
                                 ->orderBy('id_pc')->get();
-                $propinsi = Provinsi::orderBy('id_prov')->get();
-                $jenjang = Jenjang::orderBy('id_jenjang')->get();
-
-                return view('auth.steapform', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
             }
-            return redirect()->back()->with("error", "Provinsi belum ada pada sistem");
+
+            $propinsi = Provinsi::orderBy('id_prov')->get();
+            $jenjang = Jenjang::orderBy('id_jenjang')->get();
+
+            return view('auth.steapform', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[REGISTER PAGE] has error ". $e);
