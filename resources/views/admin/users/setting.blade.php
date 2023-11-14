@@ -74,6 +74,22 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <th width="150">{{ $settings[5]["describe"] }}</th>
+                            <td width="10">:</td>
+                            <td>
+                                <input type="text" name="{{ $settings[5]["lookup"] }}" class="form-control form-control-sm w-50"
+                                       value="{{ $settings[5]["value"] }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="150">{{ $settings[6]["describe"] }}</th>
+                            <td width="10">:</td>
+                            <td>
+                                <input type="text" name="{{ $settings[6]["lookup"] }}" class="form-control form-control-sm w-50"
+                                       value="{{ $settings[6]["value"] }}">
+                            </td>
+                        </tr>
 
                         <tr>
                             <td colspan="2"></td>

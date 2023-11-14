@@ -44,7 +44,7 @@
                             </div>
                             @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                             <div>
-                                <a target="_blank" href="https://docs.google.com/spreadsheets/d/1WiOIiTCyJ3hOpA7C1g8LxpK9J_wDX78IGeTcM5vtNGE/edit?usp=sharing" class="btn btn-success btn-sm">
+                                <a target="_blank" href="{{ \App\Http\Controllers\Settings::get("oss_spreadsheet")  }}" class="btn btn-success btn-sm">
                                     <i class="ti ti-file-spreadsheet"></i>
                                     Spreadsheet
                                 </a>
