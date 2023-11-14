@@ -162,7 +162,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="kabupaten" class="form-label required">Kabupaten</label>
-                                    <select class="selectpicker @error('kabupaten') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="kabupaten">
+                                    <select class="selectpicker @error('kabupaten') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="kabupaten" required>
                                         @foreach($kabupaten as $row)
                                             <option value="{{ $row->id_kab }}" {{ Strings::removeFirstWord($row->nama_kab) == Strings::removeFirstWord($cookieValue->kabkotanegara_ln) ? 'selected' : '' }}>{{ $row->nama_kab }}</option>
                                         @endforeach
@@ -177,7 +177,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="cabang" class="form-label required">Cabang</label>
-                                    <select class="selectpicker @error('cabang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="cabang">
+                                    <select class="selectpicker @error('cabang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="cabang" required>
                                         @foreach($cabang as $row)
                                             <option value="{{ $row->id_pc }}" {{ Strings::removeFirstWord($row->nama_pc, 2) == Strings::removeFirstWord($cookieValue->kabkotanegara_ln) ? 'selected' : '' }}>{{ $row->nama_pc }}</option>
                                         @endforeach
@@ -361,7 +361,7 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <label for="wilayah_rekom_pw" class="form-label required">Nama Wilayah</label>
-                                <select class="selectpicker @error('wilayah_rekom_pw') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="wilayah_rekom_pw">
+                                <select class="selectpicker @error('wilayah_rekom_pw') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="wilayah_rekom_pw" required>
                                     @foreach($propinsi as $row)
                                         <option value="{{ $row->nm_prov }}" {{ strtolower($row->nm_prov) == Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln) ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
                                     @endforeach
@@ -587,9 +587,12 @@
                 success: function(res) {
 
                     let $select = $("select[name='cabang']");
+                    let $selectPc = $("select[name='cabang_rekom_pc']");
                     $select.empty();
+                    $selectPc.empty();
                     $.each(res,function(key, value) {
                         $select.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
+                        $selectPc.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
                     });
 
                     $('.selectpicker').selectpicker('refresh');

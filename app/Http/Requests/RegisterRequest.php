@@ -27,6 +27,7 @@ class RegisterRequest extends FormRequest
             "npsn" => "required|unique:satpen,npsn|size:8",
             "kabupaten" => "required|numeric",
             "propinsi" => "required|numeric",
+            "cabang" => "required|numeric",
             "jenjang" => "required|numeric",
             "nm_satpen" => "required|string",
             "yayasan" => "required|string",
