@@ -47,6 +47,7 @@
                                         <th>Permohonan</th>
                                         <th>Disetujui</th>
                                         <th>Expired Dokumen</th>
+                                        <th>Keterangan</th>
                                         <th>Status</th>
                                     </tr>
                                     <tbody>
@@ -60,6 +61,7 @@
                                             <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                             <td>{{ Date::tglMasehi($row->tgl_izin) }}</td>
                                             <td>{{ Date::tglMasehi($row->tgl_expired) }}</td>
+                                            <td>{{ $row->ossstatus[count($row->ossstatus)-1]->keterangan }}</td>
                                             <td><span class="badge bg-light-secondary text-secondary">{{ $row->status }}</span></td>
                                         </tr>
                                     @endforeach

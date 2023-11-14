@@ -60,6 +60,7 @@
                                     <th>Kode Unik</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
+                                    <th>Catatan Revisi</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
                                     @endif
@@ -78,7 +79,8 @@
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                        <td>{{ $row->ossstatus[count($row->ossstatus)-3]->keterangan }}</td>
+                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalDiterima" data-bs="{{ $row->id_oss }}">
                                                 <i class="ti ti-checks"></i>

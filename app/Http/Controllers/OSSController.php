@@ -102,7 +102,6 @@ class OSSController extends Controller
             'statusType' => 'perbaikan',
         ])->update([
             'status' => null,
-            'keterangan' => null,
         ]);
 
         return redirect()->back()->with('success', 'Berhasil melakukan permohonan oss');
