@@ -19,8 +19,10 @@ use App\Models\Provinsi;
 use App\Models\Satpen;
 use App\Models\VirtualNPSN;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class SatpenController extends Controller
 {
@@ -56,99 +58,110 @@ class SatpenController extends Controller
                 $orderedNumber = (int) $lastOfSatpen->no_urut;
             }
             $orderedNumber = str_pad(++$orderedNumber, 4, '0', STR_PAD_LEFT);
-            /**
-             * When yayasan is not bhp nu append prefix A in generated number
-             * Generated number is combined of Kode Provinsi + Kode Kabupaten + 4 digit ordered number
-             */
-            $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+
             /**
              * Determined kategori of yayasan based on type yayasan and aset tanah
              */
             $makeCategorySatpen = SatpenController::makekategori(strtolower($request->yayasan), strtolower($request->aset_tanah));
             if ($makeCategorySatpen) {
-                /**
-                 * Store files
-                 */
-                if ($request->file('file_permohonan')->isValid()
-                        && $request->file('file_rekom_pc')->isValid()
-                        && $request->file('file_rekom_pw')->isValid()) {
-                    $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
-                    $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
-                    $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
-                }
 
-                /**
-                 * Make account on db.users
-                 */
-                $user = AuthController::register($registerNumber, $request->password);
-                /**
-                 * Store satpen on db.satpen
-                 */
                 try {
-                    $satpen = Satpen::create([
-                        'id_user' => $user->id_user,
-                        'id_prov' => $provinsi->id_prov,
-                        'id_kab' => $request->kabupaten,
-                        'id_pc' => $cabang->id_pc,
-                        'id_kategori' => $makeCategorySatpen->id_kategori,
-                        'id_jenjang' => $request->jenjang,
-                        'npsn' => $request->npsn,
-                        'no_registrasi' => $registerNumber,
-                        'no_urut' => $orderedNumber,
-                        'nm_satpen' => $request->nm_satpen,
-                        'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
-                        'kepsek' => $request->kepsek,
-                        'telpon' => $request->telp,
-                        'email' => $request->email,
-                        'fax' => $request->fax,
-                        'thn_berdiri' => $request->thn_berdiri,
-                        'alamat' => $request->alamat,
-                        'kelurahan' => $request->kelurahan,
-                        'kecamatan' => $request->kecamatan,
-                        'aset_tanah' => $request->aset_tanah,
-                        'nm_pemilik' => $request->nm_pemilik,
-                        'tgl_registrasi' => Date::now(),
-                    ]);
+                    /**
+                     * When yayasan is not bhp nu append prefix A in generated number
+                     * Generated number is combined of Kode Provinsi + Kode Kabupaten + 4 digit ordered number
+                     */
+                    $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
 
-                    FileRegister::insert([[
-                        'id_satpen' => $satpen->id_satpen,
-                        'mapfile' => 'surat_permohonan',
-                        'nm_lembaga' => $satpen->nm_satpen,
-                        'daerah' => '',
-                        'nomor_surat' => $request->no_srt_permohonan,
-                        'tgl_surat' => $request->tgl_srt_permohonan,
-                        'filesurat' =>  $pathFilePermohonan,
-                    ], [
-                        'id_satpen' => $satpen->id_satpen,
-                        'mapfile' => 'rekom_pc',
-                        'daerah' => $request->cabang_rekom_pc,
-                        'nm_lembaga' => $request->nm_rekom_pc,
-                        'nomor_surat' => $request->no_srt_rekom_pc,
-                        'tgl_surat' => $request->tgl_srt_rekom_pc,
-                        'filesurat' =>  $pathFileRekomPC,
-                    ], [
-                        'id_satpen' => $satpen->id_satpen,
-                        'mapfile' => 'rekom_pw',
-                        'daerah' => $request->wilayah_rekom_pw,
-                        'nm_lembaga' => $request->nm_rekom_pw,
-                        'nomor_surat' => $request->no_srt_rekom_pw,
-                        'tgl_surat' => $request->tgl_srt_rekom_pw,
-                        'filesurat' =>  $pathFileRekomPW,
-                    ]]);
+                    return DB::transaction(function () use ($request, $registerNumber, $provinsi, $cabang, $makeCategorySatpen, $orderedNumber) {
+                        /**
+                         * Store files
+                         */
+                        if ($request->file('file_permohonan')->isValid()
+                                && $request->file('file_rekom_pc')->isValid()
+                                && $request->file('file_rekom_pw')->isValid()) {
+                            $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
+                            $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
+                            $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
+                        }
 
-                    (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                        ->merge([
-                            "status_verifikasi" => "permohonan",
-                            "keterangan" => "",
-                        ]),
-                        $satpen);
+                        /**
+                         * Make account on db.users
+                         */
+                        $user = AuthController::register($registerNumber, $request->password);
+                        /**
+                         * Store satpen on db.satpen
+                         */
+                        try {
+                            $satpen = Satpen::create([
+                                'id_user' => $user->id_user,
+                                'id_prov' => $provinsi->id_prov,
+                                'id_kab' => $request->kabupaten,
+                                'id_pc' => $cabang->id_pc,
+                                'id_kategori' => $makeCategorySatpen->id_kategori,
+                                'id_jenjang' => $request->jenjang,
+                                'npsn' => $request->npsn,
+                                'no_registrasi' => $registerNumber,
+                                'no_urut' => $orderedNumber,
+                                'nm_satpen' => $request->nm_satpen,
+                                'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
+                                'kepsek' => $request->kepsek,
+                                'telpon' => $request->telp,
+                                'email' => $request->email,
+                                'fax' => $request->fax,
+                                'thn_berdiri' => $request->thn_berdiri,
+                                'alamat' => $request->alamat,
+                                'kelurahan' => $request->kelurahan,
+                                'kecamatan' => $request->kecamatan,
+                                'aset_tanah' => $request->aset_tanah,
+                                'nm_pemilik' => $request->nm_pemilik,
+                                'tgl_registrasi' => Date::now(),
+                            ]);
+
+                            FileRegister::insert([[
+                                'id_satpen' => $satpen->id_satpen,
+                                'mapfile' => 'surat_permohonan',
+                                'nm_lembaga' => $satpen->nm_satpen,
+                                'daerah' => '',
+                                'nomor_surat' => $request->no_srt_permohonan,
+                                'tgl_surat' => $request->tgl_srt_permohonan,
+                                'filesurat' =>  $pathFilePermohonan,
+                            ], [
+                                'id_satpen' => $satpen->id_satpen,
+                                'mapfile' => 'rekom_pc',
+                                'daerah' => $request->cabang_rekom_pc,
+                                'nm_lembaga' => $request->nm_rekom_pc,
+                                'nomor_surat' => $request->no_srt_rekom_pc,
+                                'tgl_surat' => $request->tgl_srt_rekom_pc,
+                                'filesurat' =>  $pathFileRekomPC,
+                            ], [
+                                'id_satpen' => $satpen->id_satpen,
+                                'mapfile' => 'rekom_pw',
+                                'daerah' => $request->wilayah_rekom_pw,
+                                'nm_lembaga' => $request->nm_rekom_pw,
+                                'nomor_surat' => $request->no_srt_rekom_pw,
+                                'tgl_surat' => $request->tgl_srt_rekom_pw,
+                                'filesurat' =>  $pathFileRekomPW,
+                            ]]);
+
+                            (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
+                                ->merge([
+                                    "status_verifikasi" => "permohonan",
+                                    "keterangan" => "",
+                                ]),
+                                $satpen);
+
+                        } catch (\Exception $e) {
+                            throw new CatchErrorException("[REGISTER PROCESS INSERT] has error ". $e);
+                        }
+
+                        Mail::to($satpen->email)->send(new RegisterMail($registerNumber));
+
+                        return redirect()->route('register.success')->with('regNumber', $registerNumber);
+                    });
 
                 } catch (\Exception $e) {
-                    throw new CatchErrorException("[REGISTER PROCESS INSERT] has error ". $e);
+                    throw new CatchErrorException("[REGISTER PROCESS] has error ". $e);
                 }
-                Mail::to($satpen->email)->send(new RegisterMail($registerNumber));
-
-                return redirect()->route('register.success')->with('regNumber', $registerNumber);
             }
 
             return redirect()->back()->with('error', 'cannot create satpen kategori');
