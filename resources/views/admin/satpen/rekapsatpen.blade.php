@@ -120,7 +120,7 @@
                         <tbody>
                         @php($no=0)
                         @php($today=\Carbon\Carbon::now())
-                        @if($satpenProfile->count() > 0)
+{{--                        @if($satpenProfile->count() > 0)--}}
                             @foreach($satpenProfile as $row)
                                 @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->actived_date)))
                                 <tr>
@@ -148,9 +148,9 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @else
-                            <td colspan="10">No data available in table</td>
-                        @endif
+{{--                        @else--}}
+{{--                            <td colspan="10">No data available in table</td>--}}
+{{--                        @endif--}}
                         </tbody>
                     </table>
 {{--                    {{ $satpenProfile->links() }}--}}

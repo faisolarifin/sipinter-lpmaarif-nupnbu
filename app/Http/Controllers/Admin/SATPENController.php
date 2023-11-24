@@ -97,7 +97,8 @@ class SATPENController extends Controller
                         ->whereIn('status', $statuses)
                         ->where(request()->specificFilter)
                         ->where($filter)
-                        ->paginate($paginatePerPage);
+                        ->get();
+//                        ->paginate($paginatePerPage);
                 }
             }
             else {
@@ -109,7 +110,8 @@ class SATPENController extends Controller
                     ->select($selectedColumns)
                     ->whereIn('status', $statuses)
                     ->where(request()->specificFilter)
-                    ->paginate($paginatePerPage);
+                    ->get();
+//                    ->paginate($paginatePerPage);
             }
 
             /**

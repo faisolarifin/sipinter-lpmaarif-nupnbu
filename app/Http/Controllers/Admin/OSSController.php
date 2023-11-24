@@ -15,17 +15,17 @@ class OSSController extends Controller
 
         $specificFilter = request()->specificFilter;
 
-        $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,no_registrasi"])->whereIn('status', ['verifikasi','perbaikan'])
+        $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen"])->whereIn('status', ['verifikasi','perbaikan'])
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
             })->orderBy('id_oss', 'DESC') ->get();
 
-        $ossProses = OSS::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'dokumen diproses')
+        $ossProses = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen"])->where('status', '=', 'dokumen diproses')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
             })->orderBy('id_oss', 'DESC')->get();
 
-        $ossTerbit = OSS::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'izin terbit')
+        $ossTerbit = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen"])->where('status', '=', 'izin terbit')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
             })->orderBy('id_oss', 'DESC')->get();
