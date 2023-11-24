@@ -49,6 +49,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Noreg Satpen</th>
+                                    <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
@@ -64,6 +65,7 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
                                             <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
@@ -103,6 +105,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Noreg Satpen</th>
+                                    <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
@@ -118,6 +121,7 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
@@ -154,6 +158,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Noreg Satpen</th>
+                                    <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Nomor Resi</th>
                                     <th>Permohonan</th>
@@ -172,6 +177,7 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>

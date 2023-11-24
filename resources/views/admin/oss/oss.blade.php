@@ -57,6 +57,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Noreg Satpen</th>
+                                    <th>Nama Satpen</th>
                                     <th>Kode Unik</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
@@ -74,6 +75,7 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>{{ $row->kode_unik }}</td>
                                         <td>
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
@@ -115,6 +117,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Noreg Satpen</th>
+                                    <th>Nama Satpen</th>
                                     <th>Kode Unik</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
@@ -132,6 +135,7 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>{{ $row->kode_unik }}</td>
                                         <td>
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
@@ -173,6 +177,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Noreg Satpen</th>
+                                    <th>Nama Satpen</th>
                                     <th>Kode Unik</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Permohonan</th>
@@ -192,6 +197,7 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>{{ $row->kode_unik }}</td>
                                         <td>
                                             <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
