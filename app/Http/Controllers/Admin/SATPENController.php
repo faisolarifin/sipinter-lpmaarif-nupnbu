@@ -68,7 +68,7 @@ class SATPENController extends Controller
     public function getAllSatpenOrFilter(Request $request)
     {
         $paginatePerPage = Settings::get("count_perpage");
-        $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi', 'actived_date'];
+        $selectedColumns = ['id_satpen', 'id_kategori', 'id_kab', 'id_prov', 'id_jenjang', 'npsn', 'no_registrasi', 'nm_satpen', 'yayasan', 'thn_berdiri', 'status', 'tgl_registrasi', 'actived_date'];
         try {
             /**
              * If request without satpenid show all satpen where status 'setujui'

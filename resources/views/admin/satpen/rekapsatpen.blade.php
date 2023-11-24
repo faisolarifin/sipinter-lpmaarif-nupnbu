@@ -96,16 +96,17 @@
                             <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i class="ti ti-file-spreadsheet"></i> Export to Excel</a>
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i class="ti ti-filter"></i> Filter</button>
                         </div>
-                        <div class="d-flex">
-                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>
-                        </div>
+{{--                        <div class="d-flex">--}}
+{{--                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">--}}
+{{--                            <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>--}}
+{{--                        </div>--}}
                     </form>
                     <table class="table table-hover" id="mytable">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Kategori</th>
+                            <th scope="col">NPSN</th>
                             <th scope="col">No. Registrasi</th>
                             <th scope="col">Nama Satpen</th>
                             <th scope="col">Yayasan</th>
@@ -125,6 +126,7 @@
                                 <tr>
                                     <td>{{ ++$no }}</td>
                                     <td>{{ $row->kategori?->nm_kategori }}</td>
+                                    <td>{{ $row->npsn }}</td>
                                     <td>{{ $row->no_registrasi }}</td>
                                     <td>{{ $row->nm_satpen }}</td>
                                     <td>{{ $row->yayasan }}</td>
@@ -151,7 +153,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $satpenProfile->links() }}
+{{--                    {{ $satpenProfile->links() }}--}}
                 </div>
 
             </div>
@@ -162,7 +164,13 @@
 @endsection
 
 @section('scripts')
+<script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
 <script>
+    $(document).ready(function () {
+        $('#mytable').DataTable();
+    });
+
     $(".deleteBtn").on('click', function () {
         if (confirm("benar anda akan menghapus data?")) {
             return true;

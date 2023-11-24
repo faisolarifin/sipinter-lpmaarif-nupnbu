@@ -15,7 +15,7 @@ class OSSController extends Controller
 
         $specificFilter = request()->specificFilter;
 
-        $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,no_registrasi"])->where('status', '=', 'verifikasi')
+        $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,no_registrasi"])->whereIn('status', ['verifikasi','perbaikan'])
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
             })->orderBy('id_oss', 'DESC') ->get();
