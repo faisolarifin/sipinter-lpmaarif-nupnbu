@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MailService;
 use App\Models\PasswordReset;
 use App\Models\Satpen;
 use App\Models\User;
@@ -40,11 +41,15 @@ class ForgotPasswordController extends Controller
             'token' => $token,
         ]);
 
-        Mail::send('emails.forgetPassword', ['token' => $token], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Reset Password');
+        $link_reset = url('reset', $token);
+        MailService::send([
+            "to" => $request->email,
+            "subject" => "Reset Password",
+            "recipient" => "Operator Sekolah",
+            "content" => "<p>Anda dapat mengatur ulang kata sandi dari tautan di bawah ini:</p>
+                            <a href='$link_reset' class='cta-button'>Reset Password</a>"
+        ]);
 
-        });
         return back()->with('success', 'Link reset password telah dikirimkan pada email anda!');
     }
 

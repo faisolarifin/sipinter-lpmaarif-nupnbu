@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CatchErrorException;
+use App\Helpers\MailService;
 use App\Helpers\ReferensiKemdikbud;
 use App\Helpers\Strings;
 use App\Http\Requests\VirtualNPSNRequest;
@@ -44,10 +45,14 @@ class AuthController extends Controller
                 'email' => $request->email,
             ]);
             //send email
-            Mail::send('emails.noticevnpsn', ['sekolah' => $request->nama_sekolah], function($message) use($request){
-                $message->to($request->email);
-                $message->subject('Permohonan Virtual NPSN');
-            });
+            MailService::send([
+                "to" => $request->email,
+                "subject" => "Permohonan Virtual NPSN",
+                "recipient" => $request->nama_sekolah,
+                "content" => "<p>Anda telah melakukan permohonan NPSN Virtual untuk Sekolah $request->nama_sekolah.</p>
+                            <p>Permohonan NPSN telah dikirimkan. Data sedang divalidasi oleh Admin, silahkan tunggu balasan NPSN Virtual oleh admin pada email ini.</p>
+                            <h4>Jika dalam 2 hari kerja belum memperoleh balasan, silahkan kontak Admin.</h4>"
+            ]);
             return redirect()->route('ceknpsn')->with("success", "Permohonan VNPSN berhasil dikirimkan. Tunggu NPSN Virtual dikirimkan oleh admin pada email anda. Jika dalam 2 hari kerja belum memperoleh balasan, silahkan kontak Admin.");
 
         } catch (\Exception $e) {

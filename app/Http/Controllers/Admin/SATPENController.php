@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\CatchErrorException;
 use App\Export\ExportDocument;
 use App\Helpers\GenerateQr;
+use App\Helpers\MailService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Settings;
 use App\Http\Requests\StatusSatpenRequest;
@@ -189,7 +190,13 @@ class SATPENController extends Controller
                 'keterangan' => $request->keterangan,
             ]);
 
-//            Mail::to($satpen->email)->send(new StatusMail($request->status_verifikasi));
+            $status_verifikasi = strtoupper($request->status_verifikasi);
+            MailService::send([
+                "to" => $satpen->email,
+                "subject" => "Status Satpen",
+                "recipient" => $satpen->nm_satpen,
+                "content" => "<p>Saat ini, status satuan pendidikan anda telah menjadi.</p> <h3><strong>{$status_verifikasi}</strong></h3>"
+            ]);
 
             return redirect()->back()->with('success', 'Status satpen telah diupdate menjadi '. $request->status_verifikasi);
 

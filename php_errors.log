@@ -146,3 +146,16 @@
 [04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
 [04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
 [04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[25-Nov-2023 03:15:29 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[25-Nov-2023 03:15:30 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[25-Nov-2023 03:15:32 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP Stack trace:
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24

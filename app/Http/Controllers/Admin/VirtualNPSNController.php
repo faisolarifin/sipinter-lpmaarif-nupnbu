@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\CatchErrorException;
+use App\Helpers\MailService;
 use App\Http\Controllers\Controller;
 use App\Models\VirtualNPSN;
 use Illuminate\Http\Request;
@@ -47,12 +48,17 @@ class VirtualNPSNController extends Controller
                 $virtualNPSN->update([
                     'nomor_virtual' => $new_VNPSN,
                 ]);
-
+                $link_check_npsn = url("ceknpsn");
                 //send email
-                Mail::send('emails.successvnpsn', ['vnpsn' => $new_VNPSN], function($message) use($virtualNPSN){
-                    $message->to($virtualNPSN->email);
-                    $message->subject('NPSN Virtual');
-                });
+                MailService::send([
+                    "to" => $virtualNPSN->email,
+                    "subject" => "Virtual NPSN",
+                    "recipient" => $virtualNPSN->nama_sekolah,
+                    "content" => "<p>Permintaan NPSN Virtual telah disetujui oleh admin, berikut kode VNPSN yang dapat anda gunakan:</p>
+                                    <h2>$new_VNPSN</h2>
+                                    <a href='$link_check_npsn' class='cta-button'>Lakukan Pendaftaran</a>"
+                ]);
+
                 return redirect()->back()->with('success', 'Berhasil membuat Nomor NPSN Virtual');
             }
             return redirect()->back()->with('error', 'Invalid VNPSN Id');
@@ -66,10 +72,12 @@ class VirtualNPSNController extends Controller
         try {
             if ($virtualNPSN) {
                 //send email
-                Mail::send('emails.rejectvnpsn', ['notes' => $request->alasan], function($message) use($virtualNPSN){
-                    $message->to($virtualNPSN->email);
-                    $message->subject('Rejected Virtual NPSN');
-                });
+                MailService::send([
+                    "to" => $virtualNPSN->email,
+                    "subject" => "Penolakan Virtual NPSN",
+                    "recipient" => $virtualNPSN->nama_sekolah,
+                    "content" => "<p>Permintaan NPSN Virtual ditolak oleh admin, dengan alasan :</p> <p><strong>$request->alasan</strong></i></p>"
+                ]);
 
                 $virtualNPSN->delete();
                 return redirect()->back()->with('success', 'Permintaan VNPSN telah ditolak');

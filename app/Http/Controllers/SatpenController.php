@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CatchErrorException;
+use App\Helpers\MailService;
 use App\Helpers\ReferensiKemdikbud;
 use App\Http\Controllers\Admin\SATPENController as SatpenControllerAdmin;
 use App\Http\Requests\CekNpsnRequest;
@@ -154,7 +155,12 @@ class SatpenController extends Controller
                             throw new CatchErrorException("[REGISTER PROCESS INSERT] has error ". $e);
                         }
 
-                        Mail::to($satpen->email)->send(new RegisterMail($registerNumber));
+                        MailService::send([
+                            "to" => $satpen->email,
+                            "subject" => "Registrasi Berhasil",
+                            "recipient" => $satpen->nm_satpen,
+                            "content" => "<h2>Registrasi Berhasil</h2> <p>Berikut nomor registrasi satpen anda.</p>  <div class='button'> <a href='#' class='cta-button'>{$registerNumber}</a> </div> <p>Untuk dapat masuk pada portal, anda harus login menggunakan nomor registrasi tersebut. Simpan nomor registrasi diatas.</p>"
+                        ]);
 
                         return redirect()->route('register.success')->with('regNumber', $registerNumber);
                     });
