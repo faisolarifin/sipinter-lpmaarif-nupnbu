@@ -133,6 +133,12 @@ Route::middleware('mustlogin')->group(function() {
             Route::resource('/cabang', PengurusCabangController::class);
             Route::resource('/jenjang', JenjangPendidikanController::class);
             Route::resource('/users', UsersController::class)->middleware('superadmin');
+            Route::group(["prefix" => "satpen/users", "middleware" => "superadmin"], function (){
+                Route::get("/", [UsersController::class, 'users'])->name('users.satpen');
+                Route::get("{user}/reset", [UsersController::class, 'reset'])->name('users.reset');
+                Route::get("{user}/block", [UsersController::class, 'block'])->name('users.block');
+                Route::get("{user}/unblock", [UsersController::class, 'unblock'])->name('users.unblock');
+            });
 
             /**
              * Satpen

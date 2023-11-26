@@ -21,6 +21,46 @@ class UsersController extends Controller
 
     }
 
+    public function users() {
+        $satpenUsers = User::whereIn("role", ["operator"])
+            ->get();
+        return view('admin.users.satpen_users', compact('satpenUsers'));
+    }
+
+    public function reset(User $user) {
+        if ($user) {
+            $user->update([
+                'password' => Hash::make($user->username),
+                'status_active' => 'active',
+            ]);
+
+            return redirect()->back()->with('success', 'Berhasil mereset akun user');
+        }
+        return redirect()->back()->with('error', 'Reset akun gagal, akun tidak ditemukan!');
+    }
+
+    public function block(User $user) {
+        if ($user) {
+            $user->update([
+                'status_active' => 'block',
+            ]);
+
+            return redirect()->back()->with('success', 'Berhasil memblokir akun user');
+        }
+        return redirect()->back()->with('error', 'Block akun gagal, akun tidak ditemukan!');
+    }
+
+    public function unblock(User $user) {
+        if ($user) {
+            $user->update([
+                'status_active' => 'active',
+            ]);
+
+            return redirect()->back()->with('success', 'Berhasil membuka blokir akun user');
+        }
+        return redirect()->back()->with('error', 'Unblock akun gagal, akun tidak ditemukan!');
+    }
+
     public function store(Request $request) {
 
         $request->validate([

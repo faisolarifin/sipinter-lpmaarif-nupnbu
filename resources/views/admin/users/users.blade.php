@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapintar - Data Users'
+    'title' => 'Siapintar - Data Admins'
 ])
 
 @section('navbar')
@@ -15,7 +15,7 @@
             <ul id="breadcrumb" class="mb-0">
                 <li><a href="#"><i class="ti ti-home"></i></a></li>
                 <li><a href="#"><span class=" fa fa-info-circle"> </span> Manajemen User</a></li>
-                <li><a href="#"><span class="fa fa-snowflake-o"></span> Users</a></li>
+                <li><a href="#"><span class="fa fa-snowflake-o"></span> Admins</a></li>
             </ul>
         </nav>
 
@@ -26,7 +26,7 @@
 
                 <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-3">
                     <div>
-                        <h5 class="mb-0">Data Users</h5>
+                        <h5 class="mb-0">Data Admins</h5>
                         <small>list akun admin</small>
                     </div>
                     <div>

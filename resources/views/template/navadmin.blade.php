@@ -114,6 +114,14 @@
                     <span class="hide-menu">Kelola Admin</span>
                 </a>
             </li>
+                <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('users.satpen') }}" aria-expanded="false">
+                    <span>
+                      <i class="ti ti-users"></i>
+                    </span>
+                    <span class="hide-menu">Kelola Users</span>
+                </a>
+            </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.setting') }}" aria-expanded="false">
