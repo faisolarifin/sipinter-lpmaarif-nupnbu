@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5" style="overflow-x:auto;">
                             <table>
 
                                 <tbody>
@@ -259,15 +259,15 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div style="max-height:35rem;overflow:auto;">
                                 <ul class="timeline">
                                     @foreach($satpenProfile->timeline as $row)
-                                    <li>
-                                        <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
-                                        <small class="float-end">{{ $row->keterangan }}</small>
-                                        <p>{{ $row->tgl_status }}</p>
-                                    </li>
+                                        <li>
+                                            <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
+                                            <p class="mb-0">{{ $row->tgl_status }}</p>
+                                            <small>{{ $row->keterangan }}</small>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
