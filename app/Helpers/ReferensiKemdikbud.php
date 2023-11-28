@@ -26,7 +26,7 @@ class ReferensiKemdikbud {
         try {
             $response = Http::get("https://referensi.data.kemdikbud.go.id/pendidikan/npsn/".$npsn);
 
-            if ($response->successful()) {
+            if ($response->successful() || $response->serverError()) {
                 $html = $response->body();
 
                 // Create a new instance of Symfony's DomCrawler
