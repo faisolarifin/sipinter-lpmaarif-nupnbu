@@ -30,7 +30,8 @@
                         <small>data satpen yang telah diterima</small>
                     </div>
                     <div class="text-center">
-                        <h5 class="mb-0">{{ $satpenProfile->count()  }}</h5>
+{{--                        <h5 class="mb-0">{{ $satpenProfile->count()  }}</h5>--}}
+                        <h5 class="mb-0">{{ $satpenProfileCount  }}</h5>
                         <small>record satpen</small>
                     </div>
                 </div>
@@ -96,10 +97,10 @@
                             <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i class="ti ti-file-spreadsheet"></i> Export to Excel</a>
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i class="ti ti-filter"></i> Filter</button>
                         </div>
-{{--                        <div class="d-flex">--}}
-{{--                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">--}}
-{{--                            <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>--}}
-{{--                        </div>--}}
+                        <div class="d-flex">
+                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>
+                        </div>
                     </form>
                     <table class="table table-hover" id="mytable">
                         <thead>
@@ -120,7 +121,7 @@
                         <tbody>
                         @php($no=0)
                         @php($today=\Carbon\Carbon::now())
-{{--                        @if($satpenProfile->count() > 0)--}}
+                        @if($satpenProfile->count() > 0)
                             @foreach($satpenProfile as $row)
                                 @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->actived_date)))
                                 <tr>
@@ -148,12 +149,12 @@
                                     </td>
                                 </tr>
                             @endforeach
-{{--                        @else--}}
-{{--                            <td colspan="10">No data available in table</td>--}}
-{{--                        @endif--}}
+                        @else
+                            <td colspan="10">No data available in table</td>
+                        @endif
                         </tbody>
                     </table>
-{{--                    {{ $satpenProfile->links() }}--}}
+                    {{ $satpenProfile->links() }}
                 </div>
 
             </div>
@@ -167,9 +168,9 @@
 <script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
 <script>
-    $(document).ready(function () {
-        $('#mytable').DataTable();
-    });
+    // $(document).ready(function () {
+    //     $('#mytable').DataTable();
+    // });
 
     $(".deleteBtn").on('click', function () {
         if (confirm("benar anda akan menghapus data?")) {

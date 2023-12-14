@@ -81,15 +81,21 @@ class SATPENController extends Controller
                     || $request->kategori || $request->keyword || $request->status) {
 
                 $filter = [];
+                $keywordFilter = [];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
                 if ($request->kategori) $filter["id_kategori"] = $request->kategori;
                 if ($request->status) $statuses = [$request->status];
-                if ($request->keyword) array_push($filter, ["nm_satpen", "like", "%". $request->keyword ."%"]);
+                if ($request->keyword){
+                    array_push($keywordFilter, ["nm_satpen", "like", "%". $request->keyword ."%"]);
+                    array_push($keywordFilter, ["npsn", "like", "%". $request->keyword ."%"]);
+                    array_push($keywordFilter, ["no_registrasi", "like", "%". $request->keyword ."%"]);
+                    array_push($keywordFilter, ["yayasan", "like", "%". $request->keyword ."%"]);
+                }
 
                 if ($filter || $statuses) {
-                    $satpenProfile = Satpen::with([
+                    $satpenProfileQuery = Satpen::with([
                         'kategori:id_kategori,nm_kategori',
                         'provinsi:id_prov,nm_prov',
                         'kabupaten:id_kab,nama_kab',
@@ -98,21 +104,32 @@ class SATPENController extends Controller
                         ->whereIn('status', $statuses)
                         ->where(request()->specificFilter)
                         ->where($filter)
-                        ->get();
-//                        ->paginate($paginatePerPage);
+                        ->where(function ($query) use ($keywordFilter) {
+                            foreach ($keywordFilter as $condition) {
+                                $query->orWhere(...$condition);
+                            }
+                        });
+//                        ->get();
+
+                    $satpenProfileCount = $satpenProfileQuery->count();
+                    $satpenProfile = $satpenProfileQuery
+                                    ->paginate($paginatePerPage)->appends(request()->query());
                 }
             }
             else {
-                $satpenProfile = Satpen::with([
+                $satpenProfileQuery = Satpen::with([
                     'kategori:id_kategori,nm_kategori',
                     'provinsi:id_prov,nm_prov',
                     'kabupaten:id_kab,nama_kab',
                     'jenjang:id_jenjang,nm_jenjang',])
                     ->select($selectedColumns)
                     ->whereIn('status', $statuses)
-                    ->where(request()->specificFilter)
-                    ->get();
-//                    ->paginate($paginatePerPage);
+                    ->where(request()->specificFilter);
+//                    ->get();
+
+                $satpenProfileCount = $satpenProfileQuery->count();
+                $satpenProfile = $satpenProfileQuery
+                    ->paginate($paginatePerPage)->appends(request()->query());
             }
 
             /**
@@ -124,7 +141,7 @@ class SATPENController extends Controller
             $jenjang = Jenjang::all();
             $kategori = Kategori::all();
 
-            return view('admin.satpen.rekapsatpen', compact('satpenProfile',
+            return view('admin.satpen.rekapsatpen', compact('satpenProfile', 'satpenProfileCount',
                 'propinsi', 'jenjang', 'kategori'));
 
         } catch (\Exception $e) {
