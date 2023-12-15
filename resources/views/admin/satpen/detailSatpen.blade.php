@@ -141,44 +141,58 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-sm-4 px-3">
-                            <h5 class="mb-2 fs-4">File Pendukung</h5>
-                            @foreach($satpenProfile->filereg as $row)
-                            <div class="mb-3 px-3 py-2 card-box-detail">
-                                <h6 class="text-capitalize">{{$row->mapfile}}</h6>
-                                <p class="mb-1">{{$row->nm_lembaga}} {{$row->daerah}}</p>
-                                <p>Nomor : {{$row->nomor_surat}}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small>Tanggal {{\App\Helpers\Date::tglMasehi($row->tgl_surat)}}</small>
-                                    <a href="{{route('viewerpdf', $row->filesurat)}}" target="_blank"><span class="badge fs-2 bg-primary">Lihat PDF</span></a>
+                        <div class="col-sm-7 d-flex flex-column justify-content-between">
+                            <div class="row">
+                                <div class="col-sm-6 px-3">
+                                    <h5 class="mb-2 fs-4">File Pendukung</h5>
+                                    @foreach($satpenProfile->filereg as $row)
+                                    <div class="mb-3 px-3 py-2 card-box-detail">
+                                        <h6 class="text-capitalize">{{$row->mapfile}}</h6>
+                                        <p class="mb-1">{{$row->nm_lembaga}} {{$row->daerah}}</p>
+                                        <p>Nomor : {{$row->nomor_surat}}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small>Tanggal {{\App\Helpers\Date::tglMasehi($row->tgl_surat)}}</small>
+                                            <a href="{{route('viewerpdf', $row->filesurat)}}" target="_blank"><span class="badge fs-2 bg-primary">Lihat PDF</span></a>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="col-sm-6 d-flex flex-column justify-content-between">
+                                    <div style="max-height:35rem;overflow:auto;">
+                                        <ul class="timeline">
+                                            @foreach($satpenProfile->timeline as $row)
+                                            <li>
+                                                <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
+                                                <p class="mb-0">{{ $row->tgl_status }}</p>
+                                                <small>{{ $row->keterangan }}</small>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            @endforeach
-                        </div>
-                        <div class="col-sm-3 d-flex flex-column justify-content-between">
-                            <div style="max-height:35rem;overflow:auto;">
-                                <ul class="timeline">
-                                    @foreach($satpenProfile->timeline as $row)
-                                    <li>
-                                        <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
-                                        <p class="mb-0">{{ $row->tgl_status }}</p>
-                                        <small>{{ $row->keterangan }}</small>
-                                    </li>
-                                    @endforeach
-                                </ul>
+                            <div class="row">
+                                @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                    <div class="col px-5 py-2 text-end">
+                                        <form class="d-inline usangBtn" action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
+                                              method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="status_verifikasi" value="expired">
+                                            <button type="submit" class="btn btn-danger mx-2"><i class="ti ti-exchange"></i> Usangkan Dokumen</button>
+                                        </form>
+
+                                        <form action="{{ route('a.rekapsatpen.destroy', $satpenProfile->id_satpen ) }}" method="post" class="d-inline deleteBtn">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger mx-2"><i class="ti ti-trash"></i> Destroy Satpen</button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div>
-                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
-                            <div class="px-2 py-2 text-center">
-                                <form class="d-inline" action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
-                                      method="post">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="status_verifikasi" value="expired">
-                                    <button type="submit" class="btn btn-danger"><i class="ti ti-exchange"></i> Usangkan Dokumen</button>
-                                </form>
-                            </div>
-                            @endif
+
                         </div>
+
                     </div>
                     <div class="row border-2 border-top pt-3 mt-2 mx-sm-2">
                         <div class="col-sm-5 d-flex justify-content-center align-items-md-center text-center">
@@ -213,4 +227,22 @@
 
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(".deleteBtn").on('click', function () {
+            if (confirm("benar anda akan menghapus data?")) {
+                return true;
+            }
+            return false;
+        });
+
+        $(".usangBtn").on('click', function () {
+            if (confirm("benar anda akan mengusangkan dokumen?")) {
+                return true;
+            }
+            return false;
+        });
+    </script>
 @endsection
