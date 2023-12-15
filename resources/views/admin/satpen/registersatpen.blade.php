@@ -103,6 +103,7 @@
                                     <th scope="col">Provinsi</th>
                                     <th scope="col">Kabupaten</th>
                                     <th scope="col">Kecamatan</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,6 +117,9 @@
                                         <td>{{ $row->provinsi->nm_prov }}</td>
                                         <td>{{ $row->kabupaten->nama_kab }}</td>
                                         <td>{{ $row->kecamatan }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalRevisiBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

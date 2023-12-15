@@ -55,6 +55,27 @@
     </div>
 
     <!-- Modal Proses Dokumen -->
+    <div class="modal fade" id="modalRevisiBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content rounded-2">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title mb-0" id="exampleModalLabel">Detail Satpen</h5>
+                        <small>detail satuan pendidikan perlu revisi</small>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-detail-dokumen">
+                    ...
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Proses Dokumen -->
     <div class="modal fade" id="modalProsesDokumenBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content rounded-2">
@@ -65,7 +86,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modal-detail-dokumen">
+                <div class="modal-body" id="modal-detail-revisi">
                     ...
                 </div>
                 <div class="modal-footer">
@@ -142,6 +163,45 @@
             let routeChangeStatus = "{{ route('a.satpen.changestatus', ['satpen' => ':param']) }}";
             let completeRouteChangeStatus = routeChangeStatus.replace(':param', satpenId);
             $("#modalRevisi form").attr('action', completeRouteChangeStatus);
+        });
+
+        let modalRevisiBackdrop = document.getElementById('modalRevisiBackdrop')
+        modalRevisiBackdrop.addEventListener('show.bs.modal', function (event) {
+            let satpenId = event.relatedTarget.getAttribute('data-bs')
+            let routeUrl = "{{ route('api.satpenbyid', ['satpenId' => ':param']) }}".replace(':param', satpenId);
+            let routeChangeStatus = "{{ route('a.satpen.changestatus', ['satpen' => ':param']) }}".replace(':param', satpenId);
+            let routeSendNotif = "{{ route('email.notif', ['satpen' => ':param']) }}".replace(':param', satpenId);
+
+            $.ajax({
+                url: routeUrl,
+                type: "GET",
+                dataType: 'json',
+                success: function(res) {
+                    detailTag = `<div class="row mt-3 container-begin">`;
+                    detailTag += createTableDetail(res);
+                    detailTag += createTableFiles(res);
+                    detailTag += `<div class="col-sm-4 d-flex flex-column justify-content-between">`;
+                    detailTag += createTimeline(res);
+                    detailTag += `<div class="px-2">
+                                        <a href="${routeSendNotif}"><button type="submit" class="btn btn-warning mx-1"><i class="ti ti-mail"></i> Kirim Email Notifikasi
+                                            </button></a>
+                                        <form class="d-inline" action="${routeChangeStatus}"
+                                            method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="status_verifikasi" value="proses dokumen">
+                                        <button type="submit" class="btn btn-success mx-1"><i class="ti ti-checklist"></i> Terima
+                                            </button>
+                                        </form>
+
+                                      </div>
+                                    </div>
+                                </div>`;
+
+                    $("#modal-detail-dokumen").html(detailTag);
+
+                }
+            });
         });
 
         let modalProsesDokumenBackdrop = document.getElementById('modalProsesDokumenBackdrop')
@@ -242,7 +302,7 @@
                         <tr>
                             <td>Kategori Satpen</td>
                             <td>:</td>
-                            <td>${res.kategori.nm_kategori}</td>
+                            <td>${res.kategori?.nm_kategori}</td>
                         </tr>
                         <tr>
                             <td>Yayasan</td>

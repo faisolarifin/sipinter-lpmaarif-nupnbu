@@ -384,6 +384,20 @@ class SATPENController extends Controller
 
     }
 
+    public function sendNotifEmail(Satpen $satpen) {
+        if ($satpen) {
+            MailService::send([
+                "to" => $satpen->email,
+                "subject" => "Announcement",
+                "recipient" => $satpen->nm_satpen,
+                "content" => "<p>Kami mengingatkan kembali bahwa status permohonan satuan pendidikan anda dalam revisi.
+                                    Sehingga perlu perbaikan data sesuai dengan arahan verifikator.</p>"
+            ]);
+            return redirect()->back()->with('success', 'Email berhasil dikirimkan');
+        }
+        return redirect()->back()->with('error', 'Satpen tidak ditemukan');
+    }
+
     public function underConstruction() {
         return view('template.constructionad');
     }
