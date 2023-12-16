@@ -65,7 +65,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modal-detail-dokumen">
+                <div class="modal-body" id="modal-detail-revisi">
                     ...
                 </div>
                 <div class="modal-footer">
@@ -86,7 +86,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modal-detail-revisi">
+                <div class="modal-body" id="modal-detail-dokumen">
                     ...
                 </div>
                 <div class="modal-footer">
@@ -198,7 +198,7 @@
                                     </div>
                                 </div>`;
 
-                    $("#modal-detail-dokumen").html(detailTag);
+                    $("#modal-detail-revisi").html(detailTag);
 
                 }
             });
