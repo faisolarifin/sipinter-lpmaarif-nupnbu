@@ -273,11 +273,11 @@
                                 </div>
                             </div>
                         </div>
-                        <h5 class="my-3">Rekomendasi Cabang</h5>
+                        <h5 class="my-3">Surat Keterangan Cabang</h5>
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
-                                    <label for="nm_rekom_pc" class="form-label required">Pemberi Rekomendasi</label>
+                                    <label for="nm_rekom_pc" class="form-label required">Pemberi Keterangan</label>
                                     <select class="form-select @error('nm_rekom_pc') is-invalid @enderror" id="nm_rekom_pc" name="nm_rekom_pc">
                                         <option value="LP Ma'arif PCNU" {{$satpenProfile->filereg[1]->nm_lembaga == "LP Ma'arif PCNU" ? 'selected' : ''}}>LP Ma'arif PCNU</option>
                                         <option value="PCNU" {{$satpenProfile->filereg[1]->nm_lembaga == 'PCNU' ? 'selected' : ''}}>PCNU</option>
@@ -322,7 +322,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-2">
-                                    <label for="file_rekom_pc" class="form-label required">File Rekomendasi PC</label>
+                                    <label for="file_rekom_pc" class="form-label required">File Keterangan PC</label>
                                     <input type="file" class="form-control  @error('file_rekom_pc') is-invalid @enderror" id="file_rekom_pc" name="file_rekom_pc">
                                     <div class="invalid-feedback">
                                         @error('file_rekom_pc') {{ $message }} @enderror
