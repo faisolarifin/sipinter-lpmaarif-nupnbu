@@ -29,7 +29,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Revisi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Perbaikan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
@@ -37,9 +37,9 @@
                     @csrf
                     @method('PUT')
                     <div>
-                        <label for="keterangan" class="form-label">Catatan Revisi</label>
+                        <label for="keterangan" class="form-label">Catatan Perbaikan</label>
                         <input type="hidden" name="status_verifikasi" value="revisi">
-                        <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" value="{{ old('keterangan') }}">
+                        <textarea class="form-control @error('keterangan') is-invalid @enderror" placeholder="Berikan catatan perbaikan.." id="keterangan" name="keterangan" rows="3">{{ old('keterangan') }}</textarea>
                         <div class="invalid-feedback">
                             @error('keterangan') {{ $message }} @enderror
                         </div>
@@ -47,14 +47,44 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Kirim Revisi</button>
+                    <button type="submit" class="btn btn-danger">Tolak Permohonan</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Modal Proses Dokumen -->
+    <!-- Modal -->
+    <div class="modal fade" id="modalRevisiExtensif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Perbaikan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        @csrf
+                        @method('PUT')
+                        <div>
+                            <label for="keterangan" class="form-label">Catatan Perbaikan</label>
+                            <input type="hidden" name="status_verifikasi" value="expired">
+                            <textarea class="form-control @error('keterangan') is-invalid @enderror" placeholder="Berikan catatan perbaikan.." id="keterangan" name="keterangan" rows="3">{{ old('keterangan') }}</textarea>
+                            <div class="invalid-feedback">
+                                @error('keterangan') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Tolak Perpanjangan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Proses Dokumen -->
     <div class="modal fade" id="modalRevisiBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content rounded-2">
@@ -134,20 +164,24 @@
                 success: function(res) {
                     detailTag = `<div class="row mt-3 container-begin">`;
                     detailTag += createTableDetail(res);
+                    detailTag += `<div class="col-sm-7 d-flex flex-column justify-content-between">`;
+                    detailTag += `<div class="row">`;
                     detailTag += createTableFiles(res);
-                    detailTag += `<div class="col-sm-4 px-3 d-flex flex-column justify-content-between">`;
                     detailTag += createTimeline(res);
-                    detailTag += `<div class="text-center">
+                    detailTag += `</div>`;
+                    detailTag += `<div class="row"> <div class="col px-2 py-2 text-end">`;
+                    detailTag += `<div class="text-center d-flex justify-content-end align-items-end">
                                     <form class="d-inline" action="${routeChangeStatus}"
                                                         method="post">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="status_verifikasi" value="proses dokumen">
-                                    <button type="submit" class="btn btn-success mx-1"><i class="ti ti-checkup-list"></i> Terima
+                                    <button type="submit" class="btn btn-success mx-1"><i class="ti ti-checkup-list"></i> Terima Permohonan
                                         </button>
                                     </form>
-                                    <button class="btn btn-danger mx-1" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalRevisi" data-bs="${res.id_satpen}"><i class="ti ti-x"></i> Revisi</button>
-                                    </div>
+                                    <button class="btn btn-danger mx-1 me-2" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalRevisi" data-bs="${res.id_satpen}"><i class="ti ti-x"></i> Perlu Perbaikan</button>
+                                    </div>`;
+                    detailTag += `</div> </div>
                                 </div>
                             </div>`;
 
@@ -179,9 +213,12 @@
                 success: function(res) {
                     detailTag = `<div class="row mt-3 container-begin">`;
                     detailTag += createTableDetail(res);
+                    detailTag += `<div class="col-sm-7 d-flex flex-column justify-content-between">`;
+                    detailTag += `<div class="row">`;
                     detailTag += createTableFiles(res);
-                    detailTag += `<div class="col-sm-4 d-flex flex-column justify-content-between">`;
                     detailTag += createTimeline(res);
+                    detailTag += `</div>`;
+                    detailTag += `<div class="row"> <div class="col px-2 py-2 text-end">`;
                     detailTag += `<div class="px-2">
                                         <a href="${routeSendNotif}"><button type="submit" class="btn btn-warning mx-1"><i class="ti ti-mail"></i> Kirim Email Notifikasi
                                             </button></a>
@@ -194,9 +231,10 @@
                                             </button>
                                         </form>
 
-                                      </div>
-                                    </div>
-                                </div>`;
+                                      </div>`;
+                    detailTag += `</div> </div>
+                                </div>
+                            </div>`;
 
                     $("#modal-detail-revisi").html(detailTag);
 
@@ -216,11 +254,14 @@
                 success: function(res) {
                     detailTag = `<div class="row mt-3 container-begin">`;
                     detailTag += createTableDetail(res);
+                    detailTag += `<div class="col-sm-7 d-flex flex-column justify-content-between">`;
+                    detailTag += `<div class="row">`;
                     detailTag += createTableFiles(res);
-                    detailTag += `<div class="col-sm-4 d-flex flex-column justify-content-between">`;
                     detailTag += createTimeline(res);
+                    detailTag += `</div>`;
+                    detailTag += `<div class="row"> <div class="col px-2 py-2 text-end">`;
                     detailTag += `<div class="px-2">
-                                       <form class="d-flex align-items-end" action="{{route('generate.document')}}"
+                                       <form class="d-flex justify-content-end align-items-end" action="{{route('generate.document')}}"
                                         method="post">
                                         @csrf
                                         <div>
@@ -232,7 +273,8 @@
                                             <button type="submit" class="btn btn-primary mx-2 btn-generate-padding"><i class="ti ti-printer"></i> Generate Dokumen</button>
                                         </div>
                                         </form>
-                                  </div>
+                                  </div>`;
+                    detailTag += `</div> </div>
                                 </div>
                             </div>`;
 
@@ -242,8 +284,17 @@
             });
         });
 
+        let modalRevisiExtend = document.getElementById('modalRevisiExtensif')
+        modalRevisiExtend.addEventListener('show.bs.modal', function (event) {
+            let satpenId = event.relatedTarget.getAttribute('data-bs')
+            let routeChangeStatus = "{{ route('a.satpen.changestatus', ['satpen' => ':param']) }}";
+            let completeRouteChangeStatus = routeChangeStatus.replace(':param', satpenId);
+            console.log(completeRouteChangeStatus);
+            $("#modalRevisiExtensif form").attr('action', completeRouteChangeStatus);
+        });
+
         let modalPerpanjangBackdrop = document.getElementById('modalPerpanjangBackdrop')
-        modalPerpanjangBackdrop.addEventListener('show.bs.modal', function (event) {
+            modalPerpanjangBackdrop.addEventListener('show.bs.modal', function (event) {
             let satpenId = event.relatedTarget.getAttribute('data-bs')
             let routeUrl = "{{ route('api.satpenbyid', ['satpenId' => ':param']) }}".replace(':param', satpenId);
 
@@ -254,11 +305,14 @@
                 success: function(res) {
                     detailTag = `<div class="row mt-3 container-begin">`;
                     detailTag += createTableDetail(res);
+                    detailTag += `<div class="col-sm-7 d-flex flex-column justify-content-between">`;
+                    detailTag += `<div class="row">`;
                     detailTag += createTableFiles(res);
-                    detailTag += `<div class="col-sm-4 d-flex flex-column justify-content-between">`;
                     detailTag += createTimeline(res);
+                    detailTag += `</div>`;
+                    detailTag += `<div class="row"> <div class="col px-2 py-2 text-end">`;
                     detailTag += `<div class="px-2">
-                                       <form class="d-flex align-items-end" action="{{route('regenerate.document')}}"
+                                       <form class="d-flex justify-content-end align-items-end" action="{{route('regenerate.document')}}"
                                         method="post">
                                         @csrf
                                         <div>
@@ -269,8 +323,12 @@
                                         <div>
                                             <button type="submit" class="btn btn-success mx-2 btn-generate-padding"><i class="ti ti-printer"></i> Regenerate Dokumen</button>
                                         </div>
+                                        <div>
+                                            <button type="button" class="btn btn-danger me-2 btn-generate-padding" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalRevisiExtensif" data-bs="${res.id_satpen}"><i class="ti ti-hand-stop"></i> Tolak</button>
+                                        </div>
                                         </form>
-                                  </div>
+                                  </div>`;
+                    detailTag += `</div> </div>
                                 </div>
                             </div>`;
 
@@ -281,7 +339,7 @@
         });
 
         function createTableDetail(res) {
-            return `<div class="col-sm-4">
+            return `<div class="col-sm-5">
                         <table>
                         <tbody>
                         <tr>
@@ -380,7 +438,7 @@
         }
 
         function createTableFiles(res) {
-            cardFiles = `<div class="col-sm-4 px-3">
+            cardFiles = `<div class="col-sm-6 px-3">
                       <h5 class="mb-2 fs-4">File Pendukung</h5>`;
             $.each(res.filereg, function(key, row) {
                 let routepdfViewer = "{{ route('viewerpdf', ['fileName' => ':param']) }}".replace(':param', row.filesurat);
@@ -400,16 +458,19 @@
         }
 
         function createTimeline(res) {
-            timelineTag = `<ul class="timeline">`;
-            $.each(res.timeline, function(key, row) {
-                timelineTag +=
-                    `<li>
-                        <a href="#" class="text-capitalize">${row.status_verifikasi}</a>
-                        <small class="float-end">${row.keterangan}</small>
-                        <p>${row.tgl_status}</p>
-                    </li>`;
-            });
-            timelineTag += `</ul>`;
+            timelineTag = `<div class="col-sm-6 d-flex flex-column justify-content-between">
+                                <div style="max-height:35rem;overflow:auto;">
+                                    <ul class="timeline">`;
+                        $.each(res.timeline, function(key, row) {
+                            timelineTag +=
+                                `<li>
+                                    <a href="#" class="text-capitalize">${row.status_verifikasi}</a>
+                                    <small class="float-end">${row.keterangan}</small>
+                                    <p>${row.tgl_status}</p>
+                                </li>`;
+                        });
+            timelineTag += `</ul></div>
+                                </div>`;
 
             return timelineTag;
         }

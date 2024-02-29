@@ -98,7 +98,7 @@
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i class="ti ti-filter"></i> Filter</button>
                         </div>
                         <div class="d-flex">
-                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="Nama Satpen" value="{{ request()->keyword }}">
+                            <input type="text" name="keyword" id="keyword" class="form-control form-control-sm mx-2" placeholder="NPSN/Nomor Registrasi/Nama Satpen" value="{{ request()->keyword }}">
                             <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>
                         </div>
                     </form>
