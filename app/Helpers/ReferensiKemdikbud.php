@@ -24,7 +24,7 @@ class ReferensiKemdikbud {
     public function clone($npsn)
     {
         try {
-            $response = Http::get("https://referensi.data.kemdikbud.go.id/pendidikan/npsn/".$npsn);
+            $response = Http::withOptions(['verify' => false])->get("https://referensi.data.kemdikbud.go.id/pendidikan/npsn/".$npsn);
 
             if ($response->successful() || $response->serverError()) {
                 $html = $response->body();
