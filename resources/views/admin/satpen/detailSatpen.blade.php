@@ -174,6 +174,14 @@
                             <div class="row">
                                 @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <div class="col px-5 py-2 text-end">
+                                        <form class="d-inline extendBtn" action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
+                                              method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="status_verifikasi" value="perpanjangan">
+                                            <button type="submit" class="btn btn-info mx-2"><i class="ti ti-explicit"></i> Perpanjangan</button>
+                                        </form>
+
                                         <form class="d-inline usangBtn" action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
                                               method="post">
                                             @csrf
@@ -240,6 +248,13 @@
 
         $(".usangBtn").on('click', function () {
             if (confirm("benar anda akan mengusangkan dokumen?")) {
+                return true;
+            }
+            return false;
+        });
+
+        $(".extendBtn").on('click', function () {
+            if (confirm("benar anda akan memperpanjang dokumen?")) {
                 return true;
             }
             return false;
