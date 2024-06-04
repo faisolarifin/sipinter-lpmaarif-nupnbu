@@ -237,7 +237,7 @@ class SATPENController extends Controller
                  * create file data in db.file_upload
                  */
                 $replacedSatpenName = str_replace("/", "-", $satpen->nm_satpen);
-                $piagamFilename .= $replacedSatpenName.".pdf";
+                $piagamFilename .= $satpen->no_registrasi."-".$replacedSatpenName.".pdf";
 //                $piagamFilename .= $satpen->nm_satpen.".docx";
                 $skFilename .= $replacedSatpenName.".pdf";
 //                $skFilename .= $satpen->nm_satpen.".docx";
@@ -306,7 +306,7 @@ class SATPENController extends Controller
                  * create file data in db.file_upload
                  */
                 $replacedSatpenName = str_replace("/", "-", $satpen->nm_satpen);
-                $piagamFilename .= $replacedSatpenName.".pdf";
+                $piagamFilename .= $satpen->no_registrasi."-".$replacedSatpenName.".pdf";
 //                $piagamFilename .= $satpen->nm_satpen.".docx";
                 $skFilename .= $replacedSatpenName.".pdf";
 //                $skFilename .= $satpen->nm_satpen.".docx";
