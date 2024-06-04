@@ -239,7 +239,7 @@ class SATPENController extends Controller
                 $replacedSatpenName = str_replace("/", "-", $satpen->nm_satpen);
                 $piagamFilename .= $satpen->no_registrasi."-".$replacedSatpenName.".pdf";
 //                $piagamFilename .= $satpen->nm_satpen.".docx";
-                $skFilename .= $replacedSatpenName.".pdf";
+                $skFilename .= $satpen->no_registrasi."-".$replacedSatpenName.".pdf";
 //                $skFilename .= $satpen->nm_satpen.".docx";
                 //create piagam
                 FileUpload::create([
@@ -308,7 +308,7 @@ class SATPENController extends Controller
                 $replacedSatpenName = str_replace("/", "-", $satpen->nm_satpen);
                 $piagamFilename .= $satpen->no_registrasi."-".$replacedSatpenName.".pdf";
 //                $piagamFilename .= $satpen->nm_satpen.".docx";
-                $skFilename .= $replacedSatpenName.".pdf";
+                $skFilename .= $satpen->no_registrasi."-".$replacedSatpenName.".pdf";
 //                $skFilename .= $satpen->nm_satpen.".docx";
                 //create piagam
                 FileUpload::where([
