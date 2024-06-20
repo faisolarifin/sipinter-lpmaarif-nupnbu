@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Kelola Informasi'
+    'title' => 'Sipinter - Kelola Informasi'
 ])
 
 @section('navbar')
@@ -59,7 +59,7 @@
                                 <td>{!! $row->content !!}</td>
                                 <td><small>{{ $row->tag }}</small></td>
                                 <td>
-                                    <a>
+                                    <a href="{{ route('informasi', $row->slug) }}">
                                         <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button>
                                     </a>
                                     <a href="{{ route('informasi.edit', $row->id_info) }}">

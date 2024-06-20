@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Tab Permohonan NPSN Virtual'
+    'title' => 'Sipinter - Tab Permohonan NPSN Virtual'
 ])
 
 @section('navbar')

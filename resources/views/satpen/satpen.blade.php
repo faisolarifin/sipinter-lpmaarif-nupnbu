@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Detail My Profile'
+    'title' => 'Sipinter - Detail My Profile'
 ])
 
 @section('style')
@@ -52,9 +52,7 @@
                                     <td width="30">:</td>
                                     <td class="d-flex justify-content-between align-items-center">
                                         <span>{{ $satpenProfile->npsn }}</span>
-                                        @if($usingVNPSN > 0
-                                            || $satpenProfile->status == "expired"
-                                            || $satpenProfile->status == "revisi")
+                                        @if($usingVNPSN > 0)
                                             <button title="Perbaharui NPSN" class="btn btn-sm btn-primary py-1 px-2" data-bs-toggle="modal" data-bs-target="#modalChangeNPSN"><i class="ti ti-pencil"></i></button>
                                             @section('modals')
                                                 <!-- Modal -->
@@ -213,6 +211,11 @@
                                     <td>Kabupaten</td>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kabupaten->nama_kab }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cabang</td>
+                                    <td>:</td>
+                                    <td>{{ $satpenProfile->cabang->nama_pc }}</td>
                                 </tr>
                                 <tr>
                                     <td>Kecamatan</td>

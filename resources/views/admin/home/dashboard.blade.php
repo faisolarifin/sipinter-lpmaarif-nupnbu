@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter Admin - Dashboard'
+    'title' => 'Sipinter Admin - Dashboard'
 ])
 
 @section('navbar')

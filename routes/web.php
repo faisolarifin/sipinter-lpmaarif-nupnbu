@@ -94,6 +94,17 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/history', [BHPNUController::class, 'historyPermohonan'])->name('bhpnu.history');
             Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
         });
+        Route::group(["prefix" => "bantuan"], function() {
+            Route::get('/', [SatpenController::class, 'underConstruction'])->name('bantuan');
+        });
+
+        Route::group(["prefix" => "beasiswa"], function() {
+            Route::get('/', [SatpenController::class, 'underConstruction'])->name('beasiswa');
+        });
+
+        Route::group(["prefix" => "katalog"], function() {
+            Route::get('/', [SatpenController::class, 'underConstruction'])->name('katalog');
+        });
         /**
          * API
          */
@@ -131,7 +142,7 @@ Route::middleware('mustlogin')->group(function() {
                 Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
                 Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
                 Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
-                Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated');
+                Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated')->withoutMiddleware('primaryadmin');
                 Route::get('/export_excel', [ExportExcelController::class, 'exportSatpentoExcel'])->name('satpen.excel')->withoutMiddleware('primaryadmin');
             });
             /**
@@ -165,6 +176,18 @@ Route::middleware('mustlogin')->group(function() {
                 Route::put('/reject/{bhpnu}', [BHPNUControllerAdmin::class, 'setRejectBHPNU'])->name('a.bhpnu.reject');
                 Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy');
                 Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file');
+            });
+
+            Route::group(["prefix" => "bantuan"], function() {
+               Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('a.bantuan');
+            });
+
+            Route::group(["prefix" => "beasiswa"], function() {
+                Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('a.beasiswa');
+            });
+
+            Route::group(["prefix" => "katalog"], function() {
+                Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('a.katalog');
             });
 
         });

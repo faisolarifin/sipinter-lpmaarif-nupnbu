@@ -20,6 +20,7 @@ class Satpen extends Model
         'id_jenjang',
         'npsn',
         'no_registrasi',
+        'no_urut',
         'nm_satpen',
         'yayasan',
         'kepsek',
@@ -42,6 +43,10 @@ class Satpen extends Model
 
     public function kabupaten() {
         return $this->belongsTo(Kabupaten::class, 'id_kab');
+    }
+
+    public function cabang() {
+        return $this->belongsTo(PengurusCabang::class, 'id_pc');
     }
 
     public function kategori() {

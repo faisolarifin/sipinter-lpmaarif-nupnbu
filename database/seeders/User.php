@@ -14,16 +14,16 @@ class User extends Seeder
     public function run(): void
     {
         $users = [
-            ["name" => "Faisol",
+            ["name" => "FAISOL ARIFIN",
             "username" => "admin",
             "password" => Hash::make("admin"),
             "role" => "super admin",
             "status_active" => "active"],
-            ["name" => "User 1",
-            "username" => "user",
-            "password" => Hash::make("1234"),
-            "role" => "super admin",
-            "status_active" => "active"],
+//            ["name" => "User 1",
+//            "username" => "user",
+//            "password" => Hash::make("1234"),
+//            "role" => "super admin",
+//            "status_active" => "active"],
         ];
         foreach ($users as $user) {
             \App\Models\User::create($user);

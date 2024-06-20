@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Permohonan OSS'
+    'title' => 'Sipinter - Permohonan OSS'
 ])
 
 @section('navbar')
@@ -73,7 +73,7 @@
                                         <tr>
                                             <td colspan="2">
                                                 <p class="mb-0">MENGISI FORMULIR DATA PADA LINK</p>
-                                                <small><a href="#">https://www.hackerearth.com/challenges/hackathon/intel-oneapi-hackathon-for-open-innovation/</a></small>
+                                                <small><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd7KLQRHQN_LnFhty55aXFd1bZeCsOPzUt2xAfb1U9asIhPqg/viewform?usp=pp_url">Klik Disini</a></small>
                                             </td>
                                         </tr>
                                         <tr>

@@ -17,7 +17,9 @@ class ExportDocument
             $templateName = $filePath. "Piagam_Template.docx";
             $exportFilename = $satpenProfile->file[0]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
-            $tempFilename = $filePath. "temp.docx";
+
+            $tempExportFilenameSplit = pathinfo($exportFilename);
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".docx";
 
             $templateDocument = new TemplateProcessor($templateName);
 
@@ -39,23 +41,25 @@ class ExportDocument
                     $templateDocument->setValue('fax', $satpenProfile->fax);
                     $templateDocument->setValue('email', $satpenProfile->email);
                     $templateDocument->setValue('tanggal', Date::tglMasehi($satpenProfile->file[0]->tgl_file));
+
                     // Replace the QR code placeholder with the actual QR code image in the template
                     $templateDocument->setImageValue('qrcode',  array('path' => $qrPath, 'width' => 150, 'height' => 150));
 
-//                    $templateDocument->saveAs($tempFilename);
-                    $templateDocument->saveAs($exportFilePath. $exportFilename);
+                    $templateDocument->saveAs($tempFilename);
+//                    $templateDocument->saveAs($exportFilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportFilePath. $exportFilename);
+                    $command = "sudo /var/www/convertpdf.sh -i ". escapeshellarg($tempFilename) . ' -o ' . escapeshellarg($exportFilePath);
 
-//                    exec($command, $output, $returnCode);
+                    exec($command, $output, $returnCode);
 
-//                    if ($returnCode === 0) {
-//                        unlink($tempFilename);
+                    if ($returnCode === 0) {
+                        unlink($tempFilename);
                         unlink($qrPath);
-//                        return true;
-//                    } else {
-//                        echo 'Error converting Word document to PDF.';
-//                    }
+                        return true;
+                    } else {
+                        echo 'Error converting Word document to PDF.';
+                    }
                     return true;
                 }
             }
@@ -76,17 +80,20 @@ class ExportDocument
             $templateName = $filePath. "SK_Template.docx";
             $exportFilename = $satpenProfile->file[1]->nm_file;
             $qrPath  = $filePath. "qrcode.png";
-            $tempFilename = $filePath. "SK.docx";
+
+            $tempExportFilenameSplit = pathinfo($exportFilename);
+            $tempFilename = $filePath. $tempExportFilenameSplit['filename'].".docx";
 
             $templateDocument = new TemplateProcessor($templateName);
 
             if ($satpenProfile) {
 
                 if (GenerateQr::make($satpenProfile->file[1]->qrcode, $qrPath)) {
-                    $templateDocument->setValue('nomor', $satpenProfile->file[1]->no_file);
+                    $templateDocument->setValue('nomor', $satpenProfile->no_urut);
                     $templateDocument->setValue('bulanromawi', Date::bulanRomawi($satpenProfile->file[1]->tgl_file));
                     $templateDocument->setValue('namasekolah', $satpenProfile->filereg[0]->nm_lembaga);
                     $templateDocument->setValue('nosrtsatpen', $satpenProfile->filereg[0]->nomor_surat);
+                    $templateDocument->setValue('tglsuratsatpen', Date::tglMasehi($satpenProfile->filereg[0]->tgl_surat));
 
                     $templateDocument->setValue('nmlembagapc', $satpenProfile->filereg[1]->nm_lembaga);
                     $templateDocument->setValue('pc', $satpenProfile->filereg[1]->daerah);
@@ -116,24 +123,24 @@ class ExportDocument
                     $templateDocument->setValue('tembusanlembagapc', $satpenProfile->filereg[1]->nm_lembaga);
                     $templateDocument->setValue('kabupatenpc', $satpenProfile->filereg[1]->daerah);
 
-
                     // Replace the QR code placeholder with the actual QR code image in the template
                     $templateDocument->setImageValue('qrcode',  array('path' => $qrPath, 'width' => 150, 'height' => 150));
 
-//                    $templateDocument->saveAs($tempFilename);
-                    $templateDocument->saveAs($exportfilePath. $exportFilename);
+                    $templateDocument->saveAs($tempFilename);
+//                    $templateDocument->saveAs($exportfilePath. $exportFilename);
                     //Convert to pdf
 //                    $command = 'docx2pdf ' . escapeshellarg($tempFilename) . ' ' . escapeshellarg($exportfilePath. $exportFilename);
+                    $command = "sudo /var/www/convertpdf.sh -i ". escapeshellarg($tempFilename) . ' -o ' . escapeshellarg($exportfilePath);
+
+                    exec($command, $output, $returnCode);
 //
-//                    exec($command, $output, $returnCode);
-//
-//                    if ($returnCode === 0) {
-//                        unlink($tempFilename);
+                    if ($returnCode === 0) {
+                        unlink($tempFilename);
                         unlink($qrPath);
-//                        return true;
-//                    } else {
-//                        echo 'Error converting Word document to PDF.';
-//                    }
+                        return true;
+                    } else {
+                        echo 'Error converting Word document to PDF.';
+                    }
                     return true;
                 }
             }

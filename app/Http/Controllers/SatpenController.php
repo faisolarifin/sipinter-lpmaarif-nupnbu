@@ -55,7 +55,7 @@ class SatpenController extends Controller
              */
             $orderedNumber = 0;
             if ($lastOfSatpen !== null) {
-                $orderedNumber = (int) substr($lastOfSatpen->no_registrasi, strlen($lastOfSatpen->no_registrasi) - 4);
+                $orderedNumber = (int) $lastOfSatpen->no_urut;
             }
             $orderedNumber = str_pad(++$orderedNumber, 4, '0', STR_PAD_LEFT);
             /**
@@ -100,6 +100,7 @@ class SatpenController extends Controller
                         'id_jenjang' => $request->jenjang,
                         'npsn' => $request->npsn,
                         'no_registrasi' => $registerNumber,
+                        'no_urut' => $orderedNumber,
                         'nm_satpen' => $request->nm_satpen,
                         'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
                         'kepsek' => $request->kepsek,
@@ -187,11 +188,15 @@ class SatpenController extends Controller
             /**
              * Update registration number
              */
-            $orderedNumber = substr($satpen->no_registrasi, strlen($satpen->no_registrasi) - 4);
-            if (strtolower($request->yayasan) <> 'bhpnu') {
-                $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+            $orderedNumber = $satpen->no_urut;
+            if ($satpen->status == 'revisi') {
+                if (strtolower($request->yayasan) <> 'bhpnu') {
+                    $registerNumber .= $prefix. $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                } else {
+                    $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                }
             } else {
-                $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                $registerNumber .= $satpen->no_registrasi;
             }
             /**
              * Determine kategori
@@ -229,12 +234,17 @@ class SatpenController extends Controller
                 /**
                  * Update satpen on db.satpen
                  */
-                $satpen->update([
-                    'id_prov' => $provinsi->id_prov,
-                    'id_kab' => $request->kabupaten,
+                $address = [];
+                if ($satpen->status == 'revisi') {
+                    $address = [
+                        'id_prov' => $provinsi->id_prov,
+                        'id_kab' => $request->kabupaten,
+                        'id_pc' => $cabang->id_pc,
+                    ];
+                }
+                $satpen->update( array_merge($address, [
                     'id_kategori' => $makeCategorySatpen->id_kategori,
                     'id_jenjang' => $request->jenjang,
-                    'id_pc' => $cabang->id_pc,
 //                    'npsn' => $request->npsn,
                     'no_registrasi' => $registerNumber,
                     'nm_satpen' => $request->nm_satpen,
@@ -249,7 +259,7 @@ class SatpenController extends Controller
                     'kecamatan' => $request->kecamatan,
                     'aset_tanah' => $request->aset_tanah,
                     'nm_pemilik' => $request->nm_pemilik,
-                ]);
+                ]));
                 /**
                  * Update file register
                  */
@@ -407,7 +417,7 @@ class SatpenController extends Controller
                     return redirect()->back()->with('error', 'NPSN sudah pernah terdaftar dalam sistem');
                 }
 
-//                VirtualNPSN::where("nomor_virtual", "=", $satpen->npsn)->delete();
+                VirtualNPSN::where("nomor_virtual", "=", $satpen->npsn)->delete();
                 $satpen->update([
                    'npsn' => $jsonResultSekolah["npsn"],
                    'nm_satpen' => $jsonResultSekolah["nama"],
@@ -466,4 +476,9 @@ class SatpenController extends Controller
         }
         return Kategori::where('nm_kategori', '=', $kategori)->first();
     }
+
+    public function underConstruction() {
+        return view('template.construction');
+    }
+
 }

@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => 'Siapinter - Login'
+    'title' => 'Sipinter - Login'
 ])
 
 @section('style')
@@ -63,27 +63,37 @@
                 <div class="d-flex align-items-baseline flex-column bd-highlight" style="height:90vh;">
                     <div class="mb-auto bd-highlight">
                         <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu" width="130">
-                        <h5>Pelayanan Terpadu</h5>
-                        <p>Layanan yang komprehensif, efisien, dan efektif terintegrasi dengan data dari sistem Kementerian. </p>
-                        <h5>Akses Sederhana</h5>
-                        <p>Efisensi untuk memperoleh dan menggunakan sistem dengan mudah tanpa kesulitan yang berarti.</p>
-                        <h5>Validasi Akurat</h5>
-                        <p>Memastikan data dan informasi memiliki tingkat kebenaran dan ketepatan yang tinggi sesuai dengan fakta atau standar yang berlaku.</p>
+                        <h5 class="mb-3">Sipinter LP Ma’arif NU PBNU <br>
+                            Pelayanan Terintegrasi dan Terpadu
+                        </h5>
+                        <h6>
+                            <ol class="ps-3" style="font-size:1.1em;">
+                                <li class="mb-2">Menjadi Pusat Data Satuan Pendidikan Ma’arif NU</li>
+                                <li class="mb-2">Layanan Izin Sistem OSS/NIB</li>
+                                <li class="mb-2">Layanan Badan Hukum NU (BHPNU)</li>
+                                <li class="mb-2">Layanan Bantuan Pendidikan Ma’arif</li>
+                                <li class="mb-2">Layanan Beasiswa Pendidikan</li>
+                            </ol>
+                        </h6>
                     </div>
                     <div class="bd-highlight">
                         <h5>Helpdesk</h5>
                         <div class="row">
                             <div class="col-sm-6 pt-1">
                                 <p class="mb-2 mt-3"><i class="ti ti-mail"></i>
-                                    Email. sekretariat@maarifnu.org</p>
+                                    Email. bhp.maarifnu@gmail.com</p>
                                 <p class="mb-2"><i class="ti ti-phone"></i>
                                     Telp. 021-3904115</p>
-                                <p><i class="ti ti-brand-telegram"></i>
+                                <p class="mb-2"><i class="ti ti-brand-telegram"></i>
                                     Fax. 021-31906679</p>
+                                <a href="https://wa.me/628176536731" style="color:#5A6A85;">
+                                    <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
+                                        WA. +628176536731</p>
+                                </a>
                             </div>
                             <div class="col-sm-6 text-center">
                                 <i class="ti ti-map-pin fs-5"></i>
-                                <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
+                                <p>Gedung PBNU II, Lantai 2 <br> Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng <br> Jakarta Pusat 10320</p>
                             </div>
                         </div>
                     </div>

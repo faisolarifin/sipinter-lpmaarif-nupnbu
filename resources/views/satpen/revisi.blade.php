@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Revisi Satuan Pendidikan'
+    'title' => 'Sipinter - Revisi Satuan Pendidikan'
 ])
 
 @section('navbar')
@@ -427,7 +427,6 @@
                         $select.append('<option value=' + value.id_kab + '>' + value.nama_kab + '</option>');
                     });
 
-                    $('.selectpicker').selectpicker('refresh');
                 }
             })
 
@@ -438,12 +437,14 @@
                 success: function(res) {
 
                     let $select = $("select[name='cabang']");
+                    let $selectcabang = $("select[name='cabang_rekom_pc']");
                     $select.empty();
+                    $selectcabang.empty();
                     $.each(res,function(key, value) {
                         $select.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
+                        $selectcabang.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
                     });
 
-                    $('.selectpicker').selectpicker('refresh');
                 }
             });
 

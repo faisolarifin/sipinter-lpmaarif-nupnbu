@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Rekapitulasi Satuan Pendidikan'
+    'title' => 'Sipinter - Rekapitulasi Satuan Pendidikan'
 ])
 
 @section('navbar')
@@ -135,11 +135,14 @@
                                     <td>
                                         <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
                                             <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>
+
+                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <form action="{{ route('a.rekapsatpen.destroy', $row->id_satpen ) }}" method="post" class="d-inline deleteBtn">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -23,8 +23,8 @@ class RegisterUpdateRequest extends FormRequest
     {
         return [
             "npsn" => "required|size:8",
-            "kabupaten" => "required|numeric",
-            "propinsi" => "required|numeric",
+//            "kabupaten" => "required|numeric",
+//            "propinsi" => "required|numeric",
             "jenjang" => "required|numeric",
             "nm_satpen" => "required|string",
             "yayasan" => "required|string",

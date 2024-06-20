@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter Admin - Detail Satuan Pendidikan'
+    'title' => 'Sipinter Admin - Detail Satuan Pendidikan'
 ])
 
 @section('style')
@@ -107,6 +107,11 @@
                                     <td>Kabupaten</td>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kabupaten->nama_kab }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cabang</td>
+                                    <td>:</td>
+                                    <td>{{ $satpenProfile->cabang->nama_pc }}</td>
                                 </tr>
                                 <tr>
                                     <td>Kecamatan</td>

@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Tab Permohonan OSS'
+    'title' => 'Sipinter - Tab Permohonan OSS'
 ])
 
 @section('navbar')
@@ -43,7 +43,7 @@
                                 <small>data permohonan oss baru</small>
                             </div>
                             <div>
-                                <a href="https://docs.google.com/spreadsheets/d/134pcq1E2WL071wIr7i4hlTzX9UoyTyvCfIcEqob1lFE/edit#gid=0" class="btn btn-success btn-sm">
+                                <a target="_blank" href="https://docs.google.com/spreadsheets/d/1WiOIiTCyJ3hOpA7C1g8LxpK9J_wDX78IGeTcM5vtNGE/edit?usp=sharing" class="btn btn-success btn-sm">
                                     <i class="ti ti-file-spreadsheet"></i>
                                     Spreadsheet
                                 </a>
