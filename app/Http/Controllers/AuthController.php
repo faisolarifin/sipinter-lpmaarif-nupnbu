@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\CatchErrorException;
 use App\Helpers\MailService;
 use App\Helpers\ReferensiKemdikbud;
+use App\Helpers\DapoMaarifNU;
 use App\Helpers\Strings;
 use App\Http\Requests\VirtualNPSNRequest;
 use App\Models\Jenjang;
@@ -148,11 +149,16 @@ class AuthController extends Controller
                 return redirect()->back()->with('error', 'Nomor NPSN Virtual sudah expired');
             }
 
-            /**
-             * Cek npsn on referensi.data.kemdikbud.go.id/
-             */
-            $cloneSekolah = new ReferensiKemdikbud();
+            $cloneSekolah = new DapoMaarifNU();
             $cloneSekolah->clone($request->npsn);
+
+            if (!$cloneSekolah->getStatus()) {
+                /**
+                 * Cek npsn on referensi.data.kemdikbud.go.id/
+                 */
+                $cloneSekolah = new ReferensiKemdikbud();
+                $cloneSekolah->clone($request->npsn);
+            }
 
             if ($cloneSekolah->getStatus() && $cloneSekolah->getResult() !== null) {
                 $jsonResultSekolah = $cloneSekolah->getResult();
