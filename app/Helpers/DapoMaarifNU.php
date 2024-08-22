@@ -26,7 +26,7 @@ class DapoMaarifNU {
         try {
             $response = Http::withOptions(['verify' => false])
             ->withToken('7FJ9KP0Q3W8H6R2D5T1V')
-            ->get("http://dapo.maarifnu.or.id/pusatdata/pendidikan/". $npsn);
+            ->get("http://dapo.maarifnu.or.id/api/pusatdata/pendidikan/". $npsn);
 
             if ($response->successful()) {
                 $jsonResponse = $response->json();
