@@ -30,6 +30,7 @@ class VirtualNPSNRequest extends FormRequest
             'kabupaten' => 'required',
             'alamat' => 'required',
             'email' => 'required|unique:virtual_npsn,email|email',
+            'nik_kepsek' => 'required|unique:virtual_npsn,nik_kepsek|min:16|max:16',
         ];
     }
 }

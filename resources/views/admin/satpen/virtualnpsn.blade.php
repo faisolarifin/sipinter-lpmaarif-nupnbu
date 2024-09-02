@@ -47,6 +47,7 @@
                                     <th>#</th>
                                     <th>Nama Sekolah</th>
                                     <th>Jenjang</th>
+                                    <th>NIK Kepala Sekolah</th>
                                     <th>Email</th>
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
@@ -61,6 +62,7 @@
                                     <td>{{ ++$no }}</td>
                                     <td>{{ $row->nama_sekolah }}</td>
                                     <td>{{ $row->jenjang->nm_jenjang }}</td>
+                                    <td>{{ $row->nik_kepsek }}</td>
                                     <td>{{ $row->email }}</td>
                                     <td>{{ $row->provinsi->nm_prov }}</td>
                                     <td>{{ $row->kabupaten->nama_kab }}</td>

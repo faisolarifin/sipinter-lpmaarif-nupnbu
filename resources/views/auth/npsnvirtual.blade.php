@@ -39,6 +39,13 @@
                                     @error('email') {{ $message }} @enderror
                                 </div>
                             </div>
+                            <div class="mt-1 mb-3">
+                                <label for="nik_kepsek" class="form-label">NIK Kepala Sekolah</label>
+                                <input type="text" class="form-control @error('nik_kepsek') is-invalid @enderror" id="nik_kepsek" name="nik_kepsek" value="{{ old('nik_kepsek') }}" placeholder="Masukkan NIK Kepala Sekolah">
+                                <div class="invalid-feedback">
+                                    @error('nik_kepsek') {{ $message }} @enderror
+                                </div>
+                            </div>
                             <div class="mb-3">
                                 <label for="jenjang" class="form-label">Jenjang Pendidikan</label>
                                 <select class="selectpicker @error('jenjang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="jenjang">

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_prov');
             $table->unsignedBigInteger('id_kab');
             $table->string('nomor_virtual', 20)->nullable();
+            $table->string('nik_kepsek', 15)->nullable();
             $table->string('nama_sekolah', 50);
             $table->string('alamat', 255);
             $table->string('email', 100);

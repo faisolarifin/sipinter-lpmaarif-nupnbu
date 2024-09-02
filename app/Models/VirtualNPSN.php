@@ -19,6 +19,7 @@ class VirtualNPSN extends Model
         'nama_sekolah',
         'alamat',
         'email',
+        'nik_kepsek',
         'expired_after'
     ];
 

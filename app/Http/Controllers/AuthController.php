@@ -44,6 +44,7 @@ class AuthController extends Controller
                 'alamat' => $request->alamat,
                 'nama_sekolah' => $request->nama_sekolah,
                 'email' => $request->email,
+                'nik_kepsek' => $request->nik_kepsek,
             ]);
             //send email
             MailService::send([
