@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Carbon\Carbon;
 
 class SatpenController extends Controller
 {
@@ -143,6 +144,13 @@ class SatpenController extends Controller
                                 'tgl_surat' => $request->tgl_srt_rekom_pw,
                                 'filesurat' =>  $pathFileRekomPW,
                             ]]);
+
+                            /*
+                            check the is a virtual npsn
+                            */
+                            VirtualNPSN::where('nomor_virtual', '=', $request->npsn)->update([
+                                'actived_date' => Carbon::now(),
+                            ]);
 
                             (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
                                 ->merge([

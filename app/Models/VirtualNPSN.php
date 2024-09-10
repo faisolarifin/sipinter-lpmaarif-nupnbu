@@ -20,7 +20,9 @@ class VirtualNPSN extends Model
         'alamat',
         'email',
         'nik_kepsek',
-        'expired_after'
+        'expired_after',
+        'accepted_date',
+        'actived_date'
     ];
 
     public function provinsi() {

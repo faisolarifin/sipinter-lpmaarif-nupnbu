@@ -6,6 +6,7 @@ use App\Exceptions\CatchErrorException;
 use App\Helpers\MailService;
 use App\Http\Controllers\Controller;
 use App\Models\VirtualNPSN;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -47,6 +48,7 @@ class VirtualNPSNController extends Controller
                 //save
                 $virtualNPSN->update([
                     'nomor_virtual' => $new_VNPSN,
+                    'accepted_date' => Carbon::now(),
                 ]);
                 $link_check_npsn = url("ceknpsn");
                 //send email
@@ -68,7 +70,7 @@ class VirtualNPSNController extends Controller
         }
     }
 
-    public function rejectPermohonanVNPSN( VirtualNPSN $virtualNPSN, Request $request) {
+    public function rejectPermohonanVNPSN(VirtualNPSN $virtualNPSN, Request $request) {
         try {
             if ($virtualNPSN) {
                 //send email
