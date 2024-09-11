@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SyncController;
+use App\Http\Controllers\Admin\VirtualNPSNController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,5 @@ use App\Http\Controllers\SyncController;
 
 Route::middleware('authverifytoken')->group(function() {
     Route::post('sync', [SyncController::class, 'bypassExistingData'])->name('sync.data');
+    Route::get('clean-vnpsn', [VirtualNPSNController::class, 'checkAndRemoveUnusedVNPSN'])->name('vnpsn.clean');
 });

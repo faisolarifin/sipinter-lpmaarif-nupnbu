@@ -53,6 +53,7 @@ class AuthController extends Controller
                 "recipient" => $request->nama_sekolah,
                 "content" => "<p>Anda telah melakukan permohonan NPSN Virtual untuk Sekolah $request->nama_sekolah.</p>
                             <p>Permohonan NPSN telah dikirimkan. Data sedang divalidasi oleh Admin, silahkan tunggu balasan NPSN Virtual oleh admin pada email ini.</p>
+                            <p>Setelah mendapatkan NPSN Virtual, VNSN akan terhapus otomatis setelah 2 minggu jika tidak digunakan</p>
                             <h4>Jika dalam 2 hari kerja belum memperoleh balasan, silahkan kontak Admin.</h4>"
             ]);
             return redirect()->route('ceknpsn')->with("success", "Permohonan VNPSN berhasil dikirimkan. Tunggu NPSN Virtual dikirimkan oleh admin pada email anda. Jika dalam 2 hari kerja belum memperoleh balasan, silahkan kontak Admin.");

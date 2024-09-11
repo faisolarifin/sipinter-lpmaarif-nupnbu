@@ -9,6 +9,7 @@ use App\Models\VirtualNPSN;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 
 class VirtualNPSNController extends Controller
@@ -58,6 +59,7 @@ class VirtualNPSNController extends Controller
                     "recipient" => $virtualNPSN->nama_sekolah,
                     "content" => "<p>Permintaan NPSN Virtual telah disetujui oleh admin, berikut kode VNPSN yang dapat anda gunakan:</p>
                                     <h2>$new_VNPSN</h2>
+                                    <p>Segera gunakan NPSN Virtual diatas, VNSN akan terhapus otomatis setelah 2 minggu jika tidak digunakan</p>
                                     <a href='$link_check_npsn' class='cta-button'>Lakukan Pendaftaran</a>"
                 ]);
 
@@ -103,4 +105,36 @@ class VirtualNPSNController extends Controller
             throw new CatchErrorException($e);
         }
     }
+
+    public function checkAndRemoveUnusedVNPSN() {
+        try {
+            $vnpsnList = VirtualNPSN::where('accepted_date', '<=', Carbon::now()->subWeeks(2))
+                                    ->whereNull('actived_date')
+                                    ->get();
+            $deletedVnpsn = [];
+            foreach ($vnpsnList as $vnpsn) {
+                if (VirtualNPSN::find($vnpsn->id_npsn)->delete()) {
+                    //send email
+                    MailService::send([
+                        "to" => $vnpsn->email,
+                        "subject" => "Penghapusan Virtual NPSN",
+                        "recipient" => $vnpsn->nama_sekolah,
+                        "content" => "<p>NPSN Virtual: <strong>". $vnpsn->nomor_virtual ."</strong> telah dihapus otomatis oleh sistem, dengan alasan :</p> <p><strong>Virtual NPSN telah kadaluarsa</strong></i></p>"
+                    ]);
+                    array_push($deletedVnpsn, [
+                        "vnpsn" => $vnpsn->nomor_virtual,
+                        "nama_sekolah" => $vnpsn->nama_sekolah
+                    ]);
+                }
+                sleep(1);
+            }
+
+            return response()->json($deletedVnpsn, HttpResponse::HTTP_OK);
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException($e);
+        }
+    }
+    
+
 }
