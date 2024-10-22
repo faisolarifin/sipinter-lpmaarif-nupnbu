@@ -35,8 +35,11 @@ class Settings extends Controller
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
                 $filename = str_replace("#", "", $file->getClientOriginalName());
+                $fileStorage = storage_path('app/templates/'.$setting);
+                if (file_exists($fileStorage)) {
+                    unlink($fileStorage);
+                }
                 $file->storeAs('templates', $filename);
-                unlink(storage_path('app/templates/'.$setting));
                 Setting::where("lookup", '=', $key)->update([
                     "value" => $filename,
                 ]);
