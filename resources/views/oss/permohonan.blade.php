@@ -165,7 +165,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script>
         $('.row-milik-sendiri input').attr('required', true);
-        @if($oss->status == 'perbaikan')
+        @if(@$oss->status == 'perbaikan')
             $('.row-milik-sendiri input[type=file]').removeAttr('required');
         @endif
         $("#status_lahan").on('change', function(e) {
@@ -176,7 +176,7 @@
                 $('.row-milik-sendiri input').removeAttr('required');
                 $('.row-pinjam-pakai input').removeAttr('required');
                 $('.row-sewa input').attr('required', true);
-                @if($oss->status == 'perbaikan')
+                @if(@$oss->status == 'perbaikan')
                 $('.row-sewa input[type=file]').removeAttr('required');
                 @endif
             } else if ($(this).val().toLowerCase() == "pinjam pakai") {
@@ -186,7 +186,7 @@
                 $('.row-milik-sendiri input').removeAttr('required');
                 $('.row-sewa input').removeAttr('required');
                 $('.row-pinjam-pakai input').attr('required', true);
-                @if($oss->status == 'perbaikan')
+                @if(@$oss->status == 'perbaikan')
                 $('.row-pinjam-pakai input[type=file]').removeAttr('required');
                 @endif
             } else {
@@ -196,7 +196,7 @@
                 $('.row-pinjam-pakai input').removeAttr('required');
                 $('.row-sewa input').removeAttr('required');
                 $('.row-milik-sendiri input').attr('required', true);
-                @if($oss->status == 'perbaikan')
+                @if(@$oss->status == 'perbaikan')
                 $('.row-milik-sendiri input[type=file]').removeAttr('required');
                 @endif
             }
