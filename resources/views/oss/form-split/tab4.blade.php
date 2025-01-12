@@ -109,7 +109,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="rencana_teknis_bangunan" class="form-label">Rencana teknis bangunan/rencana induk kawasan</label>
-                <input type="file" class="form-control  @error('rencana_teknis_bangunan') is-invalid @enderror" id="rencana_teknis_bangunan" name="rencana_teknis_bangunan" {{ !$oss->rencana_teknis_bangunan ? 'required' : '' }}>
+                <input type="file" class="form-control  @error('rencana_teknis_bangunan') is-invalid @enderror" id="rencana_teknis_bangunan" name="rencana_teknis_bangunan" accept=".pdf" {{ !$oss->rencana_teknis_bangunan ? 'required' : '' }}>
                 <div class="invalid-feedback">
                     @error('rencana_teknis_bangunan') {{ $message }} @enderror
                 </div>

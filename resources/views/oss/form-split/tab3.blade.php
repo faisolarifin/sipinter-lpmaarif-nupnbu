@@ -60,7 +60,7 @@
                 <label for="apakah_memiliki_imb" class="form-label">Apakah sudah memiliki IMB?</label>
                 <select class="form-select  @error('apakah_memiliki_imb') is-invalid @enderror" name="apakah_memiliki_imb" id="apakah_memiliki_imb">
                     <option value="Iya" {{ $oss->apakah_memiliki_imb=='Iya' ? 'selected' : '' }}>Iya</option>
-                    <option value="Tidak"  {{ $oss->apakah_memiliki_imb=='Tidak' || $oss->apakah_memiliki_imb == '' ? 'selected' : '' }}>>Tidak</option>
+                    <option value="Tidak"  {{ $oss->apakah_memiliki_imb=='Tidak' || $oss->apakah_memiliki_imb == '' ? 'selected' : '' }}>Tidak</option>
                 </select>
                 <div class="invalid-feedback">
                     @error('apakah_memiliki_imb') {{ $message }} @enderror
@@ -132,7 +132,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="imb_file_lampiran" class="form-label">Lampiran File IMB</label>
-                    <input type="file" class="form-control  @error('imb_file_lampiran') is-invalid @enderror" id="imb_file_lampiran" name="imb_file_lampiran" value="{{ old('imb_file_lampiran') }}">
+                    <input type="file" class="form-control  @error('imb_file_lampiran') is-invalid @enderror" id="imb_file_lampiran" name="imb_file_lampiran" accept=".pdf" value="{{ old('imb_file_lampiran') }}">
                     <small>~ bukti penguasaan lahan. dapat berupa HGU, HGB, Sertifikat, atau bukti lain yang Anda miliki</small>
                     <div class="invalid-feedback">
                         @error('imb_file_lampiran') {{ $message }} @enderror
@@ -206,7 +206,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="slf_file_lampiran" class="form-label">Lampiran File Sertifikat SLF</label>
-                    <input type="file" class="form-control  @error('slf_file_lampiran') is-invalid @enderror" id="slf_file_lampiran" name="slf_file_lampiran" value="{{ old('slf_file_lampiran') }}">
+                    <input type="file" class="form-control  @error('slf_file_lampiran') is-invalid @enderror" id="slf_file_lampiran" name="slf_file_lampiran" accept=".pdf" value="{{ old('slf_file_lampiran') }}">
                     <small>~ Jika jumlah bangunan yang mendapat sertifikat SLF lebih dari 1, maka harus di upload semuanya dalam satu file, bila tidak ada kosongkan </small>
                     <div class="invalid-feedback">
                         @error('slf_file_lampiran') {{ $message }} @enderror

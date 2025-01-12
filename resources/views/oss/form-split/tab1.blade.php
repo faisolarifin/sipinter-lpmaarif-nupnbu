@@ -101,7 +101,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="file_izin_lama" class="form-label">Lampiran File Izin Operasional Lama (Format PDF)</label>
-                <input type="file" class="form-control  @error('file_izin_lama') is-invalid @enderror" id="file_izin_lama" name="file_izin_lama" value="{{ old('file_izin_lama') }}">
+                <input type="file" class="form-control  @error('file_izin_lama') is-invalid @enderror" id="file_izin_lama" name="file_izin_lama" accept=".pdf" value="{{ old('file_izin_lama') }}">
                 <small>~ Izin operasional Lama yang di Upload adalah Izin operasional sebelumnya yang masa berlakunya sudah habis/atau hampir berakhir. bukan izin pendirian.</small>
                 <div class="invalid-feedback">
                     @error('file_izin_lama') {{ $message }} @enderror
@@ -114,7 +114,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label class="form-label" for="bukti_bayar">Bukti Pembayaran</label>
-                <input type="file" name="bukti_bayar" id="bukti_bayar" class="form-control @error('bukti_bayar') is-invalid @enderror" {{ !$oss->bukti_bayar ? 'required' : '' }} >
+                <input type="file" name="bukti_bayar" id="bukti_bayar" class="form-control @error('bukti_bayar') is-invalid @enderror" accept=".pdf" {{ !$oss->bukti_bayar ? 'required' : '' }} >
                 <div class="invalid-feedback">
                     @error('bukti_bayar') {{ $message }} @enderror
                 </div>

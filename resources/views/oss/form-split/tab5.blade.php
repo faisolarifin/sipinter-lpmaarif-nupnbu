@@ -181,7 +181,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="apakah_memiliki_izin_amdal" class="form-label">Apakah Memiliki Izin Lingkungan AMDAL?</label>
-                <select class="form-select  @error('apakah_memiliki_izin_amdal') is-invalid @enderror" name="apakah_memiliki_izin_amdal" id="apakah_memiliki_izin_amdal">
+                <select class="form-select  @error('apakah_memiliki_izin_amdal') is-invalid @enderror" name="apakah_memiliki_izin_amdal" accept=".pdf" id="apakah_memiliki_izin_amdal">
                     <option value="Iya" {{ $oss->apakah_memiliki_izin_amdal=='Iya' ? 'selected' : '' }}>Iya</option>
                     <option value="Tidak"  {{ $oss->apakah_memiliki_izin_amdal=='Tidak' || $oss->apakah_memiliki_izin_amdal=='' ? 'selected' : '' }}>Tidak</option>
                 </select>
@@ -239,7 +239,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="amdal_file_lampiran" class="form-label">Lampiran File Izin Lingkungan AMDAL</label>
-                    <input type="file" class="form-control  @error('amdal_file_lampiran') is-invalid @enderror" id="amdal_file_lampiran" name="amdal_file_lampiran" value="{{ old('amdal_file_lampiran') }}">
+                    <input type="file" class="form-control  @error('amdal_file_lampiran') is-invalid @enderror" id="amdal_file_lampiran" name="amdal_file_lampiran" accept=".pdf" value="{{ old('amdal_file_lampiran') }}">
                     <div class="invalid-feedback">
                         @error('amdal_file_lampiran') {{ $message }} @enderror
                     </div>
@@ -312,7 +312,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="uklupl_file_lampiran" class="form-label">Lampiran File Izin Lingkungan UKL-UPL</label>
-                    <input type="file" class="form-control  @error('uklupl_file_lampiran') is-invalid @enderror" id="uklupl_file_lampiran" name="uklupl_file_lampiran" value="{{ old('uklupl_file_lampiran') }}">
+                    <input type="file" class="form-control  @error('uklupl_file_lampiran') is-invalid @enderror" id="uklupl_file_lampiran" name="uklupl_file_lampiran" accept=".pdf" value="{{ old('uklupl_file_lampiran') }}">
                     <div class="invalid-feedback">
                         @error('uklupl_file_lampiran') {{ $message }} @enderror
                     </div>
