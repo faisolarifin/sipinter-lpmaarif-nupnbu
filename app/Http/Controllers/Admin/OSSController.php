@@ -6,6 +6,7 @@ use App\Exceptions\CatchErrorException;
 use App\Http\Controllers\Controller;
 use App\Models\OSS;
 use App\Models\OSSStatus;
+use App\Models\OSSTimeline;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,17 @@ class OSSController extends Controller
         return view('admin.oss.oss', compact('ossVerifikasi', 'ossProses', 'ossTerbit'));
     }
 
+    public function detailOSSQuesioner(string $ossId) {
+        $specificFilter = request()->specificFilter;
+
+        $oss = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen"])->where('id_oss', '=', $ossId)
+            ->whereHas('satpen', function($query) use ($specificFilter) {
+                $query->where($specificFilter);
+            })->orderBy('id_oss', 'DESC') ->first();
+
+        return view('admin.oss.oss-detail', compact('oss'));
+    }
+
     public function setAcceptOSS(Request $request, OSS $oss) {
 
         try {
@@ -52,7 +64,18 @@ class OSSController extends Controller
                     'statusType' => 'dokumen diproses',
                 ])->update([
                     'status' => 'success',
-                    'keterangan' => $request->keterangan,
+                    'keterangan' => null,
+                ]);
+
+                OSSTimeline::create([
+                    'id_oss' => $oss->id_oss,
+                    'status_verifikasi' => 'dokumen diproses',
+                    'tgl_verifikasi' => Carbon::now(),
+                    'catatan' => $request->catatan,
+                    'link_pnbr' => $request->link_pnbr,
+                    'link_catatan_pupr' => $request->link_catatan_pupr,
+                    'link_kode_ajuan' => $request->link_kode_ajuan,
+                    'nomor_ku' => $request->nomor_ku,
                 ]);
 
                 return redirect()->back()->with('success', 'Berhasil menerima permohonan');
@@ -87,6 +110,17 @@ class OSSController extends Controller
                     'keterangan' => null
                 ]);
 
+                OSSTimeline::create([
+                    'id_oss' => $oss->id_oss,
+                    'status_verifikasi' => 'perbaikan',
+                    'tgl_verifikasi' => Carbon::now(),
+                    'catatan' => $request->catatan,
+                    'link_pnbr' => $request->link_pnbr,
+                    'link_catatan_pupr' => $request->link_catatan_pupr,
+                    'link_kode_ajuan' => $request->link_kode_ajuan,
+                    'nomor_ku' => $request->nomor_ku,
+                ]);
+
                 return redirect()->back()->with('success', 'Permohonan oss ditolak');
             }
             return redirect()->back()->with('error', 'Invalid OSS Id');
@@ -110,7 +144,18 @@ class OSSController extends Controller
                     'statusType' => 'izin terbit',
                 ])->update([
                     'status' => 'success',
-                    'keterangan' => $request->keterangan ?? 'Izin telah dikirimkan ke alamat Email anda',
+                    'keterangan' => null,
+                ]);
+
+                OSSTimeline::create([
+                    'id_oss' => $oss->id_oss,
+                    'status_verifikasi' => 'izin terbit',
+                    'tgl_verifikasi' => Carbon::now(),
+                    'catatan' => $request->catatan,
+                    'link_pnbr' => $request->link_pnbr,
+                    'link_catatan_pupr' => $request->link_catatan_pupr,
+                    'link_kode_ajuan' => $request->link_kode_ajuan,
+                    'nomor_ku' => $request->nomor_ku,
                 ]);
 
                 return redirect()->back()->with('success', 'Berhasil menerbitkan izin oss');

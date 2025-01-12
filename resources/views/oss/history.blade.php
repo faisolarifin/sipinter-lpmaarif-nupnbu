@@ -42,27 +42,25 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Kode Unik</th>
                                         <th>Bukti Pembayaran</th>
                                         <th>Permohonan</th>
                                         <th>Disetujui</th>
                                         <th>Expired Dokumen</th>
-                                        <th>Keterangan</th>
                                         <th>Status</th>
+                                        <th>Lihat Quesioner</th>
                                     </tr>
                                     <tbody>
                                     @foreach($ossHistory as $row)
                                         <tr>
                                             <td>1</td>
-                                            <td>{{ $row->kode_unik }}</td>
                                             <td>
                                                 <a href="{{ route('oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                             </td>
                                             <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                             <td>{{ Date::tglMasehi($row->tgl_izin) }}</td>
                                             <td>{{ Date::tglMasehi($row->tgl_expired) }}</td>
-                                            <td>{{ $row->ossstatus[count($row->ossstatus)-1]->keterangan }}</td>
                                             <td><span class="badge bg-light-secondary text-secondary">{{ $row->status }}</span></td>
+                                            <td><a href="{{ route('oss.detail', $row->id_oss) }}" class="btn btn-sm btn-secondary">Detail <i class="ti ti-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

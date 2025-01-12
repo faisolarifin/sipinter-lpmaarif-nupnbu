@@ -42,26 +42,16 @@
                                 <h5 class="mb-0">Permohonan OSS</h5>
                                 <small>data permohonan oss baru</small>
                             </div>
-                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
-                            <div>
-                                <a target="_blank" href="{{ \App\Http\Controllers\Settings::get("oss_spreadsheet")  }}" class="btn btn-success btn-sm">
-                                    <i class="ti ti-file-spreadsheet"></i>
-                                    Spreadsheet
-                                </a>
-                            </div>
-                            @endif
                         </div>
                         <div class="table-responsive mt-4">
                             <table class="table table-stripped mt-4" id="dtable">
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>No Registrasi</th>
                                     <th>Nama Satpen</th>
-                                    <th>Kode Unik</th>
-                                    <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
-                                    <th>Catatan Revisi</th>
+                                    <th>Bukti Bayar</th>
                                     <th>Status</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
@@ -77,19 +67,20 @@
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
-                                        <td>{{ $row->kode_unik }}</td>
+                                        <td>{{ Date::tglReverseDash($row->tanggal) }}</td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat <i class="ti ti-eye"></i></a>
                                         </td>
-                                        <td>{{ Date::tglMasehi($row->tanggal) }}</td>
-                                        <td>{{ $row->ossstatus[count($row->ossstatus)-3]->keterangan }}</td>
                                         <td><span class="badge {{ $row->status == 'verifikasi' ? 'bg-warning' : 'bg-danger' }}">{{ $row->status }}</span></td>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
-                                            <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalDiterima" data-bs="{{ $row->id_oss }}">
+                                            <a class="btn btn-sm btn-secondary me-1" href="{{ route('a.oss.detail', $row->id_oss) }}">
+                                                <i class="ti ti-eye"></i>
+                                            </a>
+                                            <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Terima">
                                                 <i class="ti ti-checks"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="{{ $row->id_oss }}">
+                                            <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak">
                                                 <i class="ti ti-x"></i>
                                             </button>
                                         </td>
@@ -118,14 +109,12 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>Nomor Registrasi</th>
                                     <th>Nama Satpen</th>
-                                    <th>Kode Unik</th>
-                                    <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
-                                    <th>Catatan</th>
+                                    <th>Bukti Bayar</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
-                                    <th>Aksi</th>
+                                    <th width="40">Aksi</th>
                                     @endif
                                 </tr>
                                 </thead>
@@ -138,18 +127,19 @@
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
-                                        <td>{{ $row->kode_unik }}</td>
+                                        <td>{{ Date::tglReverseDash($row->tanggal) }}</td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat <i class="ti ti-eye"></i></a>
                                         </td>
-                                        <td>{{ Date::tglMasehi($row->tanggal) }}</td>
-                                        <td>{{ $row->ossstatus[count($row->ossstatus)-2]->keterangan }}</td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
+                                            <a class="btn btn-sm btn-secondary me-1" href="{{ route('a.oss.detail', $row->id_oss) }}">
+                                                <i class="ti ti-eye"></i>
+                                            </a>
                                             <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}">
                                                 <i class="ti ti-checks"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="{{ $row->id_oss }}">
+                                            <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak">
                                                 <i class="ti ti-x"></i>
                                             </button>
                                         </td>
@@ -180,12 +170,10 @@
                                     <th>#</th>
                                     <th>Noreg Satpen</th>
                                     <th>Nama Satpen</th>
-                                    <th>Kode Unik</th>
-                                    <th>Bukti Pembayaran</th>
                                     <th>Permohonan</th>
                                     <th>Disetujui</th>
                                     <th>Expired Dokumen</th>
-                                    <th>Catatan</th>
+                                    <th>Bukti Bayar</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
                                     @endif
@@ -200,14 +188,12 @@
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
-                                        <td>{{ $row->kode_unik }}</td>
+                                        <td>{{ Date::tglReverseDash($row->tanggal) }}</td>
+                                        <td>{{ Date::tglReverseDash($row->tgl_izin) }}</td>
+                                        <td>{{ Date::tglReverseDash($row->tgl_expired) }}</td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat <i class="ti ti-eye"></i></a>
                                         </td>
-                                        <td>{{ Date::tglMasehi($row->tanggal) }}</td>
-                                        <td>{{ Date::tglMasehi($row->tgl_izin) }}</td>
-                                        <td>{{ Date::tglMasehi($row->tgl_expired) }}</td>
-                                        <td>{{ $row->ossstatus[count($row->ossstatus)-1]->keterangan }}</td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <form action="{{ route('a.oss.destroy', $row->id_oss) }}" method="post" class="deleteBtn">

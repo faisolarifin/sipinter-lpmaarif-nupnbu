@@ -104,6 +104,16 @@ class Date {
         return $pecahkan[2] . '/' . $pecahkan[1] . '/' . $pecahkan[0];
     }
 
+    public static function tglReverseDash($tanggal)
+    {
+        $pecahkan = explode(' ', $tanggal);
+        $pecahkan = explode('-', $pecahkan[0]);
+
+        if (count($pecahkan) == 1) return "";
+
+        return $pecahkan[2] . '-' . $pecahkan[1] . '-' . $pecahkan[0];
+    }
+
     public static function hariIni($tanggal){
 
         $tanggal = strtotime($tanggal);

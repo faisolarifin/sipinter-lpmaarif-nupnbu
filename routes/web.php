@@ -78,11 +78,12 @@ Route::middleware('mustlogin')->group(function() {
          */
         Route::get('/oss/forbidden', [OSSController::class, 'forbiddenPage'])->name('oss.403');
         Route::group(["prefix" => "oss", "middleware" => "verifysatpenactive"], function() {
-            Route::get('/', [OSSController::class, 'permohonanOSSPage'])->name('oss');
-            Route::get('/new', [OSSController::class, 'permohonanBaruOSS'])->name('oss.new');
-            Route::put('/{oss}', [OSSController::class, 'storePermohonanOSS'])->name('oss.save');
-            Route::get('/history', [OSSController::class, 'historyPermohonan'])->name('oss.history');
-            Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('oss.file');
+            Route::get('/', [OSSController::class, 'landOSSRequest'])->name('oss');
+            Route::get('/new', [OSSController::class, 'newOSSRequest'])->name('oss.new');
+            Route::get('/detail/{ossId}', [OSSController::class, 'detailOSSQuesioner'])->name('oss.detail');
+            Route::put('/{oss}', [OSSController::class, 'storedOSSRequest'])->name('oss.save');
+            Route::get('/history', [OSSController::class, 'historyOSSRequest'])->name('oss.history');
+            Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewOSSDoc'])->name('oss.file');
         });
         /**
          * BHPNU
@@ -169,11 +170,12 @@ Route::middleware('mustlogin')->group(function() {
              */
             Route::group(["prefix" => "oss"], function() {
                 Route::get('/', [OSSControllerAdmin::class, 'listPermohonanOSS'])->name('a.oss')->withoutMiddleware('primaryadmin');
+                Route::get('/detail/{ossId}', [OSSControllerAdmin::class, 'detailOSSQuesioner'])->name('a.oss.detail');
                 Route::put('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
                 Route::put('/appear/{oss}', [OSSControllerAdmin::class, 'setIzinTerbitOSS'])->name('a.oss.appear');
                 Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
                 Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');
-                Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.oss.file')->withoutMiddleware('primaryadmin');
+                Route::get('/file/{path}/{fileName?}', [FileViewerController::class, 'viewOSSDoc'])->name('a.oss.file')->withoutMiddleware('primaryadmin');
             });
 
             /**

@@ -40,10 +40,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/uploads'),
         ],
-
-        'buktibayar' => [
+        
+        'oss-doc' => [
             'driver' => 'local',
-            'root' => storage_path('app/buktibayar'),
+            'root' => storage_path('app/oss-doc'),
         ],
 
         'public' => [
