@@ -16,7 +16,7 @@ class OSSTimeline extends Model
         'status_verifikasi',
         'tgl_verifikasi',
         'catatan',
-        'link_pnbr',
+        'link_pnbp',
         'link_catatan_pupr',
         'link_kode_ajuan',
         'nomor_ku',

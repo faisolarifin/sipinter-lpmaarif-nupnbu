@@ -172,7 +172,7 @@ class OSSController extends Controller
             'status_verifikasi' => 'mengisi persyaratan',
             'tgl_verifikasi' => Carbon::now(),
             'catatan' => 'permohonan pengajuan oss baru',
-            'link_pnbr' => null,
+            'link_pnbp' => null,
             'link_catatan_pupr' => null,
             'link_kode_ajuan' => null,
             'nomor_ku' => null,
@@ -553,7 +553,7 @@ class OSSController extends Controller
                     'status_verifikasi' => 'verifikasi',
                     'tgl_verifikasi' => Carbon::now(),
                     'catatan' => 'permohonan verifikasi pengajuan oss',
-                    'link_pnbr' => null,
+                    'link_pnbp' => null,
                     'link_catatan_pupr' => null,
                     'link_kode_ajuan' => null,
                     'nomor_ku' => null,
@@ -575,8 +575,11 @@ class OSSController extends Controller
     }
 
     public function historyOSSRequest() {
-        $ossHistory = OSS::with("ossstatus")
-            ->where('id_user', '=', auth()->user()->id_user)
+        $ossHistory = OSS::with(["ossstatus", "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
+                $query->where('status_verifikasi', '=', 'izin terbit')
+                    ->orderBy('id_timeline', 'DESC')
+                    ->limit(1);
+            }])->where('id_user', '=', auth()->user()->id_user)
             ->where('status', '=', 'izin terbit')
             ->orderBy('id_oss', 'DESC')
             ->get();

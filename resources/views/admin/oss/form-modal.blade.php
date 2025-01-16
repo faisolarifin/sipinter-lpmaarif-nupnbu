@@ -6,10 +6,10 @@
     </div>
 </div>
 <div class="mb-2">
-    <label for="link_pnbr" class="form-label">Link PNBR</label>
-    <input type="text" class="form-control form-control-sm @error('link_pnbr') is-invalid @enderror" id="link_pnbr" name="link_pnbr" placeholder="Link PNBR" value="{{ old('link_pnbr') }}">
+    <label for="link_pnbp" class="form-label">Link PNBP</label>
+    <input type="text" class="form-control form-control-sm @error('link_pnbp') is-invalid @enderror" id="link_pnbp" name="link_pnbp" placeholder="Link PNBP" value="{{ old('link_pnbp') }}">
     <div class="invalid-feedback">
-        @error('link_pnbr') {{ $message }} @enderror
+        @error('link_pnbp') {{ $message }} @enderror
     </div>
 </div>
 <div class="mb-2">

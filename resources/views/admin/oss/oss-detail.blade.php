@@ -492,7 +492,7 @@
                                         <a href="#" class="text-capitalize">{{ $row->status_verifikasi}}</a>
                                         <p class="mb-0">{{ \App\Helpers\Date::tglReverseDash($row->tgl_verifikasi) }}</p>
                                         <small>{{ $row->catatan }}</small>
-                                        @if($row->link_pnbr)<br><small>Link PNBR : <a target="_blank" href="{{ $row->link_pnbr }}">{{ $row->link_pnbr }}</a></small> @endif
+                                        @if($row->link_pnbp)<br><small>Link PNBP : <a target="_blank" href="{{ $row->link_pnbp }}">{{ $row->link_pnbp }}</a></small> @endif
                                         @if($row->link_catatan_pupr)<br><small>Link Catatan PUPR : <a target="_blank" href="{{ $row->link_catatan_pupr }}">{{ $row->link_catatan_pupr }}</a></small> @endif
                                         @if($row->link_kode_ajuan)<br><small>Link Kode Ajuan : <a target="_blank" href="{{ $row->link_kode_ajuan }}">{{ $row->link_kode_ajuan }}</a></small> @endif
                                         @if($row->nomor_ku)<br><small>Nomor KU : <a target="_blank" href="{{ $row->nomor_ku }}">{{ $row->nomor_ku }}</a></small> @endif

@@ -252,8 +252,7 @@
                                     <th>Permohonan</th>
                                     <th>Disetujui</th>
                                     <th>Expired Dokumen</th>
-                                    <th>Catatan</th>
-                                    <th>Bukti Bayar</th>
+                                    <th width="200" ">Catatan</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
                                     @endif
@@ -274,9 +273,6 @@
                                         <td>{{ Date::tglReverseDash($row->tgl_expired) }}</td>
                                         <td>
                                             @include('admin.oss.field-catatan')
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat <i class="ti ti-eye"></i></a>
                                         </td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
