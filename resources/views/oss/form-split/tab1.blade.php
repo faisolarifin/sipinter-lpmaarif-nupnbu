@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="no_reg" class="form-label">Nomor Registrasi Ma'arif NU Nasional</label>
+                <label for="no_reg" class="form-label required">Nomor Registrasi Ma'arif NU Nasional</label>
                 <input type="text" class="form-control  @error('no_reg') is-invalid @enderror" id="no_reg" name="no_reg" value="{{ $oss->satpen->no_registrasi }}" placeholder="Nomor Registrasi Ma'arif NU Nasional" readonly>
                 <div class="invalid-feedback">
                     @error('no_reg') {{ $message }} @enderror
@@ -11,7 +11,7 @@
         </div>
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="nm_sekolah" class="form-label">Nama Sekolah/Madrasah</label>
+                <label for="nm_sekolah" class="form-label required">Nama Sekolah/Madrasah</label>
                 <input type="text" class="form-control  @error('nm_sekolah') is-invalid @enderror" id="nm_sekolah" name="nm_sekolah" value="{{ $oss->satpen->nm_satpen }}" placeholder="Nama Sekolah/Madrasah" readonly>
                 <div class="invalid-feedback">
                     @error('nm_sekolah') {{ $message }} @enderror
@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
+                <label for="email" class="form-label required">Email Address</label>
                 <input type="text" class="form-control  @error('email') is-invalid @enderror" id="email" name="email" value="{{ $oss->email ? $oss->email : old('email') }}" placeholder="Email Address" required>
                 <div class="invalid-feedback">
                     @error('email') {{ $message }} @enderror
@@ -33,7 +33,7 @@
 
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="no_whatsapp" class="form-label">Nomor Whatshapp</label>
+                <label for="no_whatsapp" class="form-label required">Nomor Whatshapp</label>
                 <input type="text" class="form-control  @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp" value="{{ $oss->no_whatsapp ? $oss->no_whatsapp : old('no_whatsapp') }}" placeholder="Nomor Whatshapp" required>
                 <div class="invalid-feedback">
                     @error('no_whatsapp') {{ $message }} @enderror
@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col-12">
             <div class="mb-3">
-                <label for="npwp" class="form-label">NPWP Sekolah</label>
+                <label for="npwp" class="form-label required">NPWP Sekolah</label>
                 <input type="text" class="form-control  @error('npwp') is-invalid @enderror" id="npwp" name="npwp" value="{{ $oss->npwp ? $oss->npwp : old('npwp') }}" placeholder="NPWP Sekolah" required>
                 <div class="invalid-feedback">
                     @error('npwp') {{ $message }} @enderror
@@ -103,6 +103,7 @@
                 <label for="file_izin_lama" class="form-label">Lampiran File Izin Operasional Lama (Format PDF)</label>
                 <input type="file" class="form-control  @error('file_izin_lama') is-invalid @enderror" id="file_izin_lama" name="file_izin_lama" accept=".pdf" value="{{ old('file_izin_lama') }}">
                 <small>~ Izin operasional Lama yang di Upload adalah Izin operasional sebelumnya yang masa berlakunya sudah habis/atau hampir berakhir. bukan izin pendirian.</small>
+                @if($oss->file_izin_lama) <br><a href="{{ route('oss.file', $oss->file_izin_lama) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->file_izin_lama) }} <i class="ti ti-download"></i> </strong></a> @endif
                 <div class="invalid-feedback">
                     @error('file_izin_lama') {{ $message }} @enderror
                 </div>
@@ -113,8 +114,10 @@
     <div class="row">
         <div class="col-12">
             <div class="mb-3">
-                <label class="form-label" for="bukti_bayar">Bukti Pembayaran</label>
+                <label class="form-label required" for="bukti_bayar">Bukti Pembayaran</label>
                 <input type="file" name="bukti_bayar" id="bukti_bayar" class="form-control @error('bukti_bayar') is-invalid @enderror" accept=".pdf" {{ !$oss->bukti_bayar ? 'required' : '' }} >
+                <small>~ ukuran file max. 1MB</small>
+                @if($oss->bukti_bayar) <br><a href="{{ route('oss.file', $oss->bukti_bayar) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->bukti_bayar) }} <i class="ti ti-download"></i> </strong></a> @endif
                 <div class="invalid-feedback">
                     @error('bukti_bayar') {{ $message }} @enderror
                 </div>

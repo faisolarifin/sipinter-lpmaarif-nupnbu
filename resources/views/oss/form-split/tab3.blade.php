@@ -1,8 +1,15 @@
 <div class="tab d-none">
     <div class="row">
         <div class="col-12 col-sm-6">
+            <label for="apakah_memerlukan_bangunan_baru" class="form-label required">Apakah memerlukan bangunan baru untuk kegiatan usaha ini ?</label>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="sudah_ada_bangunan" class="form-label required">Apakah Sudah Ada Bangunan ?</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="apakah_memerlukan_bangunan_baru" class="form-label">Apakah memerlukan bangunan baru untuk kegiatan usaha ini ?</label>
                 <select class="form-select  @error('apakah_memerlukan_bangunan_baru') is-invalid @enderror" name="apakah_memerlukan_bangunan_baru" required>
                     <option value="Iya" {{ $oss->apakah_memerlukan_bangunan_baru=='Iya' ? 'selected' : '' }}>Iya</option>
                     <option value="Tidak" {{ $oss->apakah_memerlukan_bangunan_baru=='Tidak' ? 'selected' : '' }}>Tidak</option>
@@ -14,7 +21,6 @@
         </div>
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="sudah_ada_bangunan" class="form-label">Apakah Sudah Ada Bangunan ?</label>
                 <select class="form-select  @error('sudah_ada_bangunan') is-invalid @enderror" name="sudah_ada_bangunan" required>
                     <option value="Sudah" {{ $oss->sudah_ada_bangunan=='Sudah' ? 'selected' : '' }}>Sudah</option>
                     <option value="Belum" {{ $oss->sudah_ada_bangunan=='Belum' ? 'selected' : '' }}>Belum</option>
@@ -29,7 +35,7 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="status_bangunan_usaha" class="form-label">Status Bangunan Usaha</label>
+                <label for="status_bangunan_usaha" class="form-label required">Status Bangunan Usaha</label>
                 <select class="form-select  @error('status_bangunan_usaha') is-invalid @enderror" name="status_bangunan_usaha" required>
                     <option value="Milik Sendiri" {{ $oss->status_bangunan_usaha=='Milik Sendiri' ? 'selected' : '' }}>Milik Sendiri</option>
                     <option value="Sewa" {{ $oss->status_bangunan_usaha=='Sewa' ? 'selected' : '' }}>Sewa</option>
@@ -43,7 +49,7 @@
         <div class="col-12 col-sm-6">
             <div class="mb-3">
                 <div class="mb-3">
-                    <label for="jumlah_bangunan" class="form-label">Jumlah Bangunan Anda? (Unit)</label>
+                    <label for="jumlah_bangunan" class="form-label required">Jumlah Bangunan Anda? (Unit)</label>
                     <input type="text" class="form-control  @error('jumlah_bangunan') is-invalid @enderror" id="jumlah_bangunan" name="jumlah_bangunan" value="{{ $oss->jumlah_bangunan ? $oss->jumlah_bangunan : old('jumlah_bangunan') }}" placeholder="Jumlah Bangunan Anda? (Unit)" required>
                     <small>Masukkan jumlah bangunan, bukan jumlah ruang kelas</small>
                     <div class="invalid-feedback">
@@ -134,6 +140,7 @@
                     <label for="imb_file_lampiran" class="form-label">Lampiran File IMB</label>
                     <input type="file" class="form-control  @error('imb_file_lampiran') is-invalid @enderror" id="imb_file_lampiran" name="imb_file_lampiran" accept=".pdf" value="{{ old('imb_file_lampiran') }}">
                     <small>~ bukti penguasaan lahan. dapat berupa HGU, HGB, Sertifikat, atau bukti lain yang Anda miliki</small>
+                    @if($oss->imb_file_lampiran) <br><a href="{{ route('oss.file', $oss->imb_file_lampiran) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->imb_file_lampiran) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
                         @error('imb_file_lampiran') {{ $message }} @enderror
                     </div>
@@ -208,6 +215,7 @@
                     <label for="slf_file_lampiran" class="form-label">Lampiran File Sertifikat SLF</label>
                     <input type="file" class="form-control  @error('slf_file_lampiran') is-invalid @enderror" id="slf_file_lampiran" name="slf_file_lampiran" accept=".pdf" value="{{ old('slf_file_lampiran') }}">
                     <small>~ Jika jumlah bangunan yang mendapat sertifikat SLF lebih dari 1, maka harus di upload semuanya dalam satu file, bila tidak ada kosongkan </small>
+                    @if($oss->slf_file_lampiran) <br><a href="{{ route('oss.file', $oss->slf_file_lampiran) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->slf_file_lampiran) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
                         @error('slf_file_lampiran') {{ $message }} @enderror
                     </div>

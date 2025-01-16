@@ -16,22 +16,47 @@ class OSSController extends Controller
 
         $specificFilter = request()->specificFilter;
 
-        $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen"])->whereIn('status', ['verifikasi','perbaikan'])
+        $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
+            "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
+                $query->where('status_verifikasi', '=', 'verifikasi')
+                    ->orderBy('id_timeline', 'DESC')
+                    ->limit(1);
+            }])->where('status', '=', 'verifikasi')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
             })->orderBy('id_oss', 'DESC') ->get();
 
-        $ossProses = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen"])->where('status', '=', 'dokumen diproses')
+        $ossRevisi = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
+            "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
+                $query->where('status_verifikasi', '=', 'perbaikan')
+                    ->orderBy('id_timeline', 'DESC')
+                    ->limit(1);
+            }])->where('status', '=','perbaikan')
+            ->whereHas('satpen', function($query) use ($specificFilter) {
+                $query->where($specificFilter);
+            })->orderBy('id_oss', 'DESC') ->get();
+
+        $ossProses = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
+            "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
+                $query->where('status_verifikasi', '=', 'dokumen diproses')
+                    ->orderBy('id_timeline', 'DESC')
+                    ->limit(1);
+            }])->where('status', '=', 'dokumen diproses')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
             })->orderBy('id_oss', 'DESC')->get();
 
-        $ossTerbit = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen"])->where('status', '=', 'izin terbit')
+        $ossTerbit = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
+            "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
+                $query->where('status_verifikasi', '=', 'izin terbit')
+                    ->orderBy('id_timeline', 'DESC')
+                    ->limit(1);
+            }])->where('status', '=', 'izin terbit')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
             })->orderBy('id_oss', 'DESC')->get();
 
-        return view('admin.oss.oss', compact('ossVerifikasi', 'ossProses', 'ossTerbit'));
+        return view('admin.oss.oss', compact('ossVerifikasi', 'ossRevisi', 'ossProses', 'ossTerbit'));
     }
 
     public function detailOSSQuesioner(string $ossId) {

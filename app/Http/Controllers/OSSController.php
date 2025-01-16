@@ -9,23 +9,20 @@ use App\Models\OSSTimeline;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OSSController extends Controller
 {
     public function landOSSRequest() {
 
-        $oss = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen", "ossstatus"])
-            ->where('id_user', '=', auth()->user()->id_user)
+        $oss = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen", "ossstatus", "osstimeline" => function ($query) {
+            $query->orderBy('id_timeline', 'DESC')
+                ->limit(1);
+            }])->where('id_user', '=', auth()->user()->id_user)
             ->orderBy('id_oss', 'DESC')
             ->first();
 
-        $alert=null;
-        if ($oss) {
-            $alert = OSSTimeline::where('id_oss', $oss->id_oss)
-                ->orderBy('id_timeline', 'desc')
-                ->first();
-        }
-        return view('oss.permohonan', compact('oss', 'alert'));
+        return view('oss.permohonan', compact('oss'));
     }
 
     public function detailOSSQuesioner(string $ossId) {
@@ -198,32 +195,54 @@ class OSSController extends Controller
         $path_amdal_file_lampiran = "file-amdal-lampiran";
         $path_uklupl_lampiran = "file-uklupl-lampiran";
 
+        $no_registrasi = substr(Str::uuid()->toString(), 0, 4).'-'
+                            .$oss->satpen->no_registrasi;
         $filename_bukti_bayar = $oss->bukti_bayar;
         $filename_file_izin_lama = $oss->file_izin_lama;
         $filename_file_peta_polygon = $oss->file_peta_polygon;
         $filename_rencana_teknis_bangunan = $oss->rencana_teknis_bangunan;
         try {
             if ($request->file('bukti_bayar') && $request->file('bukti_bayar')->isValid()) {
-                $filename_bukti_bayar = Storage::disk('oss-doc')->putFile($path_bukti_bayar, $request->file('bukti_bayar'));
+                $originalName = $no_registrasi.'~'.$request->file('bukti_bayar')->getClientOriginalName();
+                $filename_bukti_bayar = Storage::disk('oss-doc')->putFileAs(
+                    $path_bukti_bayar,
+                    $request->file('bukti_bayar'),
+                    $originalName
+                );
                 Storage::disk("oss-doc")->delete($path_bukti_bayar, $oss->bukti_bayar);
             }
 
             if ($request->file('file_izin_lama') && $request->file('file_izin_lama')->isValid()) {
-                $filename_file_izin_lama = Storage::disk('oss-doc')->putFile($path_file_izin_lama, $request->file('file_izin_lama'));
+                $originalName = $no_registrasi.'~'.$request->file('file_izin_lama')->getClientOriginalName();
+                $filename_file_izin_lama = Storage::disk('oss-doc')->putFileAs(
+                    $path_file_izin_lama,
+                    $request->file('file_izin_lama'),
+                    $originalName
+                );
                 Storage::disk("oss-doc")->delete($path_file_izin_lama, $oss->file_izin_lama);
             }
 
             if ($request->file('file_peta_polygon') && $request->file('file_peta_polygon')->isValid()) {
-                $filename_file_peta_polygon = Storage::disk('oss-doc')->putFile($path_file_peta_polygon, $request->file('file_peta_polygon'));
+                $originalName = $no_registrasi.'~'.$request->file('file_peta_polygon')->getClientOriginalName();
+                $filename_file_peta_polygon = Storage::disk('oss-doc')->putFileAs(
+                    $path_file_peta_polygon,
+                    $request->file('file_peta_polygon'),
+                    $originalName
+                );
                 Storage::disk("oss-doc")->delete($path_file_peta_polygon, $oss->file_peta_polygon);
             }
 
             if ($request->file('rencana_teknis_bangunan') && $request->file('rencana_teknis_bangunan')->isValid()) {
-                $filename_rencana_teknis_bangunan = Storage::disk('oss-doc')->putFile($path_rencana_teknis_bangunan, $request->file('rencana_teknis_bangunan'));
+                $originalName = $no_registrasi.'~'.$request->file('rencana_teknis_bangunan')->getClientOriginalName();
+                $filename_rencana_teknis_bangunan = Storage::disk('oss-doc')->putFileAs(
+                    $path_rencana_teknis_bangunan,
+                    $request->file('rencana_teknis_bangunan'),
+                    $originalName
+                );
                 Storage::disk("oss-doc")->delete($path_rencana_teknis_bangunan, $oss->rencana_teknis_bangunan);
             }
 
-            DB::transaction(function () use ($oss, $request, $filename_bukti_bayar, $filename_file_izin_lama, $filename_file_peta_polygon, $filename_rencana_teknis_bangunan,
+            DB::transaction(function () use ($oss, $no_registrasi, $request, $filename_bukti_bayar, $filename_file_izin_lama, $filename_file_peta_polygon, $filename_rencana_teknis_bangunan,
                 $path_ms_file_lampiran, $path_sw_file_lampiran, $path_pp_file_lampiran,
                 $path_imb_file_lampiran, $path_slf_file_lampiran, $path_rencana_teknis_bangunan,
                 $path_file_lampiran_kkpr, $path_amdal_file_lampiran, $path_uklupl_lampiran) {
@@ -280,7 +299,12 @@ class OSSController extends Controller
                 /** Status Lahan */
                 if ($request->status_lahan == "Milik Sendiri" && $oss->status != 'perbaikan') {
                     if ($request->file('ms_file_lampiran') && $request->file('ms_file_lampiran')->isValid()) {
-                        $filename_ms_file_lampiran = Storage::disk('oss-doc')->putFile($path_ms_file_lampiran, $request->file('ms_file_lampiran'));
+                        $originalName = $no_registrasi.'~'.$request->file('ms_file_lampiran')->getClientOriginalName();
+                        $filename_ms_file_lampiran = Storage::disk('oss-doc')->putFileAs(
+                            $path_ms_file_lampiran,
+                            $request->file('ms_file_lampiran'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_ms_file_lampiran, $oss->ms_file_lampiran);
                     }
 
@@ -303,7 +327,12 @@ class OSSController extends Controller
                 }
                 if ($request->status_lahan == "Sewa" && $oss->status != 'perbaikan') {
                     if ($request->file('sw_file_lampiran') && $request->file('sw_file_lampiran')->isValid()) {
-                        $filename_sw_file_lampiran = Storage::disk('oss-doc')->putFile($path_sw_file_lampiran, $request->file('sw_file_lampiran'));
+                        $originalName = $no_registrasi.'~'.$request->file('sw_file_lampiran')->getClientOriginalName();
+                        $filename_sw_file_lampiran = Storage::disk('oss-doc')->putFileAs(
+                            $path_sw_file_lampiran,
+                            $request->file('sw_file_lampiran'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_sw_file_lampiran, $oss->sw_file_lampiran);
                     }
                     $dataUpdate = array_merge($dataUpdate, [
@@ -325,7 +354,12 @@ class OSSController extends Controller
 
                 if ($request->status_lahan == "Pinjam Pakai" && $oss->status != 'perbaikan') {
                     if ($request->file('pp_file_lampiran') && $request->file('pp_file_lampiran')->isValid()) {
-                        $filename_pp_file_lampiran = Storage::disk('oss-doc')->putFile($path_pp_file_lampiran, $request->file('pp_file_lampiran'));
+                        $originalName = $no_registrasi.'~'.$request->file('pp_file_lampiran')->getClientOriginalName();
+                        $filename_pp_file_lampiran = Storage::disk('oss-doc')->putFileAs(
+                            $path_pp_file_lampiran,
+                            $request->file('pp_file_lampiran'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_pp_file_lampiran, $oss->pp_file_lampiran);
                     }
                     $dataUpdate = array_merge($dataUpdate, [
@@ -348,7 +382,12 @@ class OSSController extends Controller
                 /** Pertanyaan IMB */
                 if ($request->apakah_memiliki_imb == "Iya") {
                     if ($request->file('imb_file_lampiran') && $request->file('imb_file_lampiran')->isValid()) {
-                        $filename_imb_file_lampiran = Storage::disk('oss-doc')->putFile($path_imb_file_lampiran, $request->file('imb_file_lampiran'));
+                        $originalName = $no_registrasi.'~'.$request->file('imb_file_lampiran')->getClientOriginalName();
+                        $filename_imb_file_lampiran = Storage::disk('oss-doc')->putFileAs(
+                            $path_imb_file_lampiran,
+                            $request->file('imb_file_lampiran'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_imb_file_lampiran, $oss->imb_file_lampiran);
                     }
                     $dataUpdate = array_merge($dataUpdate, [
@@ -373,7 +412,12 @@ class OSSController extends Controller
                 /** Pertanyaan SLF */
                 if ($request->apakah_memiliki_sertifikat_slf == "Iya") {
                     if ($request->file('slf_file_lampiran') && $request->file('slf_file_lampiran')->isValid()) {
-                        $filename_slf_file_lampiran = Storage::disk('oss-doc')->putFile($path_slf_file_lampiran, $request->file('slf_file_lampiran'));
+                        $originalName = $no_registrasi.'~'.$request->file('slf_file_lampiran')->getClientOriginalName();
+                        $filename_slf_file_lampiran = Storage::disk('oss-doc')->putFileAs(
+                            $path_slf_file_lampiran,
+                            $request->file('slf_file_lampiran'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_slf_file_lampiran, $oss->slf_file_lampiran);
                     }
                     $dataUpdate = array_merge($dataUpdate, [
@@ -406,7 +450,12 @@ class OSSController extends Controller
                 /** Pertanyaan KKPR */
                 if ($request->apakah_memiliki_kkpr == "Iya") {
                     if ($request->file('file_lampiran_kkpr') && $request->file('file_lampiran_kkpr')->isValid()) {
-                        $filename_file_lampiran_kkpr = Storage::disk('oss-doc')->putFile($path_file_lampiran_kkpr, $request->file('file_lampiran_kkpr'));
+                        $originalName = $no_registrasi.'~'.$request->file('file_lampiran_kkpr')->getClientOriginalName();
+                        $filename_file_lampiran_kkpr = Storage::disk('oss-doc')->putFileAs(
+                            $path_file_lampiran_kkpr,
+                            $request->file('file_lampiran_kkpr'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_file_lampiran_kkpr, $oss->file_lampiran_kkpr);
                     }
                     $dataUpdate = array_merge($dataUpdate, [
@@ -429,7 +478,12 @@ class OSSController extends Controller
                 /** Pertanyaan AMDAL */
                 if ($request->apakah_memiliki_izin_amdal == "Iya") {
                     if ($request->file('amdal_file_lampiran') && $request->file('amdal_file_lampiran')->isValid()) {
-                        $filename_amdal_file_lampiran = Storage::disk('oss-doc')->putFile($path_amdal_file_lampiran, $request->file('amdal_file_lampiran'));
+                        $originalName = $no_registrasi.'~'.$request->file('amdal_file_lampiran')->getClientOriginalName();
+                        $filename_amdal_file_lampiran = Storage::disk('oss-doc')->putFileAs(
+                            $path_amdal_file_lampiran,
+                            $request->file('amdal_file_lampiran'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_amdal_file_lampiran, $oss->amdal_file_lampiran);
                     }
                     $dataUpdate = array_merge($dataUpdate, [
@@ -452,7 +506,12 @@ class OSSController extends Controller
                 /** Pertanyaan UKLUPL */
                 if ($request->apakah_memiliki_uklupl == "Iya") {
                     if ($request->file('uklupl_file_lampiran') && $request->file('uklupl_file_lampiran')->isValid()) {
-                        $filename_uklupl_lampiran = Storage::disk('oss-doc')->putFile($path_uklupl_lampiran, $request->file('uklupl_file_lampiran'));
+                        $originalName = $no_registrasi.'~'.$request->file('uklupl_file_lampiran')->getClientOriginalName();
+                        $filename_uklupl_lampiran = Storage::disk('oss-doc')->putFileAs(
+                            $path_uklupl_lampiran,
+                            $request->file('uklupl_file_lampiran'),
+                            $originalName
+                        );
                         Storage::disk("oss-doc")->delete($path_uklupl_lampiran, $oss->uklupl_file_lampiran);
                     }
                     $dataUpdate = array_merge($dataUpdate, [
@@ -505,11 +564,12 @@ class OSSController extends Controller
             return redirect()->back()->with('success', 'Berhasil melakukan permohonan OSS');
 
         } catch (\Exception $e) {
-            Storage::disk("oss-doc")->delete($path_bukti_bayar, $filename_bukti_bayar);
-            Storage::disk("oss-doc")->delete($path_file_izin_lama, $filename_file_izin_lama);
-            Storage::disk("oss-doc")->delete($path_file_peta_polygon, $filename_file_peta_polygon);
-            Storage::disk("oss-doc")->delete($path_rencana_teknis_bangunan, $filename_rencana_teknis_bangunan);
-
+            if ($oss->status != "perbaikan") {
+                Storage::disk("oss-doc")->delete($path_bukti_bayar, $filename_bukti_bayar);
+                Storage::disk("oss-doc")->delete($path_file_izin_lama, $filename_file_izin_lama);
+                Storage::disk("oss-doc")->delete($path_file_peta_polygon, $filename_file_peta_polygon);
+                Storage::disk("oss-doc")->delete($path_rencana_teknis_bangunan, $filename_rencana_teknis_bangunan);
+            }
             return redirect()->back()->with('error', 'Gagal melakukan permohonan OSS ' . $e->getMessage());
         }
     }

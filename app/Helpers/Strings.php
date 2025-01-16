@@ -18,4 +18,11 @@ class Strings {
         return $newword;
     }
 
+    public static function getFileName($path)
+    {
+        $fullName = basename($path);
+        $parts = explode('~', $fullName);
+        return end($parts);
+    }
+
 }

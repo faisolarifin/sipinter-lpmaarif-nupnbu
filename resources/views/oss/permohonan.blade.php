@@ -50,13 +50,14 @@
 
                         <div class="row justify-content-center">
                             <div class="col col-sm-11">
-                                @if($alert && in_array($alert->status_verifikasi, ['perbaikan', 'izin terbit']))
-                                    <div class="alert {{ $alert->status_verifikasi=='perbaikan' ? 'alert-danger' : 'alert-success' }}">
-                                        <small>Catatan : {{ $alert->catatan }}</small>
-                                        @if($alert->link_pnbr)<br><small>Link PNBR : <a target="_blank" href="{{ $alert->link_pnbr }}">{{ $alert->link_pnbr }}</a></small> @endif
-                                        @if($alert->link_catatan_pupr)<br><small>Link Catatan PUPR : <a target="_blank" href="{{ $alert->link_catatan_pupr }}">{{ $alert->link_catatan_pupr }}</a></small> @endif
-                                        @if($alert->link_kode_ajuan)<br><small>Link Kode Ajuan : <a target="_blank" href="{{ $alert->link_kode_ajuan }}">{{ $alert->link_kode_ajuan }}</a></small> @endif
-                                        @if($alert->nomor_ku)<br><small>Nomor KU : <a target="_blank" href="{{ $alert->nomor_ku }}">{{ $alert->nomor_ku }}</a></small> @endif
+                                @if($oss->osstimeline && !in_array($oss->osstimeline[0]->status_verifikasi, ['mengisi persyaratan', 'verifikasi']))
+                                    <div class="alert {{ $oss->osstimeline[0]->status_verifikasi=='perbaikan' ? 'alert-danger' : 'alert-success' }}">
+                                        <small>Tanggal : {{ \App\Helpers\Date::tglReverseDash($oss->osstimeline[0]->tgl_verifikasi) }}</small><br>
+                                        <small>Catatan : {{ $oss->osstimeline[0]->catatan }}</small>
+                                        @if($oss->osstimeline[0]->link_pnbr)<br><small>Link PNBR : <a target="_blank" href="{{ $oss->osstimeline[0]->link_pnbr }}">{{ $oss->osstimeline[0]->link_pnbr }}</a></small> @endif
+                                        @if($oss->osstimeline[0]->link_catatan_pupr)<br><small>Link Catatan PUPR : <a target="_blank" href="{{ $oss->osstimeline[0]->link_catatan_pupr }}">{{ $oss->osstimeline[0]->link_catatan_pupr }}</a></small> @endif
+                                        @if($oss->osstimeline[0]->link_kode_ajuan)<br><small>Link Kode Ajuan : <a target="_blank" href="{{ $oss->osstimeline[0]->link_kode_ajuan }}">{{ $oss->osstimeline[0]->link_kode_ajuan }}</a></small> @endif
+                                        @if($oss->osstimeline[0]->nomor_ku)<br><small>Nomor KU : <a target="_blank" href="{{ $oss->osstimeline[0]->nomor_ku }}">{{ $oss->osstimeline[0]->nomor_ku }}</a></small> @endif
                                 @endif
                             </div>
                         </div>

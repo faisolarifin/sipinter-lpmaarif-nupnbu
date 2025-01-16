@@ -27,7 +27,7 @@ class OSSRequest extends FormRequest
             'email' => 'required|email',
             'npwp' => 'required|string',
             'no_whatsapp' => 'required|string',
-            'bukti_bayar' => 'nullable|file|mimes:pdf|max:1024',
+            'bukti_bayar' => 'nullable|file|mimes:pdf,jpg,jpeg,png,svg|max:1024',
             'intansi_izin_lama' => 'nullable|string',
             'nomor_izin_lama' => 'nullable|string',
             'tgl_terbit_izin_lama' => 'nullable|date',

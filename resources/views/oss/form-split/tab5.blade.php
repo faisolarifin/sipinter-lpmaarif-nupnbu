@@ -63,6 +63,7 @@
                 <div class="mb-3">
                     <label for="file_lampiran_kkpr" class="form-label">Lampiran File KKPR Non Berusaha (Format PDF)</label>
                     <input type="file" class="form-control  @error('file_lampiran_kkpr') is-invalid @enderror" id="file_lampiran_kkpr" name="file_lampiran_kkpr" value="{{ old('file_lampiran_kkpr') }}">
+                    @if($oss->file_lampiran_kkpr) <a href="{{ route('oss.file', $oss->file_lampiran_kkpr) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->file_lampiran_kkpr) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
                         @error('file_lampiran_kkpr') {{ $message }} @enderror
                     </div>
@@ -73,8 +74,15 @@
 
     <div class="row">
         <div class="col-12 col-sm-6">
+            <label for="dri_pembelian_tanah" class="form-label required">Data Rencana Investasi : Pembelian dan Pematangan Tanah (Rp)?</label>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="dri_bangunan" class="form-label required">Data Rencana Investasi : Bangunan / Gedung (Rp)?</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="dri_pembelian_tanah" class="form-label">Data Rencana Investasi : Pembelian dan Pematangan Tanah (Rp)?</label>
                 <input type="number" class="form-control  @error('dri_pembelian_tanah') is-invalid @enderror" id="dri_pembelian_tanah" name="dri_pembelian_tanah" value="{{ $oss->dri_pembelian_tanah ? $oss->dri_pembelian_tanah : old('dri_pembelian_tanah') }}" placeholder="Data Rencana Investasi : Pembelian dan Pematangan Tanah (Rp)?" required>
                 <div class="invalid-feedback">
                     @error('dri_pembelian_tanah') {{ $message }} @enderror
@@ -83,7 +91,6 @@
         </div>
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="dri_bangunan" class="form-label">Data Rencana Investasi : Bangunan / Gedung (Rp)?</label>
                 <input type="number" class="form-control  @error('dri_bangunan') is-invalid @enderror" id="dri_bangunan" name="dri_bangunan" value="{{ $oss->dri_bangunan ? $oss->dri_bangunan : old('dri_bangunan') }}" placeholder="Data Rencana Investasi : Bangunan / Gedung (Rp)?" required>
                 <div class="invalid-feedback">
                     @error('dri_bangunan') {{ $message }} @enderror
@@ -94,8 +101,15 @@
 
     <div class="row">
         <div class="col-12 col-sm-6">
+            <label for="dri_mesin_dalam_negeri" class="form-label required">Data Rencana Investasi : Mesin Peralatan Dalam Negeri (Rp)?</label>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="dri_mesin_impor" class="form-label required">Data Rencana Investasi : Mesin Peralatan Impor (Rp)?</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="dri_mesin_dalam_negeri" class="form-label">Data Rencana Investasi : Mesin Peralatan Dalam Negeri (Rp)?</label>
                 <input type="number" class="form-control  @error('dri_mesin_dalam_negeri') is-invalid @enderror" id="dri_mesin_dalam_negeri" name="dri_mesin_dalam_negeri" value="{{ $oss->dri_mesin_dalam_negeri ? $oss->dri_mesin_dalam_negeri : old('dri_mesin_dalam_negeri') }}" placeholder="Data Rencana Investasi : Mesin Peralatan Dalam Negeri (Rp)?" required>
                 <div class="invalid-feedback">
                     @error('dri_mesin_dalam_negeri') {{ $message }} @enderror
@@ -104,7 +118,6 @@
         </div>
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="dri_mesin_impor" class="form-label">Data Rencana Investasi : Mesin Peralatan Impor (Rp)?</label>
                 <input type="number" class="form-control  @error('dri_mesin_impor') is-invalid @enderror" id="dri_mesin_impor" name="dri_mesin_impor" value="{{ $oss->dri_mesin_impor ? $oss->dri_mesin_impor : old('dri_mesin_impor') }}" placeholder="Data Rencana Investasi : Mesin Peralatan Impor (Rp)?" required>
                 <div class="invalid-feedback">
                     @error('dri_mesin_impor') {{ $message }} @enderror
@@ -116,7 +129,7 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="dri_investasi" class="form-label">Data Rencana Investasi : Investasi Lain - Lain (Rp)?</label>
+                <label for="dri_investasi" class="form-label required">Data Rencana Investasi : Investasi Lain - Lain (Rp)?</label>
                 <input type="number" class="form-control  @error('dri_investasi') is-invalid @enderror" id="dri_investasi" name="dri_investasi" value="{{ $oss->dri_investasi ? $oss->dri_investasi : old('dri_investasi') }}" placeholder="Data Rencana Investasi : Investasi Lain - Lain (Rp)?" required>
                 <div class="invalid-feedback">
                     @error('dri_investasi') {{ $message }} @enderror
@@ -125,7 +138,7 @@
         </div>
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="dri_modal_kerja_3_bulan" class="form-label">Data Rencana Investasi : Modal Kerja 3 Bulanan (Rp)?</label>
+                <label for="dri_modal_kerja_3_bulan" class="form-label required">Data Rencana Investasi : Modal Kerja 3 Bulanan (Rp)?</label>
                 <input type="number" class="form-control  @error('dri_modal_kerja_3_bulan') is-invalid @enderror" id="dri_modal_kerja_3_bulan" name="dri_modal_kerja_3_bulan" value="{{ $oss->dri_modal_kerja_3_bulan ? $oss->dri_modal_kerja_3_bulan : old('dri_modal_kerja_3_bulan') }}" placeholder="Data Rencana Investasi : Modal Kerja 3 Bulanan (Rp)?" required>
                 <div class="invalid-feedback">
                     @error('dri_modal_kerja_3_bulan') {{ $message }} @enderror
@@ -137,7 +150,7 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="tgl_mulai_beroperasi" class="form-label">Tanggal, Bulan dan Tahun mulai Beroperasi</label>
+                <label for="tgl_mulai_beroperasi" class="form-label required">Tanggal, Bulan dan Tahun mulai Beroperasi</label>
                 <input type="text" class="form-control  @error('tgl_mulai_beroperasi') is-invalid @enderror" id="tgl_mulai_beroperasi" name="tgl_mulai_beroperasi" value="{{ $oss->tgl_mulai_beroperasi ? $oss->tgl_mulai_beroperasi : old('tgl_mulai_beroperasi') }}" placeholder="Tanggal, Bulan dan Tahun mulai Beroperasi" required>
                 <div class="invalid-feedback">
                     @error('tgl_mulai_beroperasi') {{ $message }} @enderror
@@ -146,7 +159,7 @@
         </div>
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="jml_pegawai_pria" class="form-label">Jumlah Tenaga Kerja/Pegawai/PTK laki laki</label>
+                <label for="jml_pegawai_pria" class="form-label required">Jumlah Tenaga Kerja/Pegawai/PTK laki laki</label>
                 <input type="number" class="form-control  @error('jml_pegawai_pria') is-invalid @enderror" id="jml_pegawai_pria" name="jml_pegawai_pria" value="{{ $oss->jml_pegawai_pria ? $oss->jml_pegawai_pria : old('jml_pegawai_pria') }}" placeholder="Jumlah Tenaga Kerja/Pegawai/PTK laki laki" required>
                 <div class="invalid-feedback">
                     @error('jml_pegawai_pria') {{ $message }} @enderror
@@ -158,7 +171,7 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="jml_pegawai_wanita" class="form-label">Jumlah Tenaga Kerja/Pegawai/PTK Perempuan</label>
+                <label for="jml_pegawai_wanita" class="form-label required">Jumlah Tenaga Kerja/Pegawai/PTK Perempuan</label>
                 <input type="number" class="form-control  @error('jml_pegawai_wanita') is-invalid @enderror" id="jml_pegawai_wanita" name="jml_pegawai_wanita" value="{{ $oss->jml_pegawai_wanita ? $oss->jml_pegawai_wanita : old('jml_pegawai_wanita') }}" placeholder="Jumlah Tenaga Kerja/Pegawai/PTK Perempuan" required>
                 <div class="invalid-feedback">
                     @error('jml_pegawai_wanita') {{ $message }} @enderror
@@ -167,7 +180,7 @@
         </div>
         <div class="col-12 col-sm-6">
             <div class="mb-3">
-                <label for="jml_pegawai_asing" class="form-label">Jumlah Tenaga Kerja/Pegawai/PTK Asing</label>
+                <label for="jml_pegawai_asing" class="form-label required">Jumlah Tenaga Kerja/Pegawai/PTK Asing</label>
                 <input type="number" class="form-control  @error('jml_pegawai_asing') is-invalid @enderror" id="jml_pegawai_asing" name="jml_pegawai_asing" value="{{ $oss->jml_pegawai_asing ? $oss->jml_pegawai_asing : old('jml_pegawai_asing') }}" placeholder="Jumlah Tenaga Kerja/Pegawai/PTK Asing" required>
                 <div class="invalid-feedback">
                     @error('jml_pegawai_asing') {{ $message }} @enderror
@@ -240,6 +253,7 @@
                 <div class="mb-3">
                     <label for="amdal_file_lampiran" class="form-label">Lampiran File Izin Lingkungan AMDAL</label>
                     <input type="file" class="form-control  @error('amdal_file_lampiran') is-invalid @enderror" id="amdal_file_lampiran" name="amdal_file_lampiran" accept=".pdf" value="{{ old('amdal_file_lampiran') }}">
+                    @if($oss->amdal_file_lampiran) <a href="{{ route('oss.file', $oss->amdal_file_lampiran) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->amdal_file_lampiran) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
                         @error('amdal_file_lampiran') {{ $message }} @enderror
                     </div>
@@ -313,6 +327,7 @@
                 <div class="mb-3">
                     <label for="uklupl_file_lampiran" class="form-label">Lampiran File Izin Lingkungan UKL-UPL</label>
                     <input type="file" class="form-control  @error('uklupl_file_lampiran') is-invalid @enderror" id="uklupl_file_lampiran" name="uklupl_file_lampiran" accept=".pdf" value="{{ old('uklupl_file_lampiran') }}">
+                    @if($oss->uklupl_file_lampiran)<a href="{{ route('oss.file', $oss->uklupl_file_lampiran) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->uklupl_file_lampiran) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
                         @error('uklupl_file_lampiran') {{ $message }} @enderror
                     </div>
