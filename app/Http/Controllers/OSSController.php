@@ -16,7 +16,8 @@ class OSSController extends Controller
     public function landOSSRequest() {
 
         $oss = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen", "ossstatus", "osstimeline" => function ($query) {
-            $query->orderBy('id_timeline', 'DESC');
+            $query->orderBy('id_timeline', 'DESC')
+                ->limit(1);
             }])->where('id_user', '=', auth()->user()->id_user)
             ->orderBy('id_oss', 'DESC')
             ->first();
@@ -576,8 +577,7 @@ class OSSController extends Controller
     public function historyOSSRequest() {
         $ossHistory = OSS::with(["ossstatus", "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
                 $query->where('status_verifikasi', '=', 'izin terbit')
-                    ->orderBy('id_timeline', 'DESC')
-                    ->limit(1);
+                    ->orderBy('id_timeline', 'DESC');
             }])->where('id_user', '=', auth()->user()->id_user)
             ->where('status', '=', 'izin terbit')
             ->orderBy('id_oss', 'DESC')
