@@ -110,4 +110,17 @@ class OSSRequest extends FormRequest
             'uklupl_file_lampiran' => 'nullable|file|mimes:pdf|max:1024',
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            // Jika file di-upload, simpan ke storage sementara
+            if ($this->hasFile('bukti_bayar')) {
+                $file = $this->file('bukti_bayar');
+                $path = $file->storeAs('uploads/temp', $file->getClientOriginalName());
+                session(['temp_file_path' => $path]);
+            }
+        });
+    }
+
 }

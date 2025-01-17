@@ -252,7 +252,7 @@
                                     <th>Permohonan</th>
                                     <th>Disetujui</th>
                                     <th>Expired Dokumen</th>
-                                    <th width="200" ">Catatan</th>
+                                    <th width="200">Catatan</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
                                     @endif
@@ -272,7 +272,7 @@
                                         <td>{{ Date::tglReverseDash($row->tgl_izin) }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_expired) }}</td>
                                         <td>
-                                            @include('admin.oss.field-catatan')
+                                           @include('admin.oss.field-catatan')
                                         </td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>

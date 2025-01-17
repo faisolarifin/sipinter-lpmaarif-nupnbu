@@ -19,8 +19,7 @@ class OSSController extends Controller
         $ossVerifikasi = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
             "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
                 $query->where('status_verifikasi', '=', 'verifikasi')
-                    ->orderBy('id_timeline', 'DESC')
-                    ->limit(1);
+                    ->orderBy('id_timeline', 'DESC');
             }])->where('status', '=', 'verifikasi')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
@@ -29,8 +28,7 @@ class OSSController extends Controller
         $ossRevisi = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
             "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
                 $query->where('status_verifikasi', '=', 'perbaikan')
-                    ->orderBy('id_timeline', 'DESC')
-                    ->limit(1);
+                    ->orderBy('id_timeline', 'DESC');
             }])->where('status', '=','perbaikan')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
@@ -39,8 +37,7 @@ class OSSController extends Controller
         $ossProses = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
             "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
                 $query->where('status_verifikasi', '=', 'dokumen diproses')
-                    ->orderBy('id_timeline', 'DESC')
-                    ->limit(1);
+                    ->orderBy('id_timeline', 'DESC');
             }])->where('status', '=', 'dokumen diproses')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
@@ -49,8 +46,7 @@ class OSSController extends Controller
         $ossTerbit = OSS::with(["satpen:id_satpen,id_user,id_kab,no_registrasi,nm_satpen",
             "satpen.kabupaten:id_kab,nama_kab","osstimeline" => function ($query) {
                 $query->where('status_verifikasi', '=', 'izin terbit')
-                    ->orderBy('id_timeline', 'DESC')
-                    ->limit(1);
+                    ->orderBy('id_timeline', 'DESC');
             }])->where('status', '=', 'izin terbit')
             ->whereHas('satpen', function($query) use ($specificFilter) {
                 $query->where($specificFilter);
