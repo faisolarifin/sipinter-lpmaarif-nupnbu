@@ -16,8 +16,7 @@ class OSSController extends Controller
     public function landOSSRequest() {
 
         $oss = OSS::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen", "ossstatus", "osstimeline" => function ($query) {
-            $query->orderBy('id_timeline', 'DESC')
-                ->limit(1);
+            $query->orderBy('id_timeline', 'DESC');
             }])->where('id_user', '=', auth()->user()->id_user)
             ->orderBy('id_oss', 'DESC')
             ->first();
