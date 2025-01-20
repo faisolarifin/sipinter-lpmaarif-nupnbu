@@ -174,7 +174,8 @@ class OSSController extends Controller
             'catatan' => 'permohonan pengajuan oss baru',
             'link_pnbp' => null,
             'link_catatan_pupr' => null,
-            'link_kode_ajuan' => null,
+            'link_gistaru' => null,
+            'link_izin_terbit' => null,
             'nomor_ku' => null,
         ]);
 
@@ -555,7 +556,8 @@ class OSSController extends Controller
                     'catatan' => 'permohonan verifikasi pengajuan oss',
                     'link_pnbp' => null,
                     'link_catatan_pupr' => null,
-                    'link_kode_ajuan' => null,
+                    'link_gistaru' => null,
+                    'link_izin_terbit' => null,
                     'nomor_ku' => null,
                 ]);
 

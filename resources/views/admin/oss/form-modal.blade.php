@@ -20,10 +20,17 @@
     </div>
 </div>
 <div class="mb-2">
-    <label for="link_kode_ajuan" class="form-label">Link Kode Ajuan</label>
-    <input type="text" class="form-control form-control-sm @error('link_kode_ajuan') is-invalid @enderror" id="link_kode_ajuan" name="link_kode_ajuan" placeholder="Link Kode Ajuan" value="{{ old('link_kode_ajuan') }}">
+    <label for="link_gistaru" class="form-label">Link Gistaru</label>
+    <input type="text" class="form-control form-control-sm @error('link_gistaru') is-invalid @enderror" id="link_gistaru" name="link_gistaru" placeholder="Link Gistaru" value="{{ old('link_gistaru') }}">
     <div class="invalid-feedback">
-        @error('link_kode_ajuan') {{ $message }} @enderror
+        @error('link_gistaru') {{ $message }} @enderror
+    </div>
+</div>
+<div class="mb-2">
+    <label for="link_izin_terbit" class="form-label">Link Izin Terbit</label>
+    <input type="text" class="form-control form-control-sm @error('link_izin_terbit') is-invalid @enderror" id="link_izin_terbit" name="link_izin_terbit" placeholder="Link Izin Terbit" value="{{ old('link_izin_terbit') }}">
+    <div class="invalid-feedback">
+        @error('link_izin_terbit') {{ $message }} @enderror
     </div>
 </div>
 <div class="mb-2">

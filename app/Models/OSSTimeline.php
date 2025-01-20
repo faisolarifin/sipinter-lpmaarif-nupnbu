@@ -18,7 +18,8 @@ class OSSTimeline extends Model
         'catatan',
         'link_pnbp',
         'link_catatan_pupr',
-        'link_kode_ajuan',
+        'link_gistaru',
+        'link_izin_terbit',
         'nomor_ku',
     ];
 }

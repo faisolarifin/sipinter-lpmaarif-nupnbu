@@ -95,7 +95,8 @@ class OSSController extends Controller
                     'catatan' => $request->catatan,
                     'link_pnbp' => $request->link_pnbp,
                     'link_catatan_pupr' => $request->link_catatan_pupr,
-                    'link_kode_ajuan' => $request->link_kode_ajuan,
+                    'link_gistaru' => $request->link_gistaru,
+                    'link_izin_terbit' => $request->link_izin_terbit,
                     'nomor_ku' => $request->nomor_ku,
                 ]);
 
@@ -138,7 +139,8 @@ class OSSController extends Controller
                     'catatan' => $request->catatan,
                     'link_pnbp' => $request->link_pnbp,
                     'link_catatan_pupr' => $request->link_catatan_pupr,
-                    'link_kode_ajuan' => $request->link_kode_ajuan,
+                    'link_gistaru' => $request->link_gistaru,
+                    'link_izin_terbit' => $request->link_izin_terbit,
                     'nomor_ku' => $request->nomor_ku,
                 ]);
 
@@ -175,7 +177,8 @@ class OSSController extends Controller
                     'catatan' => $request->catatan,
                     'link_pnbp' => $request->link_pnbp,
                     'link_catatan_pupr' => $request->link_catatan_pupr,
-                    'link_kode_ajuan' => $request->link_kode_ajuan,
+                    'link_gistaru' => $request->link_gistaru,
+                    'link_izin_terbit' => $request->link_izin_terbit,
                     'nomor_ku' => $request->nomor_ku,
                 ]);
 

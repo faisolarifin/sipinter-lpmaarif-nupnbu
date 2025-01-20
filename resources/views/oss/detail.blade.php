@@ -495,7 +495,8 @@
                                                 <small>{{ $row->catatan }}</small>
                                                 @if($row->link_pnbp)<br><small>Link PNBP : <a target="_blank" href="{{ $row->link_pnbp }}">{{ $row->link_pnbp }}</a></small> @endif
                                                 @if($row->link_catatan_pupr)<br><small>Link Catatan PUPR : <a target="_blank" href="{{ $row->link_catatan_pupr }}">{{ $row->link_catatan_pupr }}</a></small> @endif
-                                                @if($row->link_kode_ajuan)<br><small>Link Kode Ajuan : <a target="_blank" href="{{ $row->link_kode_ajuan }}">{{ $row->link_kode_ajuan }}</a></small> @endif
+                                                @if($row->link_gistaru)<br><small>Link Gistaru : <a target="_blank" href="{{ $row->link_gistaru }}">{{ $row->link_gistaru }}</a></small> @endif
+                                                @if($row->link_izin_terbit)<br><small>Link Izin Terbit : <a target="_blank" href="{{ $row->link_izin_terbit }}">{{ $row->link_izin_terbit }}</a></small> @endif
                                                 @if($row->nomor_ku)<br><small>Nomor KU : <a target="_blank" href="{{ $row->nomor_ku }}">{{ $row->nomor_ku }}</a></small> @endif
                                             </li>
                                         @endforeach
