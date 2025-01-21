@@ -185,10 +185,10 @@
                                     <th>Nama Satpen</th>
                                     <th>Kabupaten</th>
                                     <th>Tanggal Permohonan</th>
-                                    <th>Catatan</th>
+                                    <th width="250">Catatan</th>
                                     <th>Bukti Bayar</th>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
-                                    <th width="40">Aksi</th>
+                                    <th width="25">Aksi</th>
                                     @endif
                                 </tr>
                                 </thead>
@@ -211,13 +211,13 @@
                                         </td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
-                                            <a class="btn btn-sm btn-secondary me-1" href="{{ route('a.oss.detail', $row->id_oss) }}">
+                                            <a class="btn btn-sm btn-secondary me-1 my-sm-1" href="{{ route('a.oss.detail', $row->id_oss) }}">
                                                 <i class="ti ti-eye"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}">
+                                            <button class="btn btn-sm btn-success me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}">
                                                 <i class="ti ti-checks"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak">
+                                            <button class="btn btn-sm btn-danger me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak">
                                                 <i class="ti ti-x"></i>
                                             </button>
                                         </td>
