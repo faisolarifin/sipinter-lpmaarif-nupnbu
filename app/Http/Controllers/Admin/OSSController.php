@@ -9,6 +9,7 @@ use App\Models\OSSStatus;
 use App\Models\OSSTimeline;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OSSController extends Controller
 {
@@ -192,9 +193,34 @@ class OSSController extends Controller
     }
 
     public function destroyOSS(OSS $oss) {
+        $path_bukti_bayar = "file-bukti-bayar";
+        $path_file_izin_lama = "file-izin-lama";
+        $path_file_peta_polygon = "file-peta-polygon";
+        $path_ms_file_lampiran = "file-ms-lampiran";
+        $path_sw_file_lampiran = "file-sw-lampiran";
+        $path_pp_file_lampiran = "file-pp-lampiran";
+        $path_imb_file_lampiran = "file-imb-lampiran";
+        $path_slf_file_lampiran = "file-slf-lampiran";
+        $path_rencana_teknis_bangunan = "file-rencana-teknis-bangunan";
+        $path_file_lampiran_kkpr = "file-lampiran-kkpr";
+        $path_amdal_file_lampiran = "file-amdal-lampiran";
+        $path_uklupl_lampiran = "file-uklupl-lampiran";
         try {
             if ($oss) {
+                Storage::disk("oss-doc")->delete($path_bukti_bayar, $oss->bukti_bayar);
+                Storage::disk("oss-doc")->delete($path_file_izin_lama, $oss->file_izin_lama);
+                Storage::disk("oss-doc")->delete($path_file_peta_polygon, $oss->file_peta_polygon);
+                Storage::disk("oss-doc")->delete($path_rencana_teknis_bangunan, $oss->rencana_teknis_bangunan);
+                Storage::disk("oss-doc")->delete($path_ms_file_lampiran, $oss->ms_file_lampiran);
+                Storage::disk("oss-doc")->delete($path_sw_file_lampiran, $oss->sw_file_lampiran);
+                Storage::disk("oss-doc")->delete($path_pp_file_lampiran, $oss->pp_file_lampiran);
+                Storage::disk("oss-doc")->delete($path_imb_file_lampiran, $oss->imb_file_lampiran);
+                Storage::disk("oss-doc")->delete($path_slf_file_lampiran, $oss->slf_file_lampiran);
+                Storage::disk("oss-doc")->delete($path_file_lampiran_kkpr, $oss->file_lampiran_kkpr);
+                Storage::disk("oss-doc")->delete($path_amdal_file_lampiran, $oss->amdal_file_lampiran);
+                Storage::disk("oss-doc")->delete($path_uklupl_lampiran, $oss->uklupl_file_lampiran);
                 $oss->delete();
+
                 return redirect()->back()->with('success', 'Berhasil menghapus izin OSS');
             }
             return redirect()->back()->with('error', 'Invalid OSS Id');
