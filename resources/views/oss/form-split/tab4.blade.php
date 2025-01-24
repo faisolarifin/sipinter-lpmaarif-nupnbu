@@ -81,7 +81,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="file_peta_polygon" class="form-label required">Lampiran File Peta Polygon</label>
-                <input type="file" class="form-control  @error('file_peta_polygon') is-invalid @enderror" id="file_peta_polygon" name="file_peta_polygon" {{ !$oss->file_peta_polygon ? 'required' : '' }}>
+                <input type="file" class="form-control  @error('file_peta_polygon') is-invalid @enderror" id="file_peta_polygon" accept=".zip" name="file_peta_polygon" {{ !$oss->file_peta_polygon ? 'required' : '' }}>
                 <small>~ Unggah file koordinat Polygon dalam bentuk "shp complete" lalu dikompres dalam bentuk zip (bukan rar).</small>
                 @if($oss->file_peta_polygon) <br><a href="{{ route('oss.file', $oss->file_peta_polygon) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->file_peta_polygon) }} <i class="ti ti-download"></i> </strong></a> @endif
                 <div class="invalid-feedback">

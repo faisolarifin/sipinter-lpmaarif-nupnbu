@@ -99,7 +99,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="ms_file_lampiran" class="form-label required">Lampiran File HGU/HGB/SHM/Lainnya</label>
-                    <input type="file" class="form-control  @error('ms_file_lampiran') is-invalid @enderror" id="ms_file_lampiran" name="ms_file_lampiran" value="{{ old('ms_file_lampiran') }}">
+                    <input type="file" class="form-control  @error('ms_file_lampiran') is-invalid @enderror" id="ms_file_lampiran" name="ms_file_lampiran" accept=".pdf" value="{{ old('ms_file_lampiran') }}">
                     <small>~ bukti penguasaan lahan. dapat berupa HGU, HGB, Sertifikat, atau bukti lain yang Anda miliki</small>
                     @if($oss->ms_file_lampiran) <br><a href="{{ route('oss.file', $oss->ms_file_lampiran) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->ms_file_lampiran) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
