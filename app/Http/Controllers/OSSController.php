@@ -248,6 +248,15 @@ class OSSController extends Controller
                 $path_imb_file_lampiran, $path_slf_file_lampiran, $path_rencana_teknis_bangunan,
                 $path_file_lampiran_kkpr, $path_amdal_file_lampiran, $path_uklupl_lampiran) {
 
+                $filename_ms_file_lampiran = $oss->ms_file_lampiran;
+                $filename_sw_file_lampiran = $oss->sw_file_lampiran;
+                $filename_pp_file_lampiran = $oss->pp_file_lampiran;
+                $filename_imb_file_lampiran = $oss->imb_file_lampiran;
+                $filename_slf_file_lampiran = $oss->slf_file_lampiran;
+                $filename_file_lampiran_kkpr = $oss->file_lampiran_kkpr;
+                $filename_amdal_file_lampiran = $oss->amdal_file_lampiran;
+                $filename_uklupl_lampiran = $oss->uklupl_file_lampiran;
+
                 $dataUpdate = [
                     'email' => $request->email,
                     'npwp' => $request->npwp,
@@ -298,7 +307,7 @@ class OSSController extends Controller
                 ];
 
                 /** Status Lahan */
-                if ($request->status_lahan == "Milik Sendiri" && $oss->status != 'perbaikan') {
+                if ($request->status_lahan == "Milik Sendiri") {
                     if ($request->file('ms_file_lampiran') && $request->file('ms_file_lampiran')->isValid()) {
                         $originalName = $no_registrasi.'~'.$request->file('ms_file_lampiran')->getClientOriginalName();
                         $filename_ms_file_lampiran = Storage::disk('oss-doc')->putFileAs(
@@ -326,7 +335,7 @@ class OSSController extends Controller
                         'ms_file_lampiran' => $oss->ms_file_lampiran,
                     ]);
                 }
-                if ($request->status_lahan == "Sewa" && $oss->status != 'perbaikan') {
+                if ($request->status_lahan == "Sewa") {
                     if ($request->file('sw_file_lampiran') && $request->file('sw_file_lampiran')->isValid()) {
                         $originalName = $no_registrasi.'~'.$request->file('sw_file_lampiran')->getClientOriginalName();
                         $filename_sw_file_lampiran = Storage::disk('oss-doc')->putFileAs(
@@ -353,7 +362,7 @@ class OSSController extends Controller
                     ]);
                 }
 
-                if ($request->status_lahan == "Pinjam Pakai" && $oss->status != 'perbaikan') {
+                if ($request->status_lahan == "Pinjam Pakai") {
                     if ($request->file('pp_file_lampiran') && $request->file('pp_file_lampiran')->isValid()) {
                         $originalName = $no_registrasi.'~'.$request->file('pp_file_lampiran')->getClientOriginalName();
                         $filename_pp_file_lampiran = Storage::disk('oss-doc')->putFileAs(
