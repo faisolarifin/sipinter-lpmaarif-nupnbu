@@ -157,7 +157,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="sw_file_lampiran" class="form-label required">Lampiran File Perjanjian Sewa Lahan</label>
-                    <input type="file" class="form-control  @error('sw_file_lampiran') is-invalid @enderror" id="sw_file_lampiran" name="sw_file_lampiran" value="{{ old('sw_file_lampiran') }}">
+                    <input type="file" class="form-control  @error('sw_file_lampiran') is-invalid @enderror" id="sw_file_lampiran" name="sw_file_lampiran" accept=".pdf" value="{{ old('sw_file_lampiran') }}">
                     <small>~ Berupa Bukti Perjanjian Sewa Menyewa Lahan </small>
                     @if($oss->sw_file_lampiran) <br><a href="{{ route('oss.file', $oss->sw_file_lampiran) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->sw_file_lampiran) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
@@ -215,7 +215,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="pp_file_lampiran" class="form-label required">Lampiran File Perjanjian Pinjam Pakai Lahan</label>
-                    <input type="file" class="form-control  @error('pp_file_lampiran') is-invalid @enderror" id="pp_file_lampiran" name="pp_file_lampiran" value="{{ old('pp_file_lampiran') }}">
+                    <input type="file" class="form-control  @error('pp_file_lampiran') is-invalid @enderror" id="pp_file_lampiran" name="pp_file_lampiran" accept=".pdf" value="{{ old('pp_file_lampiran') }}">
                     <small>~ Berupa Bukti Perjanjian Pinjam Pakai Lahan </small>
                     @if($oss->pp_file_lampiran) <br><a href="{{ route('oss.file', $oss->pp_file_lampiran) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->pp_file_lampiran) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">

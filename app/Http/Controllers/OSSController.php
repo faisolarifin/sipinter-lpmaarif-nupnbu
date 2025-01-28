@@ -328,11 +328,11 @@ class OSSController extends Controller
 
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'ms_instansi_izin' => $oss->ms_instansi_izin,
-                        'ms_nomor_izin' => $oss->ms_nomor_izin,
-                        'ms_tgl_terbit' => $oss->ms_tgl_terbit,
-                        'ms_tgl_expired' => $oss->ms_tgl_expired,
-                        'ms_file_lampiran' => $oss->ms_file_lampiran,
+                        'ms_instansi_izin' => '',
+                        'ms_nomor_izin' => '',
+                        'ms_tgl_terbit' => null,
+                        'ms_tgl_expired' => null,
+                        'ms_file_lampiran' => '',
                     ]);
                 }
                 if ($request->status_lahan == "Sewa") {
@@ -354,11 +354,11 @@ class OSSController extends Controller
                     ]);
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'sw_pemilik_lahan' => $oss->sw_pemilik_lahan,
-                        'sw_nomor_perjanjian' => $oss->sw_nomor_perjanjian,
-                        'sw_tgl_perjanjian' => $oss->sw_tgl_perjanjian,
-                        'sw_tgl_expired' => $oss->sw_tgl_expired,
-                        'sw_file_lampiran' => $oss->sw_file_lampiran,
+                        'sw_pemilik_lahan' => '',
+                        'sw_nomor_perjanjian' => '',
+                        'sw_tgl_perjanjian' => null,
+                        'sw_tgl_expired' => null,
+                        'sw_file_lampiran' => '',
                     ]);
                 }
 
@@ -381,11 +381,11 @@ class OSSController extends Controller
                     ]);
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'pp_pemilik_lahan' => $oss->pp_pemilik_lahan,
-                        'pp_nomor_perjanjian' => $oss->pp_nomor_perjanjian,
-                        'pp_tgl_perjanjian' => $oss->pp_tgl_perjanjian,
-                        'pp_tgl_expired' => $oss->pp_tgl_expired,
-                        'pp_file_lampiran' => $oss->pp_file_lampiran,
+                        'pp_pemilik_lahan' => '',
+                        'pp_nomor_perjanjian' => '',
+                        'pp_tgl_perjanjian' => null,
+                        'pp_tgl_expired' => null,
+                        'pp_file_lampiran' => '',
                     ]);
                 }
 
@@ -410,12 +410,12 @@ class OSSController extends Controller
                     ]);
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'imb_jml_bangunan' => $oss->imb_jml_bangunan,
-                        'imb_pejabat_penerbit_izin' => $oss->imb_pejabat_penerbit_izin,
-                        'imb_nomor' => $oss->imb_nomor,
-                        'imb_tgl_terbit' => $oss->imb_tgl_terbit,
-                        'imb_tgl_expired' => $oss->imb_tgl_expired,
-                        'imb_file_lampiran' => $oss->imb_file_lampiran,
+                        'imb_jml_bangunan' => null,
+                        'imb_pejabat_penerbit_izin' => '',
+                        'imb_nomor' => '',
+                        'imb_tgl_terbit' => null,
+                        'imb_tgl_expired' => null,
+                        'imb_file_lampiran' => '',
                     ]);
                 }
 
@@ -439,11 +439,11 @@ class OSSController extends Controller
                     ]);
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'slf_pejabat_penerbit' => $oss->slf_pejabat_penerbit,
-                        'slf_nomor' => $oss->slf_nomor,
-                        'slf_tgl_terbit' => $oss->slf_tgl_terbit,
-                        'slf_tgl_expired' => $oss->slf_tgl_expired,
-                        'slf_file_lampiran' => $oss->slf_file_lampiran,
+                        'slf_pejabat_penerbit' => '',
+                        'slf_nomor' => '',
+                        'slf_tgl_terbit' => null,
+                        'slf_tgl_expired' => null,
+                        'slf_file_lampiran' => '',
                     ]);
                 }
 
@@ -477,11 +477,11 @@ class OSSController extends Controller
                     ]);
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'pejabat_penerbit_kkpr' => $oss->pejabat_penerbit_kkpr,
-                        'nomor_kkpr' => $oss->nomor_kkpr,
-                        'tgl_terbit_kkpr' => $oss->tgl_terbit_kkpr,
-                        'tgl_expired_kkpr' => $oss->tgl_expired_kkpr,
-                        'file_lampiran_kkpr' => $oss->file_lampiran_kkpr,
+                        'pejabat_penerbit_kkpr' => '',
+                        'nomor_kkpr' => '',
+                        'tgl_terbit_kkpr' => null,
+                        'tgl_expired_kkpr' => null,
+                        'file_lampiran_kkpr' => '',
                     ]);
                 }
 
@@ -505,11 +505,11 @@ class OSSController extends Controller
                     ]);
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'amdal_pejabat_penerbit' => $oss->amdal_pejabat_penerbit,
-                        'amdal_nomor_izin' => $oss->amdal_nomor_izin,
-                        'amdal_tgl_terbit' => $oss->amdal_tgl_terbit,
-                        'amdal_tgl_expired' => $oss->amdal_tgl_expired,
-                        'amdal_file_lampiran' => $oss->amdal_file_lampiran,
+                        'amdal_pejabat_penerbit' => '',
+                        'amdal_nomor_izin' => '',
+                        'amdal_tgl_terbit' => null,
+                        'amdal_tgl_expired' => null,
+                        'amdal_file_lampiran' => '',
                     ]);
                 }
 
@@ -533,11 +533,11 @@ class OSSController extends Controller
                     ]);
                 } else {
                     $dataUpdate = array_merge($dataUpdate, [
-                        'uklupl_pejabat_penerbit' => $oss->uklupl_pejabat_penerbit,
-                        'uklupl_nomor_izin' => $oss->uklupl_nomor_izin,
-                        'uklupl_tgl_terbit' => $oss->uklupl_tgl_terbit,
-                        'uklupl_tgl_expired' => $oss->uklupl_tgl_expired,
-                        'uklupl_file_lampiran' => $oss->uklupl_file_lampiran,
+                        'uklupl_pejabat_penerbit' => '',
+                        'uklupl_nomor_izin' => '',
+                        'uklupl_tgl_terbit' => null,
+                        'uklupl_tgl_expired' => null,
+                        'uklupl_file_lampiran' => '',
                     ]);
                 }
 

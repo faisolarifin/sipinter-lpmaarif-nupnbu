@@ -38,7 +38,7 @@
                         @include('admin.oss.form-modal')
                         <div>
                             <label for="tgl_expired" class="form-label">Tanggal Expired Izin</label>
-                            <input type="date" class="form-control form-control-sm @error('tgl_expired') is-invalid @enderror" id="tgl_expired" name="tgl_expired" value="{{ old('tgl_expired') }}">
+                            <input type="date" class="form-control form-control-sm @error('tgl_expired') is-invalid @enderror" id="tgl_expired" name="tgl_expired" value="{{ old('tgl_expired') }}" required>
                             <div class="invalid-feedback">
                                 @error('tgl_expired') {{ $message }} @enderror
                             </div>

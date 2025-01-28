@@ -157,6 +157,10 @@ class OSSController extends Controller
     public function setIzinTerbitOSS(Request $request, OSS $oss) {
 
         try {
+            $request->validate([
+                'tgl_expired' => 'required',
+            ]);
+
             if ($oss) {
                 $oss->update([
                     'tgl_izin' => Carbon::now(),

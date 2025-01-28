@@ -62,7 +62,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="file_lampiran_kkpr" class="form-label">Lampiran File KKPR Non Berusaha (Format PDF)</label>
-                    <input type="file" class="form-control  @error('file_lampiran_kkpr') is-invalid @enderror" id="file_lampiran_kkpr" name="file_lampiran_kkpr" value="{{ old('file_lampiran_kkpr') }}">
+                    <input type="file" class="form-control  @error('file_lampiran_kkpr') is-invalid @enderror" id="file_lampiran_kkpr" name="file_lampiran_kkpr" accept=".pdf" value="{{ old('file_lampiran_kkpr') }}">
                     @if($oss->file_lampiran_kkpr) <a href="{{ route('oss.file', $oss->file_lampiran_kkpr) }}" target="_blank"><strong>{{ \App\Helpers\Strings::getFileName($oss->file_lampiran_kkpr) }} <i class="ti ti-download"></i> </strong></a> @endif
                     <div class="invalid-feedback">
                         @error('file_lampiran_kkpr') {{ $message }} @enderror
