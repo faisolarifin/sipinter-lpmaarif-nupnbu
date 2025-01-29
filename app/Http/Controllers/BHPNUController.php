@@ -77,10 +77,14 @@ class BHPNUController extends Controller
 
     public function storePermohonanBHPNU(BHPNURequest $request, BHPNU $bhpnu) {
 
+        $request->validate([
+            'bukti_bayar' => 'required|nullable|file|mimes:pdf,jpg,jpeg,png,svg|max:1024',
+        ]);
+
         if ($request->file('bukti_bayar')
             && $request->file('bukti_bayar')->isValid()) {
             $pathBuktiBayar = Storage::disk('bhpnu-doc')->putFile("bukti-bayar", $request->file('bukti_bayar'));
-            Storage::disk("bhpnu-doc")->delete("bukti-bayar", $bhpnu->bukti_bayar);
+            Storage::disk("bhpnu-doc")->delete("bukti-bayar", "bukti-bayar/".$bhpnu->bukti_bayar);
         }
 
         $bhpnu->update([
