@@ -84,7 +84,7 @@ class BHPNUController extends Controller
         }
 
         $bhpnu->update([
-            'bukti_bayar' => $pathBuktiBayar,
+            'bukti_bayar' => basename($pathBuktiBayar),
             'tanggal' => Carbon::now(),
             'status' => 'verifikasi',
         ]);

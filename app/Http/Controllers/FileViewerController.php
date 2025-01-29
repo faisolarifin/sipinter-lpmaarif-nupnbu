@@ -18,7 +18,7 @@ class FileViewerController extends Controller
 
     public function viewBuktiPembayaran(string $fileName) {
         if ($fileName) {
-            $filepath = storage_path("app/bhpnu-doc/bukti-bayar". $fileName);
+            $filepath = storage_path("app/bhpnu-doc/bukti-bayar/". $fileName);
 
             if (!file_exists($filepath)) return response("File not found!");
             return response()->file($filepath);
