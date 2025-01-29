@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapintar - Data Provinsi'
+    'title' => 'Sipinter - Data Provinsi'
 ])
 
 @section('navbar')

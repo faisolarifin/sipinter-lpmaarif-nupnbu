@@ -24,7 +24,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title fw-semibold mb-1">Permohonan OSS</h5>
-                            <small>permohonan oss dengan mengisi kode unik dan bukti pembayaran</small>
+                            <small>permohonan oss dengan quisioner dan bukti pembayaran</small>
                         </div>
                         <div>
                             @if(!$oss || @$oss->status == 'izin terbit')

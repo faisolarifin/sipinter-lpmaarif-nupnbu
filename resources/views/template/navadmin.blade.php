@@ -138,6 +138,16 @@
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu">Master Data</span>
         </li>
+        @if(in_array(auth()->user()->role, ["super admin"]))
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('dapo.index') }}" aria-expanded="false">
+            <span>
+              <i class="ti ti-database"></i>
+            </span>
+                <span class="hide-menu">Dapo LP Ma'arif</span>
+            </a>
+        </li>
+        @endif
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('propinsi.index') }}" aria-expanded="false">
                 <span>

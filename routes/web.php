@@ -23,7 +23,7 @@ use App\Http\Controllers\Master\{
     JenjangPendidikanController,
     KabupatenController,
     PengurusCabangController,
-    PropinsiController,};
+    PropinsiController,DapoController};
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +134,11 @@ Route::middleware('mustlogin')->group(function() {
             Route::resource('/cabang', PengurusCabangController::class);
             Route::resource('/jenjang', JenjangPendidikanController::class);
             Route::resource('/users', UsersController::class)->middleware('superadmin');
+            Route::group(["prefix" => "/dapo", "middleware" => "superadmin"], function (){
+                Route::get("/", [DapoController::class, 'index'])->name('dapo.index');
+                Route::delete("/{npsn}", [DapoController::class, 'destroy'])->name('dapo.delete');
+                Route::post("/", [DapoController::class, 'store'])->name('dapo.save');
+            });
             Route::group(["prefix" => "satpen/users", "middleware" => "superadmin"], function (){
                 Route::get("/", [UsersController::class, 'users'])->name('users.satpen');
                 Route::get("{user}/reset", [UsersController::class, 'reset'])->name('users.reset');
