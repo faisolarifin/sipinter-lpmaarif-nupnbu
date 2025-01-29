@@ -123,7 +123,7 @@
                                             </a></td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
@@ -179,7 +179,7 @@
                                             </a></td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ $row->no_resi }}</td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>

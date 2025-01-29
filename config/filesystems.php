@@ -40,7 +40,12 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/uploads'),
         ],
-        
+
+        'bhpnu-doc' => [
+            'driver' => 'local',
+            'root' => storage_path('app/bhpnu-doc'),
+        ],
+
         'oss-doc' => [
             'driver' => 'local',
             'root' => storage_path('app/oss-doc'),

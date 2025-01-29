@@ -79,8 +79,8 @@ class BHPNUController extends Controller
 
         if ($request->file('bukti_bayar')
             && $request->file('bukti_bayar')->isValid()) {
-            $pathBuktiBayar = Storage::disk('buktibayar')->putFile(null, $request->file('bukti_bayar'));
-            Storage::disk("buktibayar")->delete($bhpnu->bukti_bayar);
+            $pathBuktiBayar = Storage::disk('bhpnu-doc')->putFile("bukti-bayar", $request->file('bukti_bayar'));
+            Storage::disk("bhpnu-doc")->delete("bukti-bayar", $bhpnu->bukti_bayar);
         }
 
         $bhpnu->update([
