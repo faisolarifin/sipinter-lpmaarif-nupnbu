@@ -170,8 +170,9 @@
         @if(@$oss->status == 'perbaikan')
             $('.row-milik-sendiri input[type=file]').removeAttr('required');
         @endif
-        $("#status_lahan").on('change', function(e) {
-            if ($(this).val().toLowerCase() == "sewa") {
+
+        function selectStatusLahan(ths) {
+            if ($(ths).val().toLowerCase() == "sewa") {
                 $(".row-milik-sendiri").slideUp();
                 $(".row-pinjam-pakai").slideUp();
                 $(".row-sewa").slideDown();
@@ -181,7 +182,7 @@
                 @if(@$oss->status == 'perbaikan')
                 $('.row-sewa input[type=file]').removeAttr('required');
                 @endif
-            } else if ($(this).val().toLowerCase() == "pinjam pakai") {
+            } else if ($(ths).val().toLowerCase() == "pinjam pakai") {
                 $(".row-milik-sendiri").slideUp();
                 $(".row-sewa").slideUp();
                 $(".row-pinjam-pakai").slideDown();
@@ -202,57 +203,85 @@
                 $('.row-milik-sendiri input[type=file]').removeAttr('required');
                 @endif
             }
+        }
+        $("#status_lahan").on('change', function(e) {
+            selectStatusLahan(this);
         });
+        selectStatusLahan("#status_lahan")
 
-        $("#apakah_memiliki_imb").on('change', function(e) {
-            if ($(this).val().toLowerCase() == "iya") {
+        function selectImb(ths){
+            if ($(ths).val().toLowerCase() == "iya") {
                 $(".row-imb").slideDown();
             } else {
                 $(".row-imb").slideUp();
             }
+        }
+        $("#apakah_memiliki_imb").on('change', function(e) {
+            selectImb(this)
         });
+        selectImb("#apakah_memiliki_imb")
 
-        $("#apakah_memiliki_sertifikat_slf").on('change', function(e) {
-            if ($(this).val().toLowerCase() == "iya") {
+        function selectSlf(ths) {
+            if ($(ths).val().toLowerCase() == "iya") {
                 $(".row-slf").slideDown();
             } else {
                 $(".row-slf").slideUp();
             }
+        }
+        $("#apakah_memiliki_sertifikat_slf").on('change', function(e) {
+            selectSlf(this)
         });
+        selectSlf("#apakah_memiliki_sertifikat_slf")
 
-        $("#kawasan_lokasi_usaha").on('change', function(e) {
-            if ($(this).val().toLowerCase() == "didalam kawasan") {
+        function selectLokasiUsaha(ths) {
+            if ($(ths).val().toLowerCase() == "didalam kawasan") {
                 $(".row-kli").slideDown();
                 $('.row-kli input').attr('required', true);
             } else {
                 $('.row-kli input').removeAttr('required');
                 $(".row-kli").slideUp();
             }
+        }
+        $("#kawasan_lokasi_usaha").on('change', function(e) {
+            selectLokasiUsaha(this)
         });
+        selectLokasiUsaha("#kawasan_lokasi_usaha")
 
-        $("#apakah_memiliki_kkpr").on('change', function(e) {
-            if ($(this).val().toLowerCase() == "iya") {
+        function selectKkpr(ths) {
+            if ($(ths).val().toLowerCase() == "iya") {
                 $(".row-kkpr").slideDown();
             } else {
                 $(".row-kkpr").slideUp();
             }
+        }
+        $("#apakah_memiliki_kkpr").on('change', function(e) {
+            selectKkpr(this)
         });
+        selectKkpr("#apakah_memiliki_kkpr")
 
-        $("#apakah_memiliki_izin_amdal").on('change', function(e) {
-            if ($(this).val().toLowerCase() == "iya") {
+        function selectAmdal(ths) {
+            if ($(ths).val().toLowerCase() == "iya") {
                 $(".row-amdal").slideDown();
             } else {
                 $(".row-amdal").slideUp();
             }
+        }
+        $("#apakah_memiliki_izin_amdal").on('change', function(e) {
+            selectAmdal(this)
         });
+        selectAmdal("#apakah_memiliki_izin_amdal")
 
-        $("#apakah_memiliki_uklupl").on('change', function(e) {
-            if ($(this).val().toLowerCase() == "iya") {
+        function selectUklUpl(ths) {
+            if ($(ths).val().toLowerCase() == "iya") {
                 $(".row-uklupl").slideDown();
             } else {
                 $(".row-uklupl").slideUp();
             }
+        }
+        $("#apakah_memiliki_uklupl").on('change', function(e) {
+            selectUklUpl(this)
         });
+        selectUklUpl("#apakah_memiliki_uklupl")
 
         //Steap Form
         let current = 0;
