@@ -25,4 +25,14 @@ class Strings {
         return end($parts);
     }
 
+    public static function replaceMapFile($mapfile) {
+        $mapfile = str_replace("_", " ", $mapfile);
+        if (str_contains($mapfile, "pc")) {
+            $mapfile = "pengurus cabang";
+        } elseif (str_contains($mapfile, "pw")) {
+            $mapfile = "pengurus wilayah";
+        }
+        return $mapfile;
+    }
+
 }

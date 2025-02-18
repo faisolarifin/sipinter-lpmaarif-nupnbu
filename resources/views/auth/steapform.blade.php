@@ -443,8 +443,8 @@
                 </div>
                 <div class="card-footer text-end">
                     <div class="d-flex">
-                        <button type="button" id="back_button" class="btn btn-green" onclick="back()">Back</button>
-                        <button type="button" id="next_button" class="btn btn-green ms-auto" onclick="next()">Next</button>
+                        <button type="button" id="back_button" class="btn btn-green" onclick="back()">Sebelumnya</button>
+                        <button type="button" id="next_button" class="btn btn-green ms-auto" onclick="next()">Berikutnya</button>
                         <button type="submit" id="submit_button" class="btn btn-green ms-auto d-none">Daftar</button>
                     </div>
                 </div>

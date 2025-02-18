@@ -44,97 +44,97 @@
 
                                 <tbody>
                                 <tr>
-                                    <td width="140">NPSN</td>
+                                    <th width="140">NPSN</th>
                                     <td width="30">:</td>
                                     <td>{{ $satpenProfile->npsn }}</td>
                                 </tr>
                                 <tr>
-                                    <td>No. Registrasi</td>
+                                    <th>No. Registrasi</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->no_registrasi }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Nama Satpen</td>
+                                    <th>Nama Satpen</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->nm_satpen }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Jenjang Pendidikan</td>
+                                    <th>Jenjang Pendidikan</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->jenjang->nm_jenjang }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Kategori Satpen</td>
+                                    <th>Kategori Satpen</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kategori?->nm_kategori }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Yayasan</td>
+                                    <th>Yayasan</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->yayasan }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Kepala Sekolah</td>
+                                    <th>Kepala Sekolah</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kepsek }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Tahun Berdiri</td>
+                                    <th>Tahun Berdiri</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->thn_berdiri }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td>
+                                    <th>Email</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->email }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Telpon</td>
+                                    <th>Telpon</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->telpon }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Fax</td>
+                                    <th>Fax</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->fax }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Provinsi</td>
+                                    <th>Provinsi</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->provinsi->nm_prov }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Kabupaten</td>
+                                    <th>Kabupaten</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kabupaten->nama_kab }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Cabang</td>
+                                    <th>Cabang</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->cabang->nama_pc }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Kecamatan</td>
+                                    <th>Kecamatan</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kecamatan }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Kelurahan/Desa</td>
+                                    <th>Kelurahan/Desa</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->kelurahan }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Alamat</td>
+                                    <th>Alamat</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->alamat }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Aset Tanah</td>
+                                    <th>Aset Tanah</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->aset_tanah }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Nama Pemilik</td>
+                                    <th>Nama Pemilik</th>
                                     <td>:</td>
                                     <td>{{ $satpenProfile->nm_pemilik }}</td>
                                 </tr>
@@ -147,7 +147,7 @@
                                     <h5 class="mb-2 fs-4">File Pendukung</h5>
                                     @foreach($satpenProfile->filereg as $row)
                                     <div class="mb-3 px-3 py-2 card-box-detail">
-                                        <h6 class="text-capitalize">{{$row->mapfile}}</h6>
+                                        <h6 class="text-capitalize">{{ Strings::replaceMapFile($row->mapfile)}}</h6>
                                         <p class="mb-1">{{$row->nm_lembaga}} {{$row->daerah}}</p>
                                         <p>Nomor : {{$row->nomor_surat}}</p>
                                         <div class="d-flex justify-content-between align-items-center">

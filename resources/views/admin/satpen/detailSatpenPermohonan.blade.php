@@ -343,92 +343,92 @@
                         <table>
                         <tbody>
                         <tr>
-                            <td width="140">NPSN</td>
+                            <th width="140">NPSN</th>
                             <td width="30">:</td>
                             <td>${res.npsn}</td>
                         </tr>
                         <tr>
-                            <td>Nama Satpen</td>
+                            <th>Nama Satpen</th>
                             <td>:</td>
                             <td>${res.nm_satpen}</td>
                         </tr>
                         <tr>
-                            <td>No. Registrasi</td>
+                            <th>No. Registrasi</th>
                             <td>:</td>
                             <td>${res.no_registrasi}</td>
                         </tr>
                         <tr>
-                            <td>Kategori Satpen</td>
+                            <th>Kategori Satpen</th>
                             <td>:</td>
                             <td>${res.kategori?.nm_kategori}</td>
                         </tr>
                         <tr>
-                            <td>Yayasan</td>
+                            <th>Yayasan</th>
                             <td>:</td>
                             <td>${res.yayasan}</td>
                         </tr>
                         <tr>
-                            <td>Kepala Sekolah</td>
+                            <th>Kepala Sekolah</th>
                             <td>:</td>
                             <td>${res.kepsek}</td>
                         </tr>
                         <tr>
-                            <td>Tahun Berdiri</td>
+                            <th>Tahun Berdiri</th>
                             <td>:</td>
                             <td>${res.thn_berdiri}</td>
                         </tr>
                         <tr>
-                            <td>Email</td>
+                            <th>Email</th>
                             <td>:</td>
                             <td>${res.email}</td>
                         </tr>
                         <tr>
-                            <td>Telpon</td>
+                            <th>Telpon</th>
                             <td>:</td>
                             <td>${res.telpon}</td>
                         </tr>
                         <tr>
-                            <td>Fax</td>
+                            <th>Fax</th>
                             <td>:</td>
                             <td>${res.fax}</td>
                         </tr>
                         <tr>
-                            <td>Provinsi</td>
+                            <th>Provinsi</th>
                             <td>:</td>
                             <td>${res.provinsi.nm_prov}</td>
                         </tr>
                         <tr>
-                            <td>Kabupaten</td>
+                            <th>Kabupaten</th>
                             <td>:</td>
                             <td>${res.kabupaten.nama_kab}</td>
                         </tr>
                         <tr>
-                            <td>Cabang</td>
+                            <th>Cabang</th>
                             <td>:</td>
                             <td>${res.cabang.nama_pc}</td>
                         </tr>
                         <tr>
-                            <td>Kecamatan</td>
+                            <th>Kecamatan</th>
                             <td>:</td>
                             <td>${res.kecamatan}</td>
                         </tr>
                         <tr>
-                            <td>Kelurahan/Desa</td>
+                            <th>Kelurahan/Desa</th>
                             <td>:</td>
                             <td>${res.kelurahan}</td>
                         </tr>
                         <tr>
-                            <td>Alamat</td>
+                            <th>Alamat</th>
                             <td>:</td>
                             <td>${res.alamat}</td>
                         </tr>
                         <tr>
-                            <td>Aset Tanah</td>
+                            <th>Aset Tanah</th>
                             <td>:</td>
                             <td>${res.aset_tanah}</td>
                         </tr>
                         <tr>
-                            <td>Nama Pemilik</td>
+                            <th>Nama Pemilik</th>
                             <td>:</td>
                             <td>${res.nm_pemilik}</td>
                         </tr>
@@ -437,13 +437,23 @@
                   </div>`;
         }
 
+        function replaceMapFile(mapfile) {
+            mapfile = mapfile.replace("_", " ");
+            if (mapfile.includes("pc")) {
+                mapfile = "pengurus cabang";
+            } else if (mapfile.includes("pw")) {
+                mapfile = "pengurus wilayah";
+            }
+            return mapfile;
+        }
+
         function createTableFiles(res) {
             cardFiles = `<div class="col-sm-6 px-3">
                       <h5 class="mb-2 fs-4">File Pendukung</h5>`;
             $.each(res.filereg, function(key, row) {
                 let routepdfViewer = "{{ route('viewerpdf', ['fileName' => ':param']) }}".replace(':param', row.filesurat);
                 cardFiles += `<div class="mb-3 px-3 py-2 card-box-detail">
-                        <h6 class="text-capitalize">${row.mapfile}</h6>
+                        <h6 class="text-capitalize">${ replaceMapFile(row.mapfile) }</h6>
                         <p class="mb-1">${row.nm_lembaga} ${row.daerah ?? ''}</p>
                         <p>Nomor : ${row.nomor_surat}</p>
                         <div class="d-flex justify-content-between align-items-center">
