@@ -21,6 +21,16 @@
         display: flex;
         flex-direction: column;
     }
+    .swiper img {
+        max-height: 200px;
+    }
+    .card-zoom {
+        transition: transform 0.3s ease-in-out;
+    }
+    .card-zoom:hover {
+        z-index: 888;
+        transform: scale(1.29);
+    }
    </style>
 @endsection
 
@@ -65,8 +75,8 @@
     </div>
 
     <div class="container container-body">
-        <div class="row justify-content-center" style="margin-top:-20rem">
-            <div class="col-sm-10 d-flex flex-column text-center row-slide-map py-4 px-5 row-swipe-up rounded" style="z-index:999;">
+        <div class="row justify-content-center" style="margin-top:-20rem;">
+            <div class="col-sm-10 d-flex flex-column text-center row-slide-map py-4 px-5 row-swipe-up rounded" style="z-index:999;opacity:.87;">
                 <div class="card shadow-none">
                     <div class="card-body py-0 px-1">
                         <div id="map-indonesia"></div>
@@ -88,7 +98,7 @@
                 @php($num=0)
                 @foreach($jmlSatpenByJenjang as $row)
                     <div class="col-3 col-sm-1 px-0 pe-1">
-                        <div class="card mb-1">
+                        <div class="card card-zoom mb-1">
                             <div class="card-body">
                                 <div class="d-flex flex-column justify-content-start">
                                     <div class="d-flex justify-content-between">
@@ -185,11 +195,10 @@
                         @foreach($berandaInformasi as $row)
                         <div class="swiper-slide">
                             <a href="{{ route('informasi', $row->slug) }}">
-                            <div class="card mx-auto me-sm-4" style="width:13.6rem">
+                            <div class="card card-zoom mx-auto me-sm-4" style="width:13.6rem">
                                 <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="...">
-                                <div class="card-body px-3 pt-3 pb-3">
-                                    <h6 class="card-title mb-3 fs-4">{{ $row->headline }}</h6>
-                                    <p class="mb-0 text-dark fs-3">{!! strip_tags(Str::limit($row->content , 50)) !!}</p>
+                                <div class="card-body px-3 pt-3 pb-1">
+                                    <h6 class="card-title mb-0 fs-3">{{ $row->headline }}</h6>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between px-2">
                                     <p class="card-text fs-2 mb-0">{{ Date::hariIni($row->tgl_upload). ", ". Date::tglIndo($row->tgl_upload) }}</p>

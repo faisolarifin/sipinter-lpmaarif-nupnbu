@@ -190,6 +190,9 @@ body {
     top: 3.5rem;
     z-index: 10;
   }
+  .carousel-caption h2 {
+    font-weight: 700;
+  }
   .carousel-item-bg {
     background: rgba(0, 0, 0, 0.5);
     padding: 4rem;
