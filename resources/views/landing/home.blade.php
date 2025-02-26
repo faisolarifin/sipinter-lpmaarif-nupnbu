@@ -65,7 +65,7 @@
     </div>
 
     <div class="container container-body">
-        <div class="row justify-content-center" style="margin-top:-40vh">
+        <div class="row justify-content-center" style="margin-top:-20rem">
             <div class="col-sm-10 d-flex flex-column text-center row-slide-map py-4 px-5 row-swipe-up rounded" style="z-index:999;">
                 <div class="card shadow-none">
                     <div class="card-body py-0 px-1">
@@ -133,7 +133,7 @@
             </div>
             <div class="row px-3 px-sm-0 justify-content-center justify-content-sm-start border">
                 <div class="col-12 col-sm-3">
-                    <div class="my-4">
+                    <div class="my-2 my-sm-4">
                         <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Pronvisi" name="provinsi">
                             @foreach($provinsi as $row)
                                 <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
@@ -142,27 +142,27 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-3">
-                    <div class="my-4">
+                    <div class="my-2 my-sm-4">
                         <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Kabupaten/Kota" name="kabupaten">
                             <!-- DIISI OTOMATIS DENGAN AJAX -->
                         </select>
                     </div>
                 </div>
                 <div class="col-12 col-sm-3">
-                    <div class="my-4">
+                    <div class="my-2 my-sm-4">
                         <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Kecamatan" required>
                     </div>
                 </div>
                 <div class="col-12 col-sm-3">
-                    <div class="d-flex gap-3">
-                        <div class="my-4">
+                    <div class="d-flex flex-column gap-sm-3 flex-sm-row">
+                        <div class="my-2 my-sm-4">
                             <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Jenjang Pendidikan" name="jenjang">
                                 @foreach($jenjang as $row)
                                     <option value="{{ $row->id_jenjang }}">{{ $row->nm_jenjang }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="my-4">
+                        <div class="my-2 my-sm-4">
                             <button type="submit" class="btn btn-primary"><i class="ti ti-search"></i> Cari</button>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                                 <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="...">
                                 <div class="card-body px-3 pt-3 pb-3">
                                     <h6 class="card-title mb-3 fs-4">{{ $row->headline }}</h6>
-                                    <p class="mb-0 text-dark">{!! strip_tags(Str::limit($row->content , 50)) !!}</p>
+                                    <p class="mb-0 text-dark fs-3">{!! strip_tags(Str::limit($row->content , 50)) !!}</p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between px-2">
                                     <p class="card-text fs-2 mb-0">{{ Date::hariIni($row->tgl_upload). ", ". Date::tglIndo($row->tgl_upload) }}</p>
