@@ -30,7 +30,7 @@
                         <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="...">
                         <div class="card-body px-3 pt-3 pb-3">
                             <h6 class="card-title mb-3 fs-4">{{ $row->headline }}</h6>
-                            <p class="mb-0 text-dark">{!! Str::limit($row->content , 50)  !!}</p>
+                            <p class="mb-0 text-dark">{!! strip_tags(Str::limit($row->content , 50)) !!}</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between px-2">
                             <p class="card-text fs-2 mb-0">{{ Date::hariIni($row->tgl_upload). ", ". Date::tglIndo($row->tgl_upload) }}</p>
