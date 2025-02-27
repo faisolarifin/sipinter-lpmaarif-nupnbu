@@ -46,18 +46,23 @@
                 <div class="container">
                     <div class="carousel-caption text-center">
                         <div class="carousel-caption-bg">
-                            <h2 style="color:#327B32;">SELAMAT DATANG DI LAYANAN SIPINTER</h2>
-                            <p class="mb-1">Sistem administrasi pendidikan terpadu lembaga pendidikan Ma'arif NU PBNU</p>
+                            <h2 style="color:#63ff00;">SELAMAT DATANG DI LAYANAN SIPINTER</h2>
+                            <p class="mb-1">Sistem Administrasi Pendidikan Terpadu Lembaga Pendidikan Ma'arif NU PBNU</p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('assets/images/backgrounds/maarif-pbnu1.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('assets/images/backgrounds/maarif-pbnu1.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
               </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('assets/images/backgrounds/maarif-pbnu1.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
+                    <div class="container">
+                        <div class="carousel-caption text-center">
+                            <div class="carousel-caption-bg">
+                                <h2 style="color:#63ff00;">SELAMAT DATANG DI LAYANAN SIPINTER</h2>
+                                <p class="mb-1">Sistem Administrasi Pendidikan Terpadu Lembaga Pendidikan Ma'arif NU PBNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -372,6 +377,7 @@
                                             <th scope="col">NPSN</th>
                                             <th scope="col">Satuan Pendidikan</th>
                                             <th scope="col">Jenjang</th>
+                                            <th scope="col">Tipe Satpen</th>
                                             <th scope="col" width="140">Provinsi</th>
                                             <th scope="col" width="180">Kabupaten</th>
                                             <th scope="col">Alamat</th>
@@ -386,6 +392,7 @@
                                                         <td>${row.npsn}</td>
                                                         <td>${row.nm_satpen}</td>
                                                         <td>${row.jenjang.nm_jenjang}</td>
+                                                        <td>${row.kategori?.nm_kategori ?? ''}</td>
                                                         <td>${row.provinsi.nm_prov}</td>
                                                         <td>${row.kabupaten.nama_kab}</td>
                                                         <td>${row.alamat}, ${row.kelurahan}, ${row.kecamatan}</td>

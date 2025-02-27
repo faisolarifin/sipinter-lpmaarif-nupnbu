@@ -45,10 +45,12 @@ class ApiController extends Controller
                     array_push($keywordFilter, ["kecamatan", "like", "%". $request->kecamatan ."%"]);
                 }
                 $listSatpen = Satpen::with([
+                    'kategori:id_kategori,nm_kategori',
                     'provinsi:id_prov,nm_prov',
                     'kabupaten:id_kab,nama_kab',
                     'jenjang:id_jenjang,nm_jenjang'])
-                    ->select('id_kab', 'id_prov', 'id_jenjang', 'npsn', 'nm_satpen', 'kecamatan', 'kelurahan', 'alamat')
+                    ->select('id_kategori','id_kab', 'id_prov', 'id_jenjang', 'npsn', 'nm_satpen', 'kecamatan', 'kelurahan', 'alamat')
+                    ->where('status', '=', 'setujui')
                     ->where($filter)
                     ->where(function ($query) use ($keywordFilter) {
                             foreach ($keywordFilter as $condition) {
