@@ -37,16 +37,24 @@ class ApiController extends Controller
         try {
             if ($request) {
                 $filter = [];
+                $keywordFilter = [];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kab) $filter["id_kab"] = $request->kab;
                 if ($request->prov) $filter["id_prov"] = $request->prov;
-                if ($request->kec) $filter["kecamatan"] = $request->kec;
+                if ($request->kecamatan){
+                    array_push($keywordFilter, ["kecamatan", "like", "%". $request->kecamatan ."%"]);
+                }
                 $listSatpen = Satpen::with([
                     'provinsi:id_prov,nm_prov',
                     'kabupaten:id_kab,nama_kab',
                     'jenjang:id_jenjang,nm_jenjang'])
                     ->select('id_kab', 'id_prov', 'id_jenjang', 'npsn', 'nm_satpen', 'kecamatan', 'kelurahan', 'alamat')
                     ->where($filter)
+                    ->where(function ($query) use ($keywordFilter) {
+                            foreach ($keywordFilter as $condition) {
+                                $query->where(...$condition);
+                            }
+                        })
                     ->get();
                 if (!$listSatpen) return response()->json(['error' => 'Forbidden to access satpen profile']);
 

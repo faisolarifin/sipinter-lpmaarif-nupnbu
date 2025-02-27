@@ -331,7 +331,7 @@
 
         })();
 
-        $("select[name='provinsi']").on('change', function() {
+        $("select[name='prov']").on('change', function() {
             const provId = $(this).val();
 
             $.ajax({
@@ -340,7 +340,7 @@
                 dataType: 'json',
                 success: function(res) {
 
-                    let $select = $("select[name='kabupaten']");
+                    let $select = $("select[name='kab']");
                     $select.empty();
                     $.each(res,function(key, value) {
                         $select.append('<option value=' + value.id_kab + '>' + value.nama_kab + '</option>');
