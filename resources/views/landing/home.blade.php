@@ -47,18 +47,29 @@
                     <div class="carousel-caption text-center">
                         <div class="carousel-caption-bg">
                             <h2 style="color:#63ff00;">SELAMAT DATANG DI LAYANAN SIPINTER</h2>
-                            <p class="mb-1">Sistem Administrasi Pendidikan Terpadu Lembaga Pendidikan Ma'arif NU PBNU</p>
+                            <p class="mb-1">Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU</p>
                         </div>
                     </div>
                 </div>
               </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('assets/images/backgrounds/maarif-pbnu1.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
+                    <img src="{{ asset('assets/images/backgrounds/foto-brsama-task-show.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
                     <div class="container">
                         <div class="carousel-caption text-center">
                             <div class="carousel-caption-bg">
                                 <h2 style="color:#63ff00;">SELAMAT DATANG DI LAYANAN SIPINTER</h2>
-                                <p class="mb-1">Sistem Administrasi Pendidikan Terpadu Lembaga Pendidikan Ma'arif NU PBNU</p>
+                                <p class="mb-1">Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('assets/images/backgrounds/GYS14316.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
+                    <div class="container">
+                        <div class="carousel-caption text-center">
+                            <div class="carousel-caption-bg">
+                                <h2 style="color:#63ff00;">SELAMAT DATANG DI LAYANAN SIPINTER</h2>
+                                <p class="mb-1">Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU</p>
                             </div>
                         </div>
                     </div>
