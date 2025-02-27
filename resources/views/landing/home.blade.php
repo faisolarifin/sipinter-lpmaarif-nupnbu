@@ -42,7 +42,6 @@
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="{{ asset('assets/images/backgrounds/maarif-pbnu1.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
                 <div class="container">
                     <div class="carousel-caption text-center">
                         <div class="carousel-caption-bg">
@@ -53,7 +52,6 @@
                 </div>
               </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('assets/images/backgrounds/foto-brsama-task-show.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
                     <div class="container">
                         <div class="carousel-caption text-center">
                             <div class="carousel-caption-bg">
@@ -64,7 +62,6 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('assets/images/backgrounds/GYS14316.jpg') }}" width="100%" height="100%" class="bd-placeholder-img" alt="...">
                     <div class="container">
                         <div class="carousel-caption text-center">
                             <div class="carousel-caption-bg">
