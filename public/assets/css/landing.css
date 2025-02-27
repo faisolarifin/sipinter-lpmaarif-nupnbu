@@ -215,6 +215,21 @@ body {
     height: 43rem;
   } 
 
+  .card-zoom {
+      transition: transform 0.3s ease-in-out;
+  }
+  .card-zoom:hover {
+      z-index: 888;
+      transform: scale(1.29);
+  }
+  .menu-title h4 {
+      font-weight: 600;
+  }
+  .menu-title img {
+      max-width: 400px;
+  }
+
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 

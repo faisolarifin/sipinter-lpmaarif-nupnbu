@@ -6,15 +6,18 @@
   <link rel="stylesheet" href="{{ asset('assets/css/landing.css') }}" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
+  <link rel="stylesheet" href="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.css')}}" />
   <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <style>
+    /* SWIPPER
+    -------------------------------------------------- */
     .swiper {
-      width: 100%;
-      padding-bottom: 50px;
+        width: 100%;
+        padding-bottom: 50px;
     }
     .swiper-pagination {
-      margin-top: 20px;
+        margin-top: 30px;
     }
     .swiper-slide .card {
         height: 100%;
@@ -22,14 +25,7 @@
         flex-direction: column;
     }
     .swiper img {
-        max-height: 200px;
-    }
-    .card-zoom {
-        transition: transform 0.3s ease-in-out;
-    }
-    .card-zoom:hover {
-        z-index: 888;
-        transform: scale(1.29);
+        max-height: 150px;
     }
    </style>
 @endsection
@@ -136,55 +132,60 @@
         <div class="mt-5 sum-satpen">
             <div class="row mb-3 justify-content-center">
                 <div class="col-11 col-sm-12">
-                    <div class="menu-title d-flex align-items-center justify-content-between">
-                        <h4>SEKOLAH?? DI MA'ARIF AJA</h4>
+                    <div class="menu-title d-flex flex-column justify-content-between">
+                        <h4 class="mb-0">SEKOLAH?? DI MA'ARIF AJA</h4>
+                        <img src="{{ asset('/assets/images/backgrounds/Temukan-sekolah.png') }}" alt="Temukan Sekolah">
                     </div>
                 </div>
             </div>
-            <div class="row px-3 px-sm-0 justify-content-center justify-content-sm-start border">
-                <div class="col-12 col-sm-3">
-                    <div class="my-2 my-sm-4">
-                        <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Pronvisi" name="provinsi">
-                            @foreach($provinsi as $row)
-                                <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <div class="my-2 my-sm-4">
-                        <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Kabupaten/Kota" name="kabupaten">
-                            <!-- DIISI OTOMATIS DENGAN AJAX -->
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <div class="my-2 my-sm-4">
-                        <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Kecamatan" required>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <div class="d-flex flex-column gap-sm-3 flex-sm-row">
+            <form id="findSchool">
+                <div class="row px-3 px-sm-0 justify-content-center justify-content-sm-start border">
+                    <div class="col-12 col-sm-3">
                         <div class="my-2 my-sm-4">
-                            <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Jenjang Pendidikan" name="jenjang">
-                                @foreach($jenjang as $row)
-                                    <option value="{{ $row->id_jenjang }}">{{ $row->nm_jenjang }}</option>
+                            <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Pronvisi" name="prov">
+                                @foreach($provinsi as $row)
+                                    <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-12 col-sm-3">
                         <div class="my-2 my-sm-4">
-                            <button type="submit" class="btn btn-primary"><i class="ti ti-search"></i> Cari</button>
+                            <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Kabupaten/Kota" name="kab">
+                                <!-- DIISI OTOMATIS DENGAN AJAX -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-3">
+                        <div class="my-2 my-sm-4">
+                            <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Kecamatan" name="kec">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-3">
+                        <div class="d-flex flex-column gap-sm-3 flex-sm-row">
+                            <div class="my-2 my-sm-4">
+                                <select class="selectpicker" data-show-subtext="false" data-live-search="true" title="Jenjang Pendidikan" name="jenjang">
+                                    @foreach($jenjang as $row)
+                                        <option value="{{ $row->id_jenjang }}">{{ $row->nm_jenjang }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="my-2 my-sm-4">
+                                <button type="submit" class="btn btn-primary"><i class="ti ti-search"></i> Cari</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+            <div id="resultFindSchool"></div>
         </div>
 
         <div class="mt-5 sum-satpen">
             <div class="row mb-3 justify-content-center">
                 <div class="col-11 col-sm-12">
-                    <div class="menu-title d-flex align-items-center justify-content-between">
-                        <h4>BERANDA INFORMASI</h4>
+                    <div class="menu-title d-flex flex-column justify-content-between">
+                        <h4 class="mb-0">BERANDA INFORMASI</h4>
+                        <img src="{{ asset('/assets/images/backgrounds/News-Slide.png') }}" alt="News Slide" style="max-height:10px;max-width:300px;">
                     </div>
                 </div>
             </div>
@@ -193,9 +194,9 @@
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         @foreach($berandaInformasi as $row)
-                        <div class="swiper-slide">
+                        <div class="swiper-slide card-zoom">
                             <a href="{{ route('informasi', $row->slug) }}">
-                            <div class="card card-zoom mx-auto me-sm-4" style="width:13.6rem">
+                            <div class="card mx-auto me-sm-4" style="width:13.6rem">
                                 <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="...">
                                 <div class="card-body px-3 pt-3 pb-1">
                                     <h6 class="card-title mb-0 fs-3">{{ $row->headline }}</h6>
@@ -224,6 +225,11 @@
 @section('scripts')
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+
+    <!-- DataTables -->
+    <script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
+    
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -343,6 +349,64 @@
                     $('.selectpicker').selectpicker('refresh');
                 }
             })
+        });
+
+        $('#findSchool').on('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            $.ajax({
+                url: "{{ route('api.searchsatpen') }}",
+                type: "GET",
+                data: $(this).serialize(),
+                beforeSend: function () {
+                    // $('#results').html('<li>Searching...</li>'); // Show loading text
+                },
+                success: function (res) {
+                    let tag = `<div class="row mt-3">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="dataTables">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">NPSN</th>
+                                            <th scope="col">Satuan Pendidikan</th>
+                                            <th scope="col">Jenjang</th>
+                                            <th scope="col" width="140">Provinsi</th>
+                                            <th scope="col" width="180">Kabupaten</th>
+                                            <th scope="col">Alamat</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            `;
+                                            $.each(res, function(key, row) {
+                                                tag += `
+                                                    <tr>
+                                                        <td>${++key}</td>
+                                                        <td>${row.npsn}</td>
+                                                        <td>${row.nm_satpen}</td>
+                                                        <td>${row.jenjang.nm_jenjang}</td>
+                                                        <td>${row.provinsi.nm_prov}</td>
+                                                        <td>${row.kabupaten.nama_kab}</td>
+                                                        <td>${row.alamat}, ${row.kelurahan}, ${row.kecamatan}</td>
+                                                    </tr>
+                                                `;
+                                            });
+                                    tag += `
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    $('#resultFindSchool').html(tag);
+
+                    table = $('#dataTables').DataTable();
+                },
+                error: function () {
+                    // $('#results').html('<li>Error fetching data</li>');
+                }
+            });
         });
     </script>
 @endsection

@@ -8,6 +8,7 @@ use App\Models\Kabupaten;
 use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
@@ -24,6 +25,32 @@ class ApiController extends Controller
                 if (!$satpenProfile) return response()->json(['error' => 'Forbidden to access satpen profile']);
 
                 return response()->json($satpenProfile, HttpResponse::HTTP_OK);
+
+            }
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[GET SATPEN BY ID] has error ". $e);
+
+        }
+    }
+
+    public function searchSatpen(Request $request) {
+        try {
+            if ($request) {
+                $filter = [];
+                if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
+                if ($request->kab) $filter["id_kab"] = $request->kab;
+                if ($request->prov) $filter["id_prov"] = $request->prov;
+                if ($request->kec) $filter["kecamatan"] = $request->kec;
+                $listSatpen = Satpen::with([
+                    'provinsi:id_prov,nm_prov',
+                    'kabupaten:id_kab,nama_kab',
+                    'jenjang:id_jenjang,nm_jenjang'])
+                    ->select('id_kab', 'id_prov', 'id_jenjang', 'npsn', 'nm_satpen', 'kecamatan', 'kelurahan', 'alamat')
+                    ->where($filter)
+                    ->get();
+                if (!$listSatpen) return response()->json(['error' => 'Forbidden to access satpen profile']);
+
+                return response()->json($listSatpen, HttpResponse::HTTP_OK);
 
             }
         } catch (\Exception $e) {

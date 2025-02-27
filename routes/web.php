@@ -215,6 +215,7 @@ Route::middleware('mustlogin')->group(function() {
      */
     Route::prefix('api')->middleware('onlyadmin')->group(function () {
         Route::get('/provcount', [ApiController::class, 'getProvAndCount'])->name('api.provcount');
+        Route::get('/satpen/search', [ApiController::class, 'searchSatpen'])->name('api.searchsatpen')->withoutMiddleware(["onlyadmin","mustlogin"]);
         Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
         Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov')->withoutMiddleware(["onlyadmin","mustlogin"]);
         Route::get('/pc/{provId}', [ApiController::class, 'getPCByProv'])->name('api.pcbyprov')->withoutMiddleware(["onlyadmin","mustlogin"]);
