@@ -26,8 +26,8 @@
                 <div class="card-group">
                     @foreach($listInformasi as $row)
                     <a href="{{ route('informasi', $row->slug) }}">
-                    <div class="card mx-auto me-sm-4" style="width:13.6rem">
-                        <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="...">
+                    <div class="card mx-auto me-sm-4" style="width:13.6rem;height:100%;">
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="..." style="max-height:150px;">
                         <div class="card-body px-3 pt-3 pb-3">
                             <h6 class="card-title mb-3 fs-4">{{ $row->headline }}</h6>
                             <p class="mb-0 text-dark">{!! strip_tags(Str::limit($row->content , 50)) !!}</p>
