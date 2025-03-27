@@ -31,26 +31,26 @@ class ForgotPasswordController extends Controller
     public function submitForgetPasswordForm(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:satpen',
+            'no_registrasi' => 'required|exists:satpen',
         ]);
-
+        $satpen = Satpen::where('no_registrasi', $request->no_registrasi)->first();
         $token = Str::random(64);
 
         PasswordReset::create([
-            'email' => $request->email,
+            'email' => $satpen->email,
             'token' => $token,
         ]);
 
-        $link_reset = url('reset', $token);
+        $link_reset = url('auth/reset', $token);
         MailService::send([
-            "to" => $request->email,
+            "to" => $satpen->email,
             "subject" => "Reset Password",
             "recipient" => "Operator Sekolah",
             "content" => "<p>Anda dapat mengatur ulang kata sandi dari tautan di bawah ini:</p>
                             <a href='$link_reset' class='cta-button'>Reset Password</a>"
         ]);
 
-        return back()->with('success', 'Link reset password telah dikirimkan pada email anda!');
+        return back()->with('success', sprintf("Link reset password telah dikirimkan pada email %s !", $satpen->email));
     }
 
     /**

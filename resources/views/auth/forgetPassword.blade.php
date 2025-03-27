@@ -20,10 +20,10 @@
                             <form action="{{ route('forget.send') }}" method="post">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan email anda" id="email" name="email" value="{{ old('email') }}">
+                                    <label for="no_registrasi" class="form-label">Nomor Registrasi Ma'arif</label>
+                                    <input type="text" class="form-control @error('no_registrasi') is-invalid @enderror" placeholder="Masukkan Nomor Registrasi Ma'arif" id="no_registrasi" name="no_registrasi" value="{{ old('no_registrasi') }}">
                                     <div class="invalid-feedback">
-                                        @error('email') {{ $message }} @enderror
+                                        @error('no_registrasi') {{ $message }} @enderror
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-4 rounded-2 w-100">Kirim Link Reset Password</button>
