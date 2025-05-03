@@ -107,7 +107,9 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Alamat</th>
+                                    @if(in_array(auth()->user()->role, ["super admin"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -121,6 +123,7 @@
                                         <td>{{ $row->provinsi->nm_prov }}</td>
                                         <td>{{ $row->kabupaten->nama_kab }}</td>
                                         <td>{{ $row->alamat }}</td>
+                                        @if(in_array(auth()->user()->role, ["super admin"]))
                                         <td>
                                             <form action="{{ route('a.vnpsn.destroy', $row->id_npsn ) }}" method="post" class="d-inline deleteBtn">
                                                 @csrf
@@ -128,6 +131,7 @@
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

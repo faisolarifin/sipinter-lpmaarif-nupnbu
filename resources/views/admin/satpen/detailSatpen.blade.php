@@ -189,12 +189,13 @@
                                             <input type="hidden" name="status_verifikasi" value="expired">
                                             <button type="submit" class="btn btn-danger mx-2"><i class="ti ti-exchange"></i> Usangkan Dokumen</button>
                                         </form>
-
-                                        <form action="{{ route('a.rekapsatpen.destroy', $satpenProfile->id_satpen ) }}" method="post" class="d-inline deleteBtn">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger mx-2"><i class="ti ti-trash"></i> Destroy Satpen</button>
-                                        </form>
+                                        @if(in_array(auth()->user()->role, ["super admin"]))
+                                            <form action="{{ route('a.rekapsatpen.destroy', $satpenProfile->id_satpen ) }}" method="post" class="d-inline deleteBtn">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger mx-2"><i class="ti ti-trash"></i> Destroy Satpen</button>
+                                            </form>
+                                        @endif
                                     </div>
                                 @endif
                             </div>

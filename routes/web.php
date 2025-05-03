@@ -124,7 +124,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/setting', [Settings::class, 'pageSetting'])->name('a.setting');
         Route::put('/setting', [Settings::class, 'saveSetting'])->name('a.setting.save');
 
-        Route::middleware('primaryadmin')->group(function() {
+        Route::middleware('superadmin')->group(function() {
             /**
              * Master
              */
@@ -133,13 +133,13 @@ Route::middleware('mustlogin')->group(function() {
             Route::resource('/kabupaten', KabupatenController::class);
             Route::resource('/cabang', PengurusCabangController::class);
             Route::resource('/jenjang', JenjangPendidikanController::class);
-            Route::resource('/users', UsersController::class)->middleware('superadmin');
-            Route::group(["prefix" => "/dapo", "middleware" => "superadmin"], function (){
+            Route::resource('/users', UsersController::class);
+            Route::group(["prefix" => "/dapo"], function (){
                 Route::get("/", [DapoController::class, 'index'])->name('dapo.index');
                 Route::delete("/{npsn}", [DapoController::class, 'destroy'])->name('dapo.delete');
                 Route::post("/", [DapoController::class, 'store'])->name('dapo.save');
             });
-            Route::group(["prefix" => "satpen/users", "middleware" => "superadmin"], function (){
+            Route::group(["prefix" => "satpen/users"], function (){
                 Route::get("/", [UsersController::class, 'users'])->name('users.satpen');
                 Route::get("{user}/reset", [UsersController::class, 'reset'])->name('users.reset');
                 Route::get("{user}/block", [UsersController::class, 'block'])->name('users.block');
@@ -154,7 +154,7 @@ Route::middleware('mustlogin')->group(function() {
                 Route::put('/{satpen}/status', [SATPENControllerAdmin::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
                 Route::get('/rekap', [SATPENControllerAdmin::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen')->withoutMiddleware('primaryadmin');
                 Route::get('/{satpenId}/detail', [SATPENControllerAdmin::class, 'getSatpenById'])->name('a.rekapsatpen.detail')->withoutMiddleware('primaryadmin');
-                Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy');
+                Route::delete('/{satpen}', [SATPENControllerAdmin::class, 'destroySatpen'])->name('a.rekapsatpen.destroy')->middleware('superadmin');
                 Route::post('/doc/generate', [SATPENControllerAdmin::class, 'generatePiagamAndSK'])->name('generate.document');
                 Route::post('/doc/regenerate', [SATPENControllerAdmin::class, 'reGeneratePiagamAndSK'])->name('regenerate.document');
                 Route::get('/email/{satpen}', [SATPENControllerAdmin::class, 'sendNotifEmail'])->name('email.notif');
@@ -166,7 +166,7 @@ Route::middleware('mustlogin')->group(function() {
              */
             Route::group(["prefix" => "virtualnpsn"], function() {
                 Route::get('/', [VirtualNPSNController::class, 'listPermohonanVNPSN'])->name('a.vnpsn');
-                Route::delete('/{virtualNPSN}', [VirtualNPSNController::class, 'destroyVNPSN'])->name('a.vnpsn.destroy');
+                Route::delete('/{virtualNPSN}', [VirtualNPSNController::class, 'destroyVNPSN'])->name('a.vnpsn.destroy')->middleware('superadmin');
                 Route::delete('/reject/{virtualNPSN}', [VirtualNPSNController::class, 'rejectPermohonanVNPSN'])->name('a.vnpsn.reject');
                 Route::put('/{virtualNPSN}', [VirtualNPSNController::class, 'generateVirtualNumber'])->name('a.vnpsn.accept');
             });
@@ -179,7 +179,7 @@ Route::middleware('mustlogin')->group(function() {
                 Route::put('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
                 Route::put('/appear/{oss}', [OSSControllerAdmin::class, 'setIzinTerbitOSS'])->name('a.oss.appear');
                 Route::put('/reject/{oss}', [OSSControllerAdmin::class, 'setRejectOSS'])->name('a.oss.reject');
-                Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy');
+                Route::delete('/destroy/{oss}', [OSSControllerAdmin::class, 'destroyOSS'])->name('a.oss.destroy')->middleware('superadmin');
                 Route::get('/file/{path}/{fileName?}', [FileViewerController::class, 'viewOSSDoc'])->name('a.oss.file')->withoutMiddleware('primaryadmin');
             });
 
@@ -191,7 +191,7 @@ Route::middleware('mustlogin')->group(function() {
                 Route::get('/acc/{bhpnu}', [BHPNUControllerAdmin::class, 'setAcceptBHPNU'])->name('a.bhpnu.acc');
                 Route::put('/appear/{bhpnu}', [BHPNUControllerAdmin::class, 'setIzinTerbitBHPNU'])->name('a.bhpnu.appear');
                 Route::put('/reject/{bhpnu}', [BHPNUControllerAdmin::class, 'setRejectBHPNU'])->name('a.bhpnu.reject');
-                Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy');
+                Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy')->middleware('superadmin');
                 Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file')->withoutMiddleware('primaryadmin');
             });
 

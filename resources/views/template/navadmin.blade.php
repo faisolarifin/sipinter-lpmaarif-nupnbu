@@ -134,11 +134,11 @@
 
             @endif
 
+        @if(in_array(auth()->user()->role, ["super admin"]))
         <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu">Master Data</span>
         </li>
-        @if(in_array(auth()->user()->role, ["super admin"]))
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('dapo.index') }}" aria-expanded="false">
             <span>
@@ -147,7 +147,6 @@
                 <span class="hide-menu">Dapo LP Ma'arif</span>
             </a>
         </li>
-        @endif
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('propinsi.index') }}" aria-expanded="false">
                 <span>
@@ -175,11 +174,12 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('jenjang.index') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-keyframe-align-vertical"></i>
+                    <i class="ti ti-keyframe-align-vertical"></i>
                 </span>
                 <span class="hide-menu">Jenjang Pendidikan</span>
             </a>
         </li>
+        @endif
 
         @elseif(in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
 

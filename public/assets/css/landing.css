@@ -85,7 +85,9 @@ body {
 }
 
 .bg-navbar-landing {
-    background: url("/assets/images/backgrounds/Untitled.png") #327B32;
+    /* background: url("/assets/images/backgrounds/Untitled.png") #327B32; */
+    background: url("/assets/images/backgrounds/layout_bg.jpg") #327B32;
+    background-size: cover;
 }
 .container-navbar {
     max-width: 1330px;
@@ -136,8 +138,10 @@ body {
     border: .3rem dotted #d3d4d5;
 }
 .footer-up {
-    background: rgba(50, 123, 50, 0.95);
+    background:  url("/assets/images/backgrounds/layout_bg.jpg") rgba(50, 123, 50, 0.95);
     min-height: 10rem;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .footer-up p {
     color: #fff;

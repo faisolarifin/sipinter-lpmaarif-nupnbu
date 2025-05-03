@@ -139,7 +139,7 @@
                                         <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
                                             <button class="btn btn-sm btn-info"><i class="ti ti-eye"></i></button></a>
 
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                        @if(in_array(auth()->user()->role, ["super admin"]))
                                         <form action="{{ route('a.rekapsatpen.destroy', $row->id_satpen ) }}" method="post" class="d-inline deleteBtn">
                                             @csrf
                                             @method('DELETE')

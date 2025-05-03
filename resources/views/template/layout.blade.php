@@ -112,7 +112,7 @@
                           <div class="mb-2">
                               <label for="last_pass" class="form-label">Password Lama</label>
                               <div class="input-group form-password">
-                                  <input type="password" class="form-control form-control-sm @error('last_pass') is-invalid @enderror" id="nama_prov" name="last_pass" value="{{ old('last_pass') }}">
+                                  <input type="password" class="form-control form-control-sm @error('last_pass') is-invalid @enderror" id="nama_prov" name="last_pass" value="{{ old('last_pass') }}" required>
                                   <span class="input-group-text password-toggle">
                                       <i class="ti ti-eye-off"></i>
                                   </span>
@@ -125,7 +125,7 @@
                               <div class="col-sm-6">
                                   <label for="new_pass" class="form-label">Password Baru</label>
                                   <div class="input-group form-password">
-                                      <input type="password" class="form-control form-control-sm @error('new_pass') is-invalid @enderror" id="kode_prov" name="new_pass" value="{{ old('new_pass') }}">
+                                      <input type="password" class="form-control form-control-sm @error('new_pass') is-invalid @enderror" id="new_pass" name="new_pass" value="{{ old('new_pass') }}" required>
                                       <span class="input-group-text password-toggle">
                                          <i class="ti ti-eye-off"></i>
                                       </span>
@@ -137,11 +137,11 @@
                               <div class="col-sm-6">
                                   <label for="confirm_pass" class="form-label">Konfimasi Password</label>
                                   <div class="input-group form-password">
-                                      <input type="password" class="form-control form-control-sm @error('confirm_pass') is-invalid @enderror" id="confirm_pass" name="confirm_pass" value="{{ old('confirm_pass') }}">
+                                      <input type="password" class="form-control form-control-sm @error('confirm_pass') is-invalid @enderror" id="confirm_pass" name="confirm_pass" value="{{ old('confirm_pass') }}" required>
                                       <span class="input-group-text password-toggle">
                                           <i class="ti ti-eye-off"></i>
                                       </span>
-                                      <div class="invalid-feedback">
+                                      <div class="invalid-feedback" id="password-match-message">
                                           @error('confirm_pass') {{ $message }} @enderror
                                       </div>
                                   </div>
@@ -150,7 +150,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success btn-sm">Ganti Password</button>
+                          <button type="submit" class="btn btn-success btn-sm" disabled>Ganti Password</button>
                       </div>
                   </form>
               </div>
@@ -182,6 +182,28 @@
               toggleIcon.removeClass("ti-eye").addClass("ti-eye-off");
           }
       });
+
+      $('#confirm_pass').on('keyup', function () {
+            let password = $('#new_pass').val();
+            let confirmPassword = $(this).val();
+            let message = $('#password-match-message');
+            let buttonSubmit = $('#modalChangePasswordBackdrop button[type="submit"]');
+
+            if (confirmPassword.length > 0) {
+                if (password !== confirmPassword) {
+                    message.text("Password tidak cocok!");
+                    message.show();
+                    buttonSubmit.prop('disabled', true);
+                } else {
+                    message.text("");
+                    message.hide();
+                    buttonSubmit.prop('disabled', false);
+                }
+            } else {
+                message.text("");
+                message.hide();
+            }
+        });
   </script>
 
   @yield('scripts')

@@ -164,7 +164,7 @@
                                     <th>Permohonan</th>
                                     <th>Dikirim</th>
                                     <th>Expired Dokumen</th>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                    @if(in_array(auth()->user()->role, ["super admin"]))
                                     <th>Aksi</th>
                                     @endif
                                 </tr>
@@ -185,7 +185,7 @@
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_dikirim) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_expired) }}</td>
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                        @if(in_array(auth()->user()->role, ["super admin"]))
                                         <td>
                                             <form action="{{ route('a.bhpnu.destroy', $row->id_bhpnu) }}" method="post" class="deleteBtn">
                                                 @csrf

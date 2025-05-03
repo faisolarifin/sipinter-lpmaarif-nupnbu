@@ -279,6 +279,7 @@
                                             <a class="btn btn-sm btn-secondary me-1" href="{{ route('a.oss.detail', $row->id_oss) }}">
                                                 <i class="ti ti-eye"></i>
                                             </a>
+                                            @if(in_array(auth()->user()->role, ["super admin"]))
                                             <form action="{{ route('a.oss.destroy', $row->id_oss) }}" method="post" class="deleteBtn">
                                                 @csrf
                                                 @method('DELETE')
@@ -286,6 +287,7 @@
                                                     <i class="ti ti-trash"></i>
                                                 </button>
                                             </form>
+                                            @endif
                                         </td>
                                         @endif
                                     </tr>
