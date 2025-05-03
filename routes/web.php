@@ -124,26 +124,28 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/setting', [Settings::class, 'pageSetting'])->name('a.setting');
         Route::put('/setting', [Settings::class, 'saveSetting'])->name('a.setting.save');
 
-        Route::middleware('superadmin')->group(function() {
+        Route::middleware('primaryadmin')->group(function() {
             /**
              * Master
              */
-            Route::resource('/informasi', InformasiController::class);
-            Route::resource('/propinsi', PropinsiController::class);
-            Route::resource('/kabupaten', KabupatenController::class);
-            Route::resource('/cabang', PengurusCabangController::class);
-            Route::resource('/jenjang', JenjangPendidikanController::class);
-            Route::resource('/users', UsersController::class);
-            Route::group(["prefix" => "/dapo"], function (){
-                Route::get("/", [DapoController::class, 'index'])->name('dapo.index');
-                Route::delete("/{npsn}", [DapoController::class, 'destroy'])->name('dapo.delete');
-                Route::post("/", [DapoController::class, 'store'])->name('dapo.save');
-            });
-            Route::group(["prefix" => "satpen/users"], function (){
-                Route::get("/", [UsersController::class, 'users'])->name('users.satpen');
-                Route::get("{user}/reset", [UsersController::class, 'reset'])->name('users.reset');
-                Route::get("{user}/block", [UsersController::class, 'block'])->name('users.block');
-                Route::get("{user}/unblock", [UsersController::class, 'unblock'])->name('users.unblock');
+            Route::group(["prefix" => "/dapo", "middleware" => "superadmin"], function (){
+                Route::resource('/informasi', InformasiController::class);
+                Route::resource('/propinsi', PropinsiController::class);
+                Route::resource('/kabupaten', KabupatenController::class);
+                Route::resource('/cabang', PengurusCabangController::class);
+                Route::resource('/jenjang', JenjangPendidikanController::class);
+                Route::resource('/users', UsersController::class);
+                Route::group(["prefix" => "/dapo"], function (){
+                    Route::get("/", [DapoController::class, 'index'])->name('dapo.index');
+                    Route::delete("/{npsn}", [DapoController::class, 'destroy'])->name('dapo.delete');
+                    Route::post("/", [DapoController::class, 'store'])->name('dapo.save');
+                });
+                Route::group(["prefix" => "satpen/users"], function (){
+                    Route::get("/", [UsersController::class, 'users'])->name('users.satpen');
+                    Route::get("{user}/reset", [UsersController::class, 'reset'])->name('users.reset');
+                    Route::get("{user}/block", [UsersController::class, 'block'])->name('users.block');
+                    Route::get("{user}/unblock", [UsersController::class, 'unblock'])->name('users.unblock');
+                });
             });
 
             /**
