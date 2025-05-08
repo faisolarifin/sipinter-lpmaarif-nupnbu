@@ -84,12 +84,16 @@
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                         @elseif ($row->cabang)
                                         <td></td>
-                                        <td>{{ $row->cabang->nama_pc }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.cabang.detail', $row->id_pc) }}" class="text-decoration-underline">
+                                            {{ $row->cabang->nama_pc }}
+                                        </a></td>
                                         <td>{{ $row->cabang->prov->nm_prov }}</td>
                                         <td>{{ $row->cabang->profile->kabupaten }}</td>
                                         @elseif ($row->wilayah)
                                         <td></td>
-                                        <td>Wilayah {{ $row->wilayah->nm_prov }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.wilayah.detail', $row->id_pw) }}" class="text-decoration-underline">
+                                            Wilayah {{ $row->wilayah->nm_prov }}
+                                        </a></td>
                                         <td>{{ $row->wilayah->nm_prov }}</td>
                                         <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                         @endif
@@ -170,12 +174,16 @@
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                         @elseif ($row->cabang)
                                         <td></td>
-                                        <td>{{ $row->cabang->nama_pc }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.cabang.detail', $row->id_pc) }}" class="text-decoration-underline">
+                                            {{ $row->cabang->nama_pc }}
+                                        </a></td>
                                         <td>{{ $row->cabang->prov->nm_prov }}</td>
                                         <td>{{ $row->cabang->profile->kabupaten }}</td>
                                         @elseif ($row->wilayah)
                                         <td></td>
-                                        <td>Wilayah {{ $row->wilayah->nm_prov }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.wilayah.detail', $row->id_pw) }}" class="text-decoration-underline">
+                                            Wilayah {{ $row->wilayah->nm_prov }}
+                                        </a></td>
                                         <td>{{ $row->wilayah->nm_prov }}</td>
                                         <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                         @endif
@@ -254,12 +262,16 @@
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                         @elseif ($row->cabang)
                                         <td></td>
-                                        <td>{{ $row->cabang->nama_pc }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.cabang.detail', $row->id_pc) }}" class="text-decoration-underline">
+                                            {{ $row->cabang->nama_pc }}
+                                        </a></td>
                                         <td>{{ $row->cabang->prov->nm_prov }}</td>
                                         <td>{{ $row->cabang->profile->kabupaten }}</td>
                                         @elseif ($row->wilayah)
                                         <td></td>
-                                        <td>Wilayah {{ $row->wilayah->nm_prov }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.wilayah.detail', $row->id_pw) }}" class="text-decoration-underline">
+                                            Wilayah {{ $row->wilayah->nm_prov }}
+                                        </a></td>
                                         <td>{{ $row->wilayah->nm_prov }}</td>
                                         <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                         @endif
@@ -394,7 +406,9 @@
                                 @foreach($coretaxCab as $row)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $row->cabang->nama_pc }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.cabang.detail', $row->id_pc) }}" class="text-decoration-underline">
+                                            {{ $row->cabang->nama_pc }}
+                                        </a></td>
                                         <td>{{ $row->cabang->prov->nm_prov }}</td>
                                         <td>{{ $row->cabang->profile->kabupaten }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
@@ -456,7 +470,9 @@
                                 @foreach($coretaxWil as $row)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>Wilayah {{ $row->wilayah->nm_prov }}</td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.wilayah.detail', $row->id_pw) }}" class="text-decoration-underline">
+                                            Wilayah {{ $row->wilayah->nm_prov }}
+                                        </a></td>
                                         <td>{{ $row->wilayah->nm_prov }}</td>
                                         <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
