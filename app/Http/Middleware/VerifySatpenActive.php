@@ -20,6 +20,8 @@ class VerifySatpenActive
             ->where('id_user', '=', auth()->user()->id_user)
             ->first();
 
+        if (in_array(auth()->user()->role, ["admin wilayah", "admin cabang"])) return $next($request);
+        
         if ('setujui' != $satpen->status)
         {
             if ($request->segment(1) == 'oss') return redirect()->route('oss.403');

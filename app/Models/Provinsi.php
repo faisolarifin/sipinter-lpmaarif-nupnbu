@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\hasOne;
+
 
 class Provinsi extends Model
 {
@@ -15,4 +17,10 @@ class Provinsi extends Model
         'kode_prov',
         'nm_prov',
     ];
+    
+    public function profile(): hasOne
+    {
+        return $this->hasOne(ProfilePengurusWilayah::class, 'id_pw', 'id_prov');
+    }
+
 }

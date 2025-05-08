@@ -12,6 +12,16 @@
                 <span class="hide-menu">Dashboard</span>
             </a>
         </li>
+        @if(in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('profile') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user"></i>
+                </span>
+                <span class="hide-menu">Profile Organisasi</span>
+            </a>
+        </li>
+        @endif
 
         @if(in_array(auth()->user()->role, ["super admin", "admin pusat"]))
 
@@ -64,6 +74,14 @@
             </a>
         </li>
         <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('a.coretax') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-shield"></i>
+                </span>
+                <span class="hide-menu">Manajemen Coretax</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.bantuan') }}" aria-expanded="false">
             <span>
               <i class="ti ti-help"></i>
@@ -85,6 +103,26 @@
               <i class="ti ti-paperclip"></i>
             </span>
                 <span class="hide-menu">Katalog</span>
+            </a>
+        </li>
+        <li class="nav-small-cap">
+            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+            <span class="hide-menu">Profile Daerah</span>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('a.wilayah') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-receipt"></i>
+                </span>
+                <span class="hide-menu">Pengurus Wilayah</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('a.cabang') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-tag"></i>
+                </span>
+                <span class="hide-menu">Pengurus Cabang</span>
             </a>
         </li>
         <li class="nav-small-cap">
@@ -213,6 +251,14 @@
                   <i class="ti ti-report"></i>
                 </span>
                     <span class="hide-menu">Layanan BHPNU</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('coretax') }}" aria-expanded="false">
+                    <span>
+                      <i class="ti ti-shield"></i>
+                    </span>
+                    <span class="hide-menu">Layanan Coretax</span>
                 </a>
             </li>
 

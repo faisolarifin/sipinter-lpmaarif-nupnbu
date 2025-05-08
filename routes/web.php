@@ -5,18 +5,21 @@ use App\Http\Controllers\{
     ApiController,
     AuthController,
     BHPNUController,
+    CoretaxController,
     ForgotPasswordController,
     GeneralController,
     OSSController,
     SatpenController,
     FileViewerController,
-    Settings};
+    Settings,ProfileORGController};
 use App\Http\Controllers\Admin\{
     SATPENController as SATPENControllerAdmin,
     BHPNUController as BHPNUControllerAdmin,
+    CoretaxAdminController,
     OSSController as OSSControllerAdmin,
     VirtualNPSNController,
     UsersController,
+    ProfileController,
     ExportExcelController,};
 use App\Http\Controllers\Master\{
     InformasiController,
@@ -57,6 +60,13 @@ Route::middleware('mustlogin')->group(function() {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/gantipassword', [AuthController::class, 'changePassword'])->name('changepass');
     Route::get('/upload/{fileName?}', [FileViewerController::class, 'pdfUploadViewer'])->name('viewerpdf');
+
+    Route::group(["prefix" => "coretax", "middleware" => "verifysatpenactive"], function() {
+        Route::get('/', [CoretaxController::class, 'index'])->name('coretax');
+        Route::get('/new', [CoretaxController::class, 'new'])->name('coretax.new');
+        Route::get('/history', [CoretaxController::class, 'history'])->name('coretax.history');
+        Route::put('/{coretax}', [CoretaxController::class, 'stored'])->name('coretax.save');
+    });
 
     Route::middleware('onlyoperator')->group(function() {
 
@@ -121,6 +131,10 @@ Route::middleware('mustlogin')->group(function() {
          */
         Route::get('/', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
         Route::get('/dashboard', [SATPENControllerAdmin::class, 'dashboardPage'])->name('a.dash');
+        Route::prefix('org')->group(function () {
+            Route::get('/profile', [ProfileORGController::class, 'index'])->name('profile');
+            Route::post('/profile', [ProfileORGController::class, 'storeOrUpdate'])->name('profile.save');
+        });
         Route::get('/setting', [Settings::class, 'pageSetting'])->name('a.setting');
         Route::put('/setting', [Settings::class, 'saveSetting'])->name('a.setting.save');
 
@@ -195,6 +209,30 @@ Route::middleware('mustlogin')->group(function() {
                 Route::put('/reject/{bhpnu}', [BHPNUControllerAdmin::class, 'setRejectBHPNU'])->name('a.bhpnu.reject');
                 Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy')->middleware('superadmin');
                 Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file')->withoutMiddleware('primaryadmin');
+            });
+
+            /**
+             * CORETAX
+             */
+            Route::group(["prefix" => "coretax"], function() {
+                Route::get('/', [CoretaxAdminController::class, 'index'])->name('a.coretax')->withoutMiddleware('primaryadmin');
+                Route::get('/{coretaxId}', [CoretaxAdminController::class, 'getById'])->name('a.coretax.byid');
+                Route::get('/acc/{coretax}', [CoretaxAdminController::class, 'accepted'])->name('a.coretax.acc');
+                Route::put('/appear/{coretax}', [CoretaxAdminController::class, 'appeared'])->name('a.coretax.appear');
+                Route::put('/reject/{coretax}', [CoretaxAdminController::class, 'rejected'])->name('a.coretax.reject');
+                Route::delete('/destroy/{coretax}', [CoretaxAdminController::class, 'destroy'])->name('a.coretax.destroy')->middleware('superadmin');
+            });
+
+            /**
+             * PROFILE
+             */
+            Route::group(["prefix" => "profile"], function() {
+                Route::get('/wilayah', [ProfileController::class, 'profileWilayah'])->name('a.wilayah');
+                Route::get('/wilayah/{ID}', [ProfileController::class, 'profileDetail'])->name('a.wilayah.detail');
+                Route::delete('/wilayah', [ProfileController::class, 'destroyWilayah'])->name('a.wilayah.destroy');
+                Route::get('/cabang', [ProfileController::class, 'profileCabang'])->name('a.cabang');
+                Route::get('/cabang/{ID}', [ProfileController::class, 'profileDetail'])->name('a.cabang.detail');
+                Route::delete('/cabang', [ProfileController::class, 'destroyCabang'])->name('a.cabang.destroy');
             });
 
             Route::group(["prefix" => "bantuan"], function() {

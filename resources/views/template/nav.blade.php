@@ -41,6 +41,14 @@
             </a>
         </li>
         <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('coretax') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-shield"></i>
+                </span>
+                <span class="hide-menu">Layanan Coretax</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('bantuan') }}" aria-expanded="false">
             <span>
               <i class="ti ti-help"></i>
