@@ -495,7 +495,7 @@
 </div>
 @endsection
 
-@include('admin.coretax.coretaxmodal')
+@include('admin.coretax.coretax-modal')
 
 @section('scripts')
 <script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
