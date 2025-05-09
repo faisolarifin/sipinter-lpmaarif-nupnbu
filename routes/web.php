@@ -62,6 +62,7 @@ Route::middleware('mustlogin')->group(function() {
     Route::get('/upload/{fileName?}', [FileViewerController::class, 'pdfUploadViewer'])->name('viewerpdf');
 
     Route::group(["prefix" => "coretax", "middleware" => "verifysatpenactive"], function() {
+        Route::get('/forbidden', [CoretaxController::class, 'forbidden'])->name('coretax.403')->withoutMiddleware('verifysatpenactive');
         Route::get('/', [CoretaxController::class, 'index'])->name('coretax');
         Route::get('/new', [CoretaxController::class, 'new'])->name('coretax.new');
         Route::get('/history', [CoretaxController::class, 'history'])->name('coretax.history');

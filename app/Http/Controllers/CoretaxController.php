@@ -118,4 +118,8 @@ class CoretaxController extends Controller
 
         return view('coretax.riwayat', compact('coretax'));
     }
+
+    public function forbidden() {
+        return view('coretax.forbidden');
+    }
 }
