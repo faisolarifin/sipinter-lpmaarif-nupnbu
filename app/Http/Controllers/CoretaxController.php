@@ -26,10 +26,18 @@ class CoretaxController extends Controller
     }
 
     public function new() {
+        $coretax = Coretax::where('id_user', '=', auth()->user()->id_user)
+            ->orderBy('id', 'DESC')
+            ->first();
+
         $data = [
             'id_user' => auth()->user()->id_user,
             'id_pw' => null,
             'id_pc' => null,
+            'nitku' => optional($coretax)->nitku,
+            'nama_pic' => optional($coretax)->nama_pic,
+            'nik_pic' => optional($coretax)->nik_pic,
+            'whatsapp_pic' => optional($coretax)->whatsapp_pic,
             'tanggal' => Carbon::now(),
             'tgl_submit' => null,
             'status' => 'mengisi persyaratan',

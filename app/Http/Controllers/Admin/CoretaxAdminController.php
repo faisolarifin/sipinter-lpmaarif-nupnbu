@@ -25,7 +25,17 @@ class CoretaxAdminController extends Controller
             "cabang",
             "cabang.prov:id_prov,nm_prov",
             "cabang.profile:id_pc,kabupaten",
-            ])->where('status', '=', 'verifikasi')
+            ])
+            ->where(function ($query) use ($specificFilter) {
+                $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                })->orWhereHas('cabang.prov', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                })->orWhereHas('wilayah', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                });
+            })
+            ->where('status', '=', 'verifikasi')
             ->orderBy('id', 'DESC') ->get();
 
         $coretaxRev = Coretax::with([
@@ -36,7 +46,17 @@ class CoretaxAdminController extends Controller
             "cabang",
             "cabang.prov:id_prov,nm_prov",
             "cabang.profile:id_pc,kabupaten",
-            ])->where('status', '=', 'perbaikan')
+            ])
+            ->where(function ($query) use ($specificFilter) {
+                $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                })->orWhereHas('cabang.prov', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                })->orWhereHas('wilayah', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                });
+            })
+            ->where('status', '=', 'perbaikan')
             ->orderBy('id', 'DESC') ->get();
 
         $coretaxPro = Coretax::with([
@@ -47,17 +67,39 @@ class CoretaxAdminController extends Controller
             "cabang",
             "cabang.prov:id_prov,nm_prov",
             "cabang.profile:id_pc,kabupaten",
-            ])->where('status', '=', 'dokumen diproses')
+            ])
+            ->where(function ($query) use ($specificFilter) {
+                $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                })->orWhereHas('cabang.prov', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                })->orWhereHas('wilayah', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                });
+            })
+            ->where('status', '=', 'dokumen diproses')
             ->orderBy('id', 'DESC') ->get();
 
         $coretaxSatpen = Coretax::with([
             "satpen:id_satpen,id_user,id_kab,id_prov,no_registrasi,nm_satpen",
-            "satpen.kabupaten:id_kab,nama_kab","satpen.provinsi:id_prov,nm_prov",
+            "satpen.kabupaten:id_kab,nama_kab",
+            "satpen.provinsi:id_prov,nm_prov",
             ])
+            ->whereHas('satpen', function($query) use ($specificFilter) {
+                $query->where($specificFilter);
+            })
             ->where('status', '=', 'final aprove')
             ->whereNull('id_pw')
             ->whereNull('id_pc')
-            ->orderBy('id', 'DESC')->get();
+            ->whereIn('id', function($query) {
+                $query->selectRaw('MAX(id)')
+                      ->from('coretax')
+                      ->where('status', '=', 'final aprove')
+                      ->groupBy('id_user');
+            })
+            ->orderByDesc('tgl_acc')
+            ->orderByDesc('id')
+            ->get();
 
         $coretaxWil = Coretax::with([
             "wilayah",
@@ -65,7 +107,14 @@ class CoretaxAdminController extends Controller
             ])
             ->where('status', '=', 'final aprove')
             ->whereNotNull('id_pw')
-            ->orderBy('id', 'DESC')
+            ->whereIn('id', function($query) {
+                $query->selectRaw('MAX(id)')
+                      ->from('coretax')
+                      ->where('status', '=', 'final aprove')
+                      ->groupBy('id_pw');
+            })
+            ->orderByDesc('tgl_acc')
+            ->orderByDesc('id')
             ->get();
 
         $coretaxCab = Coretax::with([
@@ -73,9 +122,19 @@ class CoretaxAdminController extends Controller
             "cabang.prov:id_prov,nm_prov",
             "cabang.profile:id_pc,kabupaten",
             ])
+            ->whereHas('cabang.prov', function($query) use ($specificFilter) {
+                $query->where($specificFilter);
+            })
             ->where('status', '=', 'final aprove')
             ->whereNotNull('id_pc')
-            ->orderBy('id', 'DESC')
+            ->whereIn('id', function($query) {
+                $query->selectRaw('MAX(id)')
+                      ->from('coretax')
+                      ->where('status', '=', 'final aprove')
+                      ->groupBy('id_pc');
+            })
+            ->orderByDesc('tgl_acc')
+            ->orderByDesc('id')
             ->get();
 
         return view('admin.coretax.coretax', compact('coretaxVer', 'coretaxRev', 'coretaxPro', 'coretaxSatpen', 'coretaxWil', 'coretaxCab'));
@@ -94,6 +153,13 @@ class CoretaxAdminController extends Controller
             ])
             ->where('id', '=', $coretaxId)
             ->first();
+        
+        $coretaxJurney = Coretax::where('id', '!=', $coretaxId)
+            ->where('id_user', '=', $coretax->id_user)
+            ->where('status', '=', 'final aprove')
+            ->orderByDesc('tgl_acc')
+            ->orderByDesc('id')
+            ->get();
 
             if (!$coretax) {
                 return response()->json([
@@ -102,7 +168,10 @@ class CoretaxAdminController extends Controller
                 ], HttpResponse::HTTP_NOT_FOUND);
             }
             
-        return response()->json($coretax, HttpResponse::HTTP_OK);
+        return response()->json([
+            "ctx" => $coretax,
+            "ctxJurney" => $coretaxJurney,
+        ], HttpResponse::HTTP_OK);
     }
 
     public function accepted(Coretax $coretax) {

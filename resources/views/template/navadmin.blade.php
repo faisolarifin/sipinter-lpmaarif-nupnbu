@@ -55,7 +55,7 @@
         </li>
         <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-            <span class="hide-menu">Permohonan</span>
+            <span class="hide-menu">Rekap Permohonan</span>
         </li>
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.oss') }}" aria-expanded="false">
@@ -233,9 +233,23 @@
                     <span class="hide-menu">Rekap Satpen</span>
                 </a>
             </li>
+            @if(in_array(auth()->user()->role, ["admin wilayah"]))
             <li class="nav-small-cap">
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                <span class="hide-menu">Permohonan</span>
+                <span class="hide-menu">Profile Daerah</span>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('a.cabang') }}" aria-expanded="false">
+                    <span>
+                      <i class="ti ti-tag"></i>
+                    </span>
+                    <span class="hide-menu">Pengurus Cabang</span>
+                </a>
+            </li>
+            @endif
+            <li class="nav-small-cap">
+                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Rekap Permohonan</span>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.oss') }}" aria-expanded="false">
@@ -252,6 +266,18 @@
                 </span>
                     <span class="hide-menu">Layanan BHPNU</span>
                 </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('a.coretax') }}" aria-expanded="false">
+                    <span>
+                      <i class="ti ti-shield"></i>
+                    </span>
+                    <span class="hide-menu">Manajemen Coretax</span>
+                </a>
+            </li>
+            <li class="nav-small-cap">
+                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Pengajuan</span>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('coretax') }}" aria-expanded="false">

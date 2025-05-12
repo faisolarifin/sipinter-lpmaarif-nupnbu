@@ -107,9 +107,14 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    <th width="140">Ketua</th>
+                                    <th width="170">Ketua</th>
                                     <td width="30">:</td>
                                     <td>{{ $data->profile->ketua }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Telpon Ketua</th>
+                                    <td>:</td>
+                                    <td>{{ $data->profile->telp_ketua }}</td>
                                 </tr>
                                 <tr>
                                     <th>Wakil Ketua</th>
@@ -117,14 +122,29 @@
                                     <td>{{ $data->profile->wakil_ketua }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Telpon Wakil</th>
+                                    <td>:</td>
+                                    <td>{{ $data->profile->telp_wakil }}</td>
+                                </tr>
+                                <tr>
                                     <th>Sekretaris</th>
                                     <td>:</td>
                                     <td>{{ $data->profile->sekretaris }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Telpon Sekretaris</th>
+                                    <td>:</td>
+                                    <td>{{ $data->profile->telp_sekretaris }}</td>
+                                </tr>
+                                <tr>
                                     <th>Bendahara</th>
                                     <td>:</td>
                                     <td>{{ $data->profile->bendahara }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Telpon Bendahara</th>
+                                    <td>:</td>
+                                    <td>{{ $data->profile->telp_bendahara }}</td>
                                 </tr>
                                 </tbody>
                             </table>

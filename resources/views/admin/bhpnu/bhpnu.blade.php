@@ -48,7 +48,7 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>Nomor Registrasi</th>
                                     <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
@@ -104,7 +104,7 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>Nomor Registrasi</th>
                                     <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
@@ -157,7 +157,7 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>Nomor Registrasi</th>
                                     <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Nomor Resi</th>

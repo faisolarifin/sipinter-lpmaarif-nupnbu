@@ -233,18 +233,26 @@
                                     </tr>
                                     <tr>
                                         <td class="border-bottom-0 align-middle">
-                                            <p class="mb-0">Tanggal</p>
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            <h6 class="mb-0">{{ \App\Helpers\Date::tglMasehi($coretax->tanggal) }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border-bottom-0 align-middle">
                                             <p class="mb-0">Tanggal Pengajuan</p>
                                         </td>
                                         <td class="border-bottom-0">
                                             <h6 class="mb-0">{{ \App\Helpers\Date::tglMasehi($coretax->tgl_submit) }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-bottom-0 align-middle">
+                                            <p class="mb-0">Tanggal Disetujui</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <h6 class="mb-0">@if ($coretax->tgl_acc) {{ \App\Helpers\Date::tglMasehi($coretax->tgl_acc) }} @endif</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-bottom-0 align-middle">
+                                            <p class="mb-0">Tanggal Kadaluarsa</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <h6 class="mb-0">@if ($coretax->tgl_expiry) {{ \App\Helpers\Date::tglMasehi($coretax->tgl_expiry) }} @endif</h6>
                                         </td>
                                     </tr>
                                 </table>

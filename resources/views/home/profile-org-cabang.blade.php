@@ -141,10 +141,30 @@
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="mb-3">
+                                            <label for="telp_ketua" class="form-label required">Nomor Telpon Ketua</label>
+                                            <input type="text" class="form-control  @error('telp_ketua') is-invalid @enderror" id="telp_ketua" name="telp_ketua" value="{{ $data->profile?->telp_ketua }}" placeholder="Nomor Telpon Ketua">
+                                            <div class="invalid-feedback">
+                                                @error('telp_ketua') {{ $message }} @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="mb-3">
                                             <label for="wakil_ketua" class="form-label required">Wakil Ketua</label>
                                             <input type="text" class="form-control  @error('wakil_ketua') is-invalid @enderror" id="wakil_ketua" name="wakil_ketua" value="{{ $data->profile?->wakil_ketua }}" placeholder="Wakil Ketua">
                                             <div class="invalid-feedback">
                                                 @error('wakil_ketua') {{ $message }} @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="mb-3">
+                                            <label for="telp_wakil" class="form-label required">Nomor Telpon Wakil</label>
+                                            <input type="text" class="form-control  @error('telp_wakil') is-invalid @enderror" id="telp_wakil" name="telp_wakil" value="{{ $data->profile?->telp_wakil }}" placeholder="Nomor Telpon Wakil">
+                                            <div class="invalid-feedback">
+                                                @error('telp_wakil') {{ $message }} @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -161,10 +181,30 @@
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="mb-3">
+                                            <label for="telp_sekretaris" class="form-label required">Nomor Telpon Sekretaris</label>
+                                            <input type="text" class="form-control  @error('telp_sekretaris') is-invalid @enderror" id="telp_sekretaris" name="telp_sekretaris" value="{{ $data->profile?->telp_sekretaris }}" placeholder="Nomor Telpon Sekretaris">
+                                            <div class="invalid-feedback">
+                                                @error('telp_sekretaris') {{ $message }} @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="mb-3">
                                             <label for="bendahara" class="form-label required">Bendahara</label>
                                             <input type="text" class="form-control  @error('bendahara') is-invalid @enderror" id="bendahara" name="bendahara" value="{{ $data->profile?->bendahara }}" placeholder="Bedahara">
                                             <div class="invalid-feedback">
                                                 @error('bendahara') {{ $message }} @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="mb-3">
+                                            <label for="telp_bendahara" class="form-label required">Nomor Telpon Bendahara</label>
+                                            <input type="text" class="form-control  @error('telp_bendahara') is-invalid @enderror" id="telp_bendahara" name="telp_bendahara" value="{{ $data->profile?->telp_bendahara }}" placeholder="Nomor Telpon Bendahara">
+                                            <div class="invalid-feedback">
+                                                @error('telp_bendahara') {{ $message }} @enderror
                                             </div>
                                         </div>
                                     </div>

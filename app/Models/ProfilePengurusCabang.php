@@ -25,6 +25,10 @@ class ProfilePengurusCabang extends Model
         'wakil_ketua',
         'bendahara',
         'sekretaris',
+        'telp_ketua',
+        'telp_wakil',
+        'telp_bendahara',
+        'telp_sekretaris',
     ];
 
 }

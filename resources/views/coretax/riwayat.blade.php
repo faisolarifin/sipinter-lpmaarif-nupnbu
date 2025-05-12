@@ -44,7 +44,7 @@
                                         <th>#</th>
                                         <th>Permohonan</th>
                                         <th>Disetujui</th>
-                                        <th>Expiry</th>
+                                        <th>Kadaluarsa</th>
                                         <th>NITKU</th>
                                         <th>Nama PIC</th>
                                         <th>NIK PIC</th>

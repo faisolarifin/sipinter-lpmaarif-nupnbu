@@ -83,7 +83,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modal-detail">
+                <div class="modal-body px-sm-5" id="modal-detail">
                     
                 </div>
                 <div class="modal-footer">
@@ -123,126 +123,129 @@
                 type: "GET",
                 dataType: 'json',
                 success: function(res) {
+                    const ctx = res.ctx;
+                    const ctxJurney = res.ctxJurney;
+
                     let modalDetail = `<div class="row">
                         <div class="col col-sm-6" style="overflow-x:auto;">
                             <div class="table-responsive">
                                 <table class="table">
                                     <tbody>`;
                                     
-                                    if (res?.satpen) {
+                                    if (ctx?.satpen) {
                                         modalDetail += `<tr>
                                             <td width="230"><strong>Nama Sekolah/Madrasah</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen.nm_satpen}</td>
+                                            <td>${ctx?.satpen.nm_satpen}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Nomor Registrasi Ma'arif NU</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen.no_registrasi}</td>
+                                            <td>${ctx?.satpen.no_registrasi}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Provinsi</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen?.provinsi.nm_prov}</td>
+                                            <td>${ctx?.satpen?.provinsi.nm_prov}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kabupaten</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen?.kabupaten.nama_kab}</td>
+                                            <td>${ctx?.satpen?.kabupaten.nama_kab}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kecamatan</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen.kecamatan}</td>
+                                            <td>${ctx?.satpen.kecamatan}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kelurahan</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen.kelurahan}</td>
+                                            <td>${ctx?.satpen.kelurahan}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Alamat</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen.alamat}</td>
+                                            <td>${ctx?.satpen.alamat}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kepala Sekolah</strong></td>
                                             <td>:</td>
-                                            <td>${res?.satpen.kepsek}</td>
+                                            <td>${ctx?.satpen.kepsek}</td>
                                         </tr>`;
                                     
-                                    } else if (res?.cabang) {
+                                    } else if (ctx?.cabang) {
                                         modalDetail += `<tr>
                                             <td width="230"><strong>Nama Cabang</strong></td>
                                             <td>:</td>
-                                            <td>${res?.cabang.nama_pc}</td>
+                                            <td>${ctx?.cabang.nama_pc}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Provinsi</strong></td>
                                             <td>:</td>
-                                            <td>${res?.cabang?.prov.nm_prov}</td>
+                                            <td>${ctx?.cabang?.prov.nm_prov}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kabupaten</strong></td>
                                             <td>:</td>
-                                            <td>${res?.cabang?.profile.kabupaten}</td>
+                                            <td>${ctx?.cabang?.profile.kabupaten}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kecamatan</strong></td>
                                             <td>:</td>
-                                            <td>${res?.cabang?.profile.kecamatan}</td>
+                                            <td>${ctx?.cabang?.profile.kecamatan}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kelurahan</strong></td>
                                             <td>:</td>
-                                            <td>${res?.cabang?.profile.kelurahan}</td>
+                                            <td>${ctx?.cabang?.profile.kelurahan}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Alamat</strong></td>
                                             <td>:</td>
-                                            <td>${res?.cabang?.profile.alamat}</td>
+                                            <td>${ctx?.cabang?.profile.alamat}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Ketua</strong></td>
                                             <td>:</td>
-                                            <td>${res?.cabang?.profile.ketua}</td>
+                                            <td>${ctx?.cabang?.profile.ketua}</td>
                                         </tr>`;
 
-                                    } else if (res?.wilayah) {
+                                    } else if (ctx?.wilayah) {
                                         modalDetail += `<tr>
                                             <td width="230"><strong>Nama Wilayah</strong></td>
                                             <td>:</td>
-                                            <td>Wilayah ${res?.wilayah.nm_prov}</td>
+                                            <td>Wilayah ${ctx?.wilayah.nm_prov}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Provinsi</strong></td>
                                             <td>:</td>
-                                            <td>${res?.wilayah.nm_prov}</td>
+                                            <td>${ctx?.wilayah.nm_prov}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kabupaten</strong></td>
                                             <td>:</td>
-                                            <td>${res?.wilayah?.profile.kabupaten}</td>
+                                            <td>${ctx?.wilayah?.profile.kabupaten}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kecamatan</strong></td>
                                             <td>:</td>
-                                            <td>${res?.wilayah?.profile.kecamatan}</td>
+                                            <td>${ctx?.wilayah?.profile.kecamatan}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Kelurahan</strong></td>
                                             <td>:</td>
-                                            <td>${res?.wilayah?.profile.kelurahan}</td>
+                                            <td>${ctx?.wilayah?.profile.kelurahan}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Alamat</strong></td>
                                             <td>:</td>
-                                            <td>${res?.wilayah?.profile.alamat}</td>
+                                            <td>${ctx?.wilayah?.profile.alamat}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Ketua</strong></td>
                                             <td>:</td>
-                                            <td>${res?.wilayah?.profile.ketua}</td>
+                                            <td>${ctx?.wilayah?.profile.ketua}</td>
                                         </tr>`;
                                     }
                                     
@@ -257,42 +260,42 @@
                                     <tr>
                                         <td width="190"><strong>NITKU/NPWP</strong></td>
                                         <td>:</td>
-                                        <td>${res?.nitku ?? ''}</td>
+                                        <td>${ctx?.nitku ?? ''}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Nama PIC</strong></td>
                                         <td>:</td>
-                                        <td>${res?.nama_pic}</td>
+                                        <td>${ctx?.nama_pic}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>NIK PIC</strong></td>
                                         <td>:</td>
-                                        <td>${res?.nik_pic}</td>
+                                        <td>${ctx?.nik_pic}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Nomor Whatsapp PIC</strong></td>
                                         <td>:</td>
-                                        <td>${res?.whatsapp_pic}</td>
+                                        <td>${ctx?.whatsapp_pic}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Tanggal Permohonan</strong></td>
                                         <td>:</td>
-                                        <td>${(res?.tgl_submit ?? '').split("-").reverse().join("-")}</td>
+                                        <td>${(ctx?.tgl_submit ?? '').split("-").reverse().join("-")}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Tanggal Disetujui</strong></td>
                                         <td>:</td>
-                                        <td>${(res?.tgl_acc ?? '').split("-").reverse().join("-")}</td>
+                                        <td>${(ctx?.tgl_acc ?? '').split("-").reverse().join("-")}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Tanggal Expiry</strong></td>
                                         <td>:</td>
-                                        <td>${(res?.tgl_expiry ?? '').split("-").reverse().join("-")}</td>
+                                        <td>${(ctx?.tgl_expiry ?? '').split("-").reverse().join("-")}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Catatan</strong></td>
                                         <td>:</td>
-                                        <td>${res?.corestatus.find((item) => item.statusType === res.status)?.keterangan ?? ''}</td>
+                                        <td>${ctx?.corestatus.find((item) => item.statusType === res.status)?.keterangan ?? ''}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -300,7 +303,44 @@
                         </div>
                     </div>`;
 
+                    modalDetail += `<div class="row mt-4">
+                        <div class="col"> 
+                                <h5 class="mb-0">Riwayat Pengajuan</h5>
+                                <small>daftar riwayat pengajuan layanan coretax yang telah diapprove</small>
+                            </div>
+                        </div>`;
+
+                    modalDetail += `<div class="row mt-2">
+                        <div class="col">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="detail-table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50">#</th>
+                                        <th>NITKU</th>
+                                        <th>Nama PIC</th>
+                                        <th>NIK PIC</th>
+                                        <th>Nomor Whatsapp</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>`;
+                                    let no = 1;
+                                    ctxJurney.forEach((item) => {
+                                        modalDetail += `<tr>
+                                            <td>${no++}</td>
+                                            <td>${item.nitku}</td>
+                                            <td>${item.nama_pic}</td>
+                                            <td>${item.nik_pic}</td>
+                                            <td>${item.whatsapp_pic}</td></tr>`;
+                                    }) 
+                                    modalDetail += `</tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </div>`;    
+
                     $("#modal-detail").html(modalDetail);
+                    $('#detail-table').DataTable();
 
                 }
             });

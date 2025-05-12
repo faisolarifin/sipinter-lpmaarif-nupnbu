@@ -12,10 +12,14 @@ use App\Models\Provinsi;
 class ProfileController extends Controller
 {
     public function profileCabang() {
+        $specificFilter = request()->specificFilter;
         $cabang = PengurusCabang::with(["profile", "prov"])
                     ->orderBy('id_pc', 'DESC')
                     ->whereHas("profile", function ($query) {
                         $query->where('id', '!=', null);
+                    })
+                    ->whereHas("prov", function ($query) use ($specificFilter)  {
+                        $query->where($specificFilter);
                     })
                     ->get();
         return view('admin.profile.profile-cabang', compact('cabang'));
@@ -34,9 +38,14 @@ class ProfileController extends Controller
     public function profileDetail($ID) {
         if ($ID) {
             if (request()->segment(3) === "cabang") {
+                    $specificFilter = request()->specificFilter;
+
                     $data = PengurusCabang::with(["profile", "prov"])
                     ->whereHas("profile", function ($query) {
                         $query->where('id', '!=', null);
+                    })
+                    ->whereHas("prov", function ($query) use ($specificFilter)  {
+                        $query->where($specificFilter);
                     })
                     ->where("id_pc", $ID)
                     ->first();

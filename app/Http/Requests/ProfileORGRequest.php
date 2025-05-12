@@ -37,6 +37,10 @@ class ProfileORGRequest extends FormRequest
             'wakil_ketua' => 'required|string|max:100',
             'bendahara' => 'required|string|max:100',
             'sekretaris' => 'required|string|max:100',
+            'telp_ketua' => 'required|digits_between:10,15',
+            'telp_wakil' => 'required|digits_between:10,15',
+            'telp_sekretaris' => 'required|digits_between:10,15',
+            'telp_bendahara' => 'required|digits_between:10,15',
         ];
     }
 
@@ -56,6 +60,10 @@ class ProfileORGRequest extends FormRequest
             'wakil_ketua.required' => 'Field Wakil Ketua Wajib Diisi',
             'bendahara.required' => 'Field Bendahara Wajib Diisi',
             'sekretaris.required' => 'Field Sekretaris Wajib Diisi',
+            'telp_ketua.required' => 'Field Nomor Telpon Ketua Wajib Diisi',
+            'telp_wakil.required' => 'Field Nomor Telpon Wakil Wajib Diisi',
+            'telp_sekretaris.required' => 'Field Nomor Telpon Sekretaris Wajib Diisi',
+            'telp_bendahara.required' => 'Field Nomor Telpon Bendahara Wajib Diisi',
         ];
     }
 }

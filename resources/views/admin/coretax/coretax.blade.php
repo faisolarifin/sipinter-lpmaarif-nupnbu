@@ -31,14 +31,18 @@
                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#proses" type="button" role="tab" aria-controls="proses" aria-selected="false">SEDANG DIPROSES</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#satpen" type="button" role="tab" aria-controls="satpen" aria-selected="false">SATUAN PENDIDIKAN</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#satpen" type="button" role="tab" aria-controls="satpen" aria-selected="false">APPROVED SATPEN</button>
             </li>
+            @if(!in_array(auth()->user()->role, ["admin cabang"]))
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#cabang" type="button" role="tab" aria-controls="cabang" aria-selected="false">CABANG</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#cabang" type="button" role="tab" aria-controls="cabang" aria-selected="false">APPROVED CABANG</button>
             </li>
+            @if(!in_array(auth()->user()->role, ["admin wilayah"]))
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#wilayah" type="button" role="tab" aria-controls="wilayah" aria-selected="false">WILAYAH</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#wilayah" type="button" role="tab" aria-controls="wilayah" aria-selected="false">APPROVED WILAYAH</button>
             </li>
+            @endif
+            @endif
         </ul>
 
         <div class="tab-content" id="myTabContent">
@@ -328,7 +332,7 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Permohonan</th>
-                                    <th>Expiry</th>
+                                    <th>Expired</th>
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
@@ -393,7 +397,7 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Permohonan</th>
-                                    <th>Expiry</th>
+                                    <th>Expired</th>
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
@@ -457,7 +461,7 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Permohonan</th>
-                                    <th>Expiry</th>
+                                    <th>Expired</th>
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>

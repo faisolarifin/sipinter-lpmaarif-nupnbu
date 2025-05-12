@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\{
     VirtualNPSNController,
     UsersController,
     ProfileController,
-    ExportExcelController,};
+    ExportExcelController};
 use App\Http\Controllers\Master\{
     InformasiController,
     JenjangPendidikanController,
@@ -87,8 +87,8 @@ Route::middleware('mustlogin')->group(function() {
         /**
          * OSS
          */
-        Route::get('/oss/forbidden', [OSSController::class, 'forbiddenPage'])->name('oss.403');
         Route::group(["prefix" => "oss", "middleware" => "verifysatpenactive"], function() {
+            Route::get('/forbidden', [OSSController::class, 'forbiddenPage'])->name('oss.403')->withoutMiddleware('verifysatpenactive');
             Route::get('/', [OSSController::class, 'landOSSRequest'])->name('oss');
             Route::get('/new', [OSSController::class, 'newOSSRequest'])->name('oss.new');
             Route::get('/detail/{ossId}', [OSSController::class, 'detailOSSQuesioner'])->name('oss.detail');
@@ -99,8 +99,8 @@ Route::middleware('mustlogin')->group(function() {
         /**
          * BHPNU
          */
-        Route::get('/bhpnu/forbidden', [BHPNUController::class, 'forbiddenPage'])->name('bhpnu.403');
         Route::group(["prefix" => "bhpnu", "middleware" => "verifysatpenactive"], function() {
+            Route::get('/forbidden', [BHPNUController::class, 'forbiddenPage'])->name('bhpnu.403')->withoutMiddleware('verifysatpenactive');
             Route::get('/', [BHPNUController::class, 'permohonanBHPNUPage'])->name('bhpnu');
             Route::get('/new', [BHPNUController::class, 'permohonanBaruBHPNU'])->name('bhpnu.new');
             Route::put('/{bhpnu}', [BHPNUController::class, 'storePermohonanBHPNU'])->name('bhpnu.save');
@@ -231,8 +231,8 @@ Route::middleware('mustlogin')->group(function() {
                 Route::get('/wilayah', [ProfileController::class, 'profileWilayah'])->name('a.wilayah');
                 Route::get('/wilayah/{ID}', [ProfileController::class, 'profileDetail'])->name('a.wilayah.detail');
                 Route::delete('/wilayah', [ProfileController::class, 'destroyWilayah'])->name('a.wilayah.destroy');
-                Route::get('/cabang', [ProfileController::class, 'profileCabang'])->name('a.cabang');
-                Route::get('/cabang/{ID}', [ProfileController::class, 'profileDetail'])->name('a.cabang.detail');
+                Route::get('/cabang', [ProfileController::class, 'profileCabang'])->name('a.cabang')->withoutMiddleware('primaryadmin');
+                Route::get('/cabang/{ID}', [ProfileController::class, 'profileDetail'])->name('a.cabang.detail')->withoutMiddleware('primaryadmin');
                 Route::delete('/cabang', [ProfileController::class, 'destroyCabang'])->name('a.cabang.destroy');
             });
 
