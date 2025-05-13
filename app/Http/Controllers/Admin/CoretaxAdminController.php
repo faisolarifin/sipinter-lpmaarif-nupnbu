@@ -260,9 +260,9 @@ class CoretaxAdminController extends Controller
                     'keterangan' => $request->keterangan,
                 ]);
 
-                return redirect()->back()->with('success', 'Berhasil menerbitkan izin oss');
+                return redirect()->back()->with('success', 'Pengajuan layanan coretax berhasil di approve');
             }
-            return redirect()->back()->with('error', 'Invalid OSS Id');
+            return redirect()->back()->with('error', 'Invalid Coretax Id');
 
         } catch (ValidationException $e) {
             return redirect()->back()->with('error', 'Kesalahan data pada form');
@@ -279,7 +279,7 @@ class CoretaxAdminController extends Controller
                 $coretax->delete();
                 return redirect()->back()->with('success', 'Berhasil menghapus pengajuan coretax');
             }
-            return redirect()->back()->with('error', 'Invalid OSS Id');
+            return redirect()->back()->with('error', 'Invalid Coretax Id');
 
         } catch (\Exception $e) {
             throw new CatchErrorException($e);

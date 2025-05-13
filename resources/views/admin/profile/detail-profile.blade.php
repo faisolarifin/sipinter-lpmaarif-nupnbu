@@ -112,7 +112,7 @@
                                     <td>{{ $data->profile->ketua }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Telpon Ketua</th>
+                                    <th>Telepon Ketua</th>
                                     <td>:</td>
                                     <td>{{ $data->profile->telp_ketua }}</td>
                                 </tr>
@@ -122,7 +122,7 @@
                                     <td>{{ $data->profile->wakil_ketua }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Telpon Wakil</th>
+                                    <th>Telepon Wakil</th>
                                     <td>:</td>
                                     <td>{{ $data->profile->telp_wakil }}</td>
                                 </tr>
@@ -132,7 +132,7 @@
                                     <td>{{ $data->profile->sekretaris }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Telpon Sekretaris</th>
+                                    <th>Telepon Sekretaris</th>
                                     <td>:</td>
                                     <td>{{ $data->profile->telp_sekretaris }}</td>
                                 </tr>
@@ -142,7 +142,7 @@
                                     <td>{{ $data->profile->bendahara }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Telpon Bendahara</th>
+                                    <th>Telepon Bendahara</th>
                                     <td>:</td>
                                     <td>{{ $data->profile->telp_bendahara }}</td>
                                 </tr>

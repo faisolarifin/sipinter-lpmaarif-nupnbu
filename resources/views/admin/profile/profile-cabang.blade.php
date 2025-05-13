@@ -37,10 +37,11 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nama Cabang</th>
+                            <th scope="col">Provinsi</th>
                             <th scope="col">Ketua</th>
-                            <th scope="col">Telpon Ketua</th>
+                            <th scope="col">Telepon Ketua</th>
                             <th scope="col">Wakil Ketua</th>
-                            <th scope="col">Telpon Wakil</th>
+                            <th scope="col">Telepon Sekretaris</th>
                             <th scope="col" width="100">Aksi</th>
                         </tr>
                         </thead>
@@ -49,10 +50,11 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->nama_pc }}</td>
+                                <td>{{ $row->prov->nm_prov }}</td>
                                 <td>{{ $row->profile->ketua }}</td>
                                 <td>{{ $row->profile->telp_ketua }}</td>
                                 <td>{{ $row->profile->wakil_ketua }}</td>
-                                <td>{{ $row->profile->telp_wakil }}</td>
+                                <td>{{ $row->profile->telp_sekretaris }}</td>
                                 <td>
                                     <a href="{{ route('a.cabang.detail', $row->id_pc) }}">
                                         <button class="btn btn-sm btn-secondary me-1">
