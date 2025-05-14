@@ -332,7 +332,6 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Tanggal Pengajuan</th>
-                                    <th>Tanggal Disetujui</th>
                                     <th>Tanggal Expired</th>
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
@@ -353,7 +352,6 @@
                                         <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tgl_acc) }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_expiry) }}</td>
                                         <td>{{ $row->nitku }}</td>
                                         <td>{{ $row->nama_pic }}</td>
@@ -399,7 +397,6 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Tanggal Pengajuan</th>
-                                    <th>Tanggal Disetujui</th>
                                     <th>Tanggal Expired</th>
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
@@ -419,7 +416,6 @@
                                         <td>{{ $row->cabang->prov->nm_prov }}</td>
                                         <td>{{ $row->cabang->profile->kabupaten }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tgl_acc) }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_expiry) }}</td>
                                         <td>{{ $row->nitku }}</td>
                                         <td>{{ $row->nama_pic }}</td>
@@ -465,7 +461,6 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Tanggal Pengajuan</th>
-                                    <th>Tanggal Disetujui</th>
                                     <th>Tanggal Expired</th>
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
@@ -485,7 +480,6 @@
                                         <td>{{ $row->wilayah->nm_prov }}</td>
                                         <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tgl_acc) }}</td>
                                         <td>{{ Date::tglReverseDash($row->tgl_expiry) }}</td>
                                         <td>{{ $row->nitku }}</td>
                                         <td>{{ $row->nama_pic }}</td>

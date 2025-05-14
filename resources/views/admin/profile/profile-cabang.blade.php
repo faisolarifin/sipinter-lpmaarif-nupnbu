@@ -40,7 +40,7 @@
                             <th scope="col">Provinsi</th>
                             <th scope="col">Ketua</th>
                             <th scope="col">Telepon Ketua</th>
-                            <th scope="col">Wakil Ketua</th>
+                            <th scope="col">Sekretaris</th>
                             <th scope="col">Telepon Sekretaris</th>
                             <th scope="col" width="100">Aksi</th>
                         </tr>
@@ -53,7 +53,7 @@
                                 <td>{{ $row->prov->nm_prov }}</td>
                                 <td>{{ $row->profile->ketua }}</td>
                                 <td>{{ $row->profile->telp_ketua }}</td>
-                                <td>{{ $row->profile->wakil_ketua }}</td>
+                                <td>{{ $row->profile->sekretaris }}</td>
                                 <td>{{ $row->profile->telp_sekretaris }}</td>
                                 <td>
                                     <a href="{{ route('a.cabang.detail', $row->id_pc) }}">

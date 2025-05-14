@@ -39,8 +39,8 @@
                             <th scope="col">Nama Wilayah</th>
                             <th scope="col">Ketua</th>
                             <th scope="col">Telepon Ketua</th>
-                            <th scope="col">Wakil Ketua</th>
-                            <th scope="col">Telepon Wakil</th>
+                            <th scope="col">Sekretaris</th>
+                            <th scope="col">Telepon Sekretaris</th>
                             <th scope="col" width="100">Aksi</th>
                         </tr>
                         </thead>
@@ -51,7 +51,7 @@
                                 <td>Wilayah {{ $row->nm_prov }}</td>
                                 <td>{{ $row->profile->ketua }}</td>
                                 <td>{{ $row->profile->telp_ketua }}</td>
-                                <td>{{ $row->profile->wakil_ketua }}</td>
+                                <td>{{ $row->profile->sekretaris }}</td>
                                 <td>{{ $row->profile->telp_sekretaris }}</td>
                                 <td>
                                     <a href="{{ route('a.wilayah.detail', $row->id_prov) }}">

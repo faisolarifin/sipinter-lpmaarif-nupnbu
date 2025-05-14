@@ -321,6 +321,9 @@
                                         <th>Nama PIC</th>
                                         <th>NIK PIC</th>
                                         <th>Nomor Whatsapp</th>
+                                        <th>Tanggal Pengajuan</th>
+                                        <th>Tanggal Disetujui</th>
+                                        <th>Tanggal Expired</th>
                                     </tr>
                                     </thead>
                                     <tbody>`;
@@ -331,7 +334,10 @@
                                             <td>${item.nitku}</td>
                                             <td>${item.nama_pic}</td>
                                             <td>${item.nik_pic}</td>
-                                            <td>${item.whatsapp_pic}</td></tr>`;
+                                            <td>${item.whatsapp_pic}</td>
+                                            <td>${(item.tgl_submit).split("-").reverse().join("-")}</td>
+                                            <td>${(item.tgl_acc).split("-").reverse().join("-")}</td>
+                                            <td>${(item.tgl_expiry).split("-").reverse().join("-")}</td></tr>`;
                                     }) 
                                     modalDetail += `</tbody>
                                 </table>
