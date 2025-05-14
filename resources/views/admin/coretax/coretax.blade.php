@@ -70,9 +70,7 @@
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
                                     <th>Level</th>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
-                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -114,9 +112,9 @@
                                             <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
                                             @endif
                                         </td>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
+                                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                             <a href="{{ route('a.coretax.acc', $row->id) }}">
                                                 <button class="btn btn-sm btn-success me-1">
                                                     <i class="ti ti-checks"></i>
@@ -125,8 +123,8 @@
                                             <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="{{ $row->id }}">
                                                 <i class="ti ti-x"></i>
                                             </button>
+                                            @endif
                                         </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -160,9 +158,7 @@
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
                                     <th>Level</th>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
-                                        <th>Aksi</th>
-                                    @endif
+                                    <th>Aksi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -204,17 +200,17 @@
                                             <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
                                             @endif
                                         </td>
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
-                                            <td>
-                                                <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
+                                        <td>
+                                            <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
+                                                @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                                 <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalAppear" data-bs="{{ $row->id }}">
                                                     <i class="ti ti-checks"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-danger me-1" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="{{ $row->id }}">
                                                     <i class="ti ti-x"></i>
                                                 </button>
+                                                @endif
                                             </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -248,9 +244,7 @@
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
                                     <th>Level</th>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th width="25">Aksi</th>
-                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -292,17 +286,17 @@
                                             <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
                                             @endif
                                         </td>
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
+                                            @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                             <button class="btn btn-sm btn-success me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalAppear" data-bs="{{ $row->id }}">
                                                 <i class="ti ti-checks"></i>
                                             </button>
                                             <button class="btn btn-sm btn-danger me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="{{ $row->id }}">
                                                 <i class="ti ti-x"></i>
                                             </button>
+                                            @endif
                                         </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -336,9 +330,7 @@
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
-                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -356,7 +348,6 @@
                                         <td>{{ $row->nitku }}</td>
                                         <td>{{ $row->nama_pic }}</td>
                                         <td>{{ $row->nik_pic }}</td>
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
                                             @if(in_array(auth()->user()->role, ["super admin"]))
@@ -369,7 +360,6 @@
                                             </form>
                                             @endif
                                         </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -401,9 +391,7 @@
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
-                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -420,7 +408,6 @@
                                         <td>{{ $row->nitku }}</td>
                                         <td>{{ $row->nama_pic }}</td>
                                         <td>{{ $row->nik_pic }}</td>
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
                                             @if(in_array(auth()->user()->role, ["super admin"]))
@@ -433,7 +420,6 @@
                                             </form>
                                             @endif
                                         </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -465,9 +451,7 @@
                                     <th>NITKU</th>
                                     <th>Nama PIC</th>
                                     <th>NIK PIC</th>
-                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
-                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -484,7 +468,6 @@
                                         <td>{{ $row->nitku }}</td>
                                         <td>{{ $row->nama_pic }}</td>
                                         <td>{{ $row->nik_pic }}</td>
-                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
                                             @if(in_array(auth()->user()->role, ["super admin"]))
@@ -497,7 +480,6 @@
                                             </form>
                                             @endif
                                         </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
