@@ -295,7 +295,7 @@
                                     <tr>
                                         <td><strong>Catatan</strong></td>
                                         <td>:</td>
-                                        <td>${ctx?.corestatus.find((item) => item.statusType === res.status)?.keterangan ?? ''}</td>
+                                        <td>${ctx?.corestatus.find((item) => item.statusType === ctx?.status)?.keterangan ?? ''}</td>
                                     </tr>
                                     </tbody>
                                 </table>

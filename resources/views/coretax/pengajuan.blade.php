@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="col-12 col-sm-6">
                                                 <div class="mb-3">
-                                                    <label for="nitku" class="form-label">NITKU/NPWP Jika Ada</label>
+                                                    <label for="nitku" class="form-label">NITKU/NPWP Lembaga Jika Ada</label>
                                                     <input type="text" class="form-control  @error('nitku') is-invalid @enderror" id="nitku" name="nitku" value="{{ $coretax->nitku }}" placeholder="NITKU/NPWP-Optional">
                                                     <div class="invalid-feedback">
                                                         @error('nitku') {{ $message }} @enderror
@@ -201,7 +201,7 @@
                                     @endif
                                     <tr>
                                         <td class="border-bottom-0 align-middle" width="300">
-                                            <p class="mb-0">NITKU/NPWP</p>
+                                            <p class="mb-0">NITKU/NPWP Lembaga</p>
                                         </td>
                                         <td class="border-bottom-0">
                                             <h6 class="mb-0">{{ $coretax->nitku }}</h6>
