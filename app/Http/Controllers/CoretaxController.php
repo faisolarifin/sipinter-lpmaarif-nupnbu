@@ -9,13 +9,14 @@ use Carbon\Carbon;
 
 class CoretaxController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $coretax = Coretax::with(["satpen:id_satpen,id_user,no_registrasi,nm_satpen", "corestatus", "wilayah"])
             ->where('id_user', '=', auth()->user()->id_user)
             ->orderBy('id', 'DESC')
             ->first();
 
-        $notice=null;
+        $notice = null;
         if ($coretax) {
             $notice = CoretaxStatus::where([
                 'id_coretax' => $coretax->id,
@@ -25,19 +26,31 @@ class CoretaxController extends Controller
         return view('coretax.pengajuan', compact('coretax', 'notice'));
     }
 
-    public function new() {
-        $coretax = Coretax::where('id_user', '=', auth()->user()->id_user)
+
+    public function new()
+    {
+        $lastCoretax = Coretax::where('id_user', '=', auth()->user()->id_user)
             ->orderBy('id', 'DESC')
             ->first();
+
+        $expiryDate = Carbon::parse($lastCoretax->tgl_expiry);
+        if (!$expiryDate->isToday() || !$expiryDate->isPast()) {
+
+            return redirect()->back()->with(
+                'error',
+                'Tidak dapat mengajukan layanan Coretax, pengajuan sebelumnya belum expired! ' .
+                    '<a href="' . route('coretax.req-exipry') . '" class="btn btn-sm btn-primary">Buka Expiry</a>'
+            );
+        }
 
         $data = [
             'id_user' => auth()->user()->id_user,
             'id_pw' => null,
             'id_pc' => null,
-            'nitku' => optional($coretax)->nitku,
-            'nama_pic' => optional($coretax)->nama_pic,
-            'nik_pic' => optional($coretax)->nik_pic,
-            'whatsapp_pic' => optional($coretax)->whatsapp_pic,
+            'nitku' => optional($lastCoretax)->nitku,
+            'nama_pic' => optional($lastCoretax)->nama_pic,
+            'nik_pic' => optional($lastCoretax)->nik_pic,
+            'whatsapp_pic' => optional($lastCoretax)->whatsapp_pic,
             'tanggal' => Carbon::now(),
             'tgl_submit' => null,
             'status' => 'mengisi persyaratan',
@@ -51,44 +64,64 @@ class CoretaxController extends Controller
 
         $coretax = Coretax::create($data);
         CoretaxStatus::insert([
-           [
-               'id_coretax' => $coretax->id,
-               'statusType' => 'mengisi persyaratan',
-               'icon' => 'ti-keyboard',
-               'textstatus' => 'Mengisi Persyaratan',
-               'status' => 'success',
-           ],[
-               'id_coretax' => $coretax->id,
-               'statusType' => 'verifikasi',
-               'icon' => 'ti-building-bank',
-               'textstatus' => 'Verifikasi',
-               'status' => null,
-           ],[
-               'id_coretax' => $coretax->id,
-               'statusType' => 'perbaikan',
-               'icon' => 'ti-checkup-list',
-               'textstatus' => 'Diterima Verifikator',
-               'status' => null,
-           ],[
-               'id_coretax' => $coretax->id,
-               'statusType' => 'dokumen diproses',
-               'icon' => 'ti-manual-gearbox',
-               'textstatus' => 'Sedang Diproses',
-               'status' => null,
-           ],[
-               'id_coretax' => $coretax->id,
-               'statusType' => 'final aprove',
-               'icon' => 'ti-fingerprint',
-               'textstatus' => 'Final Aprove',
-               'status' => null,
-           ],
+            [
+                'id_coretax' => $coretax->id,
+                'statusType' => 'mengisi persyaratan',
+                'icon' => 'ti-keyboard',
+                'textstatus' => 'Mengisi Persyaratan',
+                'status' => 'success',
+            ],
+            [
+                'id_coretax' => $coretax->id,
+                'statusType' => 'verifikasi',
+                'icon' => 'ti-building-bank',
+                'textstatus' => 'Verifikasi',
+                'status' => null,
+            ],
+            [
+                'id_coretax' => $coretax->id,
+                'statusType' => 'perbaikan',
+                'icon' => 'ti-checkup-list',
+                'textstatus' => 'Diterima Verifikator',
+                'status' => null,
+            ],
+            [
+                'id_coretax' => $coretax->id,
+                'statusType' => 'dokumen diproses',
+                'icon' => 'ti-manual-gearbox',
+                'textstatus' => 'Sedang Diproses',
+                'status' => null,
+            ],
+            [
+                'id_coretax' => $coretax->id,
+                'statusType' => 'final aprove',
+                'icon' => 'ti-fingerprint',
+                'textstatus' => 'Final Aprove',
+                'status' => null,
+            ],
         ]);
 
-        return redirect()->back();
+        $lastCoretax->new_request = null;
+        $lastCoretax->save();
 
+        return redirect()->back();
     }
 
-    public function stored(CoretaxRequest $request, Coretax $coretax) {
+    public function openExpiry()
+    {
+        $coretax = Coretax::where('id_user', auth()->user()->id_user)
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        if ($coretax) {
+            $coretax->new_request = 1;
+            $coretax->save();
+        }
+        return redirect()->back()->with('success', 'Permohonan hapus expiry berhasil dilakukan. Silahkan menunggu verifikasi Admin.');
+    }
+
+    public function stored(CoretaxRequest $request, Coretax $coretax)
+    {
 
         $coretax->update([
             'nitku' => $request->nitku,
@@ -117,17 +150,19 @@ class CoretaxController extends Controller
         return redirect()->back()->with('success', 'Berhasil mengajukan permohonan layanan Coretax');
     }
 
-    public function history() {
+    public function history()
+    {
         $coretax = Coretax::with(["corestatus"])
-        ->where('id_user', '=', auth()->user()->id_user)
-        ->where('status', '=', 'final aprove')
-        ->orderBy('id', 'DESC')
-        ->get();
+            ->where('id_user', '=', auth()->user()->id_user)
+            ->where('status', '=', 'final aprove')
+            ->orderBy('id', 'DESC')
+            ->get();
 
         return view('coretax.riwayat', compact('coretax'));
     }
 
-    public function forbidden() {
+    public function forbidden()
+    {
         return view('coretax.forbidden');
     }
 }

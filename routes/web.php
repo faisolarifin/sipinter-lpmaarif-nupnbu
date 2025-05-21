@@ -65,6 +65,7 @@ Route::middleware('mustlogin')->group(function() {
         Route::get('/forbidden', [CoretaxController::class, 'forbidden'])->name('coretax.403')->withoutMiddleware('verifysatpenactive');
         Route::get('/', [CoretaxController::class, 'index'])->name('coretax');
         Route::get('/new', [CoretaxController::class, 'new'])->name('coretax.new');
+        Route::get('/req-expiry', [CoretaxController::class, 'openExpiry'])->name('coretax.req-exipry');
         Route::get('/history', [CoretaxController::class, 'history'])->name('coretax.history');
         Route::put('/{coretax}', [CoretaxController::class, 'stored'])->name('coretax.save');
     });
@@ -219,6 +220,7 @@ Route::middleware('mustlogin')->group(function() {
                 Route::get('/', [CoretaxAdminController::class, 'index'])->name('a.coretax')->withoutMiddleware('primaryadmin');
                 Route::get('/{coretaxId}', [CoretaxAdminController::class, 'getById'])->name('a.coretax.byid');
                 Route::get('/acc/{coretax}', [CoretaxAdminController::class, 'accepted'])->name('a.coretax.acc');
+                Route::get('/open-expiry/{coretax}', [CoretaxAdminController::class, 'openExpiry'])->name('a.coretax.open-expiry');
                 Route::put('/appear/{coretax}', [CoretaxAdminController::class, 'appeared'])->name('a.coretax.appear');
                 Route::put('/reject/{coretax}', [CoretaxAdminController::class, 'rejected'])->name('a.coretax.reject');
                 Route::delete('/destroy/{coretax}', [CoretaxAdminController::class, 'destroy'])->name('a.coretax.destroy')->middleware('superadmin');

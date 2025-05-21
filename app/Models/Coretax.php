@@ -25,6 +25,7 @@ class Coretax extends Model
         'tgl_submit',
         'tgl_acc',
         'tgl_expiry',
+        'new_request',
         'status',
     ];
     public function satpen(): BelongsTo

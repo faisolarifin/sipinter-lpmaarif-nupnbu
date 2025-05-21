@@ -22,24 +22,27 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#verifikasi" type="button" role="tab" aria-controls="verifikasi" aria-selected="true">VERIFIKASI</button>
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#verifikasi" type="button" role="tab" aria-controls="verifikasi" aria-selected="true">VERIFIKASI ({{ count($coretaxVer) }})</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="revisi-tab" data-bs-toggle="tab" data-bs-target="#revisi" type="button" role="tab" aria-controls="revisi" aria-selected="true">REVISI</button>
+                <button class="nav-link" id="buka-expiry-tab" data-bs-toggle="tab" data-bs-target="#buka-expiry" type="button" role="tab" aria-controls="buka-expiry" aria-selected="true">BUKA EXPIRY ({{ count($coretaxExp) }})</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#proses" type="button" role="tab" aria-controls="proses" aria-selected="false">SEDANG DIPROSES</button>
+                <button class="nav-link" id="revisi-tab" data-bs-toggle="tab" data-bs-target="#revisi" type="button" role="tab" aria-controls="revisi" aria-selected="true">REVISI ({{ count($coretaxRev) }})</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#satpen" type="button" role="tab" aria-controls="satpen" aria-selected="false">APPROVED SATPEN</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#proses" type="button" role="tab" aria-controls="proses" aria-selected="false">SEDANG DIPROSES ({{ count($coretaxPro) }})</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#satpen" type="button" role="tab" aria-controls="satpen" aria-selected="false">SATPEN ({{ count($coretaxSatpen) }})</button>
             </li>
             @if(!in_array(auth()->user()->role, ["admin cabang"]))
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#cabang" type="button" role="tab" aria-controls="cabang" aria-selected="false">APPROVED CABANG</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#cabang" type="button" role="tab" aria-controls="cabang" aria-selected="false">CABANG ({{ count($coretaxCab) }})</button>
             </li>
             @if(!in_array(auth()->user()->role, ["admin wilayah"]))
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#wilayah" type="button" role="tab" aria-controls="wilayah" aria-selected="false">APPROVED WILAYAH</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#wilayah" type="button" role="tab" aria-controls="wilayah" aria-selected="false">WILAYAH ({{ count($coretaxWil) }})</button>
             </li>
             @endif
             @endif
@@ -134,6 +137,91 @@
                 </div>
             </div>
             <!-- End Verifikasi -->
+            <!-- Buka Expiry -->
+            <div class="tab-pane fade" id="buka-expiry" role="tabpanel" aria-labelledby="buka-expiry-tab">
+                <div class="card w-100">
+                    <div class="card-body pt-3">
+                        <div class="d-flex justify-content-between mt-2 mb-3">
+                            <div>
+                                <h5 class="mb-0">Pengajuan Buka Expiry Coretax</h5>
+                                <small>daftar permohonan memajukan tanggal expiry coretax</small>
+                            </div>
+                        </div>
+                        <div class="table-responsive mt-4">
+                            <table class="table table-stripped mt-4" id="dtable7">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>No Registrasi</th>
+                                    <th>Nama Entitas</th>
+                                    <th>Provinsi</th>
+                                    <th>Kabupaten</th>
+                                    <th>Tanggal Permohonan</th>
+                                    <th>NITKU</th>
+                                    <th>Nama PIC</th>
+                                    <th>NIK PIC</th>
+                                    <th>Level</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($coretaxExp as $row)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        @if ($row->satpen)
+                                        <td><a class="text-decoration-none" href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
+                                                {{ $row->satpen->no_registrasi }}
+                                            </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
+                                        <td>{{ $row->satpen->provinsi->nm_prov }}</td>
+                                        <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
+                                        @elseif ($row->cabang)
+                                        <td></td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.cabang.detail', $row->id_pc) }}" class="text-decoration-underline">
+                                            {{ $row->cabang->nama_pc }}
+                                        </a></td>
+                                        <td>{{ $row->cabang->prov->nm_prov }}</td>
+                                        <td>{{ $row->cabang->profile->kabupaten }}</td>
+                                        @elseif ($row->wilayah)
+                                        <td></td>
+                                        <td><a class="text-decoration-none" href="{{ route('a.wilayah.detail', $row->id_pw) }}" class="text-decoration-underline">
+                                            Wilayah {{ $row->wilayah->nm_prov }}
+                                        </a></td>
+                                        <td>{{ $row->wilayah->nm_prov }}</td>
+                                        <td>{{ $row->wilayah->profile->kabupaten }}</td>
+                                        @endif
+                                        <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
+                                        <td>{{ $row->nitku }}</td>
+                                        <td>{{ $row->nama_pic }}</td>
+                                        <td>{{ $row->nik_pic }}</td>
+                                        <td>
+                                            @if ($row->satpen)
+                                            <span class="badge bg-info rounded-3 fw-semibold">SATPEN</span>
+                                            @elseif ($row->cabang)
+                                            <span class="badge bg-info rounded-3 fw-semibold">CABANG</span>
+                                            @elseif ($row->wilayah)
+                                            <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info me-1 my-sm-1" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
+                                                @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
+                                                    <a href="{{ route('a.coretax.open-expiry', $row->id) }}">
+                                                        <button class="btn btn-sm btn-success me-1">
+                                                            <i class="ti ti-checks"></i>
+                                                        </button>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Buka Expiry -->
             <!-- Revisi -->
             <div class="tab-pane fade" id="revisi" role="tabpanel" aria-labelledby="revisi-tab">
                 <div class="card w-100">
@@ -518,6 +606,7 @@
         $('#dtable4').DataTable();
         $('#dtable5').DataTable();
         $('#dtable6').DataTable();
+        $('#dtable7').DataTable();
 
         // Get the hash value from the URL (e.g., #profile)
         let hash = window.location.hash;
