@@ -122,7 +122,7 @@
                                                         <input type="text"
                                                             class="form-control  @error('nitku') is-invalid @enderror"
                                                             id="nitku" name="nitku" value="{{ $coretax->nitku }}"
-                                                            placeholder="NITKU/NPWP-Optional">
+                                                            placeholder="NITKU/NPWP Lembaga (Optional)">
                                                         <div class="invalid-feedback">
                                                             @error('nitku')
                                                                 {{ $message }}

@@ -258,7 +258,7 @@
                                 <table class="table">
                                     <tbody>
                                     <tr>
-                                        <td width="190"><strong>NITKU/NPWP</strong></td>
+                                        <td width="190"><strong>NITKU/NPWP Lembaga</strong></td>
                                         <td>:</td>
                                         <td>${ctx?.nitku ?? ''}</td>
                                     </tr>

@@ -71,7 +71,7 @@ class CoretaxAdminController extends Controller
             "cabang",
             "cabang.prov:id_prov,nm_prov",
             "cabang.profile:id_pc,kabupaten",
-            ])
+        ])
             ->where(function ($query) use ($specificFilter) {
                 $query->whereHas('satpen', function ($q) use ($specificFilter) {
                     $q->where($specificFilter);
@@ -83,6 +83,7 @@ class CoretaxAdminController extends Controller
             })
             ->where('status', '=', 'final aprove')
             ->where('new_request', '=', 1)
+            ->where('tgl_expiry', '>', Carbon::today())
             ->orderBy('id', 'DESC')->get();
 
         $coretaxPro = Coretax::with([
