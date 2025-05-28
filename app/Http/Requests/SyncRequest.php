@@ -39,7 +39,8 @@ class SyncRequest extends FormRequest
             'yayasan' => 'required',
             'jenjang' => 'required',
             'telp' => 'nullable|max:13',
-            'email' => 'nullable|email'
+            'email' => 'nullable|email',
+            'cabang' => 'required',
         ];
     }
 }

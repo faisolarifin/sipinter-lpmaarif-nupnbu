@@ -41,7 +41,7 @@ class SyncController extends Controller
             $keyKab = Strings::removeFirstWord($jsonResultSekolah["kabkotanegara_ln"]);
             $provinsi = Provinsi::where('nm_prov', 'like', $keyProv)->first();
             $kabupaten = Kabupaten::where('nama_kab', 'like', '%' . $keyKab . '%')->first();
-            $cabang = PengurusCabang::where('nama_pc', 'like', '%' . $keyKab . '%')->first();
+            $cabang = PengurusCabang::where('nama_pc', 'like', '%' . $request->cabang . '%')->first();
             $jenjang = Jenjang::where('nm_jenjang', 'like', $request->jenjang)->first();
 
             $registerNumber = "";
