@@ -54,7 +54,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="nm_satpen" class="form-label required">Nama Satpen</label>
-                                    <input type="text" class="form-control  @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama }}" placeholder="Masukkan nama satpen" required>
+                                    <input type="text" class="form-control  @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama }}" placeholder="Masukkan nama satpen" required readonly>
                                     <div class="invalid-feedback">
                                         @error('nm_satpen') {{ $message }} @enderror
                                     </div>

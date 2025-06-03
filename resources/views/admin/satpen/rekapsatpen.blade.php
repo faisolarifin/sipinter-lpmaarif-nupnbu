@@ -64,6 +64,14 @@
                                             </select>
                                         </div>
                                     @endif
+                                     @if(!in_array(auth()->user()->role, ["admin cabang"]))
+                                        <div class="mb-3">
+                                            <select class="form-select form-select-sm" name="cabang">
+                                                <option value=''>CABANG</option>
+                                                <!-- value by ajax -->
+                                            </select>
+                                        </div>
+                                    @endif
 
                                     <div class="mb-3">
                                         <select class="form-select form-select-sm" name="jenjang">
@@ -183,6 +191,7 @@
 
     $("select[name='provinsi']").on('change', function() {
         getKabupaten();
+        getCabang();
     });
 
     function getKabupaten(provId) {
@@ -212,7 +221,35 @@
         })
     }
 
+    function getCabang(provId) {
+        provId = provId ? provId : $("select[name='provinsi']").val();
+        let routeGetData = "{{ route('api.pcbyprov', ['provId' => ':param']) }}".replace(':param', provId);
+
+        $.ajax({
+            url: routeGetData,
+            type: "GET",
+            dataType: 'json',
+            success: function(res) {
+
+                let $select = $("select[name='cabang']");
+                $select.empty();
+                $select.append("<option value=''>CABANG</option>");
+
+                $.each(res,function(key, value) {
+                    $select.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
+                });
+
+                let pcParam = location.search.split("&");
+                if (pcParam.length > 1) {
+                    pcParam = pcParam[2].split("=")[1];
+                    $select.val(pcParam);
+                }
+            }
+        })
+    }
+
     getKabupaten({{ in_array(auth()->user()->role, ["admin wilayah"]) ? auth()->user()->provId : "" }});
+    getCabang({{ in_array(auth()->user()->role, ["admin wilayah"]) ? auth()->user()->provId : "" }});
 
 </script>
 @endsection

@@ -77,6 +77,7 @@ class SATPENController extends Controller
             $statuses = ['setujui', 'expired', 'perpanjangan'];
             if ($request->jenjang
                     || $request->kabupaten
+                    || $request->cabang
                     || $request->provinsi
                     || $request->kategori || $request->keyword || $request->status) {
 
@@ -84,6 +85,7 @@ class SATPENController extends Controller
                 $keywordFilter = [];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
+                if ($request->cabang) $filter["id_pc"] = $request->cabang;
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
                 if ($request->kategori) $filter["id_kategori"] = $request->kategori;
                 if ($request->status) $statuses = [$request->status];
