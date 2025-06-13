@@ -14,5 +14,6 @@ class Jenjang extends Model
     protected $fillable = [
         'nm_jenjang',
         'keterangan',
+        'lembaga',
     ];
 }

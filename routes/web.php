@@ -178,6 +178,17 @@ Route::middleware('mustlogin')->group(function() {
                 Route::get('/email/{satpen}', [SATPENControllerAdmin::class, 'sendNotifEmail'])->name('email.notif');
                 Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated')->withoutMiddleware('primaryadmin');
                 Route::get('/export_excel', [ExportExcelController::class, 'exportSatpentoExcel'])->name('satpen.excel')->withoutMiddleware('primaryadmin');
+                
+                Route::get('/pdptk', [SATPENControllerAdmin::class, 'getAllPDPTKOrFilter'])->name('a.pdptk');
+                Route::get('/pdptk/sync', [SATPENControllerAdmin::class, 'processBulkSyncPDPTK'])->name('a.pdptk.sync');
+                Route::get('/pdptk/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncPDPTK'])->name('a.pdptk.syncid');
+                Route::get('/pdptk/export_excel', [ExportExcelController::class, 'exportPDPTKtoExcel'])->name('pdptk.excel')->withoutMiddleware('primaryadmin');
+                
+                Route::get('/other', [SATPENControllerAdmin::class, 'getAllOtherDataOrFilter'])->name('a.other');
+                Route::get('/other/sync', [SATPENControllerAdmin::class, 'processBulkSyncOthers'])->name('a.other.sync');
+                Route::get('/other/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncOthers'])->name('a.other.syncid');
+                Route::get('/other/export_excel', [ExportExcelController::class, 'exportOthersDatatoExcel'])->name('other.excel')->withoutMiddleware('primaryadmin');
+
             });
             /**
              * Virtual NPSN

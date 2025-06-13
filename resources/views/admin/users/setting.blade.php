@@ -90,6 +90,14 @@
                                        value="{{ $settings[6]["value"] }}">
                             </td>
                         </tr>
+                        <tr>
+                            <th width="150">{{ $settings[7]["describe"] }}</th>
+                            <td width="10">:</td>
+                            <td>
+                                <input type="text" name="{{ $settings[7]["lookup"] }}" class="form-control form-control-sm w-50"
+                                       value="{{ $settings[7]["value"] }}">
+                            </td>
+                        </tr>
 
                         <tr>
                             <td colspan="2"></td>
