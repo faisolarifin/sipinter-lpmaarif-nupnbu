@@ -33,14 +33,16 @@ class CoretaxController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
-        $expiryDate = Carbon::parse($lastCoretax->tgl_expiry);
-        if (!$expiryDate->isToday() || !$expiryDate->isPast()) {
+        if ($lastCoretax) {
+            $expiryDate = Carbon::parse($lastCoretax->tgl_expiry);
+            if (!$expiryDate->isToday() || !$expiryDate->isPast()) {
 
-            return redirect()->back()->with(
-                'error',
-                'Tidak dapat mengajukan layanan Coretax, pengajuan sebelumnya belum expired! ' .
-                    '<a href="' . route('coretax.req-exipry') . '" class="btn btn-sm btn-primary">Buka Expiry</a>'
-            );
+                return redirect()->back()->with(
+                    'error',
+                    'Tidak dapat mengajukan layanan Coretax, pengajuan sebelumnya belum expired! ' .
+                        '<a href="' . route('coretax.req-exipry') . '" class="btn btn-sm btn-primary">Buka Expiry</a>'
+                );
+            }
         }
 
         $data = [
