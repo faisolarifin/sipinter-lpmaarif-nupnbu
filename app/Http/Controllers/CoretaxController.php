@@ -43,6 +43,9 @@ class CoretaxController extends Controller
                         '<a href="' . route('coretax.req-exipry') . '" class="btn btn-sm btn-primary">Buka Expiry</a>'
                 );
             }
+
+            $lastCoretax->new_request = null;
+            $lastCoretax->save();
         }
 
         $data = [
@@ -102,9 +105,6 @@ class CoretaxController extends Controller
                 'status' => null,
             ],
         ]);
-
-        $lastCoretax->new_request = null;
-        $lastCoretax->save();
 
         return redirect()->back();
     }
