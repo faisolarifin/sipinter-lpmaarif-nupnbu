@@ -49,7 +49,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <a href="{{ route('a.pdptk.sync') }}" class="btn btn-info btn-sm mx-2 py-2"><i
+                                <a href="{{ route('a.pdptk.sync', request()->has('tapel') ? ['tapel' => request()->query('tapel')] : []) }}" class="btn btn-info btn-sm mx-2 py-2"><i
                                         class="ti ti-reload"></i> Sinkron Bulk</a>
                             </div>
                             <div class="d-flex">
@@ -189,7 +189,7 @@
                                                 <td>{{ $row->jml_tendik }}</td>
                                                 <td>{{ $row->last_sinkron }}</td>
                                                 <td>
-                                                    <a href="{{ route('a.pdptk.syncid', $row->id_satpen) }}" class="btn btn-sm btn-info"><i
+                                                    <a href="{{ route('a.pdptk.syncid', ['satpen' => $row->id_satpen]) }}{{ request()->has('tapel') ? '?tapel=' . request()->query('tapel') : '' }}" class="btn btn-sm btn-info"><i
                                                             class="ti ti-reload"></i></a>
                                                 </td>
                                             </tr>

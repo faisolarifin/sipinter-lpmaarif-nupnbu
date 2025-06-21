@@ -84,6 +84,13 @@ Route::middleware('mustlogin')->group(function() {
             Route::put('/change/npsn/{satpen}', [SatpenController::class, 'changeNPSN'])->name('mysatpen.npsn');
             Route::put('/perpanjang', [SatpenController::class, 'revisionProses'])->name('mysatpen.perpanjang');
             Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
+            
+            Route::get('/pdptk', [SatpenController::class, 'indexPDPTK'])->name('pdptk');
+            Route::get('/pdptk/edit', [SatpenController::class, 'indexPDPTK'])->name('pdptk.edit'); 
+            Route::get('/pdptk/dapo/{npsn}', [SatpenController::class, 'hitDapo'])->name('pdptk.dapo'); 
+            Route::put('/pdptk', [SatpenController::class, 'modifPDPTK'])->name('pdptk.save');
+            Route::get('/pdptk/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncPDPTK'])->name('pdptk.sync');
+
         });
         /**
          * OSS

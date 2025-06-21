@@ -56,7 +56,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.pdptk') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-article"></i>
+                  <i class="ti ti-graph"></i>
                 </span>
                 <span class="hide-menu">Data PD dan PTK</span>
             </a>

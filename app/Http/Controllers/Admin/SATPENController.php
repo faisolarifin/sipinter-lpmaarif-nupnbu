@@ -522,7 +522,7 @@ class SATPENController extends Controller
             $url = config('app.referensi_crawler').'dapo-data/bulk';
 
             $school = [];
-            $tapel = @$request->tapel ? $request->tapel : Settings::get("current_tapel");
+            $tapel = $request->tapel ?? Settings::get("current_tapel");
             Satpen::select('id_satpen', 'npsn')
                 ->leftJoin('virtual_npsn', 'satpen.npsn', '=', 'virtual_npsn.nomor_virtual')
                 ->whereIn('status', ['setujui', 'expired', 'perpanjangan'])
@@ -534,15 +534,17 @@ class SATPENController extends Controller
                         "tapel" => $tapel,
                     ]);
                 });
-
+                
             $response = Http::post($url, [
                 "schools" => $school,
             ]);
 
+            $responseJson = $response->json();
+
             if ($response->successful()) {
                 return redirect()->back()->with('success', 'Proses sinkronisasi PDPTK berjalan di latar belakang');
             }
-            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service');
+            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service '. $responseJson['error']);
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET PROCESS SYNC BULK PDPTK] has error " . $e);
         }
@@ -556,7 +558,7 @@ class SATPENController extends Controller
             $payload = [
                 "satpenid" => $satpen->id_satpen,
                 "npsn" => $satpen->npsn,
-                "tapel" => $request->tapel ? $request->tapel : Settings::get("current_tapel"),
+                "tapel" => $request->tapel ?? Settings::get("current_tapel"),
             ];
 
             $response = Http::post($url, $payload);
@@ -656,7 +658,7 @@ class SATPENController extends Controller
         }
     }
 
-    public function processBulkSyncOthers(Request $request)
+    public function processBulkSyncOthers()
     {
         try {
             $url = config('app.referensi_crawler').'referensi-data/bulk';
@@ -677,10 +679,12 @@ class SATPENController extends Controller
                 "schools" => $school,
             ]);
 
+            $responseJson = $response->json();
+
             if ($response->successful()) {
                 return redirect()->back()->with('success', 'Proses sinkronisasi Data Lainnya berjalan di latar belakang');
             }
-            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service');
+            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service '. $responseJson['error']);
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET PROCESS BULK OTHERS] has error " . $e);
         }

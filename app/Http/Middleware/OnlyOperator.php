@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\Settings;
+use App\Models\PDPTK;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -20,6 +22,27 @@ class OnlyOperator
             if (User::find(auth()->user()->id_user)->status == 'block') {
                 return redirect()->route('login')->with('error', 'this account has blocked');
             }
+
+            $satpen = $request->route('satpen');
+            if ($satpen != null) {
+                if ($satpen->id_user !== auth()->user()->id_user) {
+                    return redirect()->back()->with('error', 'you cannot access this page');
+                }
+            }
+
+            if ($request->routeIs('pdptk')) {
+                return $next($request);
+            }
+
+            $pdptk = PDPTK::where('tapel', '=', Settings::get('current_tapel'))
+                ->whereHas('satpen', function ($query) {
+                    $query->where('id_user', '=', auth()->user()->id_user);
+                })->first();
+
+            if ($pdptk == null || $pdptk?->status_sinkron == 0) {
+                return redirect()->route('pdptk');
+            }
+
             return $next($request);
         }
         return redirect()->route('login')->with('error', 'user tidak memiliki privilages');

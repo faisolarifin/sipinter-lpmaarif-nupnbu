@@ -7,6 +7,7 @@ use App\Helpers\MailService;
 use App\Helpers\ReferensiKemdikbud;
 use App\Http\Controllers\Admin\SATPENController as SatpenControllerAdmin;
 use App\Http\Requests\CekNpsnRequest;
+use App\Http\Requests\PDPTKRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\RegisterUpdateRequest;
 use App\Http\Requests\StatusSatpenRequest;
@@ -15,6 +16,7 @@ use App\Models\FileRegister;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
+use App\Models\PDPTK;
 use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
@@ -25,20 +27,22 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Request;
 
 class SatpenController extends Controller
 {
-    public function dashboardPage() {
+    public function dashboardPage()
+    {
         try {
             $mySatpen = Satpen::with(['kategori', 'timeline', 'file'])
-            ->where('id_user', '=', auth()->user()->id_user)
-            ->first();
+                ->where('id_user', '=', auth()->user()->id_user)
+                ->first();
             $usingVNPSN = VirtualNPSN::where('nomor_virtual', '=', $mySatpen->npsn)->count('nomor_virtual');
 
             return view('home.dashboard', compact('mySatpen', 'usingVNPSN'));
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[DASHBOARD PAGE] has error ". $e);
+            throw new CatchErrorException("[DASHBOARD PAGE] has error " . $e);
         }
     }
 
@@ -72,15 +76,17 @@ class SatpenController extends Controller
                      * When yayasan is not bhp nu append prefix A in generated number
                      * Generated number is combined of Kode Provinsi + Kode Kabupaten + 4 digit ordered number
                      */
-                    $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                    $registerNumber .= $provinsi->kode_prov . $cabang->kode_kab . $orderedNumber;
 
                     return DB::transaction(function () use ($request, $registerNumber, $provinsi, $cabang, $makeCategorySatpen, $orderedNumber) {
                         /**
                          * Store files
                          */
-                        if ($request->file('file_permohonan')->isValid()
-                                && $request->file('file_rekom_pc')->isValid()
-                                && $request->file('file_rekom_pw')->isValid()) {
+                        if (
+                            $request->file('file_permohonan')->isValid()
+                            && $request->file('file_rekom_pc')->isValid()
+                            && $request->file('file_rekom_pw')->isValid()
+                        ) {
                             $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
                             $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
                             $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
@@ -153,14 +159,14 @@ class SatpenController extends Controller
                             ]);
 
                             (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                                ->merge([
-                                    "status_verifikasi" => "permohonan",
-                                    "keterangan" => "",
-                                ]),
-                                $satpen);
-
+                                    ->merge([
+                                        "status_verifikasi" => "permohonan",
+                                        "keterangan" => "",
+                                    ]),
+                                $satpen
+                            );
                         } catch (\Exception $e) {
-                            throw new CatchErrorException("[REGISTER PROCESS INSERT] has error ". $e);
+                            throw new CatchErrorException("[REGISTER PROCESS INSERT] has error " . $e);
                         }
 
                         MailService::send([
@@ -172,16 +178,14 @@ class SatpenController extends Controller
 
                         return redirect()->route('register.success')->with('regNumber', $registerNumber);
                     });
-
                 } catch (\Exception $e) {
-                    throw new CatchErrorException("[REGISTER PROCESS] has error ". $e);
+                    throw new CatchErrorException("[REGISTER PROCESS] has error " . $e);
                 }
             }
 
             return redirect()->back()->with('error', 'cannot create satpen kategori');
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[REGISTER PROCESS] has error ". $e);
+            throw new CatchErrorException("[REGISTER PROCESS] has error " . $e);
         }
     }
 
@@ -206,17 +210,19 @@ class SatpenController extends Controller
             elseif ($satpen->status !== 'revisi' && $satpen->status !== 'expired') return redirect()->back()
                 ->with('error', 'Satpen status is not revisi or expired');
 
-            elseif ($satpen->filereg->isEmpty() &&
+            elseif (
+                $satpen->filereg->isEmpty() &&
                 (!$request->file('file_permohonan')
                     || !$request->file('file_rekom_pc')
-                    || !$request->file('file_rekom_pw'))) return redirect()->back()
-                        ->with('error', 'lengkapi semua formg unggahan dokumen');
+                    || !$request->file('file_rekom_pw'))
+            ) return redirect()->back()
+                ->with('error', 'lengkapi semua formg unggahan dokumen');
             /**
              * Update registration number
              */
             $orderedNumber = $satpen->no_urut;
             if ($satpen->status == 'revisi') {
-                $registerNumber .= $provinsi->kode_prov. $cabang->kode_kab. $orderedNumber;
+                $registerNumber .= $provinsi->kode_prov . $cabang->kode_kab . $orderedNumber;
             } else {
                 $registerNumber .= $satpen->no_registrasi;
             }
@@ -229,22 +235,28 @@ class SatpenController extends Controller
                  * Replace and store files
                  */
                 if (!$satpen->filereg->isEmpty()) {
-                    if ($request->file('file_permohonan')
-                        && $request->file('file_permohonan')->isValid()) {
+                    if (
+                        $request->file('file_permohonan')
+                        && $request->file('file_permohonan')->isValid()
+                    ) {
                         $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
                         Storage::disk("uploads")->delete($satpen->filereg[0]->filesurat);
                     } else {
                         $pathFilePermohonan = $satpen->filereg[0]->filesurat;
                     }
-                    if ($request->file('file_rekom_pc')
-                        && $request->file('file_rekom_pc')->isValid()) {
+                    if (
+                        $request->file('file_rekom_pc')
+                        && $request->file('file_rekom_pc')->isValid()
+                    ) {
                         $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
                         Storage::disk("uploads")->delete($satpen->filereg[1]->filesurat);
                     } else {
                         $pathFileRekomPC = $satpen->filereg[1]->filesurat;
                     }
-                    if ($request->file('file_rekom_pw')
-                        && $request->file('file_rekom_pw')->isValid()) {
+                    if (
+                        $request->file('file_rekom_pw')
+                        && $request->file('file_rekom_pw')->isValid()
+                    ) {
                         $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
                         Storage::disk("uploads")->delete($satpen->filereg[2]->filesurat);
                     } else {
@@ -266,10 +278,10 @@ class SatpenController extends Controller
                         'id_pc' => $cabang->id_pc,
                     ];
                 }
-                $satpen->update( array_merge($address, [
+                $satpen->update(array_merge($address, [
                     'id_kategori' => $makeCategorySatpen->id_kategori,
                     'id_jenjang' => $request->jenjang,
-//                    'npsn' => $request->npsn,
+                    //                    'npsn' => $request->npsn,
                     'no_registrasi' => $registerNumber,
                     'nm_satpen' => $request->nm_satpen,
                     'yayasan' => strtolower($request->yayasan) <> "bhpnu" ? $request->nm_yayasan : $request->yayasan,
@@ -312,9 +324,11 @@ class SatpenController extends Controller
                     /**
                      * Store files
                      */
-                    if ($request->file('file_permohonan')->isValid()
+                    if (
+                        $request->file('file_permohonan')->isValid()
                         && $request->file('file_rekom_pc')->isValid()
-                        && $request->file('file_rekom_pw')->isValid()) {
+                        && $request->file('file_rekom_pw')->isValid()
+                    ) {
                         $pathFilePermohonan = Storage::disk('uploads')->putFile(null, $request->file('file_permohonan'));
                         $pathFileRekomPC = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pc'));
                         $pathFileRekomPW = Storage::disk('uploads')->putFile(null, $request->file('file_rekom_pw'));
@@ -351,61 +365,64 @@ class SatpenController extends Controller
 
                 if ($satpen->status == "revisi") {
                     (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                        ->merge([
-                            "status_verifikasi" => "permohonan",
-                            "keterangan" => "permohonan setelah revisi",
-                        ]),
-                        $satpen);
+                            ->merge([
+                                "status_verifikasi" => "permohonan",
+                                "keterangan" => "permohonan setelah revisi",
+                            ]),
+                        $satpen
+                    );
                 } elseif ($satpen->status == "expired") {
                     (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                        ->merge([
-                            "status_verifikasi" => "perpanjangan",
-                            "keterangan" => "permohonan perpanjangan dokumen",
-                        ]),
-                        $satpen);
+                            ->merge([
+                                "status_verifikasi" => "perpanjangan",
+                                "keterangan" => "permohonan perpanjangan dokumen",
+                            ]),
+                        $satpen
+                    );
                 }
 
                 return redirect()->route('mysatpen')->with('success', 'satpen berhasil di update');
             }
 
             throw new \Exception("cannot create satpen kategori");
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[REVISION PROCESS] has error ". $e);
-
+            throw new CatchErrorException("[REVISION PROCESS] has error " . $e);
         }
     }
 
-    public function downloadDocument($document) {
+    public function downloadDocument($document)
+    {
         try {
             $satpenData = Satpen::select('id_satpen')->with('file')
                 ->where('id_user', auth()->user()->id_user)
                 ->first();
-            if ($satpenData->file)
-            {
-                if ($document == 'piagam'
+            if ($satpenData->file) {
+                if (
+                    $document == 'piagam'
                     && $satpenData->file[0]->nm_file
-                    && Storage::exists("generated/piagam/".$satpenData->file[0]->nm_file)) {
+                    && Storage::exists("generated/piagam/" . $satpenData->file[0]->nm_file)
+                ) {
                     return response()->download(
-                        storage_path("app/generated/piagam/".$satpenData->file[0]->nm_file));
-                }
-                elseif ($document == 'sk'
+                        storage_path("app/generated/piagam/" . $satpenData->file[0]->nm_file)
+                    );
+                } elseif (
+                    $document == 'sk'
                     && $satpenData->file[1]->nm_file
-                    && Storage::exists("generated/sk/".$satpenData->file[1]->nm_file)) {
+                    && Storage::exists("generated/sk/" . $satpenData->file[1]->nm_file)
+                ) {
                     return response()->download(
-                        storage_path("app/generated/sk/".$satpenData->file[1]->nm_file));
-                }
-                else return redirect()->back()->with('error', 'dokumen tidak ditemukan');
+                        storage_path("app/generated/sk/" . $satpenData->file[1]->nm_file)
+                    );
+                } else return redirect()->back()->with('error', 'dokumen tidak ditemukan');
             }
             return redirect()->back()->with('error', 'Document belum selesai');
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[DOWNLOAD DOCUMENT] has error ". $e);
-
+            throw new CatchErrorException("[DOWNLOAD DOCUMENT] has error " . $e);
         }
     }
 
-    public function mySatpenPage() {
+    public function mySatpenPage()
+    {
         try {
             $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'timeline'])
                 ->where('id_user', '=', auth()->user()->id_user)
@@ -413,13 +430,12 @@ class SatpenController extends Controller
             $usingVNPSN = VirtualNPSN::where('nomor_virtual', '=', $satpenProfile->npsn)->count('nomor_virtual');
 
             return view('satpen.satpen', compact('satpenProfile', 'usingVNPSN'));
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[MYSATPEN PAGE] has error ". $e);
-
+            throw new CatchErrorException("[MYSATPEN PAGE] has error " . $e);
         }
     }
-    public function editSatpenPage() {
+    public function editSatpenPage()
+    {
         try {
             $satpenProfile = Satpen::where('id_user', '=', auth()->user()->id_user)->first();
 
@@ -434,13 +450,12 @@ class SatpenController extends Controller
             $jenjang = Jenjang::orderBy('id_jenjang')->get();
 
             return view('satpen.revisi', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[EDIT SATPEN PAGE] has error ". $e);
-
+            throw new CatchErrorException("[EDIT SATPEN PAGE] has error " . $e);
         }
     }
-    public function perpanjangSatpenPage() {
+    public function perpanjangSatpenPage()
+    {
         try {
             $satpenProfile = Satpen::where('id_user', '=', auth()->user()->id_user)->first();
 
@@ -455,14 +470,13 @@ class SatpenController extends Controller
             $jenjang = Jenjang::orderBy('id_jenjang')->get();
 
             return view('satpen.perpanjang', compact('satpenProfile', 'jenjang', 'propinsi', 'kabupaten', 'cabang'));
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[PERPANJANG SATPEN PAGE] has error ". $e);
-
+            throw new CatchErrorException("[PERPANJANG SATPEN PAGE] has error " . $e);
         }
     }
 
-    public function changeNPSN(CekNpsnRequest $request, Satpen $satpen) {
+    public function changeNPSN(CekNpsnRequest $request, Satpen $satpen)
+    {
         try {
             if ($request->npsn == $satpen->npsn) {
                 return redirect()->back()->with('error', 'Anda memasukkan npsn sama dengan yang saat ini');
@@ -484,35 +498,37 @@ class SatpenController extends Controller
 
                 VirtualNPSN::where("nomor_virtual", "=", $satpen->npsn)->delete();
                 $satpen->update([
-                   'npsn' => $jsonResultSekolah["npsn"],
-                   'nm_satpen' => $jsonResultSekolah["nama"],
+                    'npsn' => $jsonResultSekolah["npsn"],
+                    'nm_satpen' => $jsonResultSekolah["nama"],
                 ]);
                 if ($satpen->status == "expired") {
                     (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                        ->merge([
-                            "status_verifikasi" => "perpanjangan",
-                            "keterangan" => "memperbaharui npsn",
-                        ]),
-                        $satpen);
+                            ->merge([
+                                "status_verifikasi" => "perpanjangan",
+                                "keterangan" => "memperbaharui npsn",
+                            ]),
+                        $satpen
+                    );
                 } elseif ($satpen->status == "revisi") {
                     (new SatpenControllerAdmin())->updateSatpenStatus((new StatusSatpenRequest())
-                        ->merge([
-                            "status_verifikasi" => "permohonan",
-                            "keterangan" => "memperbaharui npsn",
-                        ]),
-                        $satpen);
+                            ->merge([
+                                "status_verifikasi" => "permohonan",
+                                "keterangan" => "memperbaharui npsn",
+                            ]),
+                        $satpen
+                    );
                 }
                 return redirect()->back()->with('success', 'Berhasil memperbaharui npsn satuan pendidikan. Data sedang ditinjau oleh Admin');
             }
 
             return redirect()->back()->with('error', $cloneSekolah->getResult());
-
         } catch (\Exception $e) {
-            throw new CatchErrorException("[CHANGE NPSN] has error ". $e);
+            throw new CatchErrorException("[CHANGE NPSN] has error " . $e);
         }
     }
 
-    private static function makekategori(string $yayasan, string $statusTanah) : ?Kategori
+
+    private static function makekategori(string $yayasan, string $statusTanah): ?Kategori
     {
         $kategori = null;
         /**
@@ -542,8 +558,72 @@ class SatpenController extends Controller
         return Kategori::where('nm_kategori', '=', $kategori)->first();
     }
 
-    public function underConstruction() {
-        return view('template.construction');
+    public function indexPDPTK()
+    {
+        $tapel = Settings::get('current_tapel');
+        $pdptk = PDPTK::with([
+            'satpen:id_satpen,id_jenjang,id_prov,id_kab,no_registrasi,nm_satpen',
+            'satpen.jenjang:id_jenjang,nm_jenjang',
+            'satpen.provinsi:id_prov,nm_prov',
+            'satpen.kabupaten:id_kab,nama_kab',
+        ])
+            ->where('tapel', '=', $tapel)
+            ->whereHas('satpen', function ($query) {
+                $query->where('id_user', '=', auth()->user()->id_user);
+            })
+            ->first();
+
+        $satpen = Satpen::with([
+            'jenjang:id_jenjang,nm_jenjang',
+            'provinsi:id_prov,nm_prov',
+            'kabupaten:id_kab,nama_kab',
+        ])
+            ->where('id_user', '=', auth()->user()->id_user)->first();
+
+        return view('satpen.pdptk', compact('pdptk', 'satpen', 'tapel'));
     }
 
+    public function modifPDPTK(PDPTKRequest $request)
+    {
+        try {
+            PDPTK::updateOrInsert(
+                ['id' => $request->pdptkId],
+                [
+                    'id_satpen' => $request->satpenId,
+                    'tapel' => $request->tapel,
+                    'pd_lk' => $request->pd_lk,
+                    'pd_pr' => $request->pd_pr,
+                    'jml_pd' => $request->jml_pd,
+                    'guru_lk' => $request->guru_lk,
+                    'guru_pr' => $request->guru_pr,
+                    'jml_guru' => $request->jml_guru,
+                    'tendik_lk' => $request->tendik_lk,
+                    'tendik_pr' => $request->tendik_pr,
+                    'jml_tendik' => $request->jml_tendik,
+                    'last_sinkron' => Carbon::now(),
+                    'status_sinkron' => 1,
+                ]
+            );
+            return redirect()->route('pdptk')->with('success', 'Berhasil melengkapi data PDPTK');
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[MODIF PDPTK] has error " . $e);
+        }
+    }
+
+    public function hitDapo(string $npsn)
+    {
+        $tapel = Settings::get('current_tapel');
+        $url = config('app.referensi_crawler')."dapo-data/$tapel/$npsn";
+        $response = Http::get($url);
+
+        if ($response->failed()) {
+            return response()->json($response->json(), HttpResponse::HTTP_BAD_REQUEST);
+        }
+        return $response->json();
+    }
+
+    public function underConstruction()
+    {
+        return view('template.construction');
+    }
 }

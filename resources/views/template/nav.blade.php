@@ -25,6 +25,14 @@
             </a>
         </li>
         <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('pdptk') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-graph"></i>
+                </span>
+                <span class="hide-menu">Data PD & PTK</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('oss') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-device-sim"></i>
