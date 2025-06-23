@@ -91,6 +91,12 @@ Route::middleware('mustlogin')->group(function() {
             Route::put('/pdptk', [SatpenController::class, 'modifPDPTK'])->name('pdptk.save');
             Route::get('/pdptk/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncPDPTK'])->name('pdptk.sync');
 
+            Route::get('/other', [SatpenController::class, 'indexOther'])->name('other');
+            Route::get('/other/edit', [SatpenController::class, 'indexOther'])->name('other.edit'); 
+            Route::get('/other/dapo/{npsn}', [SatpenController::class, 'hitReferensi'])->name('other.referensi'); 
+            Route::put('/other', [SatpenController::class, 'modifOther'])->name('other.save');
+            Route::get('/other/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncOthers'])->name('other.sync');
+
         });
         /**
          * OSS

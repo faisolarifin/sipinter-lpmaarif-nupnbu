@@ -7,6 +7,7 @@ use App\Helpers\MailService;
 use App\Helpers\ReferensiKemdikbud;
 use App\Http\Controllers\Admin\SATPENController as SatpenControllerAdmin;
 use App\Http\Requests\CekNpsnRequest;
+use App\Http\Requests\OtherRequest;
 use App\Http\Requests\PDPTKRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\RegisterUpdateRequest;
@@ -16,6 +17,7 @@ use App\Models\FileRegister;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
+use App\Models\Others;
 use App\Models\PDPTK;
 use App\Models\PengurusCabang;
 use App\Models\Provinsi;
@@ -613,7 +615,68 @@ class SatpenController extends Controller
     public function hitDapo(string $npsn)
     {
         $tapel = Settings::get('current_tapel');
-        $url = config('app.referensi_crawler')."dapo-data/$tapel/$npsn";
+        $url = config('app.referensi_crawler') . "dapo-data/$tapel/$npsn";
+        $response = Http::get($url);
+
+        if ($response->failed()) {
+            return response()->json($response->json(), HttpResponse::HTTP_BAD_REQUEST);
+        }
+        return $response->json();
+    }
+
+    public function indexOther()
+    {
+        $other = Others::with([
+            'satpen:id_satpen,id_jenjang,id_prov,id_kab,no_registrasi,nm_satpen',
+            'satpen.jenjang:id_jenjang,nm_jenjang',
+            'satpen.provinsi:id_prov,nm_prov',
+            'satpen.kabupaten:id_kab,nama_kab',
+        ])
+            ->whereHas('satpen', function ($query) {
+                $query->where('id_user', '=', auth()->user()->id_user);
+            })
+            ->first();
+
+        $satpen = Satpen::with([
+            'jenjang:id_jenjang,nm_jenjang',
+            'provinsi:id_prov,nm_prov',
+            'kabupaten:id_kab,nama_kab',
+        ])
+            ->where('id_user', '=', auth()->user()->id_user)->first();
+
+        return view('satpen.other', compact('other', 'satpen'));
+    }
+
+    public function modifOther(OtherRequest $request)
+    {
+        try {
+            Others::updateOrInsert(
+                ['id' => $request->otherId],
+                [
+                    'id_satpen'            => $request->satpenId,
+                    'npyp'                 => $request->npyp,
+                    'naungan'              => $request->naungan,
+                    'no_sk_pendirian'      => $request->no_sk_pendirian,
+                    'tgl_sk_pendirian'     => $request->tgl_sk_pendirian,
+                    'no_sk_operasional'    => $request->no_sk_operasional,
+                    'tgl_sk_operasional'   => $request->tgl_sk_operasional,
+                    'link_sk_operational'  => $request->link_sk_operational,
+                    'akreditasi'           => $request->akreditasi,
+                    'website'              => $request->website,
+                    'lingkungan_satpen'    => $request->lingkungan_satpen,
+                    'last_sinkron' => Carbon::now(),
+                    'status_sinkron' => 1,
+                ]
+            );
+            return redirect()->route('other')->with('success', 'Berhasil melengkapi data Lainnya');
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[MODIF OTHER] has error " . $e);
+        }
+    }
+
+    public function hitReferensi(string $npsn)
+    {
+        $url = config('app.referensi_crawler') . "referensi-data/$npsn";
         $response = Http::get($url);
 
         if ($response->failed()) {

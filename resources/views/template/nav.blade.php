@@ -33,6 +33,14 @@
             </a>
         </li>
         <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('other') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-table"></i>
+                </span>
+                <span class="hide-menu">Data Lainnya</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('oss') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-device-sim"></i>

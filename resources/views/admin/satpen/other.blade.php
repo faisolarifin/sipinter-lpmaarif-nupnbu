@@ -113,6 +113,23 @@
                                                     </option>
                                                 </select>
                                             </div>
+                                            <div class="mb-3">
+                                                <select class="form-select form-select-sm" name="lingkungan_satpen">
+                                                    <option value="">LINGKUNGAN SATPEN</option>
+                                                    <option value="Sekolah berbasis Pondok Pesantren"
+                                                        {{ request()->lingkungan_satpen == 'Sekolah berbasis Pondok Pesantren' ? 'selected' : '' }}>
+                                                        Sekolah berbasis Pondok Pesantren
+                                                    </option>
+                                                    <option value="Sekolah Boarding"
+                                                        {{ request()->lingkungan_satpen == 'Sekolah Boarding' ? 'selected' : '' }}>
+                                                        Sekolah Boarding
+                                                    </option>
+                                                    <option value="Sekolah biasa"
+                                                        {{ request()->lingkungan_satpen == 'Sekolah biasa' ? 'selected' : '' }}>
+                                                        Sekolah biasa
+                                                    </option>
+                                                </select>
+                                            </div>
                                             <button type="submit" class="btn btn-primary w-100"><i
                                                     class="ti ti-filter"></i>
                                                 Filter</button>

@@ -64,7 +64,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('a.other') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-article"></i>
+                  <i class="ti ti-table"></i>
                 </span>
                 <span class="hide-menu">Data Lainnya</span>
             </a>

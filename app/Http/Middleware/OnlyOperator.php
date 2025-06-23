@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Controllers\Settings;
+use App\Models\Others;
 use App\Models\PDPTK;
 use App\Models\User;
 use Closure;
@@ -30,7 +31,8 @@ class OnlyOperator
                 }
             }
 
-            if ($request->routeIs('pdptk')) {
+            // must fill pdptk data
+            if ($request->routeIs('pdptk') || $request->routeIs('pdptk.*')) {
                 return $next($request);
             }
 
@@ -41,6 +43,19 @@ class OnlyOperator
 
             if ($pdptk == null || $pdptk?->status_sinkron == 0) {
                 return redirect()->route('pdptk');
+            }
+
+            // must fill other data
+            if ($request->routeIs('other') || $request->routeIs('other.*')) {
+                return $next($request);
+            }
+
+            $other = Others::whereHas('satpen', function ($query) {
+                $query->where('id_user', '=', auth()->user()->id_user);
+            })->first();
+
+            if ($other == null || $other?->status_sinkron == 0) {
+                return redirect()->route('other');
             }
 
             return $next($request);

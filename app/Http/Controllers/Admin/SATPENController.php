@@ -588,12 +588,14 @@ class SATPENController extends Controller
                 $filter = [];
                 $keywordFilter = [];
                 $lembaga = ["SEKOLAH", "MADRASAH"];
+                $lingkungan_satpen = ["Sekolah berbasis Pondok Pesantren", "Sekolah Boarding", "Sekolah biasa", ""];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
                 if ($request->cabang) $filter["id_pc"] = $request->cabang;
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
                 if ($request->kategori) $filter["id_kategori"] = $request->kategori;
                 if ($request->lembaga) $lembaga = [strtoupper($request->lembaga)];
+                if ($request->lingkungan_satpen) $lingkungan_satpen = [$request->lingkungan_satpen];
                 if ($request->keyword) {
                     array_push($keywordFilter, ["nm_satpen", "like", "%" . $request->keyword . "%"]);
                     array_push($keywordFilter, ["npsn", "like", "%" . $request->keyword . "%"]);
@@ -609,6 +611,7 @@ class SATPENController extends Controller
                         'satpen.kabupaten:id_kab,nama_kab',
                     ])
                         ->where(request()->specificFilter)
+                        ->whereIn('lingkungan_satpen', $lingkungan_satpen)
                         ->whereHas('satpen', function ($query) use ($filter) {
                             $query->where($filter);
                         })

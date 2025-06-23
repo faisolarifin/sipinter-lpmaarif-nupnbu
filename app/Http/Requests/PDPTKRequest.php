@@ -24,6 +24,7 @@ class PDPTKRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'pdptkId'      => 'required|integer',
             'satpenId'      => 'required|integer',
             'tapel'          => 'required|string|max:9',
             'pd_lk'          => 'required|integer|min:0',
