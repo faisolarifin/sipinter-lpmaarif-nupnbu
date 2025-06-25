@@ -78,7 +78,7 @@
                             <th width="150">{{ $settings[5]["describe"] }}</th>
                             <td width="10">:</td>
                             <td>
-                                <input type="text" name="{{ $settings[5]["lookup"] }}" class="form-control form-control-sm w-50"
+                                <input type="text" name="{{ $settings[5]["lookup"] }}" class="form-control form-control-sm"
                                        value="{{ $settings[5]["value"] }}">
                             </td>
                         </tr>
@@ -86,7 +86,7 @@
                             <th width="150">{{ $settings[6]["describe"] }}</th>
                             <td width="10">:</td>
                             <td>
-                                <input type="text" name="{{ $settings[6]["lookup"] }}" class="form-control form-control-sm w-50"
+                                <input type="text" name="{{ $settings[6]["lookup"] }}" class="form-control form-control-sm"
                                        value="{{ $settings[6]["value"] }}">
                             </td>
                         </tr>
@@ -94,8 +94,11 @@
                             <th width="150">{{ $settings[7]["describe"] }}</th>
                             <td width="10">:</td>
                             <td>
-                                <input type="text" name="{{ $settings[7]["lookup"] }}" class="form-control form-control-sm w-50"
-                                       value="{{ $settings[7]["value"] }}">
+                                <select id="{{ $settings[7]["lookup"] }}" name="{{ $settings[7]["lookup"] }}" class="form-select form-select-sm">
+                                    @foreach($tapel as $row)
+                                    <option value="{{ $row->tapel_dapo }}" {{ $settings[7]["value"] == $row->tapel_dapo ? 'selected' : '' }}>{{ $row->nama_tapel }}</option>
+                                    @endforeach
+                                </select>
                             </td>
                         </tr>
 

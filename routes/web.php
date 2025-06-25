@@ -140,7 +140,7 @@ Route::middleware('mustlogin')->group(function() {
         });
     });
 
-    Route::middleware('onlyadmin')->prefix('admin')->group(function() {
+    Route::middleware('onlyadmin')->prefix('a')->group(function() {
         /**
          * Dashboard
          */
@@ -150,14 +150,15 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/profile', [ProfileORGController::class, 'index'])->name('profile');
             Route::post('/profile', [ProfileORGController::class, 'storeOrUpdate'])->name('profile.save');
         });
-        Route::get('/setting', [Settings::class, 'pageSetting'])->name('a.setting');
-        Route::put('/setting', [Settings::class, 'saveSetting'])->name('a.setting.save');
+        Route::get('/settings', [Settings::class, 'pageSetting'])->name('a.setting');
+        Route::put('/settings', [Settings::class, 'saveSetting'])->name('a.setting.save');
+        Route::get('/log-activity', [Settings::class, 'viewLogActivity'])->name('a.logactivity');
 
         Route::middleware('primaryadmin')->group(function() {
             /**
              * Master
              */
-            Route::group(["prefix" => "/dapo", "middleware" => "superadmin"], function (){
+            Route::group(["prefix" => "/master", "middleware" => "superadmin"], function (){
                 Route::resource('/informasi', InformasiController::class);
                 Route::resource('/propinsi', PropinsiController::class);
                 Route::resource('/kabupaten', KabupatenController::class);
@@ -169,7 +170,7 @@ Route::middleware('mustlogin')->group(function() {
                     Route::delete("/{npsn}", [DapoController::class, 'destroy'])->name('dapo.delete');
                     Route::post("/", [DapoController::class, 'store'])->name('dapo.save');
                 });
-                Route::group(["prefix" => "satpen/users"], function (){
+                Route::group(["prefix" => "operators"], function (){
                     Route::get("/", [UsersController::class, 'users'])->name('users.satpen');
                     Route::get("{user}/reset", [UsersController::class, 'reset'])->name('users.reset');
                     Route::get("{user}/block", [UsersController::class, 'block'])->name('users.block');

@@ -20,6 +20,7 @@ class JenjangPendidikanController extends Controller
         try {
             Jenjang::create([
                 'nm_jenjang' => $request->nama_jenjang,
+                'lembaga' => $request->lembaga,
                 'keterangan' => $request->keterangan,
             ]);
 
@@ -45,6 +46,7 @@ class JenjangPendidikanController extends Controller
         try {
             $jenjang->update([
                 'nm_jenjang' => $request->nama_jenjang,
+                'lembaga' => $request->lembaga,
                 'keterangan' => $request->keterangan,
             ]);
 
