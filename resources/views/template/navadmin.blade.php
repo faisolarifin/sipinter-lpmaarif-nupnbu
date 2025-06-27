@@ -241,6 +241,14 @@
                         <span class="hide-menu">Jenjang Pendidikan</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('tapel.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-calendar-stats"></i>
+                        </span>
+                        <span class="hide-menu">Tahun Pelajaran</span>
+                    </a>
+                </li>
             @endif
         @elseif(in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
             <li class="nav-small-cap">

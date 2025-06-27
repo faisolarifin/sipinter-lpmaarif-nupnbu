@@ -26,7 +26,7 @@ use App\Http\Controllers\Master\{
     JenjangPendidikanController,
     KabupatenController,
     PengurusCabangController,
-    PropinsiController,DapoController};
+    PropinsiController,DapoController, TahunPelajaranController};
 
 /*
 |--------------------------------------------------------------------------
@@ -165,6 +165,7 @@ Route::middleware('mustlogin')->group(function() {
                 Route::resource('/cabang', PengurusCabangController::class);
                 Route::resource('/jenjang', JenjangPendidikanController::class);
                 Route::resource('/users', UsersController::class);
+                Route::resource('/tapel', TahunPelajaranController::class);
                 Route::group(["prefix" => "/dapo"], function (){
                     Route::get("/", [DapoController::class, 'index'])->name('dapo.index');
                     Route::delete("/{npsn}", [DapoController::class, 'destroy'])->name('dapo.delete');

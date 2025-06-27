@@ -29,6 +29,13 @@
                             <h5 class="mb-0">Log Activity</h5>
                             <small>history transaksi layanan dan perubahan pada basisdata</small>
                         </div>
+                        <div>
+                            <form action="" method="GET" class="d-flex gap-2">
+                                <input type="date" class="form-control" name="date_start" placeholder="Tanggal Awal" value="{{ request()->date_start }}">
+                                <input type="date" class="form-control" name="date_end" placeholder="Tanggal Akhir" value="{{ request()->date_end }}">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </form>
+                        </div>
                     </div>
 
                     <div>
@@ -52,31 +59,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($logs as $log)
+                                    @if ($logs->count() > 0)
+                                        @foreach ($logs as $log)
+                                            <tr>
+                                                <td>{{ $log->created_at }}</td>
+                                                <td>{{ $log?->satpen?->nm_satpen ?? $log->user->name }}</td>
+                                                <td>{{ strtoupper($log->user->role) }}</td>
+                                                <td>
+                                                    @if ($log->action == 'create')
+                                                        <span class="badge bg-success">{{ $log->action }}</span>
+                                                    @elseif ($log->action == 'update')
+                                                        <span class="badge bg-warning">{{ $log->action }}</span>
+                                                    @elseif ($log->action == 'delete')
+                                                        <span class="badge bg-danger">{{ $log->action }}</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $log->table_name }}</td>
+                                                <td>{{ $log->menu_name }}</td>
+                                                <td>{{ $log->record_id }}</td>
+                                                <td>{{ json_encode($log->changes) }}</td>
+                                                <td>{{ $log->ip_address }}</td>
+                                                <td>{{ Str::limit($log->user_agent, 30) }}</td>
+                                                <td>{{ $log->url }}</td>
+                                                <td>{{ $log->route }}</td>
+                                                <td>{{ $log->description }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <td>{{ $log->created_at }}</td>
-                                            <td>{{ $log?->satpen?->nm_satpen ?? $log->user->name }}</td>
-                                            <td>{{ strtoupper($log->user->role) }}</td>
-                                            <td>
-                                                @if ($log->action == 'create')
-                                                    <span class="badge bg-success">{{ $log->action }}</span>
-                                                @elseif ($log->action == 'update')
-                                                    <span class="badge bg-warning">{{ $log->action }}</span>
-                                                @elseif ($log->action == 'delete')
-                                                    <span class="badge bg-danger">{{ $log->action }}</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $log->table_name }}</td>
-                                            <td>{{ $log->menu_name }}</td>
-                                            <td>{{ $log->record_id }}</td>
-                                            <td>{{ json_encode($log->changes) }}</td>
-                                            <td>{{ $log->ip_address }}</td>
-                                            <td>{{ Str::limit($log->user_agent, 30) }}</td>
-                                            <td>{{ $log->url }}</td>
-                                            <td>{{ $log->route }}</td>
-                                            <td>{{ $log->description }}</td>
+                                            <td colspan="17">No data available in table</td>
                                         </tr>
-                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

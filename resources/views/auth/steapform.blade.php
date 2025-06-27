@@ -45,7 +45,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="npsn" class="form-label required">NPSN</label>
-                                    <input type="text" class="form-control  @error('npsn') is-invalid @enderror" id="npsn" name="npsn" value="{{ $cookieValue->npsn }}" readonly placeholder="Masukkan nama kecamatan" required>
+                                    <input type="text" class="form-control  @error('npsn') is-invalid @enderror" id="npsn" name="npsn" value="{{ $cookieValue->npsn }}" readonly placeholder="Masukkan nama kecamatan" required readonly>
                                     <div class="invalid-feedback">
                                         @error('npsn') {{ $message }} @enderror
                                     </div>

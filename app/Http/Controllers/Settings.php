@@ -58,11 +58,17 @@ class Settings extends Controller
         return redirect()->back()->with('success', 'Pengaturan berhasil disimpan');
     }
 
-    public function viewLogActivity()
+    public function viewLogActivity(Request $request)
     {
         $paginatePerPage = 20;
         $logs = ActivityLog::with(["user", "satpen"])
             ->orderBy('id', 'desc')->paginate($paginatePerPage);
+
+        if ($request->has('date_start') && $request->has('date_end')) {
+            $logs = ActivityLog::with(["user", "satpen"])
+                ->whereBetween('created_at', [$request->date_start, $request->date_end])
+                ->orderBy('id', 'desc')->paginate($paginatePerPage);
+        }
 
         return view('admin.users.log_activity', compact('logs'));
     }
