@@ -40,7 +40,7 @@
                         <form class="d-flex justify-content-between mb-2">
                             <div class="d-flex">
                                 <div>
-                                    @php ( $tapelBox = request()->tapel ?? App\Http\Controllers\Settings::get('current_tapel'))
+                                    @php($tapelBox = request()->tapel ?? App\Http\Controllers\Settings::get('current_tapel'))
                                     <select name="tapel" id="tapelBox" class="form-select">
                                         @foreach ($tapel as $row)
                                             <option value="{{ $row->tapel_dapo }}"
@@ -49,8 +49,10 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <a href="{{ route('a.pdptk.sync', request()->has('tapel') ? ['tapel' => request()->query('tapel')] : []) }}" class="btn btn-info btn-sm mx-2 py-2"><i
-                                        class="ti ti-reload"></i> Sinkron Bulk</a>
+                                @if (in_array(auth()->user()->role, ['super admin']))
+                                    <a href="{{ route('a.pdptk.sync', request()->has('tapel') ? ['tapel' => request()->query('tapel')] : []) }}"
+                                        class="btn btn-info btn-sm mx-2 py-2"><i class="ti ti-reload"></i> Sinkron Bulk</a>
+                                @endif
                             </div>
                             <div class="d-flex">
                                 <div class="d-flex flex-column flex-sm-row">
@@ -189,8 +191,8 @@
                                                 <td>{{ $row->jml_tendik }}</td>
                                                 <td>{{ $row->last_sinkron }}</td>
                                                 <td>
-                                                    <a href="{{ route('a.pdptk.syncid', ['satpen' => $row->id_satpen]) }}{{ request()->has('tapel') ? '?tapel=' . request()->query('tapel') : '' }}" class="btn btn-sm btn-info"><i
-                                                            class="ti ti-reload"></i></a>
+                                                    <a href="{{ route('a.pdptk.syncid', ['satpen' => $row->id_satpen]) }}{{ request()->has('tapel') ? '?tapel=' . request()->query('tapel') : '' }}"
+                                                        class="btn btn-sm btn-info"><i class="ti ti-reload"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

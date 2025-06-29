@@ -29,6 +29,7 @@ class Others implements FromCollection, WithMapping, WithHeadings, WithColumnWid
         $filter = $this->filter;
         $keywordFilter = $this->keywordFilter;
         $lembaga = $this->lembaga;
+        $specificFilter = request()->specificFilter;
 
         return ModelsOthers::with([
             'satpen:id_satpen,id_jenjang,id_prov,id_kab,no_registrasi,nm_satpen',
@@ -36,7 +37,11 @@ class Others implements FromCollection, WithMapping, WithHeadings, WithColumnWid
             'satpen.provinsi:id_prov,nm_prov',
             'satpen.kabupaten:id_kab,nama_kab',
         ])
-            ->where($this->specificFilter)
+            ->where(function ($query) use ($specificFilter) {
+                $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                    $q->where($specificFilter);
+                });
+            })
             ->whereHas('satpen', function ($query) use ($filter) {
                 $query->where($filter);
             })

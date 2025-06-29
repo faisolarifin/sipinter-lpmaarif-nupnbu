@@ -9,11 +9,14 @@ use App\Helpers\MailService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Settings;
 use App\Http\Requests\StatusSatpenRequest;
+use App\Models\BHPNU;
+use App\Models\Coretax;
 use App\Models\FileRegister;
 use App\Models\FileUpload;
 use App\Models\Jenjang;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
+use App\Models\OSS;
 use App\Models\PDPTK;
 use App\Models\Others;
 use App\Models\PengurusCabang;
@@ -414,6 +417,7 @@ class SATPENController extends Controller
     public function getAllPDPTKOrFilter(Request $request)
     {
         $paginatePerPage = Settings::get("count_perpage");
+        $specificFilter = request()->specificFilter;
         try {
             $tapel = @$request->tapel ? $request->tapel : Settings::get("current_tapel");
             if (
@@ -448,7 +452,11 @@ class SATPENController extends Controller
                         'satpen.provinsi:id_prov,nm_prov',
                         'satpen.kabupaten:id_kab,nama_kab',
                     ])
-                        ->where(request()->specificFilter)
+                        ->where(function ($query) use ($specificFilter) {
+                            $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                                $q->where($specificFilter);
+                            });
+                        })
                         ->where('tapel', '=', $tapel)
                         ->whereHas('satpen', function ($query) use ($filter) {
                             $query->where($filter);
@@ -473,7 +481,11 @@ class SATPENController extends Controller
                     'satpen.kabupaten:id_kab,nama_kab',
                 ])
                     ->where('tapel', '=', $tapel)
-                    ->where(request()->specificFilter);
+                    ->where(function ($query) use ($specificFilter) {
+                        $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                            $q->where($specificFilter);
+                        });
+                    });
                 //                    ->get();
             }
             $sum = [
@@ -519,7 +531,7 @@ class SATPENController extends Controller
     public function processBulkSyncPDPTK(Request $request)
     {
         try {
-            $url = config('app.referensi_crawler').'dapo-data/bulk';
+            $url = config('app.referensi_crawler') . 'dapo-data/bulk';
 
             $school = [];
             $tapel = $request->tapel ?? Settings::get("current_tapel");
@@ -534,7 +546,7 @@ class SATPENController extends Controller
                         "tapel" => $tapel,
                     ]);
                 });
-                
+
             $response = Http::post($url, [
                 "schools" => $school,
             ]);
@@ -544,7 +556,7 @@ class SATPENController extends Controller
             if ($response->successful()) {
                 return redirect()->back()->with('success', 'Proses sinkronisasi PDPTK berjalan di latar belakang');
             }
-            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service '. $responseJson['error']);
+            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service ' . $responseJson['error']);
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET PROCESS SYNC BULK PDPTK] has error " . $e);
         }
@@ -553,7 +565,7 @@ class SATPENController extends Controller
     public function processSyncPDPTK(Request $request, Satpen $satpen)
     {
         try {
-            $url = config('app.referensi_crawler').'dapo-data/';
+            $url = config('app.referensi_crawler') . 'dapo-data/';
 
             $payload = [
                 "satpenid" => $satpen->id_satpen,
@@ -567,7 +579,7 @@ class SATPENController extends Controller
                 return redirect()->back()->with('success', 'Proses sinkronisasi PDPTK berhasil');
             }
             $errorData = $response->json();
-            return redirect()->back()->with('error', 'Proses sinkronisasi gagal. '. $errorData['error']);
+            return redirect()->back()->with('error', 'Proses sinkronisasi gagal. ' . $errorData['error']);
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET PROCESS SYNC PDPTK] has error " . $e);
         }
@@ -576,6 +588,7 @@ class SATPENController extends Controller
     public function getAllOtherDataOrFilter(Request $request)
     {
         $paginatePerPage = Settings::get("count_perpage");
+        $specificFilter = request()->specificFilter;
         try {
             if (
                 $request->jenjang
@@ -610,7 +623,11 @@ class SATPENController extends Controller
                         'satpen.provinsi:id_prov,nm_prov',
                         'satpen.kabupaten:id_kab,nama_kab',
                     ])
-                        ->where(request()->specificFilter)
+                        ->where(function ($query) use ($specificFilter) {
+                            $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                                $q->where($specificFilter);
+                            });
+                        })
                         ->whereIn('lingkungan_satpen', $lingkungan_satpen)
                         ->whereHas('satpen', function ($query) use ($filter) {
                             $query->where($filter);
@@ -633,7 +650,11 @@ class SATPENController extends Controller
                     'satpen.provinsi:id_prov,nm_prov',
                     'satpen.kabupaten:id_kab,nama_kab',
                 ])
-                    ->where(request()->specificFilter);
+                    ->where(function ($query) use ($specificFilter) {
+                        $query->whereHas('satpen', function ($q) use ($specificFilter) {
+                            $q->where($specificFilter);
+                        });
+                    });
             }
 
             $othersCount = $othersQuery->count();
@@ -664,7 +685,7 @@ class SATPENController extends Controller
     public function processBulkSyncOthers()
     {
         try {
-            $url = config('app.referensi_crawler').'referensi-data/bulk';
+            $url = config('app.referensi_crawler') . 'referensi-data/bulk';
 
             $school = [];
             Satpen::select('id_satpen', 'npsn')
@@ -687,7 +708,7 @@ class SATPENController extends Controller
             if ($response->successful()) {
                 return redirect()->back()->with('success', 'Proses sinkronisasi Data Lainnya berjalan di latar belakang');
             }
-            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service '. $responseJson['error']);
+            return redirect()->back()->with('error', 'Proses sinkronisasi gagal, ada masalah pada service ' . $responseJson['error']);
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET PROCESS BULK OTHERS] has error " . $e);
         }
@@ -696,9 +717,9 @@ class SATPENController extends Controller
     public function processSyncOthers(Satpen $satpen)
     {
         try {
-            
-            $url = config('app.referensi_crawler').'referensi-data/';
-            
+
+            $url = config('app.referensi_crawler') . 'referensi-data/';
+
             $payload = [
                 "satpenid" => $satpen->id_satpen,
                 "npsn" => $satpen->npsn
@@ -710,11 +731,71 @@ class SATPENController extends Controller
                 return redirect()->back()->with('success', 'Proses sinkronisasi Data Lainnya berhasil');
             }
             $errorData = $response->json();
-            return redirect()->back()->with('error', 'Proses sinkronisasi gagal. '. $errorData['error']);
+            return redirect()->back()->with('error', 'Proses sinkronisasi gagal. ' . $errorData['error']);
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET PROCESS SYNC OTHERS] has error " . $e);
         }
     }
+    
+    public function showHistoryLayanan($userId)
+    {
+        $bhpnu = BHPNU::where([
+            'id_user' => $userId,
+            'status' => 'dokumen dikirim'
+        ])
+            ->select(
+                'id_bhpnu as id',
+                'bukti_bayar',
+                'tanggal',
+                'tgl_dikirim as acc',
+                'tgl_expired as expiry',
+                'status',
+                'created_at',
+                DB::raw("'BHPNU' as layanan")
+            )
+            ->get();
+
+        $coretax = Coretax::where([
+            'id_user' => $userId,
+            'status' => 'final aprove'
+        ])
+            ->select(
+                'id as id',
+                DB::raw("'' as bukti_bayar"),
+                'tgl_submit as tanggal',
+                'tgl_acc as acc',
+                'tgl_expiry as expiry',
+                'status',
+                'created_at',
+                DB::raw("'CORETAX' as layanan")
+            )
+            ->get();
+
+        $oss = OSS::where([
+            'id_user' => $userId,
+            'status' => 'izin terbit'
+        ])
+            ->select(
+                'id_oss as id',
+                'bukti_bayar',
+                'tanggal',
+                'tgl_izin as acc',
+                'tgl_expired as expiry',
+                'status',
+                'created_at',
+                DB::raw("'OSS' as layanan")
+            )
+            ->get();
+
+        $history = collect([
+            ...$bhpnu,
+            ...$coretax,
+            ...$oss,
+        ])->sortByDesc('created_at')->values();
+
+        return view('admin.satpen.history-layanan', compact('history'));
+    }
+
 
     public function underConstruction()
     {

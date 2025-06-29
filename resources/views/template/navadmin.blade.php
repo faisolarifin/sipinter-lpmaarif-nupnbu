@@ -263,6 +263,22 @@
                     <span class="hide-menu">Rekap Satpen</span>
                 </a>
             </li>
+             <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('a.pdptk') }}" aria-expanded="false">
+                    <span>
+                        <i class="ti ti-graph"></i>
+                    </span>
+                    <span class="hide-menu">Data PD dan PTK</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('a.other') }}" aria-expanded="false">
+                    <span>
+                        <i class="ti ti-table"></i>
+                    </span>
+                    <span class="hide-menu">Data Lainnya</span>
+                </a>
+            </li>
             @if (in_array(auth()->user()->role, ['admin wilayah']))
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
