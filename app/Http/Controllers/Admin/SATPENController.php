@@ -504,6 +504,18 @@ class SATPENController extends Controller
             $pdptkData = $pdptkQuery
                 ->paginate($paginatePerPage)->appends(request()->query());
 
+            if (auth()->user()->cabangId) {
+                $region = $pdptkQuery->first()?->satpen
+                    ->kabupaten
+                    ->nama_kab ?? 'Indonesia';
+            } elseif (auth()->user()->provId) {
+                $region = $pdptkQuery->first()?->satpen
+                    ->provinsi
+                    ->nm_prov ?? 'Indonesia';
+            } else {
+                $region = 'Indonesia';
+            }
+
             /**
              * If satpen profile null is user access satpen id not releate with user id
              */
@@ -522,6 +534,7 @@ class SATPENController extends Controller
                 'kategori',
                 'tapel',
                 'sum',
+                'region',
             ));
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET ALL PDPTK OR FILTER] has error " . $e);
@@ -736,64 +749,109 @@ class SATPENController extends Controller
             throw new CatchErrorException("[GET PROCESS SYNC OTHERS] has error " . $e);
         }
     }
-    
+
     public function showHistoryLayanan($userId)
     {
-        $bhpnu = BHPNU::where([
-            'id_user' => $userId,
-            'status' => 'dokumen dikirim'
-        ])
-            ->select(
-                'id_bhpnu as id',
-                'bukti_bayar',
-                'tanggal',
-                'tgl_dikirim as acc',
-                'tgl_expired as expiry',
-                'status',
-                'created_at',
-                DB::raw("'BHPNU' as layanan")
-            )
-            ->get();
 
-        $coretax = Coretax::where([
-            'id_user' => $userId,
-            'status' => 'final aprove'
-        ])
-            ->select(
-                'id as id',
-                DB::raw("'' as bukti_bayar"),
-                'tgl_submit as tanggal',
-                'tgl_acc as acc',
-                'tgl_expiry as expiry',
-                'status',
-                'created_at',
-                DB::raw("'CORETAX' as layanan")
-            )
-            ->get();
+        $prosesHistory = collect([
+            ...BHPNU::where([
+                'id_user' => $userId,
+            ])
+                ->whereIn('status', ['mengisi persyaratan', 'verifikasi', 'perbaikan', 'dokumen diproses'])
+                ->select(
+                    'id_bhpnu as id',
+                    'bukti_bayar',
+                    'tanggal',
+                    'tgl_dikirim as acc',
+                    'tgl_expired as expiry',
+                    'status',
+                    'created_at',
+                    DB::raw("'BHPNU' as layanan")
+                )
+                ->get(),
+            ...Coretax::where([
+                'id_user' => $userId,
+            ])
+                ->whereIn('status', ['mengisi persyaratan', 'verifikasi', 'perbaikan', 'dokumen diproses'])
+                ->select(
+                    'id as id',
+                    DB::raw("'' as bukti_bayar"),
+                    'tgl_submit as tanggal',
+                    'tgl_acc as acc',
+                    'tgl_expiry as expiry',
+                    'status',
+                    'created_at',
+                    DB::raw("'CORETAX' as layanan")
+                )
+                ->get(),
+            ...OSS::where([
+                'id_user' => $userId,
+            ])
+                ->whereIn('status', ['mengisi persyaratan','verifikasi','perbaikan','dokumen diproses'])
+                ->select(
+                    'id_oss as id',
+                    'bukti_bayar',
+                    'tanggal',
+                    'tgl_izin as acc',
+                    'tgl_expired as expiry',
+                    'status',
+                    'created_at',
+                    DB::raw("'OSS' as layanan")
+                )
+                ->get(),
 
-        $oss = OSS::where([
-            'id_user' => $userId,
-            'status' => 'izin terbit'
-        ])
-            ->select(
-                'id_oss as id',
-                'bukti_bayar',
-                'tanggal',
-                'tgl_izin as acc',
-                'tgl_expired as expiry',
-                'status',
-                'created_at',
-                DB::raw("'OSS' as layanan")
-            )
-            ->get();
-
-        $history = collect([
-            ...$bhpnu,
-            ...$coretax,
-            ...$oss,
         ])->sortByDesc('created_at')->values();
 
-        return view('admin.satpen.history-layanan', compact('history'));
+        $finalHistory = collect([
+            ...BHPNU::where([
+                'id_user' => $userId,
+                'status' => 'dokumen dikirim'
+            ])
+                ->select(
+                    'id_bhpnu as id',
+                    'bukti_bayar',
+                    'tanggal',
+                    'tgl_dikirim as acc',
+                    'tgl_expired as expiry',
+                    'status',
+                    'created_at',
+                    DB::raw("'BHPNU' as layanan")
+                )
+                ->get(),
+            ...Coretax::where([
+                'id_user' => $userId,
+                'status' => 'final aprove'
+            ])
+                ->select(
+                    'id as id',
+                    DB::raw("'' as bukti_bayar"),
+                    'tgl_submit as tanggal',
+                    'tgl_acc as acc',
+                    'tgl_expiry as expiry',
+                    'status',
+                    'created_at',
+                    DB::raw("'CORETAX' as layanan")
+                )
+                ->get(),
+            ...OSS::where([
+                'id_user' => $userId,
+                'status' => 'izin terbit'
+            ])
+                ->select(
+                    'id_oss as id',
+                    'bukti_bayar',
+                    'tanggal',
+                    'tgl_izin as acc',
+                    'tgl_expired as expiry',
+                    'status',
+                    'created_at',
+                    DB::raw("'OSS' as layanan")
+                )
+                ->get(),
+
+        ])->sortByDesc('created_at')->values();
+
+        return view('admin.satpen.history-layanan', compact('prosesHistory', 'finalHistory'));
     }
 
 

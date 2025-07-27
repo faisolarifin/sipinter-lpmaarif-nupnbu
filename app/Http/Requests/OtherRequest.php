@@ -22,7 +22,6 @@ class OtherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'otherId'             => 'required',
             'satpenId'             => 'required',
             'npyp'                  => 'required',
             'naungan'              => 'required',

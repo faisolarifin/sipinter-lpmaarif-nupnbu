@@ -54,7 +54,7 @@
                                                     <div class="mb-3">
                                                         <label for="no_registrasi" class="form-label required">Nama
                                                             Satpen</label>
-                                                        <input type="hidden" name="otherId" value="{{ $other->id }}">
+                                                        <input type="hidden" name="otherId" value="{{ $other?->id }}">
                                                         <input type="hidden" name="satpenId"
                                                             value="{{ $satpen->id_satpen }}">
                                                         <input type="text"
@@ -142,7 +142,7 @@
                                                         <input type="text"
                                                             class="form-control  @error('npyp') is-invalid @enderror"
                                                             id="npyp" name="npyp"
-                                                            value="{{ old('npyp') ?? $other->npyp }}" placeholder="NPYP">
+                                                            value="{{ old('npyp') ?? $other?->npyp }}" placeholder="NPYP">
                                                         <div class="invalid-feedback">
                                                             @error('npyp')
                                                                 {{ $message }}
@@ -156,7 +156,7 @@
                                                         <input type="text"
                                                             class="form-control  @error('naungan') is-invalid @enderror"
                                                             id="naungan" name="naungan"
-                                                            value="{{ old('naungan') ?? $other->naungan }}"
+                                                            value="{{ old('naungan') ?? $other?->naungan }}"
                                                             placeholder="Naungan">
                                                         <div class="invalid-feedback">
                                                             @error('naungan')
@@ -172,7 +172,7 @@
                                                         <input type="text"
                                                             class="form-control  @error('akreditasi') is-invalid @enderror"
                                                             id="akreditasi" name="akreditasi"
-                                                            value="{{ old('akreditasi') ?? $other->akreditasi }}"
+                                                            value="{{ old('akreditasi') ?? $other?->akreditasi }}"
                                                             placeholder="Akreditasi">
                                                         <div class="invalid-feedback">
                                                             @error('akreditasi')
@@ -190,7 +190,7 @@
                                                         <input type="text"
                                                             class="form-control  @error('no_sk_pendirian') is-invalid @enderror"
                                                             id="no_sk_pendirian" name="no_sk_pendirian"
-                                                            value="{{ old('no_sk_pendirian') ?? $other->no_sk_pendirian }}"
+                                                            value="{{ old('no_sk_pendirian') ?? $other?->no_sk_pendirian }}"
                                                             placeholder="No. SK Pendirian">
                                                         <div class="invalid-feedback">
                                                             @error('no_sk_pendirian')
@@ -206,7 +206,7 @@
                                                         <input type="date"
                                                             class="form-control  @error('tgl_sk_pendirian') is-invalid @enderror"
                                                             id="tgl_sk_pendirian" name="tgl_sk_pendirian"
-                                                            value="{{ old('tgl_sk_pendirian') ?? $other->tgl_sk_pendirian }}"
+                                                            value="{{ old('tgl_sk_pendirian') ?? $other?->tgl_sk_pendirian }}"
                                                             placeholder="Tgl. SK Pendirian">
                                                         <div class="invalid-feedback">
                                                             @error('tgl_sk_pendirian')
@@ -224,7 +224,7 @@
                                                         <input type="text"
                                                             class="form-control  @error('no_sk_operasional') is-invalid @enderror"
                                                             id="no_sk_operasional" name="no_sk_operasional"
-                                                            value="{{ old('no_sk_operasional') ?? $other->no_sk_operasional }}"
+                                                            value="{{ old('no_sk_operasional') ?? $other?->no_sk_operasional }}"
                                                             placeholder="No. SK Operasional">
                                                         <div class="invalid-feedback">
                                                             @error('no_sk_operasional')
@@ -241,7 +241,7 @@
                                                         <input type="date"
                                                             class="form-control  @error('tgl_sk_operasional') is-invalid @enderror"
                                                             id="tgl_sk_operasional" name="tgl_sk_operasional"
-                                                            value="{{ old('tgl_sk_operasional') ?? $other->tgl_sk_operasional }}"
+                                                            value="{{ old('tgl_sk_operasional') ?? $other?->tgl_sk_operasional }}"
                                                             placeholder="Tgl. SK Operasional">
                                                         <div class="invalid-feedback">
                                                             @error('tgl_sk_operasional')
@@ -258,7 +258,7 @@
                                                         <input type="text"
                                                             class="form-control  @error('website') is-invalid @enderror"
                                                             id="website" name="website"
-                                                            value="{{ old('website') ?? $other->website }}"
+                                                            value="{{ old('website') ?? $other?->website }}"
                                                             placeholder="Website">
                                                         <div class="invalid-feedback">
                                                             @error('website')
@@ -274,16 +274,16 @@
                                                         <select name="lingkungan_satpen" id="lingkungan_satpen"
                                                             class="form-select @error('lingkungan_satpen') is-invalid @enderror">
                                                             <option value="Sekolah berbasis Pondok Pesantren"
-                                                                {{ $other->lingkungan_satpen == 'Sekolah berbasis Pondok Pesantren' ? 'selected' : '' }}>
+                                                                {{ $other?->lingkungan_satpen == 'Sekolah berbasis Pondok Pesantren' ? 'selected' : '' }}>
                                                                 Sekolah berbasis Pondok Pesantren
                                                             </option>
                                                             <option value="Sekolah Boarding"
-                                                                {{ $other->lingkungan_satpen == 'Sekolah Boarding' ? 'selected' : '' }}>
+                                                                {{ $other?->lingkungan_satpen == 'Sekolah Boarding' ? 'selected' : '' }}>
                                                                 Sekolah Boarding
                                                             </option>
                                                             <option value="Sekolah biasa"
-                                                                {{ $other->lingkungan_satpen == 'Sekolah biasa' ? 'selected' : '' }}>
-                                                                Sekolah biasa
+                                                                {{ $other?->lingkungan_satpen == 'Sekolah biasa' ? 'selected' : '' }}>
+                                                                Sekolah Biasa
                                                             </option>
                                                         </select>
                                                         <div class="invalid-feedback">

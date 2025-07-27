@@ -208,9 +208,9 @@
                         <table class="table table-borderless" id="table-rekap">
                             <thead>
                                 <tr>
-                                    <th>REKAP GURU INDONESIA</th>
-                                    <th>REKAP SISWA INDONESIA</th>
-                                    <th>REKAP TENDIK INDONESIA</th>
+                                    <th>REKAP GURU {{ strtoupper($region) }}</th>
+                                    <th>REKAP SISWA {{ strtoupper($region) }}</th>
+                                    <th>REKAP TENDIK {{ strtoupper($region) }}</th>
                                 </tr>
                             </thead>
                             <tbody>
