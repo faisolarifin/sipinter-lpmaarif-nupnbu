@@ -297,3 +297,15 @@ hr {
         width: 90% !important;
     }
 }
+
+input[readonly] {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+  border-color: #ced4da;
+}
+
+input[readonly]:focus {
+  outline: none;
+  box-shadow: none;
+}

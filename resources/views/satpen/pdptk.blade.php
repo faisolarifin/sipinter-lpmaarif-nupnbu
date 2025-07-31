@@ -189,7 +189,7 @@
                                                             class="form-control  @error('jml_pd') is-invalid @enderror"
                                                             id="jml_pd" name="jml_pd"
                                                             value="{{ old('jml_pd') ?? $pdptk?->jml_pd }}"
-                                                            placeholder="Jumlah PD">
+                                                            placeholder="Jumlah PD" readonly>
                                                         <div class="invalid-feedback">
                                                             @error('jml_pd')
                                                                 {{ $message }}
@@ -237,7 +237,7 @@
                                                             class="form-control  @error('jml_guru') is-invalid @enderror"
                                                             id="jml_guru" name="jml_guru"
                                                             value="{{ old('jml_guru') ?? $pdptk?->jml_guru }}"
-                                                            placeholder="Jumlah Guru">
+                                                            placeholder="Jumlah Guru" readonly>
                                                         <div class="invalid-feedback">
                                                             @error('jml_guru')
                                                                 {{ $message }}
@@ -287,7 +287,7 @@
                                                             class="form-control  @error('jml_tendik') is-invalid @enderror"
                                                             id="jml_tendik" name="jml_tendik"
                                                             value="{{ old('jml_tendik') ?? $pdptk?->jml_tendik }}"
-                                                            placeholder="Jumlah Tendik">
+                                                            placeholder="Jumlah Tendik" readonly>
                                                         <div class="invalid-feedback">
                                                             @error('jml_tendik')
                                                                 {{ $message }}
