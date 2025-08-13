@@ -29,9 +29,21 @@
                             <h5 class="mb-0">Profile Cabang</h5>
                             <small>daftar profile pengurus cabang</small>
                         </div>
-                        <div class="btn-list">
-                            <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i
+                        <div class="d-flex">
+                            <div class="select-picker">
+                                @include('component.selectpicker', [
+                                    'name' => 'wilayah',
+                                    'prefix' => 'Wilayah ',
+                                    'val' => 'id_prov',
+                                    'label' => 'nm_prov',
+                                    'data' => $prov,
+                                ])
+                            </div>
+                            <a href="#" class="btn btn-success btn-sm ms-2 py-2" id="export-btn"><i
                                     class="ti ti-file-spreadsheet"></i> Export to Excel</a>
+
+                            <a href="{{ route('a.cabang') }}" class="btn btn-success btn-sm mx-2 py-2"><i
+                                    class="ti ti-reload"></i></a>
                         </div>
                     </div>
 
@@ -86,7 +98,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('extendscripts')
     <script src="{{ asset('assets/libs/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables/dataTables.bootstrap5.min.js') }}"></script>
     <script>
