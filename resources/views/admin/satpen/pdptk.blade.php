@@ -125,6 +125,17 @@
                                                     </option>
                                                 </select>
                                             </div>
+                                            <div class="mb-3">
+                                                <select class="form-select form-select-sm" name="filled">
+                                                    <option value="">KELENGKAPAN DATA</option>
+                                                    <option value="true"
+                                                        {{ 1 == request()->filled ? 'selected' : '' }}>LENGKAP
+                                                    </option>
+                                                    <option value="false"
+                                                        {{ 0 == request()->filled ? 'selected' : '' }}>KOSONG
+                                                    </option>
+                                                </select>
+                                            </div>
                                             <button type="submit" class="btn btn-primary w-100"><i
                                                     class="ti ti-filter"></i>
                                                 Filter</button>

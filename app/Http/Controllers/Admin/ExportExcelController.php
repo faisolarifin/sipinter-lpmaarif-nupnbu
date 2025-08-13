@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\Cabang;
 use App\Exports\PDPTK;
 use App\Exports\Others;
 use App\Exports\SatpenExport;
+use App\Exports\Wilayah;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Settings;
 use Illuminate\Http\Request;
@@ -68,4 +70,15 @@ class ExportExcelController extends Controller
 
         return Excel::download(new Others(request()->specificFilter, $lembaga, $filter, $keywordFilter), 'exported_others_data.xlsx');
     }
+
+    public function exportWilayahtoExcel()
+    {
+        return Excel::download(new Wilayah(), 'exported_wilayah_data.xlsx');
+    }
+
+    public function exportCabangtoExcel()
+    {
+        return Excel::download(new Cabang(request()->specificFilter), 'exported_cabang_data.xlsx');
+    }
+
 }

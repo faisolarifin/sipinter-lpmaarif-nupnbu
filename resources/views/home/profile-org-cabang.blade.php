@@ -210,6 +210,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label for="masa_khidmat" class="form-label">Masa Khidmat</label>
+                                            <input type="text" class="form-control  @error('masa_khidmat') is-invalid @enderror" id="masa_khidmat" name="masa_khidmat" value="{{ old('masa_khidmat') ?? $data->profile?->masa_khidmat }}" placeholder="ex: 2021-2026">
+                                            <div class="invalid-feedback">
+                                                @error('masa_khidmat') {{ $message }} @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary">
                                             <i class="ti ti-device-floppy"></i> Simpan Profile</button>

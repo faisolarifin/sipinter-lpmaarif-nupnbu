@@ -146,6 +146,11 @@
                                     <td>:</td>
                                     <td>{{ $data->profile->telp_bendahara }}</td>
                                 </tr>
+                                <tr>
+                                    <th>Masa Khidmat</th>
+                                    <td>:</td>
+                                    <td>{{ $data->profile->masa_khidmat }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

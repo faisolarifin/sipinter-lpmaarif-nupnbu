@@ -258,6 +258,10 @@ Route::middleware('mustlogin')->group(function() {
              * PROFILE
              */
             Route::group(["prefix" => "profile"], function() {
+                //export
+                Route::get('/wilayah/export_excel', [ExportExcelController::class, 'exportWilayahtoExcel'])->name('wilayah.excel')->withoutMiddleware('primaryadmin');
+                Route::get('/cabang/export_excel', [ExportExcelController::class, 'exportCabangtoExcel'])->name('cabang.excel')->withoutMiddleware('primaryadmin');
+                
                 Route::get('/wilayah', [ProfileController::class, 'profileWilayah'])->name('a.wilayah');
                 Route::get('/wilayah/{ID}', [ProfileController::class, 'profileDetail'])->name('a.wilayah.detail');
                 Route::delete('/wilayah', [ProfileController::class, 'destroyWilayah'])->name('a.wilayah.destroy');

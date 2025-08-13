@@ -425,12 +425,13 @@ class SATPENController extends Controller
                 || $request->kabupaten
                 || $request->cabang
                 || $request->provinsi
-                || $request->kategori || $request->keyword || $request->lembaga
+                || $request->kategori || $request->keyword || $request->lembaga || $request->filled
             ) {
 
                 $filter = [];
                 $keywordFilter = [];
                 $lembaga = ["SEKOLAH", "MADRASAH"];
+                $filled = ["0", "1"];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
                 if ($request->cabang) $filter["id_pc"] = $request->cabang;
@@ -438,6 +439,7 @@ class SATPENController extends Controller
                 if ($request->kategori) $filter["id_kategori"] = $request->kategori;
                 if ($request->status) $statuses = [$request->status];
                 if ($request->lembaga) $lembaga = [strtoupper($request->lembaga)];
+                if ($request->filled) $filled = [$request->filled == "true" ? "1" : "0"];
                 if ($request->keyword) {
                     array_push($keywordFilter, ["nm_satpen", "like", "%" . $request->keyword . "%"]);
                     array_push($keywordFilter, ["npsn", "like", "%" . $request->keyword . "%"]);
@@ -445,7 +447,7 @@ class SATPENController extends Controller
                     array_push($keywordFilter, ["yayasan", "like", "%" . $request->keyword . "%"]);
                 }
 
-                if ($filter || $lembaga) {
+                if ($filter || $lembaga || $filled) {
                     $pdptkQuery = PDPTK::with([
                         'satpen:id_satpen,id_jenjang,id_prov,id_kab,no_registrasi,nm_satpen',
                         'satpen.jenjang:id_jenjang,nm_jenjang',
@@ -458,6 +460,7 @@ class SATPENController extends Controller
                             });
                         })
                         ->where('tapel', '=', $tapel)
+                        ->whereIn('status_sinkron', $filled)
                         ->whereHas('satpen', function ($query) use ($filter) {
                             $query->where($filter);
                         })
@@ -608,12 +611,13 @@ class SATPENController extends Controller
                 || $request->kabupaten
                 || $request->cabang
                 || $request->provinsi
-                || $request->kategori || $request->keyword || $request->lembaga
+                || $request->kategori || $request->keyword || $request->lembaga || $request->akreditasi
             ) {
 
                 $filter = [];
                 $keywordFilter = [];
                 $lembaga = ["SEKOLAH", "MADRASAH"];
+                $akreditasi = ["A", "B", "C", "-"];
                 $lingkungan_satpen = ["Sekolah berbasis Pondok Pesantren", "Sekolah Boarding", "Sekolah biasa", ""];
                 if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
                 if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
@@ -621,6 +625,7 @@ class SATPENController extends Controller
                 if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
                 if ($request->kategori) $filter["id_kategori"] = $request->kategori;
                 if ($request->lembaga) $lembaga = [strtoupper($request->lembaga)];
+                if ($request->akreditasi) $akreditasi = [strtoupper($request->akreditasi)];
                 if ($request->lingkungan_satpen) $lingkungan_satpen = [$request->lingkungan_satpen];
                 if ($request->keyword) {
                     array_push($keywordFilter, ["nm_satpen", "like", "%" . $request->keyword . "%"]);
@@ -642,6 +647,7 @@ class SATPENController extends Controller
                             });
                         })
                         ->whereIn('lingkungan_satpen', $lingkungan_satpen)
+                        ->whereIn('akreditasi', $akreditasi)
                         ->whereHas('satpen', function ($query) use ($filter) {
                             $query->where($filter);
                         })

@@ -14,7 +14,7 @@
         </li>
         <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-            <span class="hide-menu">Permohonan</span>
+            <span class="hide-menu">Kelembagaan</span>
         </li>
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('mysatpen') }}" aria-expanded="false">
@@ -39,6 +39,10 @@
                 </span>
                 <span class="hide-menu">Data Lainnya</span>
             </a>
+        </li>
+        <li class="nav-small-cap">
+            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+            <span class="hide-menu">Permohonan</span>
         </li>
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('oss') }}" aria-expanded="false">
@@ -79,6 +83,10 @@
             </span>
                 <span class="hide-menu">Layanan Beasiswa</span>
             </a>
+        </li>
+        <li class="nav-small-cap">
+            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+            <span class="hide-menu">Lainnya</span>
         </li>
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('katalog') }}" aria-expanded="false">

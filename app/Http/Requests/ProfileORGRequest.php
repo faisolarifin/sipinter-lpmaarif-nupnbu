@@ -41,6 +41,7 @@ class ProfileORGRequest extends FormRequest
             'telp_wakil' => 'required|digits_between:10,15',
             'telp_sekretaris' => 'required|digits_between:10,15',
             'telp_bendahara' => 'required|digits_between:10,15',
+            'masa_khidmat' => 'required|string|max:9',
         ];
     }
 

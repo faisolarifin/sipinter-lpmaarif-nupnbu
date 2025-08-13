@@ -203,7 +203,7 @@
                                                     <div class="mb-3">
                                                         <label for="guru_lk" class="form-label required">Guru LK</label>
                                                         <input type="text"
-                                                            class="form-control  @error('prov') is-invalid @enderror"
+                                                            class="form-control  @error('guru_lk') is-invalid @enderror"
                                                             id="guru_lk" name="guru_lk"
                                                             value="{{ old('guru_lk') ?? $pdptk?->guru_lk }}"
                                                             placeholder="Guru LK">

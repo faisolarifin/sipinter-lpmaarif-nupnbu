@@ -132,6 +132,23 @@
                                                     </option>
                                                 </select>
                                             </div>
+                                            <div class="mb-3">
+                                                <select class="form-select form-select-sm" name="akreditasi">
+                                                    <option value="">AKREDITASI</option>
+                                                    <option value="A"
+                                                        {{ 'A' == request()->akreditasi ? 'selected' : '' }}>A (Unggulan)
+                                                    </option>
+                                                    <option value="B"
+                                                        {{ 'B' == request()->akreditasi ? 'selected' : '' }}>B (Baik)
+                                                    </option>
+                                                    <option value="C"
+                                                        {{ 'C' == request()->akreditasi ? 'selected' : '' }}>C (Cukup Baik)
+                                                    </option>
+                                                    <option value="-"
+                                                        {{ '-' == request()->akreditasi ? 'selected' : '' }}>Tidak Terakreditasi
+                                                    </option>
+                                                </select>
+                                            </div>
                                             <button type="submit" class="btn btn-primary w-100"><i
                                                     class="ti ti-filter"></i>
                                                 Filter</button>
