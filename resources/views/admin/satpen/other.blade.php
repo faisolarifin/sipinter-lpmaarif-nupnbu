@@ -48,7 +48,7 @@
                                 <div class="d-flex flex-column flex-sm-row">
                                     <!-- offcanvas filter form -->
                                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFilter"
-                                        aria-labelledby="offcanvasRightLabel" style="max-width:17rem;">
+                                        aria-labelledby="offcanvasRightLabel" style="max-width:27rem;">
                                         <div class="offcanvas-header justify-content-end">
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                                 aria-label="Close"></button>
@@ -57,98 +57,116 @@
                                             <h5 class="mb-3">Filter Berdasarkan</h5>
                                             @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
                                                 <div class="mb-3">
-                                                    <select class="form-select form-select-sm" name="provinsi">
-                                                        <option value="">PROVINSI</option>
-                                                        @foreach ($propinsi as $row)
-                                                            <option value="{{ $row->id_prov }}"
-                                                                {{ $row->id_prov == request()->provinsi ? 'selected' : '' }}>
-                                                                {{ $row->nm_prov }}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    @include('component.selectpicker', [
+                                                        'name' => 'provinsi',
+                                                        'prefix' => '',
+                                                        'current' => request('provinsi'),
+                                                        'default' => 'PROVINSI',
+                                                        'val' => 'id_prov',
+                                                        'label' => 'nm_prov',
+                                                        'data' => $propinsi,
+                                                    ])
                                                 </div>
                                             @endif
                                             @if (!in_array(auth()->user()->role, ['admin cabang']))
                                                 <div class="mb-3">
-                                                    <select class="form-select form-select-sm" name="kabupaten">
-                                                        <option value=''>KABUPATEN</option>
-                                                        <!-- value by ajax -->
-                                                    </select>
+                                                    @include('component.selectpicker', [
+                                                        'name' => 'kabupaten',
+                                                        'prefix' => '',
+                                                        'current' => request('kabupaten'),
+                                                        'default' => 'KABUPATEN',
+                                                        'val' => 'id_kab',
+                                                        'label' => 'nama_kab',
+                                                        'data' => [],
+                                                    ])
                                                 </div>
                                             @endif
                                             @if (!in_array(auth()->user()->role, ['admin cabang']))
                                                 <div class="mb-3">
-                                                    <select class="form-select form-select-sm" name="cabang">
-                                                        <option value=''>CABANG</option>
-                                                        <!-- value by ajax -->
-                                                    </select>
+                                                    @include('component.selectpicker', [
+                                                        'name' => 'cabang',
+                                                        'prefix' => '',
+                                                        'current' => request('cabang'),
+                                                        'default' => 'CABANG',
+                                                        'val' => 'id_pc',
+                                                        'label' => 'nm_pc',
+                                                        'data' => [],
+                                                    ])
                                                 </div>
                                             @endif
 
                                             <div class="mb-3">
-                                                <select class="form-select form-select-sm" name="jenjang">
-                                                    <option value="">JENJANG</option>
-                                                    @foreach ($jenjang as $row)
-                                                        <option value="{{ $row->id_jenjang }}"
-                                                            {{ $row->id_jenjang == request()->jenjang ? 'selected' : '' }}>
-                                                            {{ $row->nm_jenjang }}</option>
-                                                    @endforeach
-                                                </select>
+                                                @include('component.selectpicker', [
+                                                    'name' => 'jenjang',
+                                                    'prefix' => '',
+                                                    'current' => request('jenjang'),
+                                                    'default' => 'JENJANG',
+                                                    'val' => 'id_jenjang',
+                                                    'label' => 'nm_jenjang',
+                                                    'data' => $jenjang,
+                                                ])
                                             </div>
+
                                             <div class="mb-3">
-                                                <select class="form-select form-select-sm" name="kategori">
-                                                    <option value="">KATEGORI</option>
-                                                    @foreach ($kategori as $row)
-                                                        <option value="{{ $row->id_kategori }}"
-                                                            {{ $row->id_kategori == request()->kategori ? 'selected' : '' }}>
-                                                            {{ $row->nm_kategori }}</option>
-                                                    @endforeach
-                                                </select>
+                                                @include('component.selectpicker', [
+                                                    'name' => 'kategori',
+                                                    'prefix' => '',
+                                                    'current' => request('kategori'),
+                                                    'default' => 'KATEGORI',
+                                                    'val' => 'id_kategori',
+                                                    'label' => 'nm_kategori',
+                                                    'data' => $kategori,
+                                                ])
                                             </div>
+
                                             <div class="mb-3">
-                                                <select class="form-select form-select-sm" name="lembaga">
-                                                    <option value="">LEMBAGA</option>
-                                                    <option value="MADRASAH"
-                                                        {{ 'MADRASAH' == request()->lembaga ? 'selected' : '' }}>MADRASAH
-                                                    </option>
-                                                    <option value="SEKOLAH"
-                                                        {{ 'SEKOLAH' == request()->lembaga ? 'selected' : '' }}>SEKOLAH
-                                                    </option>
-                                                </select>
+                                                @include('component.selectpicker', [
+                                                    'name' => 'lembaga',
+                                                    'prefix' => '',
+                                                    'current' => request('lembaga'),
+                                                    'default' => 'LEMBAGA',
+                                                    'val' => 'id',
+                                                    'label' => 'name',
+                                                    'data' => [
+                                                        ['id' => 'MADRASAH', 'name' => 'MADRASAH'],
+                                                        ['id' => 'SEKOLAH', 'name' => 'SEKOLAH'],
+                                                    ],
+                                                ])
                                             </div>
+
                                             <div class="mb-3">
-                                                <select class="form-select form-select-sm" name="lingkungan_satpen">
-                                                    <option value="">LINGKUNGAN SATPEN</option>
-                                                    <option value="Sekolah berbasis Pondok Pesantren"
-                                                        {{ request()->lingkungan_satpen == 'Sekolah berbasis Pondok Pesantren' ? 'selected' : '' }}>
-                                                        Sekolah berbasis Pondok Pesantren
-                                                    </option>
-                                                    <option value="Sekolah Boarding"
-                                                        {{ request()->lingkungan_satpen == 'Sekolah Boarding' ? 'selected' : '' }}>
-                                                        Sekolah Boarding
-                                                    </option>
-                                                    <option value="Sekolah biasa"
-                                                        {{ request()->lingkungan_satpen == 'Sekolah biasa' ? 'selected' : '' }}>
-                                                        Sekolah biasa
-                                                    </option>
-                                                </select>
+                                                @include('component.selectpicker', [
+                                                    'name' => 'lingkungan_satpen',
+                                                    'prefix' => '',
+                                                    'current' => request('lingkungan_satpen'),
+                                                    'default' => 'LINGKUNGAN SATPEN',
+                                                    'val' => 'id',
+                                                    'label' => 'name',
+                                                    'data' => [
+                                                        ['id' => 'Sekolah berbasis Pondok Pesantren', 'name' => 'Sekolah berbasis Pondok Pesantren'],
+                                                        ['id' => 'Sekolah Boarding', 'name' => 'Sekolah Boarding'],
+                                                        ['id' => 'Sekolah biasa', 'name' => 'Sekolah biasa'],
+                                                    ],
+                                                ])
                                             </div>
+
                                             <div class="mb-3">
-                                                <select class="form-select form-select-sm" name="akreditasi">
-                                                    <option value="">AKREDITASI</option>
-                                                    <option value="A"
-                                                        {{ 'A' == request()->akreditasi ? 'selected' : '' }}>A (Unggulan)
-                                                    </option>
-                                                    <option value="B"
-                                                        {{ 'B' == request()->akreditasi ? 'selected' : '' }}>B (Baik)
-                                                    </option>
-                                                    <option value="C"
-                                                        {{ 'C' == request()->akreditasi ? 'selected' : '' }}>C (Cukup Baik)
-                                                    </option>
-                                                    <option value="-"
-                                                        {{ '-' == request()->akreditasi ? 'selected' : '' }}>Tidak Terakreditasi
-                                                    </option>
-                                                </select>
+                                                @include('component.selectpicker', [
+                                                    'name' => 'akreditasi',
+                                                    'prefix' => '',
+                                                    'current' => request('akreditasi'),
+                                                    'default' => 'AKREDITASI',
+                                                    'val' => 'id',
+                                                    'label' => 'name',
+                                                    'data' => [
+                                                        ['id' => 'A', 'name' => 'A (Unggulan)'],
+                                                        ['id' => 'B', 'name' => 'B (Baik)'],
+                                                        ['id' => 'C', 'name' => 'C (Cukup Baik)'],
+                                                        ['id' => '-', 'name' => 'Tidak Terakreditasi'],
+                                                    ],
+                                                ])
                                             </div>
+
                                             <button type="submit" class="btn btn-primary w-100"><i
                                                     class="ti ti-filter"></i>
                                                 Filter</button>
@@ -236,9 +254,7 @@
     </div>
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('assets/libs/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables/dataTables.bootstrap5.min.js') }}"></script>
+@section('extendscripts')
     <script>
         // $(document).ready(function () {
         //     $('#mytable').DataTable();
@@ -252,69 +268,5 @@
         });
 
         $("#export-btn").attr("href", "{{ route('other.excel') }}" + location.search);
-
-        $("select[name='provinsi']").on('change', function() {
-            getKabupaten();
-            getCabang();
-        });
-
-        function getKabupaten(provId) {
-            provId = provId ? provId : $("select[name='provinsi']").val();
-            let routeGetData = "{{ route('api.kabupatenbyprov', ['provId' => ':param']) }}".replace(':param', provId);
-
-            $.ajax({
-                url: routeGetData,
-                type: "GET",
-                dataType: 'json',
-                success: function(res) {
-
-                    let $select = $("select[name='kabupaten']");
-                    $select.empty();
-                    $select.append("<option value=''>KABUPATEN</option>");
-
-                    $.each(res, function(key, value) {
-                        $select.append('<option value=' + value.id_kab + '>' + value.nama_kab +
-                            '</option>');
-                    });
-
-                    let kabParam = location.search.split("&");
-                    if (kabParam.length > 1) {
-                        kabParam = kabParam[1].split("=")[1];
-                        $select.val(kabParam);
-                    }
-                }
-            })
-        }
-
-        function getCabang(provId) {
-            provId = provId ? provId : $("select[name='provinsi']").val();
-            let routeGetData = "{{ route('api.pcbyprov', ['provId' => ':param']) }}".replace(':param', provId);
-
-            $.ajax({
-                url: routeGetData,
-                type: "GET",
-                dataType: 'json',
-                success: function(res) {
-
-                    let $select = $("select[name='cabang']");
-                    $select.empty();
-                    $select.append("<option value=''>CABANG</option>");
-
-                    $.each(res, function(key, value) {
-                        $select.append('<option value=' + value.id_pc + '>' + value.nama_pc +
-                            '</option>');
-                    });
-
-                    let pcParam = location.search.split("&");
-                    if (pcParam.length > 1) {
-                        pcParam = pcParam[2].split("=")[1];
-                        $select.val(pcParam);
-                    }
-                }
-            })
-        }
-
-        getKabupaten({{ in_array(auth()->user()->role, ['admin wilayah']) ? auth()->user()->provId : '' }});
-        getCabang({{ in_array(auth()->user()->role, ['admin wilayah']) ? auth()->user()->provId : '' }});
     </script>
 @endsection

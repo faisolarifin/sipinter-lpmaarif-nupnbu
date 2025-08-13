@@ -34,11 +34,13 @@ class ExportExcelController extends Controller
         $filter = [];
         $keywordFilter = [];
         $lembaga = ["SEKOLAH", "MADRASAH"];
+        $filled = ["0", "1"];
         if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
         if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
         if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
         if ($request->kategori) $filter["id_kategori"] = $request->kategori;
         if ($request->lembaga) $lembaga = [strtoupper($request->lembaga)];
+        if ($request->filled) $filled = [$request->filled == "true" ? "1" : "0"];
         if ($request->keyword) array_push($filter, ["nm_satpen", "like", "%" . $request->keyword . "%"]);
         if ($request->keyword) {
             array_push($keywordFilter, ["nm_satpen", "like", "%" . $request->keyword . "%"]);
@@ -47,7 +49,7 @@ class ExportExcelController extends Controller
             array_push($keywordFilter, ["yayasan", "like", "%" . $request->keyword . "%"]);
         }
 
-        return Excel::download(new PDPTK(request()->specificFilter, $lembaga, $request->tapel ?? Settings::get('current_tapel'), $filter, $keywordFilter), 'exported_pdptk_data.xlsx');
+        return Excel::download(new PDPTK(request()->specificFilter, $lembaga, $request->tapel ?? Settings::get('current_tapel'), $filter, $keywordFilter, $filled), 'exported_pdptk_data.xlsx');
     }
 
     public function exportOthersDatatoExcel(Request $request)
@@ -55,11 +57,15 @@ class ExportExcelController extends Controller
         $filter = [];
         $keywordFilter = [];
         $lembaga = ["SEKOLAH", "MADRASAH"];
+        $lingkungan_satpen = ["Sekolah berbasis Pondok Pesantren", "Sekolah Boarding", "Sekolah biasa", ""];
+        $akreditasi = ["A", "B", "C", "-"];
         if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
         if ($request->kabupaten) $filter["id_kab"] = $request->kabupaten;
         if ($request->provinsi) $filter["id_prov"] = $request->provinsi;
         if ($request->kategori) $filter["id_kategori"] = $request->kategori;
         if ($request->lembaga) $lembaga = [strtoupper($request->lembaga)];
+        if ($request->akreditasi) $akreditasi = [strtoupper($request->akreditasi)];
+        if ($request->lingkungan_satpen) $lingkungan_satpen = [$request->lingkungan_satpen];
         if ($request->keyword) array_push($filter, ["nm_satpen", "like", "%" . $request->keyword . "%"]);
         if ($request->keyword) {
             array_push($keywordFilter, ["nm_satpen", "like", "%" . $request->keyword . "%"]);
@@ -68,7 +74,7 @@ class ExportExcelController extends Controller
             array_push($keywordFilter, ["yayasan", "like", "%" . $request->keyword . "%"]);
         }
 
-        return Excel::download(new Others(request()->specificFilter, $lembaga, $filter, $keywordFilter), 'exported_others_data.xlsx');
+        return Excel::download(new Others(request()->specificFilter, $lembaga, $filter, $keywordFilter, $lingkungan_satpen, $akreditasi), 'exported_others_data.xlsx');
     }
 
     public function exportWilayahtoExcel()
@@ -78,7 +84,7 @@ class ExportExcelController extends Controller
 
     public function exportCabangtoExcel()
     {
-        return Excel::download(new Cabang(request()->specificFilter), 'exported_cabang_data.xlsx');
+        $wilayah = request()->wilayah;
+        return Excel::download(new Cabang(request()->specificFilter, $wilayah), 'exported_cabang_data.xlsx');
     }
-
 }

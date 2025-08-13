@@ -14,12 +14,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Others implements FromCollection, WithMapping, WithHeadings, WithColumnWidths, WithStyles
 {
 
-    public function __construct($specificFilter, $lembaga, $filter, $keyword)
+    public function __construct($specificFilter, $lembaga, $filter, $keyword, $lingkungan_satpen, $akreditasi)
     {
         $this->specificFilter = $specificFilter;
         $this->lembaga = $lembaga;
         $this->filter = $filter;
         $this->keywordFilter = $keyword;
+        $this->lingkungan_satpen = $lingkungan_satpen;
+        $this->akreditasi = $akreditasi;
     }
     /**
      * @return \Illuminate\Support\Collection
@@ -30,6 +32,8 @@ class Others implements FromCollection, WithMapping, WithHeadings, WithColumnWid
         $keywordFilter = $this->keywordFilter;
         $lembaga = $this->lembaga;
         $specificFilter = request()->specificFilter;
+        $lingkungan_satpen = $this->lingkungan_satpen;
+        $akreditasi = $this->akreditasi;
 
         return ModelsOthers::with([
             'satpen:id_satpen,id_jenjang,id_prov,id_kab,no_registrasi,nm_satpen',
@@ -42,6 +46,8 @@ class Others implements FromCollection, WithMapping, WithHeadings, WithColumnWid
                     $q->where($specificFilter);
                 });
             })
+            ->whereIn('lingkungan_satpen', $lingkungan_satpen)
+            ->whereIn('akreditasi', $akreditasi)
             ->whereHas('satpen', function ($query) use ($filter) {
                 $query->where($filter);
             })

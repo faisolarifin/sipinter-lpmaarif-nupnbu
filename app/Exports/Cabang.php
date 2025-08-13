@@ -13,9 +13,10 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Cabang implements FromCollection, WithMapping, WithHeadings, WithColumnWidths, WithStyles
 {
 
-    public function __construct($specificFilter)
+    public function __construct($specificFilter, $wilayah)
     {
         $this->specificFilter = $specificFilter;
+        $this->wilayah = $wilayah;
     }
 
     /**
@@ -23,15 +24,29 @@ class Cabang implements FromCollection, WithMapping, WithHeadings, WithColumnWid
      */
     public function collection()
     {
-        $specificFilter = request()->specificFilter;
-
-        return PengurusCabang::with(["profile", "prov"])
-            ->whereHas("profile", function ($query) {
-                $query->where('id', '!=', null);
-            })
-            ->whereHas("prov", function ($query) use ($specificFilter) {
-                $query->where($specificFilter);
-            })->get();
+        $specificFilter = request()->specificFilter;  
+        if ($this->wilayah) {
+            $wilayah = $this->wilayah;
+            return PengurusCabang::with(["profile", "prov"])
+                ->orderBy('id_pc', 'DESC')
+                ->whereHas("profile", function ($query) {
+                    $query->where('id', '!=', null);
+                })
+                ->whereHas("prov", function ($query) use ($wilayah) {
+                    $query->where('id_prov', $wilayah);
+                })
+                ->get();
+        } else {
+            return PengurusCabang::with(["profile", "prov"])
+                ->orderBy('id_pc', 'DESC')
+                ->whereHas("profile", function ($query) {
+                    $query->where('id', '!=', null);
+                })
+                ->whereHas("prov", function ($query) use ($specificFilter) {
+                    $query->where($specificFilter);
+                })
+                ->get();
+        }
     }
 
     public function map($row): array

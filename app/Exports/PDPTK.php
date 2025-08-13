@@ -13,13 +13,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class PDPTK implements FromCollection, WithMapping, WithHeadings, WithColumnWidths, WithStyles
 {
 
-    public function __construct($specificFilter, $lembaga, $tapel, $filter, $keyword)
+    public function __construct($specificFilter, $lembaga, $tapel, $filter, $keyword, $filled)
     {
         $this->specificFilter = $specificFilter;
         $this->lembaga = $lembaga;
         $this->tapel = $tapel;
         $this->filter = $filter;
         $this->keywordFilter = $keyword;
+        $this->filled = $filled;
     }
     /**
      * @return \Illuminate\Support\Collection
@@ -30,6 +31,7 @@ class PDPTK implements FromCollection, WithMapping, WithHeadings, WithColumnWidt
         $keywordFilter = $this->keywordFilter;
         $lembaga = $this->lembaga;
         $specificFilter = request()->specificFilter;
+        $filled = $this->filled;
 
         return ModelsPDPTK::with([
             'satpen:id_satpen,id_jenjang,id_prov,id_kab,no_registrasi,nm_satpen',
@@ -43,6 +45,7 @@ class PDPTK implements FromCollection, WithMapping, WithHeadings, WithColumnWidt
                 });
             })
             ->where('tapel', '=', $this->tapel)
+            ->whereIn('status_sinkron', $filled)
             ->whereHas('satpen', function ($query) use ($filter) {
                 $query->where($filter);
             })

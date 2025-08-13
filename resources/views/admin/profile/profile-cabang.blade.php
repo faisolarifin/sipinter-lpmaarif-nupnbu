@@ -34,6 +34,8 @@
                                 @include('component.selectpicker', [
                                     'name' => 'wilayah',
                                     'prefix' => 'Wilayah ',
+                                    'current' => request('wilayah'),
+                                    'default' => 'WILAYAH',
                                     'val' => 'id_prov',
                                     'label' => 'nm_prov',
                                     'data' => $prov,
@@ -41,9 +43,6 @@
                             </div>
                             <a href="#" class="btn btn-success btn-sm ms-2 py-2" id="export-btn"><i
                                     class="ti ti-file-spreadsheet"></i> Export to Excel</a>
-
-                            <a href="{{ route('a.cabang') }}" class="btn btn-success btn-sm mx-2 py-2"><i
-                                    class="ti ti-reload"></i></a>
                         </div>
                     </div>
 
