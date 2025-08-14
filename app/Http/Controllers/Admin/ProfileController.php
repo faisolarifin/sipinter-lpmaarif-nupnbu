@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         $specificFilter = request()->specificFilter;
 
-        if ($request->wilayah) {
+        if ($request->wilayah && !in_array(auth()->user()->role, ['admin wilayah'])) {
             $wilayah = $request->get('wilayah');
             $cabang = PengurusCabang::with(["profile", "prov"])
                 ->orderBy('id_pc', 'DESC')

@@ -30,6 +30,7 @@
                             <small>daftar profile pengurus cabang</small>
                         </div>
                         <div class="d-flex">
+                            @if (!in_array(auth()->user()->role, ['admin wilayah']))
                             <div class="select-picker">
                                 @include('component.selectpicker', [
                                     'name' => 'wilayah',
@@ -41,6 +42,7 @@
                                     'data' => $prov,
                                 ])
                             </div>
+                            @endif
                             <a href="#" class="btn btn-success btn-sm ms-2 py-2" id="export-btn"><i
                                     class="ti ti-file-spreadsheet"></i> Export to Excel</a>
                         </div>
