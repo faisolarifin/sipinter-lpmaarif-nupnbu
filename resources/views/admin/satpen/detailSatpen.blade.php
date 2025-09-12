@@ -177,7 +177,7 @@
                             </div>
                             <div class="row">
                                 @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
-                                    <div class="col px-5 py-2 text-end">
+                                    <div class="col ps-3 pe-5 py-2 text-end">
                                         <form class="d-inline extendBtn"
                                             action="{{ route('a.satpen.changestatus', $satpenProfile->id_satpen) }}"
                                             method="post">

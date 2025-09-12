@@ -11,6 +11,9 @@ use App\Http\Controllers\{
     OSSController,
     SatpenController,
     FileViewerController,
+    NpypController,
+    NPYPUserController,
+    PTKController,
     Settings,ProfileORGController};
 use App\Http\Controllers\Admin\{
     SATPENController as SATPENControllerAdmin,
@@ -97,6 +100,23 @@ Route::middleware('mustlogin')->group(function() {
             Route::put('/other', [SatpenController::class, 'modifOther'])->name('other.save');
             Route::get('/other/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncOthers'])->name('other.sync');
 
+        });
+
+        /**
+         * NPYP User
+         */
+        Route::group(["prefix" => "npyp"], function() {
+            Route::get('/', [NPYPUserController::class, 'index'])->name('npyp.index');
+
+            // PTK Routes
+            Route::get('/ptk', [PTKController::class, 'index'])->name('ptk.index');
+            Route::get('/ptk/data', [PTKController::class, 'getPTKData'])->name('ptk.data');
+            Route::get('/ptk/status-counts', [PTKController::class, 'getStatusCounts'])->name('ptk.status-counts');
+            Route::post('/ptk', [PTKController::class, 'store'])->name('ptk.store');
+            Route::get('/ptk/{id}', [PTKController::class, 'show'])->name('ptk.show');
+            Route::put('/ptk/{id}', [PTKController::class, 'update'])->name('ptk.update');
+            Route::post('/ptk/{id}/revisi', [PTKController::class, 'submitRevisi'])->name('ptk.submit-revisi');
+            Route::delete('/ptk/{id}', [PTKController::class, 'destroy'])->name('ptk.destroy');
         });
         /**
          * OSS
@@ -268,6 +288,21 @@ Route::middleware('mustlogin')->group(function() {
                 Route::get('/cabang', [ProfileController::class, 'profileCabang'])->name('a.cabang')->withoutMiddleware('primaryadmin');
                 Route::get('/cabang/{ID}', [ProfileController::class, 'profileDetail'])->name('a.cabang.detail')->withoutMiddleware('primaryadmin');
                 Route::delete('/cabang', [ProfileController::class, 'destroyCabang'])->name('a.cabang.destroy');
+            });
+
+            Route::group(["prefix" => "npyp"], function() {
+               Route::get('/', [NpypController::class, 'indexNpyp'])->name('a.npyp');
+               Route::post('/', [NpypController::class, 'store'])->name('a.npyp.store');
+               Route::put('/{id}', [NpypController::class, 'update'])->name('a.npyp.update');
+               Route::get('/satpen-list', [NpypController::class, 'getSatpenList'])->name('a.npyp.satpen-list');
+               Route::get('/sekolah-naungan-data', [NpypController::class, 'getSekolahNaunganData'])->name('a.npyp.sekolah-naungan-data');
+               Route::post('/add-sekolah-naungan', [NpypController::class, 'addSekolahNaungan'])->name('a.npyp.add-sekolah-naungan');
+               Route::delete('/sekolah-naungan/{id}', [NpypController::class, 'deleteSekolahNaungan'])->name('a.npyp.delete-sekolah-naungan');
+               Route::get('/wilayah', [NpypController::class, 'indexNpypWilayah'])->name('a.npyp.wilayah');
+               Route::get('/wilayah/data', [NpypController::class, 'getNpypWilayahData'])->name('a.npyp.wilayah.data');
+               Route::get('/cabang', [NpypController::class, 'indexNpypCabang'])->name('a.npyp.cabang');
+               Route::get('/cabang/data', [NpypController::class, 'getNpypCabangData'])->name('a.npyp.cabang.data');
+               Route::get('/form', [NpypController::class, 'other'])->name('a.npyp.form');
             });
 
             Route::group(["prefix" => "bantuan"], function() {

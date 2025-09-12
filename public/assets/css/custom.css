@@ -309,3 +309,7 @@ input[readonly]:focus {
   outline: none;
   box-shadow: none;
 }
+
+.first-level .sidebar-link span {
+    margin-left: 2.3rem;
+}

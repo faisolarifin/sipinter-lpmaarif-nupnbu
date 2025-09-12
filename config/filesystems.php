@@ -46,6 +46,11 @@ return [
             'root' => storage_path('app/bhpnu-doc'),
         ],
 
+        'ptk-doc' => [
+            'driver' => 'local',
+            'root' => storage_path('app/ptk-doc'),
+        ],
+
         'oss-doc' => [
             'driver' => 'local',
             'root' => storage_path('app/oss-doc'),

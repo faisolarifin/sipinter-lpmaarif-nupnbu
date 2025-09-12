@@ -98,6 +98,41 @@
                 </a>
             </li>
             <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                    <span>
+                        <i class="ti ti-file-certificate"></i>
+                    </span>
+                    <span class="hide-menu">Manajemen NPYP</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                    <li class="sidebar-item">
+                        <a href="{{ route('a.npyp') }}" class="sidebar-link">
+                            <span class="hide-menu">Data NPYP Pusat</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('a.npyp.wilayah') }}" class="sidebar-link">
+                            <span class="hide-menu">Data NPYP Wilayah</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('a.npyp.cabang') }}" class="sidebar-link">
+                            <span class="hide-menu">Data NPYP Cabang</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <span class="hide-menu">Ajuan Verval PTK</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <span class="hide-menu">Rekap Verval PTK Nasional</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.bantuan') }}" aria-expanded="false">
                     <span>
                         <i class="ti ti-help"></i>
@@ -321,6 +356,7 @@
                     <span class="hide-menu">Manajemen Coretax</span>
                 </a>
             </li>
+            
             <li class="nav-small-cap">
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                 <span class="hide-menu">Pengajuan</span>
