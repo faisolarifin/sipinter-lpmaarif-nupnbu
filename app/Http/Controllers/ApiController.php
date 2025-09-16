@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class ApiController extends Controller
 {
-    public function getSatpenById(string $satpenId=null) {
+    public function getSatpenById($satpenId=null) {
         try {
             if ($satpenId) {
                 $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'cabang', 'jenjang', 'filereg', 'timeline' => function($query){
@@ -69,7 +69,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getKabupatenByProv(string $provId=null) {
+    public function getKabupatenByProv($provId=null) {
         try {
             if ($provId) {
                 $provs = Kabupaten::where('id_prov', '=', $provId)->get();
@@ -84,7 +84,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getPCByProv(string $provId=null) {
+    public function getPCByProv($provId=null) {
         try {
             if ($provId) {
                 $provs = PengurusCabang::where('id_prov', '=', $provId)->get();
@@ -120,7 +120,7 @@ class ApiController extends Controller
 
     }
 
-    public function getKabAndCount(int $provId=null) {
+    public function getKabAndCount($provId=null) {
         try {
             if (!$provId) $provId = Provinsi::min("id_prov");
             $recordPerKabupaten = DB::select("SELECT nama_kab, (SELECT COUNT(id_kab) FROM satpen WHERE id_kab=kabupaten.id_kab and status IN ('setujui','expired','perpanjangan')) AS record_count FROM kabupaten WHERE id_prov='$provId'");
@@ -180,7 +180,7 @@ class ApiController extends Controller
         }
     }
 
-    public function checkNPSNtoReferensiData(string $npsn=null) {
+    public function checkNPSNtoReferensiData($npsn=null) {
         try {
             if ($npsn) {
                 $cloneSekolah = new ReferensiKemdikbud();
@@ -198,4 +198,38 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * Get kabupaten by provinsi for dropdown filter
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getKabupatenByProvinsi(Request $request)
+    {
+        try {
+            $provinsi_id = $request->query('provinsi_id');
+            
+            if (!$provinsi_id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Provinsi ID is required',
+                    'data' => []
+                ], 400);
+            }
+
+            $kabupaten = Kabupaten::where('id_prov', $provinsi_id)
+                ->orderBy('nama_kab')
+                ->select('id_kab as id', 'nama_kab as nama')
+                ->get();
+
+            return response()->json($kabupaten, HttpResponse::HTTP_OK);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengambil data kabupaten: ' . $e->getMessage(),
+                'data' => []
+            ], 500);
+        }
+    }
 }

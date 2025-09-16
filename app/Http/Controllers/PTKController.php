@@ -441,7 +441,7 @@ class PTKController extends Controller
 
             // Delete file
             if ($ptk->upload_sk) {
-                Storage::disk('public')->delete($ptk->upload_sk);
+                Storage::disk("ptk-doc")->delete($ptk->upload_sk);
             }
 
             // Delete status history

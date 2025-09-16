@@ -14,7 +14,9 @@ use App\Http\Controllers\{
     NpypController,
     NPYPUserController,
     PTKController,
-    Settings,ProfileORGController};
+    Settings,
+    ProfileORGController
+};
 use App\Http\Controllers\Admin\{
     SATPENController as SATPENControllerAdmin,
     BHPNUController as BHPNUControllerAdmin,
@@ -23,13 +25,17 @@ use App\Http\Controllers\Admin\{
     VirtualNPSNController,
     UsersController,
     ProfileController,
-    ExportExcelController};
+    ExportExcelController
+};
 use App\Http\Controllers\Master\{
     InformasiController,
     JenjangPendidikanController,
     KabupatenController,
     PengurusCabangController,
-    PropinsiController,DapoController, TahunPelajaranController};
+    PropinsiController,
+    DapoController,
+    TahunPelajaranController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -58,13 +64,13 @@ Route::get('/npsnvirtual', [AuthController::class, 'npsnVirtualPage'])->name('np
 Route::post('/npsnvirtual', [AuthController::class, 'requestVirtualNPSN'])->name('npsnvirtual.request');
 Route::get('/json/provcount', [ApiController::class, 'getProvAndCount'])->name('provcount');
 
-Route::middleware('mustlogin')->group(function() {
+Route::middleware('mustlogin')->group(function () {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/gantipassword', [AuthController::class, 'changePassword'])->name('changepass');
     Route::get('/upload/{fileName?}', [FileViewerController::class, 'pdfUploadViewer'])->name('viewerpdf');
 
-    Route::group(["prefix" => "coretax", "middleware" => "verifysatpenactive"], function() {
+    Route::group(["prefix" => "coretax", "middleware" => "verifysatpenactive"], function () {
         Route::get('/forbidden', [CoretaxController::class, 'forbidden'])->name('coretax.403')->withoutMiddleware('verifysatpenactive');
         Route::get('/', [CoretaxController::class, 'index'])->name('coretax');
         Route::get('/new', [CoretaxController::class, 'new'])->name('coretax.new');
@@ -73,13 +79,13 @@ Route::middleware('mustlogin')->group(function() {
         Route::put('/{coretax}', [CoretaxController::class, 'stored'])->name('coretax.save');
     });
 
-    Route::middleware('onlyoperator')->group(function() {
+    Route::middleware('onlyoperator')->group(function () {
 
         Route::get('/dashboard', [SatpenController::class, 'dashboardPage'])->name('dashboard');
         /**
          * Satpen
          */
-        Route::group(["prefix" => "satpen"], function() {
+        Route::group(["prefix" => "satpen"], function () {
             Route::get('/', [SatpenController::class, 'mySatpenPage'])->name('mysatpen');
             Route::get('/edit', [SatpenController::class, 'editSatpenPage'])->name('mysatpen.revisi');
             Route::get('/perpanjang', [SatpenController::class, 'perpanjangSatpenPage'])->name('mysatpen.perpanjang');
@@ -87,25 +93,24 @@ Route::middleware('mustlogin')->group(function() {
             Route::put('/change/npsn/{satpen}', [SatpenController::class, 'changeNPSN'])->name('mysatpen.npsn');
             Route::put('/perpanjang', [SatpenController::class, 'revisionProses'])->name('mysatpen.perpanjang');
             Route::get('/download/{document}', [SatpenController::class, 'downloadDocument'])->name('download');
-            
+
             Route::get('/pdptk', [SatpenController::class, 'indexPDPTK'])->name('pdptk');
-            Route::get('/pdptk/edit', [SatpenController::class, 'indexPDPTK'])->name('pdptk.edit'); 
-            Route::get('/pdptk/dapo/{npsn}', [SatpenController::class, 'hitDapo'])->name('pdptk.dapo'); 
+            Route::get('/pdptk/edit', [SatpenController::class, 'indexPDPTK'])->name('pdptk.edit');
+            Route::get('/pdptk/dapo/{npsn}', [SatpenController::class, 'hitDapo'])->name('pdptk.dapo');
             Route::put('/pdptk', [SatpenController::class, 'modifPDPTK'])->name('pdptk.save');
             Route::get('/pdptk/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncPDPTK'])->name('pdptk.sync');
 
             Route::get('/other', [SatpenController::class, 'indexOther'])->name('other');
-            Route::get('/other/edit', [SatpenController::class, 'indexOther'])->name('other.edit'); 
-            Route::get('/other/dapo/{npsn}', [SatpenController::class, 'hitReferensi'])->name('other.referensi'); 
+            Route::get('/other/edit', [SatpenController::class, 'indexOther'])->name('other.edit');
+            Route::get('/other/dapo/{npsn}', [SatpenController::class, 'hitReferensi'])->name('other.referensi');
             Route::put('/other', [SatpenController::class, 'modifOther'])->name('other.save');
             Route::get('/other/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncOthers'])->name('other.sync');
-
         });
 
         /**
          * NPYP User
          */
-        Route::group(["prefix" => "npyp"], function() {
+        Route::group(["prefix" => "npyp"], function () {
             Route::get('/', [NPYPUserController::class, 'index'])->name('npyp.index');
 
             // PTK Routes
@@ -117,11 +122,12 @@ Route::middleware('mustlogin')->group(function() {
             Route::put('/ptk/{id}', [PTKController::class, 'update'])->name('ptk.update');
             Route::post('/ptk/{id}/revisi', [PTKController::class, 'submitRevisi'])->name('ptk.submit-revisi');
             Route::delete('/ptk/{id}', [PTKController::class, 'destroy'])->name('ptk.destroy');
+            Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file');
         });
         /**
          * OSS
          */
-        Route::group(["prefix" => "oss", "middleware" => "verifysatpenactive"], function() {
+        Route::group(["prefix" => "oss", "middleware" => "verifysatpenactive"], function () {
             Route::get('/forbidden', [OSSController::class, 'forbiddenPage'])->name('oss.403')->withoutMiddleware('verifysatpenactive');
             Route::get('/', [OSSController::class, 'landOSSRequest'])->name('oss');
             Route::get('/new', [OSSController::class, 'newOSSRequest'])->name('oss.new');
@@ -133,7 +139,7 @@ Route::middleware('mustlogin')->group(function() {
         /**
          * BHPNU
          */
-        Route::group(["prefix" => "bhpnu", "middleware" => "verifysatpenactive"], function() {
+        Route::group(["prefix" => "bhpnu", "middleware" => "verifysatpenactive"], function () {
             Route::get('/forbidden', [BHPNUController::class, 'forbiddenPage'])->name('bhpnu.403')->withoutMiddleware('verifysatpenactive');
             Route::get('/', [BHPNUController::class, 'permohonanBHPNUPage'])->name('bhpnu');
             Route::get('/new', [BHPNUController::class, 'permohonanBaruBHPNU'])->name('bhpnu.new');
@@ -141,15 +147,15 @@ Route::middleware('mustlogin')->group(function() {
             Route::get('/history', [BHPNUController::class, 'historyPermohonan'])->name('bhpnu.history');
             Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('bhpnu.file');
         });
-        Route::group(["prefix" => "bantuan"], function() {
+        Route::group(["prefix" => "bantuan"], function () {
             Route::get('/', [SatpenController::class, 'underConstruction'])->name('bantuan');
         });
 
-        Route::group(["prefix" => "beasiswa"], function() {
+        Route::group(["prefix" => "beasiswa"], function () {
             Route::get('/', [SatpenController::class, 'underConstruction'])->name('beasiswa');
         });
 
-        Route::group(["prefix" => "katalog"], function() {
+        Route::group(["prefix" => "katalog"], function () {
             Route::get('/', [SatpenController::class, 'underConstruction'])->name('katalog');
         });
         /**
@@ -160,7 +166,7 @@ Route::middleware('mustlogin')->group(function() {
         });
     });
 
-    Route::middleware('onlyadmin')->prefix('a')->group(function() {
+    Route::middleware('onlyadmin')->prefix('a')->group(function () {
         /**
          * Dashboard
          */
@@ -174,11 +180,11 @@ Route::middleware('mustlogin')->group(function() {
         Route::put('/settings', [Settings::class, 'saveSetting'])->name('a.setting.save');
         Route::get('/log-activity', [Settings::class, 'viewLogActivity'])->name('a.logactivity');
 
-        Route::middleware('primaryadmin')->group(function() {
+        Route::middleware('primaryadmin')->group(function () {
             /**
              * Master
              */
-            Route::group(["prefix" => "/master", "middleware" => "superadmin"], function (){
+            Route::group(["prefix" => "/master", "middleware" => "superadmin"], function () {
                 Route::resource('/informasi', InformasiController::class);
                 Route::resource('/propinsi', PropinsiController::class);
                 Route::resource('/kabupaten', KabupatenController::class);
@@ -186,12 +192,12 @@ Route::middleware('mustlogin')->group(function() {
                 Route::resource('/jenjang', JenjangPendidikanController::class);
                 Route::resource('/users', UsersController::class);
                 Route::resource('/tapel', TahunPelajaranController::class);
-                Route::group(["prefix" => "/dapo"], function (){
+                Route::group(["prefix" => "/dapo"], function () {
                     Route::get("/", [DapoController::class, 'index'])->name('dapo.index');
                     Route::delete("/{npsn}", [DapoController::class, 'destroy'])->name('dapo.delete');
                     Route::post("/", [DapoController::class, 'store'])->name('dapo.save');
                 });
-                Route::group(["prefix" => "operators"], function (){
+                Route::group(["prefix" => "operators"], function () {
                     Route::get("/", [UsersController::class, 'users'])->name('users.satpen');
                     Route::get("{user}/reset", [UsersController::class, 'reset'])->name('users.reset');
                     Route::get("{user}/block", [UsersController::class, 'block'])->name('users.block');
@@ -202,7 +208,7 @@ Route::middleware('mustlogin')->group(function() {
             /**
              * Satpen
              */
-            Route::group(["prefix" => "satpen"], function() {
+            Route::group(["prefix" => "satpen"], function () {
                 Route::get('/', [SATPENControllerAdmin::class, 'permohonanRegisterSatpen'])->name('a.satpen');
                 Route::put('/{satpen}/status', [SATPENControllerAdmin::class, 'updateSatpenStatus'])->name('a.satpen.changestatus');
                 Route::get('/rekap', [SATPENControllerAdmin::class, 'getAllSatpenOrFilter'])->name('a.rekapsatpen')->withoutMiddleware('primaryadmin');
@@ -213,24 +219,23 @@ Route::middleware('mustlogin')->group(function() {
                 Route::get('/email/{satpen}', [SATPENControllerAdmin::class, 'sendNotifEmail'])->name('email.notif');
                 Route::get('/reader/{type?}/{fileName?}', [FileViewerController::class, 'pdfGeneratedViewer'])->name('pdf.generated')->withoutMiddleware('primaryadmin');
                 Route::get('/export_excel', [ExportExcelController::class, 'exportSatpentoExcel'])->name('satpen.excel')->withoutMiddleware('primaryadmin');
-                
+
                 Route::get('/pdptk', [SATPENControllerAdmin::class, 'getAllPDPTKOrFilter'])->name('a.pdptk')->withoutMiddleware('primaryadmin');;
                 Route::get('/pdptk/sync', [SATPENControllerAdmin::class, 'processBulkSyncPDPTK'])->name('a.pdptk.sync');
                 Route::get('/pdptk/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncPDPTK'])->name('a.pdptk.syncid');
                 Route::get('/pdptk/export_excel', [ExportExcelController::class, 'exportPDPTKtoExcel'])->name('pdptk.excel')->withoutMiddleware('primaryadmin');
-                
+
                 Route::get('/other', [SATPENControllerAdmin::class, 'getAllOtherDataOrFilter'])->name('a.other')->withoutMiddleware('primaryadmin');;
                 Route::get('/other/sync', [SATPENControllerAdmin::class, 'processBulkSyncOthers'])->name('a.other.sync');
                 Route::get('/other/sync/{satpen}', [SATPENControllerAdmin::class, 'processSyncOthers'])->name('a.other.syncid');
                 Route::get('/other/export_excel', [ExportExcelController::class, 'exportOthersDatatoExcel'])->name('other.excel')->withoutMiddleware('primaryadmin');
-                
-                Route::get('/layanan/{userId}', [SATPENControllerAdmin::class, 'showHistoryLayanan'])->name('a.satpen.history')->withoutMiddleware('primaryadmin');
 
+                Route::get('/layanan/{userId}', [SATPENControllerAdmin::class, 'showHistoryLayanan'])->name('a.satpen.history')->withoutMiddleware('primaryadmin');
             });
             /**
              * Virtual NPSN
              */
-            Route::group(["prefix" => "virtualnpsn"], function() {
+            Route::group(["prefix" => "virtualnpsn"], function () {
                 Route::get('/', [VirtualNPSNController::class, 'listPermohonanVNPSN'])->name('a.vnpsn');
                 Route::delete('/{virtualNPSN}', [VirtualNPSNController::class, 'destroyVNPSN'])->name('a.vnpsn.destroy')->middleware('superadmin');
                 Route::delete('/reject/{virtualNPSN}', [VirtualNPSNController::class, 'rejectPermohonanVNPSN'])->name('a.vnpsn.reject');
@@ -239,7 +244,7 @@ Route::middleware('mustlogin')->group(function() {
             /**
              * OSS
              */
-            Route::group(["prefix" => "oss"], function() {
+            Route::group(["prefix" => "oss"], function () {
                 Route::get('/', [OSSControllerAdmin::class, 'listPermohonanOSS'])->name('a.oss')->withoutMiddleware('primaryadmin');
                 Route::get('/detail/{ossId}', [OSSControllerAdmin::class, 'detailOSSQuesioner'])->name('a.oss.detail');
                 Route::put('/acc/{oss}', [OSSControllerAdmin::class, 'setAcceptOSS'])->name('a.oss.acc');
@@ -252,7 +257,7 @@ Route::middleware('mustlogin')->group(function() {
             /**
              * BHPNU
              */
-            Route::group(["prefix" => "bhpnu"], function() {
+            Route::group(["prefix" => "bhpnu"], function () {
                 Route::get('/', [BHPNUControllerAdmin::class, 'listPermohonanBHPNU'])->name('a.bhpnu')->withoutMiddleware('primaryadmin');
                 Route::get('/acc/{bhpnu}', [BHPNUControllerAdmin::class, 'setAcceptBHPNU'])->name('a.bhpnu.acc');
                 Route::put('/appear/{bhpnu}', [BHPNUControllerAdmin::class, 'setIzinTerbitBHPNU'])->name('a.bhpnu.appear');
@@ -264,7 +269,7 @@ Route::middleware('mustlogin')->group(function() {
             /**
              * CORETAX
              */
-            Route::group(["prefix" => "coretax"], function() {
+            Route::group(["prefix" => "coretax"], function () {
                 Route::get('/', [CoretaxAdminController::class, 'index'])->name('a.coretax')->withoutMiddleware('primaryadmin');
                 Route::get('/{coretaxId}', [CoretaxAdminController::class, 'getById'])->name('a.coretax.byid');
                 Route::get('/acc/{coretax}', [CoretaxAdminController::class, 'accepted'])->name('a.coretax.acc');
@@ -277,11 +282,11 @@ Route::middleware('mustlogin')->group(function() {
             /**
              * PROFILE
              */
-            Route::group(["prefix" => "profile"], function() {
+            Route::group(["prefix" => "profile"], function () {
                 //export
                 Route::get('/wilayah/export_excel', [ExportExcelController::class, 'exportWilayahtoExcel'])->name('wilayah.excel')->withoutMiddleware('primaryadmin');
                 Route::get('/cabang/export_excel', [ExportExcelController::class, 'exportCabangtoExcel'])->name('cabang.excel')->withoutMiddleware('primaryadmin');
-                
+
                 Route::get('/wilayah', [ProfileController::class, 'profileWilayah'])->name('a.wilayah');
                 Route::get('/wilayah/{ID}', [ProfileController::class, 'profileDetail'])->name('a.wilayah.detail');
                 Route::delete('/wilayah', [ProfileController::class, 'destroyWilayah'])->name('a.wilayah.destroy');
@@ -290,56 +295,58 @@ Route::middleware('mustlogin')->group(function() {
                 Route::delete('/cabang', [ProfileController::class, 'destroyCabang'])->name('a.cabang.destroy');
             });
 
-            Route::group(["prefix" => "npyp"], function() {
-               Route::get('/', [NpypController::class, 'indexNpyp'])->name('a.npyp');
-               Route::post('/', [NpypController::class, 'store'])->name('a.npyp.store');
-               Route::put('/{id}', [NpypController::class, 'update'])->name('a.npyp.update');
-               Route::get('/satpen-list', [NpypController::class, 'getSatpenList'])->name('a.npyp.satpen-list');
-               Route::get('/sekolah-naungan-data', [NpypController::class, 'getSekolahNaunganData'])->name('a.npyp.sekolah-naungan-data');
-               Route::post('/add-sekolah-naungan', [NpypController::class, 'addSekolahNaungan'])->name('a.npyp.add-sekolah-naungan');
-               Route::delete('/sekolah-naungan/{id}', [NpypController::class, 'deleteSekolahNaungan'])->name('a.npyp.delete-sekolah-naungan');
-               Route::get('/wilayah', [NpypController::class, 'indexNpypWilayah'])->name('a.npyp.wilayah');
-               Route::get('/wilayah/data', [NpypController::class, 'getNpypWilayahData'])->name('a.npyp.wilayah.data');
-               Route::get('/cabang', [NpypController::class, 'indexNpypCabang'])->name('a.npyp.cabang');
-               Route::get('/cabang/data', [NpypController::class, 'getNpypCabangData'])->name('a.npyp.cabang.data');
-               Route::get('/form', [NpypController::class, 'other'])->name('a.npyp.form');
+            Route::group(["prefix" => "npyp"], function () {
+                Route::get('/', [NpypController::class, 'indexNpyp'])->name('a.npyp');
+                Route::withoutMiddleware('primaryadmin')->group(function () {
+                    Route::post('/', [NpypController::class, 'store'])->name('a.npyp.store');
+                    Route::put('/{id}', [NpypController::class, 'update'])->name('a.npyp.update');
+                    Route::get('/satpen-list', [NpypController::class, 'getSatpenList'])->name('a.npyp.satpen-list')->withoutMiddleware('primaryadmin');
+                    Route::get('/sekolah-naungan-data', [NpypController::class, 'getSekolahNaunganData'])->name('a.npyp.sekolah-naungan-data');
+                    Route::post('/add-sekolah-naungan', [NpypController::class, 'addSekolahNaungan'])->name('a.npyp.add-sekolah-naungan');
+                    Route::delete('/sekolah-naungan/{id}', [NpypController::class, 'deleteSekolahNaungan'])->name('a.npyp.delete-sekolah-naungan');
+                    Route::get('/wilayah', [NpypController::class, 'indexNpypWilayah'])->name('a.npyp.wilayah');
+                    Route::get('/cabang', [NpypController::class, 'indexNpypCabang'])->name('a.npyp.cabang');
+                    Route::get('/cabang/data', [NpypController::class, 'getNpypCabangData'])->name('a.npyp.cabang.data');
+                });
+                Route::get('/wilayah/data', [NpypController::class, 'getNpypWilayahData'])->name('a.npyp.wilayah.data');
+                Route::get('/rekap-ptk', [NpypController::class, 'rekapPtkNasional'])->name('a.npyp.rekap-ptk');
+                Route::get('/rekap-ptk/{id}/detail', [NpypController::class, 'getPtkDetail'])->name('a.npyp.ptk-detail');
+                Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file');
             });
 
-            Route::group(["prefix" => "bantuan"], function() {
-               Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('a.bantuan');
+            Route::group(["prefix" => "bantuan"], function () {
+                Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('a.bantuan');
             });
 
-            Route::group(["prefix" => "beasiswa"], function() {
+            Route::group(["prefix" => "beasiswa"], function () {
                 Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('a.beasiswa');
             });
 
-            Route::group(["prefix" => "katalog"], function() {
+            Route::group(["prefix" => "katalog"], function () {
                 Route::get('/', [SATPENControllerAdmin::class, 'underConstruction'])->name('a.katalog');
             });
-
         });
-
     });
     /**
      * API Json
      */
     Route::prefix('api')->middleware('onlyadmin')->group(function () {
         Route::get('/provcount', [ApiController::class, 'getProvAndCount'])->name('api.provcount');
-        Route::get('/satpen/search', [ApiController::class, 'searchSatpen'])->name('api.searchsatpen')->withoutMiddleware(["onlyadmin","mustlogin"]);
+        Route::get('/satpen/search', [ApiController::class, 'searchSatpen'])->name('api.searchsatpen')->withoutMiddleware(["onlyadmin", "mustlogin"]);
         Route::get('/satpen/{satpenId}', [ApiController::class, 'getSatpenById'])->name('api.satpenbyid');
-        Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov')->withoutMiddleware(["onlyadmin","mustlogin"]);
-        Route::get('/pc/{provId}', [ApiController::class, 'getPCByProv'])->name('api.pcbyprov')->withoutMiddleware(["onlyadmin","mustlogin"]);
+        Route::get('/kabupaten/{provId}', [ApiController::class, 'getKabupatenByProv'])->name('api.kabupatenbyprov')->withoutMiddleware(["onlyadmin", "mustlogin"]);
+        Route::get('/pc/{provId}', [ApiController::class, 'getPCByProv'])->name('api.pcbyprov')->withoutMiddleware(["onlyadmin", "mustlogin"]);
         Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
         Route::get('/pccount', [ApiController::class, 'getPCAndCount'])->name('api.pccount');
         Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
+        Route::get('/kabupaten', [ApiController::class, 'getKabupatenByProvinsi'])->name('api.kabupaten');
     });
-
 });
 
 /**
  * Forgot Password
  */
-Route::prefix("auth")->group(function() {
+Route::prefix("auth")->group(function () {
     Route::get('forgot', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forgot');
     Route::post('forgot', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.send');
     Route::get('reset/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset');

@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
 @endsection
 
-<select class="selectpicker" data-show-subtext="false" data-live-search="true" name="{{ $name }}">
+<select class="selectpicker" data-show-subtext="false" data-live-search="true" name="{{ $name }}" id="{{ @$id }}">
     <option value="">{{ $default }}</option>
     @foreach ($data as $item)
         <option value="{{ $item[$val] }}" {{ $item[$val] == $current ? 'selected' : '' }}>{{ $prefix . $item[$label] }}
@@ -58,11 +58,11 @@
 
                     let kabParam = location.search.split("&");
                     if (kabParam.length > 1) {
-                        kabParam = kabParam[1].split("=")[1];
+                        kabParam = kabParam[1]?.split("=")[1];
                         $select.val(kabParam);
                     }
 
-                    $('.selectpicker').selectpicker('refresh');
+                    $select.selectpicker('refresh');
                 }
             })
         }
@@ -88,11 +88,11 @@
 
                     let pcParam = location.search.split("&");
                     if (pcParam.length > 1) {
-                        pcParam = pcParam[2].split("=")[1];
+                        pcParam = pcParam[2]?.split("=")[1];
                         $select.val(pcParam);
                     }
 
-                    $('.selectpicker').selectpicker('refresh');
+                    $select.selectpicker('refresh');
                 }
             })
         }

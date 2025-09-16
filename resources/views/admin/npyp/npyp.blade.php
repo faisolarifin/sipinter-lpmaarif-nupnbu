@@ -26,10 +26,10 @@
                     <div class="row align-items-center">
                         <div class="col-md-8">
                             <h4 class="card-title fw-bold text-warning mb-2">
-                                <i class="ti ti-shield-star me-2"></i>MANAJEMEN DATA NPYP PUSAT
+                                <i class="ti ti-shield-star me-2"></i>MANAJEMEN DATA NPYP
                             </h4>
                             <p class="text-muted mb-0">
-                                Halaman ini digunakan untuk mengelola data Nomor Pokok Yayasan Penyelenggara (NPYP) tingkat pusat. 
+                                Halaman ini digunakan untuk mengelola data Nomor Pokok Yayasan Penyelenggara (NPYP) tingkat. 
                                 NPYP merupakan identitas unik yang diberikan kepada yayasan penyelenggara pendidikan yang telah memenuhi 
                                 persyaratan dan terdaftar secara resmi di sistem.
                             </p>
@@ -44,7 +44,7 @@
                                         <i class="ti ti-alert-circle"></i> Belum Ada
                                     @endif
                                 </h4>
-                                <small class="text-muted">NPYP Pusat</small>
+                                <small class="text-muted">NPYP</small>
                             </div>
                         </div>
                     </div>
@@ -58,9 +58,9 @@
                         <h5 class="card-title fw-bold mb-0">
                             <i class="ti ti-forms me-2"></i>
                             @if($npyp)
-                                Edit Data NPYP Pusat
+                                Edit Data NPYP
                             @else
-                                Tambah Data NPYP Pusat Baru
+                                Tambah Data NPYP Baru
                             @endif
                         </h5>
                         <span class="badge bg-light-warning text-warning">
@@ -77,9 +77,9 @@
                         <div>
                             <strong>Petunjuk:</strong> 
                             @if($npyp)
-                                Anda dapat mengubah informasi NPYP pusat melalui form di bawah ini. Pastikan semua data terisi dengan benar sebelum menyimpan.
+                                Anda dapat mengubah informasi NPYP melalui form di bawah ini. Pastikan semua data terisi dengan benar sebelum menyimpan.
                             @else
-                                Lengkapi semua informasi yang diperlukan untuk mendaftarkan NPYP pusat baru. Semua field wajib diisi.
+                                Lengkapi semua informasi yang diperlukan untuk mendaftarkan NPYP baru. Semua field wajib diisi.
                             @endif
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                         <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
                             <i class="ti ti-info-circle me-2"></i>
                             <div>
-                                <strong>Informasi:</strong> Tabel di bawah ini menampilkan daftar sekolah/satuan pendidikan yang berada dalam naungan NPYP pusat. 
+                                <strong>Informasi:</strong> Tabel di bawah ini menampilkan daftar sekolah/satuan pendidikan yang berada dalam naungan NPYP. 
                                 Gunakan tombol "Tambah Sekolah Naungan" untuk menambahkan sekolah baru atau fitur pencarian untuk menemukan data tertentu.
                             </div>
                         </div>
@@ -210,7 +210,7 @@
                         <div class="alert alert-warning d-flex align-items-center mb-3" role="alert">
                             <i class="ti ti-alert-triangle me-2"></i>
                             <div>
-                                <strong>Perhatian:</strong> Untuk dapat mengelola sekolah naungan, silakan lengkapi dan simpan data NPYP pusat terlebih dahulu 
+                                <strong>Perhatian:</strong> Untuk dapat mengelola sekolah naungan, silakan lengkapi dan simpan data NPYP terlebih dahulu 
                                 menggunakan form di atas. Setelah data NPYP tersimpan, Anda dapat menambahkan sekolah-sekolah yang berada dalam naungan NPYP tersebut.
                             </div>
                         </div>

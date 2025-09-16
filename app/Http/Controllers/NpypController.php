@@ -5,15 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Satpen;
 use App\Models\NPYP;
 use App\Models\NPYPSatpen;
+use App\Models\PTK;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NpypController extends Controller
 {
+    protected function specificFilter() {
+        $specificFilter = request()->specificFilter;
+        $specificFilter["id_pw"] = @$specificFilter["id_prov"];
+        unset($specificFilter["id_prov"]);
+        return $specificFilter;
+    }
+
+    protected function npyp() {
+        return NPYP::where($this->specificFilter())->first();
+    }
+
     public function indexNpyp() {
-        // Get NPYP data for super admin (id_pw and id_pc are null)
-        $npyp = NPYP::whereNull('id_pw')->whereNull('id_pc')->first();
-        
+        $npyp = $this->npyp();
         return view('admin.npyp.npyp', compact('npyp'));
     }
 
@@ -27,6 +40,8 @@ class NpypController extends Controller
             // Fetch satpen data from database with relationships
             $satpenPaginated = Satpen::with(['jenjang', 'provinsi', 'kabupaten'])
                 ->select('id_satpen', 'no_registrasi', 'nm_satpen', 'id_jenjang', 'id_prov', 'id_kab', 'status', 'npsn')
+                ->where(request()->specificFilter)
+                ->whereNotIn('id_satpen', NPYPSatpen::pluck('id_satpen'))
                 ->paginate($perPage, ['*'], 'page', $page);
 
             $satpenList = $satpenPaginated->map(function($satpen) {
@@ -89,7 +104,7 @@ class NpypController extends Controller
             }
 
             // Check if NPYP data already exists for super admin
-            $existingNpyp = NPYP::whereNull('id_pw')->whereNull('id_pc')->first();
+            $existingNpyp = $this->npyp();
 
             if ($existingNpyp) {
                 // Update existing data
@@ -100,20 +115,19 @@ class NpypController extends Controller
                     'nomor_operator' => $request->nomor_operator,
                 ]);
 
-                return redirect()->route('a.npyp')
+                return redirect()->back()
                     ->with('success', 'Data NPYP berhasil diperbarui');
             } else {
                 // Create new data
                 NPYP::create([
-                    'id_pw' => null,
-                    'id_pc' => null,
+                    ...$this->specificFilter(),
                     'nomor_npyp' => $request->nomor_npyp,
                     'nama_npyp' => $request->nama_npyp,
                     'nama_operator' => $request->nama_operator,
                     'nomor_operator' => $request->nomor_operator,
                 ]);
 
-                return redirect()->route('a.npyp')
+                return redirect()->back()
                     ->with('success', 'Data NPYP berhasil disimpan');
             }
 
@@ -155,7 +169,7 @@ class NpypController extends Controller
                 'nomor_operator' => $request->nomor_operator,
             ]);
 
-            return redirect()->route('a.npyp')
+            return redirect()->back()
                 ->with('success', 'Data NPYP berhasil diperbarui');
 
         } catch (\Exception $e) {
@@ -169,7 +183,7 @@ class NpypController extends Controller
     {
         try {
             // Get NPYP data for super admin
-            $npyp = NPYP::whereNull('id_pw')->whereNull('id_pc')->first();
+            $npyp = $this->npyp();
             
             if (!$npyp) {
                 return response()->json([
@@ -303,7 +317,7 @@ class NpypController extends Controller
     {
         try {
             // Get NPYP data for super admin
-            $npyp = NPYP::whereNull('id_pw')->whereNull('id_pc')->first();
+            $npyp = $this->npyp();
             
             if (!$npyp) {
                 return response()->json([
@@ -387,6 +401,10 @@ class NpypController extends Controller
 
     public function indexNpypWilayah() 
     {
+        if (in_array(auth()->user()->role, ["admin wilayah"])) {
+            return $this->indexNpyp();
+        }
+
         return view('admin.npyp.wilayah');
     }
 
@@ -477,6 +495,10 @@ class NpypController extends Controller
 
     public function indexNpypCabang() 
     {
+        if (in_array(auth()->user()->role, ["admin cabang"])) {
+            return $this->indexNpyp();
+        }
+
         return view('admin.npyp.cabang');
     }
 
@@ -485,7 +507,9 @@ class NpypController extends Controller
         try {
             // Base query for NPYP with id_pc not null (cabang data)
             $query = NPYP::with(['pengurusCabang.prov'])
-                ->whereNotNull('id_pc');
+                ->whereHas("pengurusCabang.prov", function ($query) {
+                    $query->where(request()->specificFilter);
+                });
 
             // Search functionality
             if ($request->has('search') && !empty($request->search['value'])) {
@@ -505,7 +529,9 @@ class NpypController extends Controller
             }
 
             // Get total records before pagination
-            $totalRecords = NPYP::whereNotNull('id_pc')->count();
+            $totalRecords = NPYP::whereHas("pengurusCabang.prov", function ($query) {
+                    $query->where(request()->specificFilter);
+                })->count();
             $filteredRecords = $query->count();
 
             // Pagination
@@ -579,8 +605,306 @@ class NpypController extends Controller
         }
     }
 
-    public function other() {
-        return view('admin.npyp.formPtk');
+    /**
+     * Display PTK National Summary
+     * 
+     * @param Request $request
+     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function rekapPtkNasional(Request $request)
+    {
+        try {
+            // Fixed query with correct relationships
+            $query = PTK::with([
+                'satpen',
+                'npyp'
+            ])
+            ->whereNotNull('id_satpen'); // Make sure we have satpen data
+
+            // Apply filters
+            $this->applyPtkFilters($query, $request);
+
+            // Handle Excel export
+            if ($request->has('export') && $request->export === 'excel') {
+                return $this->exportPtkExcel($query->get());
+            }
+
+            // Get statistics
+            $statistics = $this->getPtkStatistics();
+
+            // Determine items per page - use smaller default to force pagination for testing
+            $perPage = (int) $request->input('per_page', 10); // Changed to 5 for testing pagination
+            $perPage = in_array($perPage, [10, 25, 50, 100]) ? $perPage : 10;
+
+            // Paginate results
+            $ptkData = $query->paginate($perPage)->appends($request->query());
+
+            // Get filter data
+            $provinsi = Provinsi::orderBy('nm_prov')->get();
+
+            // Debug: uncomment to check if we have data
+            // dd($ptkData->total(), $ptkData->count(), $ptkData->hasPages(), $ptkData->items());
+
+            return view('admin.npyp.rekapPtkNasional', compact(
+                'ptkData',
+                'provinsi'
+            ) + $statistics);
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan saat memuat data PTK: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Apply filters to PTK query
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Request $request
+     * @return void
+     */
+    private function applyPtkFilters($query, Request $request)
+    {
+        // Filter by Province
+        if ($request->filled('provinsi_id')) {
+            $query->whereHas('satpen.provinsi', function($q) use ($request) {
+                $q->where('id_prov', $request->provinsi_id);
+            });
+        }
+
+        // Filter by District
+        if ($request->filled('cabang_id')) {
+            $query->whereHas('satpen.cabang', function($q) use ($request) {
+                $q->where('id_pc', $request->cabang_id);
+            });
+        }
+
+        // Filter by Submission Status
+        if ($request->filled('status_pengajuan')) {
+            $statusMapping = [
+                'disetujui' => ['approve', 'dikeluarkan'],
+                'menunggu' => ['verifikasi', 'proses'],
+                'ditolak' => ['revisi']
+            ];
+
+            if (isset($statusMapping[$request->status_pengajuan])) {
+                $query->whereIn('status_ajuan', $statusMapping[$request->status_pengajuan]);
+            }
+        }
+
+        // Filter by PTK Type
+        if ($request->filled('jenis_ptk')) {
+            $query->where('jenis_ptk', $request->jenis_ptk);
+        }
+
+        // Add search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_ptk', 'LIKE', "%{$search}%")
+                  ->orWhere('nik', 'LIKE', "%{$search}%")
+                  ->orWhereHas('satpen', function($sq) use ($search) {
+                      $sq->where('nm_satpen', 'LIKE', "%{$search}%")
+                        ->orWhere('no_registrasi', 'LIKE', "%{$search}%");
+                  });
+            });
+        }
+    }
+
+    /**
+     * Get PTK statistics for dashboard
+     * 
+     * @return array
+     */
+    private function getPtkStatistics()
+    {
+        $totalPtk = PTK::count();
+        
+        $ptkDisetujui = PTK::where('status_ajuan', 'approve')->count();
+        
+        $ptkMenunggu = PTK::whereIn('status_ajuan', ['verifikasi', 'proses'])->count();
+        
+        $ptkDitolak = PTK::where('status_ajuan', 'revisi')->count();
+        
+        $ptkDikeluarkan = PTK::where('status_ajuan', 'dikeluarkan')->count();
+
+        return [
+            'totalPtk' => $totalPtk,
+            'ptkDisetujui' => $ptkDisetujui,
+            'ptkMenunggu' => $ptkMenunggu,
+            'ptkDitolak' => $ptkDitolak,
+            'ptkDikeluarkan' => $ptkDikeluarkan
+        ];
+    }
+
+    /**
+     * Export PTK data to Excel
+     * 
+     * @param \Illuminate\Database\Eloquent\Collection $ptkData
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    private function exportPtkExcel($ptkData)
+    {
+        $exportData = $ptkData->map(function ($ptk, $index) {
+            return [
+                'No' => $index + 1,
+                'No Registrasi' => $ptk->satpen->no_registrasi ?? '-',
+                'No NPYP' => $ptk->npyp->nomor_npyp ?? '-',
+                'Nama Satpen' => $ptk->satpen->nm_satpen ?? '-',
+                'Kabupaten/Kota' => $ptk->satpen->kabupaten->nama_kab ?? '-',
+                'Provinsi' => $ptk->satpen->provinsi->nm_prov ?? '-',
+                'Nama PTK' => $ptk->nama_ptk ?? '-',
+                'NIK' => $ptk->nik ?? '-',
+                'Jenis PTK' => $ptk->jenis_ptk ?? '-',
+                'Status Kepegawaian' => $ptk->status_kepegawaian ?? '-',
+                'Status Pengajuan' => $this->getStatusPengajuanLabel($ptk->status_ajuan),
+                'Petugas Approval' => $ptk->npyp->nama_operator ?? '-',
+                'Catatan' => $ptk->keterangan_revisi ?? '-',
+                'Tanggal Dibuat' => $ptk->created_at ? $ptk->created_at->format('d/m/Y H:i') : '-'
+            ];
+        });
+
+        $filename = 'rekap_ptk_nasional_' . date('Y-m-d_H-i-s') . '.xlsx';
+
+        return Excel::download(new class($exportData) implements \Maatwebsite\Excel\Concerns\FromCollection {
+            private $data;
+            
+            public function __construct($data) {
+                $this->data = $data;
+            }
+            
+            public function collection() {
+                return collect($this->data);
+            }
+        }, $filename);
+    }
+
+    /**
+     * Get readable status label
+     *
+     * @param string $status
+     * @return string
+     */
+    private function getStatusPengajuanLabel($status)
+    {
+        $labels = [
+            'verifikasi' => 'Menunggu Verifikasi',
+            'revisi' => 'Perlu Revisi',
+            'proses' => 'Dalam Proses',
+            'approve' => 'Disetujui',
+            'dikeluarkan' => 'SK Dikeluarkan'
+        ];
+
+        return $labels[$status] ?? 'Status Tidak Diketahui';
+    }
+
+    /**
+     * Get PTK detail for modal
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPtkDetail($id)
+    {
+        try {
+            $ptk = PTK::with([
+                'satpen.jenjang',
+                'satpen.provinsi',
+                'satpen.kabupaten',
+                'npyp'
+            ])->find($id);
+
+            if (!$ptk) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data PTK tidak ditemukan'
+                ], 404);
+            }
+
+            $data = [
+                'id' => $ptk->id,
+                // Identitas PTK
+                'nik' => $ptk->nik,
+                'nama_ptk' => $ptk->nama_ptk,
+                'tempat_lahir' => $ptk->tempat_lahir,
+                'tanggal_lahir' => $ptk->tanggal_lahir ? $ptk->tanggal_lahir->format('Y-m-d') : null,
+                'jenis_kelamin' => $ptk->jenis_kelamin,
+                'nama_ibu' => $ptk->nama_ibu,
+                'agama' => $ptk->agama,
+                'kebutuhan_khusus' => $ptk->kebutuhan_khusus,
+                'status_perkawinan' => $ptk->status_perkawinan,
+                'email' => $ptk->email,
+                'kabupaten_kota' => $ptk->kabupaten_kota,
+                'kecamatan' => $ptk->kecamatan,
+                'desa_kelurahan' => $ptk->desa_kelurahan,
+                'alamat' => $ptk->alamat,
+                'kode_pos' => $ptk->kode_pos,
+
+                // Informasi Kepegawaian
+                'jenis_ptk' => $ptk->jenis_ptk,
+                'status_kepegawaian' => $ptk->status_kepegawaian,
+                'nip' => $ptk->nip,
+                'lembaga_pengangkat' => $ptk->lembaga_pengangkat,
+                'no_sk_pengangkatan' => $ptk->no_sk_pengangkatan,
+                'tmt_pengangkatan' => $ptk->tmt_pengangkatan ? $ptk->tmt_pengangkatan->format('Y-m-d') : null,
+                'sumber_gaji' => $ptk->sumber_gaji,
+                'lisensi_kepala_sekolah' => $ptk->lisensi_kepala_sekolah,
+
+                // Penugasan
+                'nomor_surat_tugas' => $ptk->nomor_surat_tugas,
+                'tanggal_surat_tugas' => $ptk->tanggal_surat_tugas ? $ptk->tanggal_surat_tugas->format('Y-m-d') : null,
+                'tmt_tugas' => $ptk->tmt_tugas ? $ptk->tmt_tugas->format('Y-m-d') : null,
+                'upload_sk' => $ptk->upload_sk,
+
+                // Status Pengajuan & Timeline
+                'status_ajuan' => $ptk->status_ajuan,
+                'tanggal_verifikasi' => $ptk->tanggal_verifikasi ? $ptk->tanggal_verifikasi->format('Y-m-d H:i:s') : null,
+                'tanggal_approve' => $ptk->tanggal_approve ? $ptk->tanggal_approve->format('Y-m-d H:i:s') : null,
+                'tanggal_dikeluarkan' => $ptk->tanggal_dikeluarkan ? $ptk->tanggal_dikeluarkan->format('Y-m-d H:i:s') : null,
+                'verifikator_id' => $ptk->verifikator_id,
+                'approver_id' => $ptk->approver_id,
+                'keterangan_revisi' => $ptk->keterangan_revisi,
+                'nomor_sk_keluar' => $ptk->nomor_sk_keluar,
+                'created_at' => $ptk->created_at ? $ptk->created_at->format('Y-m-d H:i:s') : null,
+
+                // Informasi Satpen
+                'satpen' => [
+                    'nama' => $ptk->satpen->nm_satpen ?? null,
+                    'no_registrasi' => $ptk->satpen->no_registrasi ?? null,
+                    'npsn' => $ptk->satpen->npsn ?? null,
+                    'jenjang' => $ptk->satpen->jenjang->nm_jenjang ?? null,
+                    'alamat' => $ptk->satpen->alamat ?? null,
+                    'kecamatan' => $ptk->satpen->kecamatan ?? null,
+                    'kabupaten' => [
+                        'nama' => $ptk->satpen->kabupaten->nama_kab ?? null,
+                        'provinsi' => [
+                            'nama' => $ptk->satpen->provinsi->nm_prov ?? null
+                        ]
+                    ]
+                ],
+
+                // Informasi NPYP
+                'npyp' => [
+                    'nomor_npyp' => $ptk->npyp->nomor_npyp ?? null,
+                    'nama_npyp' => $ptk->npyp->nama_npyp ?? null,
+                    'nama_operator' => $ptk->npyp->nama_operator ?? null,
+                    'nomor_operator' => $ptk->npyp->nomor_operator ?? null
+                ],
+
+                'documents' => []
+            ];
+
+            return response()->json([
+                'success' => true,
+                'data' => $data
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengambil detail PTK: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 }

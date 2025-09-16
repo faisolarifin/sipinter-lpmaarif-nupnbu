@@ -214,6 +214,7 @@
   </script>
 
   @yield('scripts')
+  @yield('modalscripts')
   @yield('extendscripts')
 
 </body>

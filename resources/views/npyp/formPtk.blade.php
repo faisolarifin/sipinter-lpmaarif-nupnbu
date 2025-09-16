@@ -1083,7 +1083,7 @@ function generatePTKDetailHTML(ptk, history) {
                                             </label>
                                             <div class="p-3 bg-light rounded">
                                                 ${ptk.upload_sk ? 
-                                                    `<a href="${ptk.upload_sk}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                                    `<a href="file/${ptk.upload_sk}" target="_blank" class="btn btn-outline-primary btn-sm">
                                                         <i class="ti ti-eye me-1"></i>Lihat Dokumen SK
                                                     </a>` : 
                                                     '<span class="text-muted">Belum ada dokumen</span>'
