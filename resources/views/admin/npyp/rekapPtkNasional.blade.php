@@ -213,7 +213,6 @@
                                 <label class="form-label">Cabang</label>
                                 @include('component.selectpicker', [
                                     'id' => 'cabang_id',
-                                    'name' => 'id_cabang',
                                     'name' => 'cabang',
                                     'prefix' => '',
                                     'current' => request('id_cabang'),

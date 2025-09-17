@@ -220,17 +220,29 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="filterProvinsi" class="form-label">Filter Provinsi</label>
-                                <select class="form-select" id="filterProvinsi" name="filterProvinsi">
-                                    <option value="">Semua Provinsi</option>
-                                    <!-- Options will be populated via JavaScript -->
-                                </select>
+                                @include('component.selectpicker', [
+                                    'id' => 'filterProvinsi',
+                                    'name' => 'provinsi',
+                                    'prefix' => 'Wilayah ',
+                                    'current' => request('provinsi_id'),
+                                    'default' => 'Semua Provinsi',
+                                    'val' => 'id_prov',
+                                    'label' => 'nm_prov',
+                                    'data' => $provinsi,
+                                ])
                             </div>
                             <div class="col-md-4">
                                 <label for="filterKabupaten" class="form-label">Filter Kabupaten</label>
-                                <select class="form-select" id="filterKabupaten" name="filterKabupaten">
-                                    <option value="">Semua Kabupaten</option>
-                                    <!-- Options will be populated via JavaScript -->
-                                </select>
+                                @include('component.selectpicker', [
+                                    'id' => 'filterKabupaten',
+                                    'name' => 'kabupaten',
+                                    'prefix' => '',
+                                    'current' => request('filterKabupaten'),
+                                    'default' => 'Kabupaten',
+                                    'val' => 'id_kab',
+                                    'label' => 'nama_kab',
+                                    'data' => [],
+                                ])
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">&nbsp;</label>
@@ -319,7 +331,7 @@
 
 @include('admin.npyp.sekolahNaunganModal')
 
-@section('scripts')
+@section('extendscripts')
     <script src="{{ asset('assets/libs/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables/dataTables.bootstrap5.min.js') }}"></script>
     <script>
@@ -382,12 +394,8 @@
                 }
             });
 
-            // Load filter options
-            loadProvinsiOptions();
-
             // Filter events
             $('#filterProvinsi').on('change', function() {
-                loadKabupatenOptions($(this).val());
                 sekolahNaunganTable.draw();
             });
 
@@ -426,47 +434,6 @@
                     },
                     error: function(xhr) {
                         alert('Terjadi kesalahan saat menghapus data');
-                    }
-                });
-            }
-
-            function loadProvinsiOptions() {
-                // You may need to create an endpoint to get provinsi data
-                // For now, this is a placeholder - you can implement this later
-                $.ajax({
-                    url: '/api/provinsi', // Create this endpoint or use existing one
-                    type: 'GET',
-                    success: function(data) {
-                        let options = '<option value="">Semua Provinsi</option>';
-                        data.forEach(function(provinsi) {
-                            options += `<option value="${provinsi.id}">${provinsi.nama}</option>`;
-                        });
-                        $('#filterProvinsi').html(options);
-                    },
-                    error: function() {
-                        // Handle error - maybe populate with static data or leave empty
-                    }
-                });
-            }
-
-            function loadKabupatenOptions(provinsiId) {
-                if (!provinsiId) {
-                    $('#filterKabupaten').html('<option value="">Semua Kabupaten</option>');
-                    return;
-                }
-
-                $.ajax({
-                    url: `/api/kabupaten/${provinsiId}`, // Create this endpoint or use existing one
-                    type: 'GET',
-                    success: function(data) {
-                        let options = '<option value="">Semua Kabupaten</option>';
-                        data.forEach(function(kabupaten) {
-                            options += `<option value="${kabupaten.id}">${kabupaten.nama}</option>`;
-                        });
-                        $('#filterKabupaten').html(options);
-                    },
-                    error: function() {
-                        $('#filterKabupaten').html('<option value="">Semua Kabupaten</option>');
                     }
                 });
             }

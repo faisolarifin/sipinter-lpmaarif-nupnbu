@@ -26,8 +26,9 @@ class NpypController extends Controller
     }
 
     public function indexNpyp() {
+        $provinsi = Provinsi::where(request()->specificFilter)->orderBy('nm_prov')->get();
         $npyp = $this->npyp();
-        return view('admin.npyp.npyp', compact('npyp'));
+        return view('admin.npyp.npyp', compact('npyp', 'provinsi'));
     }
 
     public function getSatpenList()
