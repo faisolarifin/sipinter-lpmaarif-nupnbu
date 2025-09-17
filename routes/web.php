@@ -25,7 +25,8 @@ use App\Http\Controllers\Admin\{
     VirtualNPSNController,
     UsersController,
     ProfileController,
-    ExportExcelController
+    ExportExcelController,
+    AdminPTKController
 };
 use App\Http\Controllers\Master\{
     InformasiController,
@@ -307,6 +308,15 @@ Route::middleware('mustlogin')->group(function () {
                     Route::get('/wilayah', [NpypController::class, 'indexNpypWilayah'])->name('a.npyp.wilayah');
                     Route::get('/cabang', [NpypController::class, 'indexNpypCabang'])->name('a.npyp.cabang');
                     Route::get('/cabang/data', [NpypController::class, 'getNpypCabangData'])->name('a.npyp.cabang.data');
+                    
+                    // Admin PTK Verification Routes
+                    Route::prefix('ptk')->group(function () {
+                        Route::get('/verifikasi', [AdminPTKController::class, 'index'])->name('admin.ptk.verifikasi');
+                        Route::get('/data', [AdminPTKController::class, 'getData'])->name('admin.ptk.data');
+                        Route::get('/statistics', [AdminPTKController::class, 'statistics'])->name('admin.ptk.statistics');
+                        Route::get('/{id}/detail', [AdminPTKController::class, 'detail'])->name('admin.ptk.detail');
+                        Route::post('/action', [AdminPTKController::class, 'action'])->name('admin.ptk.action');
+                    });
                 });
                 Route::get('/wilayah/data', [NpypController::class, 'getNpypWilayahData'])->name('a.npyp.wilayah.data');
                 Route::get('/rekap-ptk', [NpypController::class, 'rekapPtkNasional'])->name('a.npyp.rekap-ptk');

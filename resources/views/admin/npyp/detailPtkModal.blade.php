@@ -201,7 +201,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold text-muted">
-                                    <i class="ti ti-certificate me-2"></i>Sudah Lisensi Kepala Sekolah
+                                    <i class="ti ti-cut me-2"></i>Sudah Lisensi Kepala Sekolah
                                 </label>
                                 <br />
                                 <span class="badge ms-4" id="modalLisensiKepalaSekolah">-</span>
@@ -278,7 +278,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold text-muted">
-                                    <i class="ti ti-certificate me-2"></i>Nomor Registrasi
+                                    <i class="ti ti-cut me-2"></i>Nomor Registrasi
                                 </label>
                                 <p class="mb-0 ms-4" id="modalSatpenNoRegistrasi">-</p>
                             </div>
@@ -326,14 +326,14 @@
                 <div class="card mb-4">
                     <div class="card-header bg-light">
                         <h6 class="card-title mb-0">
-                            <i class="ti ti-certificate me-2 text-purple"></i>5. Informasi NPYP
+                            <i class="ti ti-cut me-2 text-purple"></i>5. Informasi NPYP
                         </h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold text-muted">
-                                    <i class="ti ti-certificate me-2"></i>Nomor NPYP
+                                    <i class="ti ti-cut me-2"></i>Nomor NPYP
                                 </label>
                                 <p class="mb-0 ms-4 fw-semibold text-primary" id="modalNpypNomor">-</p>
                             </div>

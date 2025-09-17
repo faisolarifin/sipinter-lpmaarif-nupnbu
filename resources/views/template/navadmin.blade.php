@@ -121,8 +121,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <span class="hide-menu">Ajuan Verval PTK</span>
+                        <a href="{{ route('admin.ptk.verifikasi') }}" class="sidebar-link">
+                            <span class="hide-menu">Verifikasi PTK</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -377,8 +377,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <span class="hide-menu">Ajuan Verval PTK</span>
+                        <a href="{{ route('admin.ptk.verifikasi') }}" class="sidebar-link">
+                            <span class="hide-menu">Verifikasi PTK</span>
                         </a>
                     </li>
                 </ul>

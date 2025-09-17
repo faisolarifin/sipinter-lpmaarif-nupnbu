@@ -51,7 +51,8 @@ class PTK extends Model
         'verifikator_id',
         'approver_id',
         'keterangan_revisi',
-        'nomor_sk_keluar'
+        'nomor_sk_keluar',
+        'catatan_verifikator'
     ];
 
     protected $casts = [
