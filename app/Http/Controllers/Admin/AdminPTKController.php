@@ -265,9 +265,9 @@ class AdminPTKController extends Controller
             $nomorSK = $request->input('nomor_sk');
             $tanggalSK = $request->input('tanggal_sk');
 
-            $ptk = PTK::findOrFail($ptkId)->whereHas('npyp', function($q) {
+            $ptk = PTK::whereHas('npyp', function($q) {
                     $q->where($this->specificFilter());
-                });
+                })->findOrFail($ptkId);
             $user = Auth::user();
 
             DB::beginTransaction();
