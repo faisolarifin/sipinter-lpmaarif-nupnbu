@@ -217,7 +217,9 @@
                     @endif
                         
                         <!-- Filter Section -->
+                        @if (!in_array(auth()->user()->role, ['admin cabang']))
                         <div class="row mb-3">
+                            @if (!in_array(auth()->user()->role, ['admin wilayah']))
                             <div class="col-md-4">
                                 <label for="filterProvinsi" class="form-label">Filter Provinsi</label>
                                 @include('component.selectpicker', [
@@ -231,6 +233,7 @@
                                     'data' => $provinsi,
                                 ])
                             </div>
+                            @endif
                             <div class="col-md-4">
                                 <label for="filterKabupaten" class="form-label">Filter Kabupaten</label>
                                 @include('component.selectpicker', [
@@ -251,6 +254,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <div class="card border">
                             <div class="card-header bg-light">
