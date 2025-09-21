@@ -179,22 +179,33 @@
 <script>
     function initSekolahNaunganModal() {
         let currentPage = 1;
-        
+        let searchQuery = '';
+        let selectedItems = new Set(); // Store selected IDs globally
+        let searchTimeout = null;
+
         // Load satpen data when modal is shown
         $('#sekolahNaunganModal').on('show.bs.modal', function() {
             currentPage = 1;
-            loadSatpenData(currentPage);
+            searchQuery = '';
+            selectedItems.clear();
+            $('#searchSekolah').val('');
+            loadSatpenData(currentPage, searchQuery);
         });
 
         // Load data from API
-        function loadSatpenData(page = 1) {
+        function loadSatpenData(page = 1, search = '') {
             // Show loading indicator
             $('#loadingBadge').show();
-            
+
+            let requestData = { page: page };
+            if (search && search.trim() !== '') {
+                requestData.search = search.trim();
+            }
+
             $.ajax({
                 url: '{{ route("a.npyp.satpen-list") }}',
                 type: 'GET',
-                data: { page: page },
+                data: requestData,
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
@@ -202,7 +213,8 @@
                         setupPagination(response.pagination);
                         setupEventHandlers();
                         updatePaginationInfo(response.pagination);
-                        updateFoundCount(response.data.length);
+                        updateFoundCount(response.pagination ? response.pagination.total : response.data.length);
+                        restoreCheckboxStates(); // Restore checkbox states after loading data
                     } else {
                         showError('Gagal memuat data: ' + response.message);
                     }
@@ -335,7 +347,7 @@
                 e.preventDefault();
                 let page = $(this).data('page');
                 currentPage = page;
-                loadSatpenData(page);
+                loadSatpenData(page, searchQuery);
             });
         }
 
@@ -350,45 +362,87 @@
 
         // Setup event handlers after data is loaded
         function setupEventHandlers() {
-            // Select All functionality
+            // Select All functionality (for current page only)
             $('#selectAll').off('change').on('change', function() {
-                $('.sekolah-checkbox').prop('checked', this.checked);
+                let isChecked = this.checked;
+                $('.sekolah-checkbox').each(function() {
+                    let itemId = parseInt($(this).val());
+                    $(this).prop('checked', isChecked);
+
+                    if (isChecked) {
+                        selectedItems.add(itemId);
+                    } else {
+                        selectedItems.delete(itemId);
+                    }
+                });
                 updateSelectedCount();
             });
 
             // Individual checkbox change
             $(document).off('change', '.sekolah-checkbox').on('change', '.sekolah-checkbox', function() {
-                updateSelectedCount();
-                // Update select all checkbox
-                if ($('.sekolah-checkbox:checked').length === $('.sekolah-checkbox').length) {
-                    $('#selectAll').prop('checked', true);
+                let itemId = parseInt($(this).val());
+                let isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+                    selectedItems.add(itemId);
                 } else {
-                    $('#selectAll').prop('checked', false);
+                    selectedItems.delete(itemId);
                 }
+
+                updateSelectedCount();
+                updateSelectAllState();
             });
 
-            // Search functionality
-            $('#searchSekolah').off('keyup').on('keyup', function() {
-                let searchText = $(this).val().toLowerCase();
-                $('#sekolahTable tbody tr').each(function() {
-                    let rowText = $(this).text().toLowerCase();
-                    if (rowText.includes(searchText)) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
+            // Search functionality with debounce
+            $('#searchSekolah').off('keyup input').on('keyup input', function() {
+                let newSearchQuery = $(this).val().trim();
+
+                // Clear previous timeout
+                if (searchTimeout) {
+                    clearTimeout(searchTimeout);
+                }
+
+                // Set new timeout for search
+                searchTimeout = setTimeout(function() {
+                    if (newSearchQuery !== searchQuery) {
+                        searchQuery = newSearchQuery;
+                        currentPage = 1; // Reset to first page when searching
+                        loadSatpenData(currentPage, searchQuery);
                     }
-                });
+                }, 500); // 500ms delay
             });
 
             updateSelectedCount();
         }
 
+        // Function to restore checkbox states after page load
+        function restoreCheckboxStates() {
+            $('.sekolah-checkbox').each(function() {
+                let itemId = parseInt($(this).val());
+                if (selectedItems.has(itemId)) {
+                    $(this).prop('checked', true);
+                }
+            });
+            updateSelectAllState();
+        }
+
+        // Function to update select all checkbox state
+        function updateSelectAllState() {
+            let totalCheckboxes = $('.sekolah-checkbox').length;
+            let checkedCheckboxes = $('.sekolah-checkbox:checked').length;
+
+            if (checkedCheckboxes === 0) {
+                $('#selectAll').prop('indeterminate', false).prop('checked', false);
+            } else if (checkedCheckboxes === totalCheckboxes) {
+                $('#selectAll').prop('indeterminate', false).prop('checked', true);
+            } else {
+                $('#selectAll').prop('indeterminate', true).prop('checked', false);
+            }
+        }
+
         // Add selected schools
         $('#tambahSekolahBtn').on('click', function() {
-            let selectedSatpenIds = [];
-            $('.sekolah-checkbox:checked').each(function() {
-                selectedSatpenIds.push(parseInt($(this).val()));
-            });
+            let selectedSatpenIds = Array.from(selectedItems); // Use global selected items
 
             if (selectedSatpenIds.length === 0) {
                 alert('Silakan pilih minimal satu sekolah.');
@@ -443,15 +497,17 @@
         });
 
         function resetModal() {
+            selectedItems.clear(); // Clear global selected items
             $('.sekolah-checkbox').prop('checked', false);
-            $('#selectAll').prop('checked', false);
+            $('#selectAll').prop('checked', false).prop('indeterminate', false);
             $('#searchSekolah').val('');
-            $('#sekolahTable tbody tr').show();
+            searchQuery = '';
+            currentPage = 1;
             updateSelectedCount();
         }
 
         function updateSelectedCount() {
-            let count = $('.sekolah-checkbox:checked').length;
+            let count = selectedItems.size; // Use global selected items count
             $('#selectedCount').text(count);
             
             // Update selection summary styling based on count

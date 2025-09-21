@@ -34,16 +34,38 @@ class NpypController extends Controller
     public function getSatpenList()
     {
         try {
-            // Get page parameter from request
+            // Get parameters from request
             $page = request()->get('page', 1);
+            $search = request()->get('search', '');
             $perPage = 15;
 
-            // Fetch satpen data from database with relationships
-            $satpenPaginated = Satpen::with(['jenjang', 'provinsi', 'kabupaten'])
+            // Build query with relationships
+            $query = Satpen::with(['jenjang', 'provinsi', 'kabupaten'])
                 ->select('id_satpen', 'no_registrasi', 'nm_satpen', 'id_jenjang', 'id_prov', 'id_kab', 'status', 'npsn')
                 ->where(request()->specificFilter)
-                ->whereNotIn('id_satpen', NPYPSatpen::pluck('id_satpen'))
-                ->paginate($perPage, ['*'], 'page', $page);
+                ->whereIn('status', ['setujui', 'expired', 'perpanjangan'])
+                ->whereNotIn('id_satpen', NPYPSatpen::pluck('id_satpen'));
+
+            // Add search functionality
+            if (!empty($search)) {
+                $query->where(function($q) use ($search) {
+                    $q->where('nm_satpen', 'LIKE', '%' . $search . '%')
+                      ->orWhere('no_registrasi', 'LIKE', '%' . $search . '%')
+                      ->orWhere('npsn', 'LIKE', '%' . $search . '%')
+                      ->orWhereHas('provinsi', function($provinsiQuery) use ($search) {
+                          $provinsiQuery->where('nm_prov', 'LIKE', '%' . $search . '%');
+                      })
+                      ->orWhereHas('kabupaten', function($kabupatenQuery) use ($search) {
+                          $kabupatenQuery->where('nama_kab', 'LIKE', '%' . $search . '%');
+                      })
+                      ->orWhereHas('jenjang', function($jenjangQuery) use ($search) {
+                          $jenjangQuery->where('nm_jenjang', 'LIKE', '%' . $search . '%');
+                      });
+                });
+            }
+
+            // Paginate the results
+            $satpenPaginated = $query->paginate($perPage, ['*'], 'page', $page);
 
             $satpenList = $satpenPaginated->map(function($satpen) {
                 return [
