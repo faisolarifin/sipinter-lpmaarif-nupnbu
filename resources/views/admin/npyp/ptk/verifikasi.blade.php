@@ -197,7 +197,7 @@
                             <div class="alert alert-success d-flex align-items-center mb-3" role="alert">
                                 <i class="ti ti-check-circle me-2"></i>
                                 <div>
-                                    <strong>Sukses:</strong> Data PTK pada tab ini telah disetujui dan siap untuk dikeluarkan SK-nya.
+                                    <strong>Sukses:</strong> Data PTK pada tab ini telah disetujui dan siap untuk diKeluarkan PTK-nya.
                                     Anda dapat memproses pengeluaran SK atau mengembalikan ke tahap sebelumnya jika diperlukan.
                                 </div>
                             </div>
@@ -238,6 +238,16 @@
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <p class="mt-2">Memuat detail PTK...</p>
+                    </div>
+                </div>
+                <div class="modal-footer" id="detailPTKModalFooter" style="display: none;">
+                    <div class="d-flex justify-content-between w-100">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="ti ti-x me-1"></i>Tutup
+                        </button>
+                        <div id="detailActionButtons">
+                            <!-- Action buttons will be populated based on PTK status -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -337,8 +347,8 @@
                         modalTitle = 'Approve PTK';
                         break;
                     case 'keluarkan':
-                        actionText = 'mengeluarkan SK';
-                        modalTitle = 'Keluarkan SK PTK';
+                        actionText = 'mengeluarkan PTK';
+                        modalTitle = 'Keluarkan PTK';
                         break;
                 }
 
@@ -372,6 +382,11 @@
                             loadStatistics();
                             // Clear form
                             $('#actionPTKForm')[0].reset();
+
+                            // If detail modal is open, close it to refresh the view
+                            if ($('#detailPTKModal').hasClass('show')) {
+                                $('#detailPTKModal').modal('hide');
+                            }
                         } else {
                             alert('Error: ' + response.message);
                         }
@@ -483,6 +498,8 @@
 
         function loadPTKDetail(ptkId) {
             $('#detailPTKModal').modal('show');
+            $('#detailPTKModalFooter').hide();
+            $('#detailActionButtons').html('');
 
             $.ajax({
                 url: '{{ route("admin.ptk.detail", ":id") }}'.replace(':id', ptkId),
@@ -490,6 +507,9 @@
                 success: function(response) {
                     if (response.success) {
                         $('#detailPTKContent').html(response.html);
+
+                        // Populate action buttons based on PTK status
+                        populateDetailActionButtons(ptkId, response.ptk_status);
                     } else {
                         $('#detailPTKContent').html('<div class="alert alert-danger">Gagal memuat detail PTK</div>');
                     }
@@ -498,6 +518,51 @@
                     $('#detailPTKContent').html('<div class="alert alert-danger">Terjadi kesalahan saat memuat data</div>');
                 }
             });
+        }
+
+        function populateDetailActionButtons(ptkId, status) {
+            let buttons = '';
+
+            switch(status) {
+                case 'verifikasi':
+                    buttons += '<button class="btn btn-success me-2 btn-action" data-id="' + ptkId + '" data-action="terima" title="Terima">';
+                    buttons += '<i class="ti ti-check me-1"></i>Terima';
+                    buttons += '</button>';
+                    buttons += '<button class="btn btn-danger btn-action" data-id="' + ptkId + '" data-action="tolak" title="Tolak">';
+                    buttons += '<i class="ti ti-x me-1"></i>Tolak';
+                    buttons += '</button>';
+                    break;
+
+                case 'proses':
+                    buttons += '<button class="btn btn-success me-2 btn-action" data-id="' + ptkId + '" data-action="approve" title="Approve">';
+                    buttons += '<i class="ti ti-check me-1"></i>Approve';
+                    buttons += '</button>';
+                    buttons += '<button class="btn btn-danger btn-action" data-id="' + ptkId + '" data-action="tolak" title="Tolak">';
+                    buttons += '<i class="ti ti-x me-1"></i>Tolak';
+                    buttons += '</button>';
+                    break;
+
+                case 'approve':
+                    buttons += '<button class="btn btn-primary btn-action" data-id="' + ptkId + '" data-action="keluarkan" title="Keluarkan PTK">';
+                    buttons += '<i class="ti ti-cut me-1"></i>Keluarkan PTK';
+                    buttons += '</button>';
+                    break;
+
+                case 'dikeluarkan':
+                    buttons += '<button class="btn btn-success" onclick="downloadSK(' + ptkId + ')" title="Download SK">';
+                    buttons += '<i class="ti ti-download me-1"></i>Download SK';
+                    buttons += '</button>';
+                    break;
+
+                case 'revisi':
+                    // No action buttons for revisi status
+                    break;
+            }
+
+            if (buttons) {
+                $('#detailActionButtons').html(buttons);
+                $('#detailPTKModalFooter').show();
+            }
         }
     </script>
 @endsection

@@ -210,7 +210,7 @@ class AdminPTKController extends Controller
                 break;
 
             case 'approve':
-                $buttons .= '<button class="btn btn-outline-primary btn-sm btn-action" data-id="' . $ptk->id . '" data-action="keluarkan" title="Keluarkan SK">
+                $buttons .= '<button class="btn btn-outline-primary btn-sm btn-action" data-id="' . $ptk->id . '" data-action="keluarkan" title="Keluarkan PTK">
                     <i class="ti ti-cut"></i>
                 </button>';
                 break;
@@ -245,7 +245,8 @@ class AdminPTKController extends Controller
 
             return response()->json([
                 'success' => true,
-                'html' => $html
+                'html' => $html,
+                'ptk_status' => $ptk->status_ajuan
             ]);
 
         } catch (\Exception $e) {
@@ -320,9 +321,6 @@ class AdminPTKController extends Controller
 
                 case 'keluarkan':
                     if ($ptk->status_ajuan == 'approve') {
-                        if (!$nomorSK || !$tanggalSK) {
-                            throw new \Exception('Nomor SK dan tanggal SK harus diisi');
-                        }
 
                         $newStatus = 'dikeluarkan';
                         $message = 'SK PTK berhasil dikeluarkan';
