@@ -37,7 +37,7 @@ class SATPENController extends Controller
     {
 
         try {
-            $provFilter = null;
+            $provFilter = auth()->user()->provId ? ["id_prov" => auth()->user()->provId] : null;
             $listProvinsi = Provinsi::where($provFilter)->get();
             $countOfRecordSatpen = Satpen::whereIn('status', ['setujui', 'expired', 'perpanjangan'])->where(request()->specificFilter)->count("id_satpen");
 
