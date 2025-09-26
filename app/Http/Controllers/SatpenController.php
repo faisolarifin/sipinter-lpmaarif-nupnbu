@@ -41,8 +41,11 @@ class SatpenController extends Controller
                 ->where('id_user', '=', auth()->user()->id_user)
                 ->first();
             $usingVNPSN = VirtualNPSN::where('nomor_virtual', '=', $mySatpen->npsn)->count('nomor_virtual');
+            $pdptk = PDPTK::whereHas('satpen', function ($query) {
+                            $query->where('id_user', '=', auth()->user()->id_user);
+                        })->first();
 
-            return view('home.dashboard', compact('mySatpen', 'usingVNPSN'));
+            return view('home.dashboard', compact('mySatpen', 'usingVNPSN', 'pdptk'));
         } catch (\Exception $e) {
             throw new CatchErrorException("[DASHBOARD PAGE] has error " . $e);
         }

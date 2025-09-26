@@ -16,7 +16,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('profile') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-user"></i>
+                        <i class="ti ti-building"></i>
                     </span>
                     <span class="hide-menu">Profile Organisasi</span>
                 </a>
@@ -32,7 +32,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.vnpsn') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-message-code"></i>
+                        <i class="ti ti-id-badge-2"></i>
                     </span>
                     <span class="hide-menu">NPSN Virtual</span>
                 </a>
@@ -40,7 +40,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.satpen') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-alert-circle"></i>
+                        <i class="ti ti-school"></i>
                     </span>
                     <span class="hide-menu">Registrasi Satpen</span>
                 </a>
@@ -48,7 +48,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.rekapsatpen') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-article"></i>
+                        <i class="ti ti-chart-pie"></i>
                     </span>
                     <span class="hide-menu">Rekap Satpen</span>
                 </a>
@@ -56,7 +56,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.pdptk') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-graph"></i>
+                        <i class="ti ti-users"></i>
                     </span>
                     <span class="hide-menu">Data PD dan PTK</span>
                 </a>
@@ -64,7 +64,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.other') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-table"></i>
+                        <i class="ti ti-database"></i>
                     </span>
                     <span class="hide-menu">Data Lainnya</span>
                 </a>
@@ -76,7 +76,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.oss') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-device-sim"></i>
+                        <i class="ti ti-certificate"></i>
                     </span>
                     <span class="hide-menu">Layanan OSS</span>
                 </a>
@@ -84,7 +84,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-report"></i>
+                        <i class="ti ti-heart"></i>
                     </span>
                     <span class="hide-menu">Layanan BHPNU</span>
                 </a>
@@ -92,7 +92,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.coretax') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-shield"></i>
+                        <i class="ti ti-receipt"></i>
                     </span>
                     <span class="hide-menu">Manajemen Coretax</span>
                 </a>
@@ -100,7 +100,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                     <span>
-                        <i class="ti ti-file-certificate"></i>
+                        <i class="ti ti-certificate"></i>
                     </span>
                     <span class="hide-menu">Manajemen NPYP</span>
                 </a>
@@ -135,7 +135,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.bantuan') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-help"></i>
+                        <i class="ti ti-lifebuoy"></i>
                     </span>
                     <span class="hide-menu">Layanan Bantuan Sekolah</span>
                 </a>
@@ -143,7 +143,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.beasiswa') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-award"></i>
+                        <i class="ti ti-school"></i>
                     </span>
                     <span class="hide-menu">Layanan Beasiswa</span>
                 </a>
@@ -151,7 +151,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.katalog') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-paperclip"></i>
+                        <i class="ti ti-book-2"></i>
                     </span>
                     <span class="hide-menu">Katalog</span>
                 </a>
@@ -163,7 +163,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.wilayah') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-receipt"></i>
+                        <i class="ti ti-map-pin"></i>
                     </span>
                     <span class="hide-menu">Pengurus Wilayah</span>
                 </a>
@@ -171,7 +171,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.cabang') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-tag"></i>
+                        <i class="ti ti-building"></i>
                     </span>
                     <span class="hide-menu">Pengurus Cabang</span>
                 </a>
@@ -183,7 +183,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('informasi.index') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-news"></i>
+                        <i class="ti ti-article"></i>
                     </span>
                     <span class="hide-menu">Kelola Informasi</span>
                 </a>
@@ -197,7 +197,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-user-check"></i>
+                            <i class="ti ti-user"></i>
                         </span>
                         <span class="hide-menu">Kelola Admin</span>
                     </a>
@@ -247,7 +247,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('propinsi.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-brand-mastercard"></i>
+                            <i class="ti ti-map"></i>
                         </span>
                         <span class="hide-menu">Data Propinsi</span>
                     </a>
@@ -255,7 +255,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('kabupaten.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-mask"></i>
+                            <i class="ti ti-map-pin"></i>
                         </span>
                         <span class="hide-menu">Data Kabupaten</span>
                     </a>
@@ -263,7 +263,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('cabang.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-git-branch"></i>
+                            <i class="ti ti-building-warehouse"></i>
                         </span>
                         <span class="hide-menu">Pengurus Cabang</span>
                     </a>
@@ -271,7 +271,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('jenjang.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-keyframe-align-vertical"></i>
+                            <i class="ti ti-stairs"></i>
                         </span>
                         <span class="hide-menu">Jenjang Pendidikan</span>
                     </a>
@@ -293,7 +293,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.rekapsatpen') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-article"></i>
+                        <i class="ti ti-chart-pie"></i>
                     </span>
                     <span class="hide-menu">Rekap Satpen</span>
                 </a>
@@ -301,7 +301,7 @@
              <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.pdptk') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-graph"></i>
+                        <i class="ti ti-users"></i>
                     </span>
                     <span class="hide-menu">Data PD dan PTK</span>
                 </a>
@@ -309,7 +309,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.other') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-table"></i>
+                        <i class="ti ti-database"></i>
                     </span>
                     <span class="hide-menu">Data Lainnya</span>
                 </a>
@@ -322,7 +322,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('a.cabang') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-tag"></i>
+                            <i class="ti ti-building"></i>
                         </span>
                         <span class="hide-menu">Pengurus Cabang</span>
                     </a>
@@ -335,7 +335,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.oss') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-device-sim"></i>
+                        <i class="ti ti-certificate"></i>
                     </span>
                     <span class="hide-menu">Layanan OSS</span>
                 </a>
@@ -343,7 +343,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.bhpnu') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-report"></i>
+                        <i class="ti ti-heart"></i>
                     </span>
                     <span class="hide-menu">Layanan BHPNU</span>
                 </a>
@@ -351,7 +351,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('a.coretax') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-shield"></i>
+                        <i class="ti ti-receipt"></i>
                     </span>
                     <span class="hide-menu">Manajemen Coretax</span>
                 </a>
@@ -359,7 +359,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                     <span>
-                        <i class="ti ti-file-certificate"></i>
+                        <i class="ti ti-certificate"></i>
                     </span>
                     <span class="hide-menu">Manajemen NPYP</span>
                 </a>
@@ -391,7 +391,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('coretax') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-shield"></i>
+                        <i class="ti ti-file-invoice"></i>
                     </span>
                     <span class="hide-menu">Layanan Coretax</span>
                 </a>
