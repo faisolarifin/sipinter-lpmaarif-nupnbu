@@ -489,9 +489,9 @@
                                 <label class="btn btn-outline-primary btn-sm" for="barTypeProvinsi">
                                     <i class="ti ti-chart-bar me-1"></i>Bar Chart
                                 </label>
-                                <input type="radio" class="btn-check" name="chartTypeProvinsi" id="pieTypeProvinsi" autocomplete="off">
-                                <label class="btn btn-outline-primary btn-sm" for="pieTypeProvinsi">
-                                    <i class="ti ti-chart-pie me-1"></i>Pie Chart
+                                <input type="radio" class="btn-check" name="chartTypeProvinsi" id="lineTypeProvinsi" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="lineTypeProvinsi">
+                                    <i class="ti ti-chart-line me-1"></i>Line Chart
                                 </label>
                             </div>
                         </div>
@@ -665,9 +665,9 @@
                                 <label class="btn btn-outline-success btn-sm" for="barTypeJenjang">
                                     <i class="ti ti-chart-bar me-1"></i>Bar Chart
                                 </label>
-                                <input type="radio" class="btn-check" name="chartTypeJenjang" id="donutTypeJenjang" autocomplete="off">
-                                <label class="btn btn-outline-success btn-sm" for="donutTypeJenjang">
-                                    <i class="ti ti-chart-donut me-1"></i>Donut Chart
+                                <input type="radio" class="btn-check" name="chartTypeJenjang" id="lineTypeJenjang" autocomplete="off">
+                                <label class="btn btn-outline-success btn-sm" for="lineTypeJenjang">
+                                    <i class="ti ti-chart-line me-1"></i>Line Chart
                                 </label>
                             </div>
                         </div>
@@ -797,7 +797,7 @@ $(document).ready(function () {
     // Chart type change handlers
     $('input[name="chartTypeProvinsi"]').change(function() {
         if (currentProvinsiData.length > 0) {
-            renderProvinsiChart(this.id === 'barTypeProvinsi' ? 'bar' : 'pie');
+            renderProvinsiChart(this.id === 'barTypeProvinsi' ? 'bar' : 'line');
         }
     });
 
@@ -815,7 +815,7 @@ $(document).ready(function () {
 
     $('input[name="chartTypeJenjang"]').change(function() {
         if (currentJenjangData.length > 0) {
-            renderJenjangChart(this.id === 'barTypeJenjang' ? 'bar' : 'donut');
+            renderJenjangChart(this.id === 'barTypeJenjang' ? 'bar' : 'line');
         }
     });
 
@@ -1035,27 +1035,43 @@ function renderProvinsiChart(type) {
     } else {
         chartConfig = {
             chart: {
-                type: 'pie',
+                type: 'line',
                 height: 400,
                 fontFamily: "Plus Jakarta Sans, sans-serif",
                 toolbar: { show: true }
             },
-            series: currentProvinsiData.map(item => item.record_count),
-            labels: currentProvinsiData.map(item => item.nm_prov),
-            colors: ['#5D87FF', '#49BEFF', '#13DEB9', '#FA896B', '#FFAE1F'],
-            plotOptions: {
-                pie: {
-                    donut: { size: '0%' }
+            series: [{
+                name: 'Jumlah Satpen',
+                data: currentProvinsiData.map(item => item.record_count)
+            }],
+            xaxis: {
+                categories: currentProvinsiData.map(item => item.nm_prov),
+                labels: {
+                    rotate: -45,
+                    style: { fontSize: '12px' }
                 }
             },
-            dataLabels: { enabled: true },
+            colors: ['#5D87FF'],
+            stroke: {
+                width: 4,
+                curve: 'smooth'
+            },
+            markers: {
+                size: 6,
+                hover: { size: 8 }
+            },
+            dataLabels: {
+                enabled: true,
+                style: { fontSize: '10px' }
+            },
             title: {
                 text: `Data Satpen per Provinsi`,
                 align: 'center',
                 style: { fontSize: '18px', fontWeight: 'bold' }
             },
-            legend: {
-                position: 'bottom'
+            grid: {
+                borderColor: '#e7e7e7',
+                row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 }
             }
         };
     }
@@ -1321,37 +1337,43 @@ function renderJenjangChart(type) {
     } else {
         chartConfig = {
             chart: {
-                type: 'donut',
+                type: 'line',
                 height: 400,
                 fontFamily: "Plus Jakarta Sans, sans-serif",
                 toolbar: { show: true }
             },
-            series: currentJenjangData.map(item => item.record_count),
-            labels: currentJenjangData.map(item => item.nm_jenjang),
-            colors: ['#13DEB9', '#49BEFF', '#5D87FF', '#FA896B', '#FFAE1F'],
-            plotOptions: {
-                donut: {
-                    size: '50%',
-                    labels: {
-                        show: true,
-                        total: {
-                            show: true,
-                            label: 'Total'
-                        }
-                    }
+            series: [{
+                name: 'Jumlah Satpen',
+                data: currentJenjangData.map(item => item.record_count)
+            }],
+            xaxis: {
+                categories: currentJenjangData.map(item => item.nm_jenjang),
+                labels: {
+                    rotate: -45,
+                    style: { fontSize: '12px' }
                 }
+            },
+            colors: ['#13DEB9'],
+            stroke: {
+                width: 4,
+                curve: 'smooth'
+            },
+            markers: {
+                size: 6,
+                hover: { size: 8 }
             },
             dataLabels: {
                 enabled: true,
-                style: { fontSize: '12px' }
+                style: { fontSize: '10px' }
             },
             title: {
                 text: `Data Satpen per Jenjang Pendidikan`,
                 align: 'center',
                 style: { fontSize: '18px', fontWeight: 'bold' }
             },
-            legend: {
-                position: 'bottom'
+            grid: {
+                borderColor: '#e7e7e7',
+                row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 }
             }
         };
     }
