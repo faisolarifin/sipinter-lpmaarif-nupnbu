@@ -128,6 +128,7 @@
                         <div class="mb-2" style="display:none;">
                             <label for="kode_prov" class="form-label">Wilayah</label>
                             <select name="kode_prov" id="kode_prov" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
+                                <option value="" selected disabled>-- Pilih Wilayah --</option>
                                 @foreach($provList as $row)
                                     <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
                                 @endforeach
@@ -206,6 +207,7 @@
                         <div class="mb-2" style="display:none;">
                             <label for="kode_prov-edit" class="form-label">Wilayah</label>
                             <select name="kode_prov" id="kode_prov-edit" class="form-select form-select-sm @error('kode_prov') is-invalid @enderror">
+                                <option value="" selected disabled>-- Pilih Wilayah --</option>
                                 @foreach($provList as $row)
                                     <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
                                 @endforeach
