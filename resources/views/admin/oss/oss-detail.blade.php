@@ -1125,7 +1125,7 @@
                             <div class="timeline-header">
                                 <h6>
                                     <span class="section-icon">
-                                        <i class="ti ti-clock-history"></i>
+                                        <i class="ti ti-clock"></i>
                                     </span>
                                     Riwayat Verifikasi
                                 </h6>

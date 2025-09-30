@@ -8,242 +8,283 @@
 
 @section('style')
 <style>
-    /* Modern Tab Styling */
-    .modern-tabs {
-        border: none;
-        background: transparent;
-        margin-bottom: 0;
-        position: relative;
+    /* Hero Banner Section - Simplified */
+    .hero-banner {
+        background: #fff;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
-    .modern-tabs::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
-        z-index: 1;
+    .hero-content {
+        color: #374151;
     }
 
-    .modern-tabs .nav-item {
-        margin-right: 4px;
-        margin-bottom: 0;
-    }
-
-    .modern-tabs .nav-link {
-        border: none;
-        border-radius: 12px 12px 0 0;
-        background: transparent;
-        color: #64748b;
-        font-weight: 600;
-        font-size: 0.925rem;
-        padding: 16px 24px;
-        position: relative;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        min-height: 60px;
-    }
-
-    .modern-tabs .nav-link:hover {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        color: #475569;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .modern-tabs .nav-link.active {
-        background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
-        color: #212529;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
-        border: 2px solid rgba(255, 193, 7, 0.2);
-    }
-
-    .modern-tabs .nav-link.active::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
-        border-radius: 2px 2px 0 0;
-    }
-
-    .tab-icon {
-        font-size: 1.1rem;
-        opacity: 0.8;
-    }
-
-    .modern-tabs .nav-link.active .tab-icon {
-        opacity: 1;
-    }
-
-    /* Tab Content Styling */
-    .modern-tab-content {
-        background: #ffffff;
-        border-radius: 0 16px 16px 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        border: 1px solid rgba(0,0,0,0.05);
-        overflow: hidden;
-    }
-
-    .modern-tab-content .card {
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
-        background: transparent;
-    }
-
-    .modern-tab-content .card-body {
-        padding: 32px;
-    }
-
-    /* Modern Card Header */
-    .modern-card-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-        padding: 24px 32px;
-        margin: -32px -32px 32px -32px;
-    }
-
-    .modern-card-header h5 {
-        color: #1e293b;
+    .hero-title {
+        font-size: 1.5rem;
         font-weight: 700;
-        font-size: 1.25rem;
-        margin-bottom: 4px;
+        margin-bottom: 0.5rem;
+        color: #16a34a;
     }
 
-    .modern-card-header small {
-        color: #64748b;
+    .hero-subtitle {
         font-size: 0.875rem;
-        font-weight: 500;
+        color: #6b7280;
+        line-height: 1.5;
     }
 
-    /* Table Enhancements */
-    .modern-table {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .modern-table thead th {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        color: #1e293b;
-        font-weight: 600;
-        font-size: 0.875rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        padding: 16px 12px;
-        border: none;
-        border-bottom: 2px solid #e2e8f0;
-    }
-
-    .modern-table tbody tr {
-        transition: all 0.2s ease;
-        border-bottom: 1px solid rgba(0,0,0,0.04);
-    }
-
-    .modern-table tbody tr:hover {
-        background: linear-gradient(135deg, #f8fafc 0%, #f9fafb 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .modern-table tbody td {
-        padding: 16px 12px;
-        vertical-align: middle;
-        border: none;
-        color: #475569;
-        font-weight: 500;
-    }
-
-    /* Action Buttons */
-    .action-btn {
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: all 0.2s ease;
-        border: none;
-        font-size: 0.875rem;
-    }
-
-    .action-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    .action-btn-view {
-        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-        color: white;
-    }
-
-    .action-btn-approve {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        color: white;
-    }
-
-    .action-btn-reject {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-        color: white;
-    }
-
-    .action-btn-delete {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-        color: white;
-    }
-
-    /* Status Badge */
-    .status-badge {
-        padding: 6px 12px;
-        border-radius: 20px;
+    .hero-badge {
+        display: inline-block;
+        background: #f3f4f6;
+        padding: 0.375rem 0.75rem;
+        border-radius: 6px;
         font-size: 0.75rem;
         font-weight: 600;
+        margin-top: 0.75rem;
+        color: #374151;
+        border: 1px solid #e5e7eb;
+    }
+
+    /* Stats Cards - Simplified */
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+        border: 1px solid #e5e7eb;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        background: #f3f4f6;
+        color: #374151;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-top: 0.25rem;
+        font-weight: 500;
+    }
+
+    /* Simplified Tab Styling */
+    .nav-tabs-modern {
+        border-bottom: 2px solid #e5e7eb;
+        gap: 0.5rem;
+        display: flex;
+        background: #fff;
+        padding: 0.5rem 1rem 0;
+    }
+
+    .nav-tabs-modern .nav-item {
+        flex: 0 0 auto;
+    }
+
+    .nav-tabs-modern .nav-link {
+        border: none;
+        background: transparent;
+        color: #6b7280;
+        border-radius: 6px 6px 0 0;
+        padding: 0.625rem 1rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        text-align: center;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+    }
+
+    .nav-tabs-modern .nav-link i {
+        font-size: 1rem;
+        margin-right: 0.375rem;
+    }
+
+    .nav-tabs-modern .nav-link:hover {
+        background: #f9fafb;
+        color: #111827;
+    }
+
+    .nav-tabs-modern .nav-link.active {
+        background: #f9fafb;
+        color: #111827;
+        border-bottom-color: #111827;
+    }
+
+    .tab-text {
+        display: inline;
+    }
+
+    /* Simplified Card */
+    .card-modern {
+        border: 1px solid #e5e7eb;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .card-modern .card-body {
+        padding: 1.5rem;
+    }
+
+    /* Simplified Table Header */
+    .table-header-modern {
+        background: #f9fafb;
+        padding: 1rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        border-left: 3px solid #111827;
+    }
+
+    .table-header-modern h5 {
+        color: #16a34a;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+    }
+
+    .table-header-modern small {
+        color: #6b7280;
+        font-size: 0.75rem;
+    }
+
+    /* Simplified Table */
+    .table-modern {
+        border-collapse: collapse;
+    }
+
+    .table-modern thead th {
+        background: transparent;
+        color: #6b7280;
+        font-weight: 600;
         text-transform: uppercase;
+        font-size: 0.75rem;
         letter-spacing: 0.5px;
+        padding: 0.75rem;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+        border-left: none;
+        border-right: none;
+        white-space: nowrap;
     }
 
-    /* Responsive Improvements */
+    .table-modern tbody tr {
+        transition: all 0.2s ease;
+        background: #fff;
+    }
+
+    .table-modern tbody tr:hover {
+        background: #f9fafb;
+    }
+
+    .table-modern tbody td {
+        padding: 0.75rem;
+        vertical-align: middle;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+        border-left: none;
+        border-right: none;
+        color: #374151;
+        font-size: 0.875rem;
+    }
+
+    /* Simplified Button */
+    .btn-modern {
+        border-radius: 6px;
+        padding: 0.375rem 0.75rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        font-size: 0.875rem;
+    }
+
+    .btn-modern:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-modern.btn-sm {
+        padding: 0.25rem 0.625rem;
+        font-size: 0.8125rem;
+    }
+
+    /* DataTables Styling */
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 0.375rem 0.625rem;
+        font-size: 0.875rem;
+    }
+
+    .dataTables_wrapper .dataTables_filter input:focus {
+        border-color: #9ca3af;
+        outline: none;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        border-radius: 6px;
+        margin: 0 2px;
+        padding: 0.375rem 0.625rem;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background: #111827 !important;
+        border-color: #111827 !important;
+        color: #fff !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background: #374151 !important;
+        border-color: #374151 !important;
+        color: #fff !important;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-        .modern-tabs .nav-link {
-            padding: 12px 16px;
-            font-size: 0.8rem;
-            min-height: 50px;
+        .hero-title {
+            font-size: 1.25rem;
         }
 
-        .modern-tab-content .card-body {
-            padding: 20px;
+        .hero-subtitle {
+            font-size: 0.8125rem;
         }
 
-        .modern-card-header {
-            padding: 20px;
-            margin: -20px -20px 20px -20px;
+        .nav-tabs-modern .nav-link {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8125rem;
         }
 
-        .modern-table thead th,
-        .modern-table tbody td {
-            padding: 12px 8px;
-            font-size: 0.875rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .modern-tabs .nav-link {
-            padding: 10px 12px;
-            font-size: 0.75rem;
-            min-height: 45px;
-        }
-
-        .tab-icon {
-            font-size: 1rem;
+        .stat-card {
+            padding: 0.875rem;
         }
     }
 </style>
@@ -263,44 +304,97 @@
 
         @include('template.alert')
 
-        <ul class="nav nav-tabs modern-tabs" id="myTab" role="tablist">
+        <!-- Hero Banner Section -->
+        <div class="hero-banner">
+            <div class="hero-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h1 class="hero-title">
+                            <i class="ti ti-building-store me-2"></i>
+                            Manajemen OSS
+                        </h1>
+                        <p class="hero-subtitle">
+                            Kelola seluruh permohonan Izin Usaha OSS dengan mudah dan efisien.
+                            Pantau status verifikasi, revisi, proses dokumen, hingga penerbitan izin dalam satu dashboard terintegrasi.
+                        </p>
+                        <div class="hero-badge">
+                            <i class="ti ti-clock-hour-4 me-2"></i>
+                            Pemrosesan Real-time
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-end d-none d-lg-block">
+                        <i class="ti ti-license" style="font-size: 8rem; opacity: 0.2;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Container -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="ti ti-file-check"></i>
+                </div>
+                <div class="stat-value">{{ count($ossVerifikasi) }}</div>
+                <div class="stat-label">Menunggu Verifikasi</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="ti ti-edit"></i>
+                </div>
+                <div class="stat-value">{{ count($ossRevisi) }}</div>
+                <div class="stat-label">Perlu Revisi</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="ti ti-clock"></i>
+                </div>
+                <div class="stat-value">{{ count($ossProses) }}</div>
+                <div class="stat-label">Sedang Diproses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="ti ti-circle-check"></i>
+                </div>
+                <div class="stat-value">{{ count($ossTerbit) }}</div>
+                <div class="stat-label">Izin Terbit</div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs nav-tabs-modern" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#verifikasi" type="button" role="tab" aria-controls="verifikasi" aria-selected="true">
-                    <i class="ti ti-clipboard-check tab-icon"></i>
-                    <span>VERIFIKASI</span>
+                    <i class="ti ti-file-check"></i><span class="tab-text">Verifikasi</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="revisi-tab" data-bs-toggle="tab" data-bs-target="#revisi" type="button" role="tab" aria-controls="revisi" aria-selected="false">
-                    <i class="ti ti-edit tab-icon"></i>
-                    <span>REVISI</span>
+                    <i class="ti ti-edit"></i><span class="tab-text">Revisi</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="proses-tab" data-bs-toggle="tab" data-bs-target="#proses" type="button" role="tab" aria-controls="proses" aria-selected="false">
-                    <i class="ti ti-clock tab-icon"></i>
-                    <span>SEDANG DIPROSES</span>
+                    <i class="ti ti-clock"></i><span class="tab-text">Sedang Diproses</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="terbit-tab" data-bs-toggle="tab" data-bs-target="#terbit" type="button" role="tab" aria-controls="terbit" aria-selected="false">
-                    <i class="ti ti-circle-check tab-icon"></i>
-                    <span>IZIN TERBIT</span>
+                    <i class="ti ti-circle-check"></i><span class="tab-text">Izin Terbit</span>
                 </button>
             </li>
         </ul>
 
-        <div class="tab-content modern-tab-content" id="myTabContent">
+        <div class="tab-content" id="myTabContent">
             <!-- Verifikasi -->
             <div class="tab-pane fade show active" id="verifikasi" role="tabpanel" aria-labelledby="home-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="modern-card-header">
-                            <h5 class="mb-0">Permohonan OSS</h5>
-                            <small>data permohonan oss baru</small>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-clipboard-check me-2"></i>Permohonan OSS</h5>
+                            <small>Data permohonan OSS baru yang menunggu verifikasi</small>
                         </div>
                         <div class="table-responsive">
-                            <table class="table modern-table" id="dtable">
+                            <table class="table table-modern table-hover" id="dtable">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -319,31 +413,33 @@
                                 @php($no=0)
                                 @foreach($ossVerifikasi as $row)
                                     <tr>
-                                        <td>{{ ++$no }}</td>
-                                        <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
-                                                {{ $row->satpen->no_registrasi }}
-                                            </a></td>
+                                        <td><strong>{{ ++$no }}</strong></td>
+                                        <td>
+                                            <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-primary fw-bold text-decoration-none">
+                                                <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                            </a>
+                                        </td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tanggal) }}</td>
+                                        <td><i class="ti ti-calendar me-1"></i>{{ Date::tglReverseDash($row->tanggal) }}</td>
                                         <td>
                                             @include('admin.oss.field-catatan')
                                         </td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm action-btn action-btn-view">
-                                                <i class="ti ti-eye"></i> Lihat
+                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-modern btn-secondary">
+                                                <i class="ti ti-file-text me-1"></i>Lihat
                                             </a>
                                         </td>
                                     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
-                                            <div class="d-flex gap-1 flex-wrap">
-                                                <a class="btn btn-sm action-btn action-btn-view" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
+                                            <div class="d-flex gap-2">
+                                                <a class="btn btn-sm btn-modern btn-secondary" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
                                                     <i class="ti ti-eye"></i>
                                                 </a>
-                                                <button class="btn btn-sm action-btn action-btn-approve" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Terima" title="Terima">
+                                                <button class="btn btn-sm btn-modern btn-success" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Terima" title="Terima">
                                                     <i class="ti ti-checks"></i>
                                                 </button>
-                                                <button class="btn btn-sm action-btn action-btn-reject" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak" title="Tolak">
+                                                <button class="btn btn-sm btn-modern btn-danger" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak" title="Tolak">
                                                     <i class="ti ti-x"></i>
                                                 </button>
                                             </div>
@@ -360,14 +456,14 @@
             <!-- End Verifikasi -->
             <!-- Revisi -->
             <div class="tab-pane fade" id="revisi" role="tabpanel" aria-labelledby="revisi-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="modern-card-header">
-                            <h5 class="mb-0">Revisi Permohonan OSS</h5>
-                            <small>data permohonan oss perlu revisi</small>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-edit-circle me-2"></i>Revisi Permohonan OSS</h5>
+                            <small>Data permohonan OSS yang perlu revisi</small>
                         </div>
                         <div class="table-responsive">
-                            <table class="table modern-table" id="dtable4">
+                            <table class="table table-modern table-hover" id="dtable4">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -386,31 +482,33 @@
                                 @php($no=0)
                                 @foreach($ossRevisi as $row)
                                     <tr>
-                                        <td>{{ ++$no }}</td>
-                                        <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
-                                                {{ $row->satpen->no_registrasi }}
-                                            </a></td>
+                                        <td><strong>{{ ++$no }}</strong></td>
+                                        <td>
+                                            <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-primary fw-bold text-decoration-none">
+                                                <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                            </a>
+                                        </td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tanggal) }}</td>
+                                        <td><i class="ti ti-calendar me-1"></i>{{ Date::tglReverseDash($row->tanggal) }}</td>
                                         <td>
                                             @include('admin.oss.field-catatan')
                                         </td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm action-btn action-btn-view">
-                                                <i class="ti ti-eye"></i> Lihat
+                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-modern btn-secondary">
+                                                <i class="ti ti-file-text me-1"></i>Lihat
                                             </a>
                                         </td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                             <td>
-                                                <div class="d-flex gap-1 flex-wrap">
-                                                    <a class="btn btn-sm action-btn action-btn-view" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
+                                                <div class="d-flex gap-2">
+                                                    <a class="btn btn-sm btn-modern btn-secondary" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
                                                         <i class="ti ti-eye"></i>
                                                     </a>
-                                                    <button class="btn btn-sm action-btn action-btn-approve" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Terima" title="Terima">
+                                                    <button class="btn btn-sm btn-modern btn-success" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Terima" title="Terima">
                                                         <i class="ti ti-checks"></i>
                                                     </button>
-                                                    <button class="btn btn-sm action-btn action-btn-reject" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak" title="Tolak">
+                                                    <button class="btn btn-sm btn-modern btn-danger" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak" title="Tolak">
                                                         <i class="ti ti-x"></i>
                                                     </button>
                                                 </div>
@@ -427,14 +525,14 @@
             <!-- End Revisi -->
             <!-- Proses -->
             <div class="tab-pane fade" id="proses" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="modern-card-header">
-                            <h5 class="mb-0">Dokumen OSS Diproses</h5>
-                            <small>data permohonan oss dalam proses pembuatan dokumen</small>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-hourglass-empty me-2"></i>Dokumen OSS Diproses</h5>
+                            <small>Data permohonan OSS dalam proses pembuatan dokumen</small>
                         </div>
                         <div class="table-responsive">
-                            <table class="table modern-table" id="dtable2">
+                            <table class="table table-modern table-hover" id="dtable2">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -453,31 +551,33 @@
                                 @php($no=0)
                                 @foreach($ossProses as $row)
                                     <tr>
-                                        <td>{{ ++$no }}</td>
-                                        <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
-                                                {{ $row->satpen->no_registrasi }}
-                                            </a></td>
+                                        <td><strong>{{ ++$no }}</strong></td>
+                                        <td>
+                                            <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-primary fw-bold text-decoration-none">
+                                                <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                            </a>
+                                        </td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tanggal) }}</td>
+                                        <td><i class="ti ti-calendar me-1"></i>{{ Date::tglReverseDash($row->tanggal) }}</td>
                                         <td>
                                             @include('admin.oss.field-catatan')
                                         </td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm action-btn action-btn-view">
-                                                <i class="ti ti-eye"></i> Lihat
+                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-modern btn-secondary">
+                                                <i class="ti ti-file-text me-1"></i>Lihat
                                             </a>
                                         </td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
-                                            <div class="d-flex gap-1 flex-wrap">
-                                                <a class="btn btn-sm action-btn action-btn-view" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
+                                            <div class="d-flex gap-2">
+                                                <a class="btn btn-sm btn-modern btn-secondary" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
                                                     <i class="ti ti-eye"></i>
                                                 </a>
-                                                <button class="btn btn-sm action-btn action-btn-approve" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}" title="Terbitkan Izin">
-                                                    <i class="ti ti-checks"></i>
+                                                <button class="btn btn-sm btn-modern btn-success" data-bs-toggle="modal" data-bs-target="#modalIzin" data-bs="{{ $row->id_oss }}" title="Terbitkan Izin">
+                                                    <i class="ti ti-checks me-1"></i>Terbitkan
                                                 </button>
-                                                <button class="btn btn-sm action-btn action-btn-reject" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak" title="Tolak">
+                                                <button class="btn btn-sm btn-modern btn-danger" data-bs-toggle="modal" data-bs-target="#modalVerifikasi" data-bs="{{ $row->id_oss }}" data-st="Tolak" title="Tolak">
                                                     <i class="ti ti-x"></i>
                                                 </button>
                                             </div>
@@ -494,14 +594,14 @@
             <!-- End Proses -->
             <!-- Terbit -->
             <div class="tab-pane fade" id="terbit" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="modern-card-header">
-                            <h5 class="mb-0">Izin telah Terbit</h5>
-                            <small>data oss dengan izin yang telah diterbitkan</small>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-circle-check me-2"></i>Izin Telah Terbit</h5>
+                            <small>Data OSS dengan izin yang telah diterbitkan</small>
                         </div>
                         <div class="table-responsive">
-                            <table class="table modern-table" id="dtable3">
+                            <table class="table table-modern table-hover" id="dtable3">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -521,29 +621,31 @@
                                 @php($no=0)
                                 @foreach($ossTerbit as $row)
                                     <tr>
-                                        <td>{{ ++$no }}</td>
-                                        <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
-                                                {{ $row->satpen->no_registrasi }}
-                                            </a></td>
+                                        <td><strong>{{ ++$no }}</strong></td>
+                                        <td>
+                                            <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-primary fw-bold text-decoration-none">
+                                                <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                            </a>
+                                        </td>
                                         <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tanggal) }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tgl_izin) }}</td>
-                                        <td>{{ Date::tglReverseDash($row->tgl_expired) }}</td>
+                                        <td><i class="ti ti-calendar me-1"></i>{{ Date::tglReverseDash($row->tanggal) }}</td>
+                                        <td><i class="ti ti-calendar-check me-1"></i>{{ Date::tglReverseDash($row->tgl_izin) }}</td>
+                                        <td><i class="ti ti-clock-exclamation me-1"></i>{{ Date::tglReverseDash($row->tgl_expired) }}</td>
                                         <td>
                                            @include('admin.oss.field-catatan')
                                         </td>
                                         @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
-                                            <div class="d-flex gap-1 flex-wrap">
-                                                <a class="btn btn-sm action-btn action-btn-view" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
+                                            <div class="d-flex gap-2">
+                                                <a class="btn btn-sm btn-modern btn-secondary" href="{{ route('a.oss.detail', $row->id_oss) }}" title="Detail">
                                                     <i class="ti ti-eye"></i>
                                                 </a>
                                                 @if(in_array(auth()->user()->role, ["super admin"]))
-                                                <form action="{{ route('a.oss.destroy', $row->id_oss) }}" method="post" class="deleteBtn d-inline">
+                                                <form action="{{ route('a.oss.destroy', $row->id_oss) }}" method="post" class="deleteBtn">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm action-btn action-btn-delete" title="Hapus">
+                                                    <button type="submit" class="btn btn-sm btn-modern btn-danger" title="Hapus">
                                                         <i class="ti ti-trash"></i>
                                                     </button>
                                                 </form>
