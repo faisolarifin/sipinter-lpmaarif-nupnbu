@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Sipinter - Tab Permohonan BHPNU'
+    'title' => 'Sipinter - Permohonan BHPNU'
 ])
 
 @section('navbar')

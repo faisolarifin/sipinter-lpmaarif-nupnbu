@@ -702,7 +702,7 @@
                             </table>
                         </div>
 
-                        <!-- Lease Agreement Information -->
+                        <!-- Lease Agreement Information (Sewa Lahan) -->
                         <div class="data-section category-land">
                             <div class="section-header">
                                 <h6>
@@ -715,27 +715,27 @@
                             <table class="data-table">
                                 <tbody>
                                     <tr>
-                                        <td><strong>Nama Pemilik Lahan</strong></td>
+                                        <td>Nama Pemilik Lahan</td>
                                         <td>:</td>
                                         <td>{{ $oss->sw_pemilik_lahan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nomor Perjanjian</strong></td>
+                                        <td>Nomor Perjanjian</td>
                                         <td>:</td>
                                         <td>{{ $oss->sw_nomor_perjanjian }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Perjanjian</strong></td>
+                                        <td>Tanggal Perjanjian</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->sw_tgl_perjanjian) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Habis Masa Berlaku</strong></td>
+                                        <td>Tanggal Habis Masa Berlaku</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->sw_tgl_expired) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File Perjanjian Sewa Lahan</strong></td>
+                                        <td>Lampiran File Perjanjian Sewa Lahan</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->sw_file_lampiran)
@@ -746,28 +746,44 @@
                                             @endif
                                         </td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Lease Agreement Information (Pinjam Pakai) -->
+                        <div class="data-section category-land">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-file-description"></i>
+                                    </span>
+                                    Perjanjian Pinjam Pakai Lahan
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Nama Pemiliki Lahan</strong></td>
+                                        <td>Nama Pemilik Lahan</td>
                                         <td>:</td>
                                         <td>{{ $oss->pp_pemilik_lahan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nomor Perjanjian</strong></td>
+                                        <td>Nomor Perjanjian</td>
                                         <td>:</td>
                                         <td>{{ $oss->pp_nomor_perjanjian }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Perjanjian</strong></td>
+                                        <td>Tanggal Perjanjian</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->pp_tgl_perjanjian) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Habis Masa Berlaku</strong></td>
+                                        <td>Tanggal Habis Masa Berlaku</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->pp_tgl_expired) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File Pernjanian Pinjam Pakai Lahan</strong></td>
+                                        <td>Lampiran File Perjanjian Pinjam Pakai Lahan</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->pp_file_lampiran)
@@ -778,58 +794,102 @@
                                             @endif
                                         </td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Building Information -->
+                        <div class="data-section category-building">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-building"></i>
+                                    </span>
+                                    Informasi Bangunan
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Apakah memerlukan bangunan baru untuk kegiatan usaha ini ?</strong></td>
+                                        <td>Apakah memerlukan bangunan baru untuk kegiatan usaha ini?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_memerlukan_bangunan_baru }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Apakah Sudah Ada Bangunan ?</strong></td>
+                                        <td>Apakah Sudah Ada Bangunan?</td>
                                         <td>:</td>
                                         <td>{{ $oss->sudah_ada_bangunan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Status Bangunan Usaha</strong></td>
+                                        <td>Status Bangunan Usaha</td>
                                         <td>:</td>
                                         <td>{{ $oss->status_bangunan_usaha }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Jumlah Bangunan Anda? (Unit)</strong></td>
+                                        <td>Jumlah Bangunan (Unit)</td>
                                         <td>:</td>
                                         <td>{{ $oss->jumlah_bangunan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Apakah sudah memiliki IMB?</strong></td>
+                                        <td>Rencana Teknis Bangunan/Rencana Induk Kawasan</td>
+                                        <td>:</td>
+                                        <td>
+                                            @if ($oss->rencana_teknis_bangunan)
+                                                <a href="{{ route('a.oss.file', $oss->rencana_teknis_bangunan) }}"
+                                                    class="file-btn">
+                                                    <i class="ti ti-eye"></i> Lihat File
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- IMB Information -->
+                        <div class="data-section category-building">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-certificate"></i>
+                                    </span>
+                                    Izin Mendirikan Bangunan (IMB)
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Apakah sudah memiliki IMB?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_memiliki_imb }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Jumlah bangunan yang sudah memiliki IMB? (unit)</strong></td>
+                                        <td>Jumlah Bangunan yang sudah memiliki IMB (unit)</td>
                                         <td>:</td>
                                         <td>{{ $oss->imb_jml_bangunan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nama Pejabat Penerbitan Izin IMB</strong></td>
+                                        <td>Nama Pejabat Penerbitan Izin IMB</td>
                                         <td>:</td>
                                         <td>{{ $oss->imb_pejabat_penerbit_izin }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nomor IMB</strong></td>
+                                        <td>Nomor IMB</td>
                                         <td>:</td>
                                         <td>{{ $oss->imb_nomor }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Terbit IMB</strong></td>
+                                        <td>Tanggal Terbit IMB</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->imb_tgl_terbit) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Expired IMB</strong></td>
+                                        <td>Tanggal Expired IMB</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->imb_tgl_expired) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File IMB</strong></td>
+                                        <td>Lampiran File IMB</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->imb_file_lampiran)
@@ -840,33 +900,49 @@
                                             @endif
                                         </td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- SLF Information -->
+                        <div class="data-section category-building">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-certificate-2"></i>
+                                    </span>
+                                    Sertifikat Laik Fungsi (SLF)
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Apakah sudah memiliki sertifikat SLF?</strong></td>
+                                        <td>Apakah sudah memiliki sertifikat SLF?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_memiliki_sertifikat_slf }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nama Pejabat Penerbit Sertifikat SLF</strong></td>
+                                        <td>Nama Pejabat Penerbit Sertifikat SLF</td>
                                         <td>:</td>
                                         <td>{{ $oss->slf_pejabat_penerbit }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nomor Sertifikat SLF</strong></td>
+                                        <td>Nomor Sertifikat SLF</td>
                                         <td>:</td>
                                         <td>{{ $oss->slf_nomor }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Terbit SLF</strong></td>
+                                        <td>Tanggal Terbit SLF</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->slf_tgl_terbit) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Expired SLF</strong></td>
+                                        <td>Tanggal Expired SLF</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->slf_tgl_expired) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File Sertifikat SLF</strong></td>
+                                        <td>Lampiran File Sertifikat SLF</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->slf_file_lampiran)
@@ -877,44 +953,60 @@
                                             @endif
                                         </td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Location Information -->
+                        <div class="data-section category-location">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-map-pin"></i>
+                                    </span>
+                                    Informasi Lokasi Sekolah
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Apakah Lokasi Sekolah berada <br>dalam lintas provinsi/kabupaten/kota
-                                                (Perbatasan)</strong></td>
+                                        <td>Apakah Lokasi Sekolah berada dalam lintas provinsi/kabupaten/kota
+                                            (Perbatasan)?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_lokasi_sekolah_lintas_perbatasan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Alamat Sekolah (Jalan/RT-RW)</strong></td>
+                                        <td>Alamat Sekolah (Jalan/RT-RW)</td>
                                         <td>:</td>
                                         <td>{{ $oss->alamat_sekolah }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Propinsi</strong></td>
+                                        <td>Provinsi</td>
                                         <td>:</td>
                                         <td>{{ $oss->propinsi }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Kabupaten</strong></td>
+                                        <td>Kabupaten</td>
                                         <td>:</td>
                                         <td>{{ $oss->kabupaten }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Kecamatan</strong></td>
+                                        <td>Kecamatan</td>
                                         <td>:</td>
                                         <td>{{ $oss->kecamatan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Kelurahan</strong></td>
+                                        <td>Kelurahan</td>
                                         <td>:</td>
                                         <td>{{ $oss->kelurahan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Kode Pos</strong></td>
+                                        <td>Kode Pos</td>
                                         <td>:</td>
                                         <td>{{ $oss->kode_pos }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File Peta Polygon</strong></td>
+                                        <td>Lampiran File Peta Polygon</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->file_peta_polygon)
@@ -926,59 +1018,63 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Apakah merupakan proyek Strategis Nasional?</strong></td>
+                                        <td>Apakah merupakan proyek Strategis Nasional?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_proyek_strategi_nasional }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Rencana teknis bangunan/rencana induk kawasan</strong></td>
-                                        <td>:</td>
-                                        <td>
-                                            @if ($oss->rencana_teknis_bangunan)
-                                                <a href="{{ route('a.oss.file', $oss->rencana_teknis_bangunan) }}"
-                                                    class="file-btn">
-                                                    <i class="ti ti-eye"></i> Lihat File
-                                                </a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Kawasan Lokasi Usaha</strong></td>
+                                        <td>Kawasan Lokasi Usaha</td>
                                         <td>:</td>
                                         <td>{{ $oss->kawasan_lokasi_usaha }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nama Kawasan Industri</strong></td>
+                                        <td>Nama Kawasan Industri</td>
                                         <td>:</td>
                                         <td>{{ $oss->klu_nama_kawasan_industri }}</td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- KKPR Information -->
+                        <div class="data-section category-environment">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-clipboard-check"></i>
+                                    </span>
+                                    Kesesuaian Kegiatan Pemanfaatan Ruang (KKPR) Non Berusaha
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Apakah sudah memiliki KKPR Non Berusaha?</strong></td>
+                                        <td>Apakah sudah memiliki KKPR Non Berusaha?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_memiliki_kkpr }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nama Pejabat Penerbit KKPR Non Berusaha</strong></td>
+                                        <td>Nama Pejabat Penerbit KKPR Non Berusaha</td>
                                         <td>:</td>
                                         <td>{{ $oss->pejabat_penerbit_kkpr }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nomor Izin KKPR Non Berusaha</strong></td>
+                                        <td>Nomor Izin KKPR Non Berusaha</td>
                                         <td>:</td>
                                         <td>{{ $oss->nomor_kkpr }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Terbit KKPR Non Berusaha</strong></td>
+                                        <td>Tanggal Terbit KKPR Non Berusaha</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->tgl_terbit_kkpr) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Expired KKPR Non Berusaha</strong></td>
+                                        <td>Tanggal Expired KKPR Non Berusaha</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->tgl_expired_kkpr) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File KKPR Non Berusaha</strong></td>
+                                        <td>Lampiran File KKPR Non Berusaha</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->file_lampiran_kkpr)
@@ -989,85 +1085,131 @@
                                             @endif
                                         </td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Investment Information -->
+                        <div class="data-section category-investment">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-coin"></i>
+                                    </span>
+                                    Data Rencana Investasi
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Data Rencana Investasi : Pembelian dan Pematangan Tanah (Rp)?</strong>
-                                        </td>
+                                        <td>Pembelian dan Pematangan Tanah (Rp)</td>
                                         <td>:</td>
                                         <td>{{ $oss->dri_pembelian_tanah }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Data Rencana Investasi : Bangunan / Gedung (Rp)?</strong></td>
+                                        <td>Bangunan / Gedung (Rp)</td>
                                         <td>:</td>
                                         <td>{{ $oss->dri_bangunan }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Data Rencana Investasi : Mesin Peralatan Dalam Negeri (Rp)?</strong>
-                                        </td>
+                                        <td>Mesin Peralatan Dalam Negeri (Rp)</td>
                                         <td>:</td>
                                         <td>{{ $oss->dri_mesin_dalam_negeri }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Data Rencana Investasi : Mesin Peralatan Impor (Rp)?</strong></td>
+                                        <td>Mesin Peralatan Impor (Rp)</td>
                                         <td>:</td>
                                         <td>{{ $oss->dri_mesin_impor }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Data Rencana Investasi : Investasi Lain - Lain (Rp)?</strong></td>
+                                        <td>Investasi Lain - Lain (Rp)</td>
                                         <td>:</td>
                                         <td>{{ $oss->dri_investasi }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Data Rencana Investasi : Modal Kerja 3 Bulanan (Rp)?</strong></td>
+                                        <td>Modal Kerja 3 Bulanan (Rp)</td>
                                         <td>:</td>
                                         <td>{{ $oss->dri_modal_kerja_3_bulan }}</td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Operational Information -->
+                        <div class="data-section category-investment">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-users"></i>
+                                    </span>
+                                    Informasi Operasional & Tenaga Kerja
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Tanggal, Bulan dan Tahun mulai Beroperasi</strong></td>
+                                        <td>Tanggal, Bulan dan Tahun Mulai Beroperasi</td>
                                         <td>:</td>
                                         <td>{{ $oss->tgl_mulai_beroperasi }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>JJumlah Tenaga Kerja/Pegawai/PTK laki laki</strong></td>
+                                        <td>Jumlah Tenaga Kerja/Pegawai/PTK Laki-Laki</td>
                                         <td>:</td>
                                         <td>{{ $oss->jml_pegawai_pria }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Jumlah Tenaga Kerja/Pegawai/PTK Perempuan</strong></td>
+                                        <td>Jumlah Tenaga Kerja/Pegawai/PTK Perempuan</td>
                                         <td>:</td>
                                         <td>{{ $oss->jml_pegawai_wanita }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Jumlah Tenaga Kerja/Pegawai/PTK Asing</strong></td>
+                                        <td>Jumlah Tenaga Kerja/Pegawai/PTK Asing</td>
                                         <td>:</td>
                                         <td>{{ $oss->jml_pegawai_asing }}</td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- AMDAL Information -->
+                        <div class="data-section category-environment">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-leaf"></i>
+                                    </span>
+                                    Analisis Mengenai Dampak Lingkungan (AMDAL)
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Apakah Memiliki Izin Lingkungan AMDAL?</strong></td>
+                                        <td>Apakah Memiliki Izin Lingkungan AMDAL?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_memiliki_izin_amdal }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nama Pejabat Penerbitan Izin Lingkungan AMDAL</strong></td>
+                                        <td>Nama Pejabat Penerbitan Izin Lingkungan AMDAL</td>
                                         <td>:</td>
                                         <td>{{ $oss->amdal_pejabat_penerbit }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nomor Izin Lingkungan AMDAL</strong></td>
+                                        <td>Nomor Izin Lingkungan AMDAL</td>
                                         <td>:</td>
                                         <td>{{ $oss->amdal_nomor_izin }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Terbit Izin Lingkungan AMDAL</strong></td>
+                                        <td>Tanggal Terbit Izin Lingkungan AMDAL</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->amdal_tgl_terbit) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Expired Izin Lingkungan AMDAL</strong></td>
+                                        <td>Tanggal Expired Izin Lingkungan AMDAL</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->amdal_tgl_expired) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File Izin Lingkungan AMDAL</strong></td>
+                                        <td>Lampiran File Izin Lingkungan AMDAL</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->amdal_file_lampiran)
@@ -1078,33 +1220,49 @@
                                             @endif
                                         </td>
                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- UKL-UPL Information -->
+                        <div class="data-section category-environment">
+                            <div class="section-header">
+                                <h6>
+                                    <span class="section-icon">
+                                        <i class="ti ti-plant"></i>
+                                    </span>
+                                    Upaya Pengelolaan Lingkungan & Upaya Pemantauan Lingkungan (UKL-UPL)
+                                </h6>
+                            </div>
+                            <table class="data-table">
+                                <tbody>
                                     <tr>
-                                        <td><strong>Apakah Memiliki Izin Lingkungan UKL-UPL?</strong></td>
+                                        <td>Apakah Memiliki Izin Lingkungan UKL-UPL?</td>
                                         <td>:</td>
                                         <td>{{ $oss->apakah_memiliki_uklupl }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nama Pejabat Penerbitan Izin Lingkungan UKL-UPL</strong></td>
+                                        <td>Nama Pejabat Penerbitan Izin Lingkungan UKL-UPL</td>
                                         <td>:</td>
                                         <td>{{ $oss->uklupl_pejabat_penerbit }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Nomor Izin Lingkungan UKL-UPL</strong></td>
+                                        <td>Nomor Izin Lingkungan UKL-UPL</td>
                                         <td>:</td>
                                         <td>{{ $oss->uklupl_nomor_izin }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Terbit Izin Lingkungan UKL-UPL</strong></td>
+                                        <td>Tanggal Terbit Izin Lingkungan UKL-UPL</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->uklupl_tgl_terbit) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Tanggal Expired Izin Lingkungan UKL-UPL</strong></td>
+                                        <td>Tanggal Expired Izin Lingkungan UKL-UPL</td>
                                         <td>:</td>
                                         <td>{{ \App\Helpers\Date::tglReverse($oss->uklupl_tgl_expired) }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Lampiran File Izin Lingkungan UKL-UPL</strong></td>
+                                        <td>Lampiran File Izin Lingkungan UKL-UPL</td>
                                         <td>:</td>
                                         <td>
                                             @if ($oss->uklupl_file_lampiran)
