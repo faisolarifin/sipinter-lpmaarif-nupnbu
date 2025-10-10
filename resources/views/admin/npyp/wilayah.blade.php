@@ -6,6 +6,32 @@
     @include('template.navadmin')
 @endsection
 
+@section('style')
+    <style>
+        #npypWilayahTable {
+            width: 100% !important;
+            table-layout: fixed;
+        }
+        #npypWilayahTable tbody td {
+            padding: 12px 8px !important;
+            vertical-align: middle;
+            word-wrap: break-word;
+        }
+        #npypWilayahTable thead th {
+            padding: 15px 8px !important;
+        }
+        #npypWilayahTable tbody td div {
+            padding: 4px 0;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        #npypWilayahTable_wrapper {
+            width: 100%;
+        }
+    </style>
+@endsection
+
 @section('container')
     <!--  Row 1 -->
     <div class="row container-begin">
@@ -137,30 +163,6 @@
 @section('scripts')
     <script src="{{ asset('assets/libs/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables/dataTables.bootstrap5.min.js') }}"></script>
-    
-    <style>
-        #npypWilayahTable {
-            width: 100% !important;
-            table-layout: fixed;
-        }
-        #npypWilayahTable tbody td {
-            padding: 12px 8px !important;
-            vertical-align: middle;
-            word-wrap: break-word;
-        }
-        #npypWilayahTable thead th {
-            padding: 15px 8px !important;
-        }
-        #npypWilayahTable tbody td div {
-            padding: 4px 0;
-        }
-        .table-responsive {
-            overflow-x: auto;
-        }
-        #npypWilayahTable_wrapper {
-            width: 100%;
-        }
-    </style>
     
     <script>
         $(document).ready(function() {

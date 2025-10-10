@@ -7,7 +7,6 @@ use App\Models\NPYP;
 use App\Models\NPYPSatpen;
 use App\Models\PTK;
 use App\Models\Provinsi;
-use App\Models\Kabupaten;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -283,8 +282,8 @@ class NpypController extends Controller
                     'npsn' => $satpen->npsn ? 
                         '<span class="fw-bold">' . $satpen->npsn . '</span>' : 
                         '<span class="text-muted">Belum ada</span>',
-                    'no_registrasi' => $satpen->no_registrasi ? 
-                        '<small>' . $satpen->no_registrasi . '</small>' : 
+                    'no_registrasi' => $satpen->no_registrasi ?
+                        '<a href="' . route('a.rekapsatpen.detail', $satpen->id_satpen) . '" class="text-decoration-none"><i class="ti ti-link me-1"></i><small>' . $satpen->no_registrasi . '</small></a>' :
                         '<span class="text-muted">-</span>',
                     'nama_satpen' => '<div><h6 class="mb-1">' . ($satpen->nm_satpen ?? 'Nama tidak tersedia') . '</h6>' .
                         '<small class="text-muted"><i class="ti ti-calendar me-1"></i>Terdaftar: ' . 
@@ -488,13 +487,18 @@ class NpypController extends Controller
 
             $result = [];
             foreach ($data as $index => $item) {
+                $wilayahName = $item->pengurusWilayah->nm_prov ?? 'Provinsi tidak ditemukan';
+                $wilayahLink = $item->pengurusWilayah
+                    ? '<div><a href="' . route('a.wilayah.detail', $item->pengurusWilayah->id_prov) . '"><i class="ti ti-link me-1"></i>' . $wilayahName . '</a></div>'
+                    : '<div>' . $wilayahName . '</div>';
+
                 $result[] = [
                     'no' => '<div class="text-center fw-bold">' . ($length == -1 ? ($index + 1) : ($start + $index + 1)) . '</div>',
                     'nomor_npyp' => '<div class="fw-bold">' . ($item->nomor_npyp ?? '<span class="text-muted">-</span>') . '</div>',
                     'nama_npyp' => '<div>' . ($item->nama_npyp ?? '<span class="text-muted">-</span>') . '</div>',
                     'nama_operator' => '<div>' . ($item->nama_operator ?? '<span class="text-muted">-</span>') . '</div>',
                     'nomor_operator' => '<div>' . ($item->nomor_operator ?? '<span class="text-muted">-</span>') . '</div>',
-                    'wilayah' => '<div>' . ($item->pengurusWilayah->nm_prov ?? 'Provinsi tidak ditemukan') . '</div>'
+                    'wilayah' => $wilayahLink
                 ];
             }
 
@@ -595,9 +599,17 @@ class NpypController extends Controller
             $result = [];
             foreach ($data as $index => $item) {
                 $cabangName = $item->pengurusCabang ? $item->pengurusCabang->nama_pc : 'Cabang tidak ditemukan';
-                $wilayahName = ($item->pengurusCabang && $item->pengurusCabang->prov) 
-                    ? $item->pengurusCabang->prov->nm_prov 
+                $wilayahName = ($item->pengurusCabang && $item->pengurusCabang->prov)
+                    ? $item->pengurusCabang->prov->nm_prov
                     : 'Provinsi tidak ditemukan';
+
+                $cabangLink = $item->pengurusCabang
+                    ? '<div><a href="' . route('a.cabang.detail', $item->id_pc) . '"><i class="ti ti-link me-1"></i>' . $cabangName . '</a></div>'
+                    : '<div>' . $cabangName . '</div>';
+
+                $wilayahLink = ($item->pengurusCabang && $item->pengurusCabang->prov)
+                    ? '<div><a href="' . route('a.wilayah.detail', $item->pengurusCabang->id_prov) . '"><i class="ti ti-link me-1"></i>' . $wilayahName . '</a></div>'
+                    : '<div>' . $wilayahName . '</div>';
 
                 $result[] = [
                     'no' => '<div class="text-center fw-bold">' . ($length == -1 ? ($index + 1) : ($start + $index + 1)) . '</div>',
@@ -605,8 +617,8 @@ class NpypController extends Controller
                     'nama_npyp' => '<div>' . ($item->nama_npyp ?? '<span class="text-muted">-</span>') . '</div>',
                     'nama_operator' => '<div>' . ($item->nama_operator ?? '<span class="text-muted">-</span>') . '</div>',
                     'nomor_operator' => '<div>' . ($item->nomor_operator ?? '<span class="text-muted">-</span>') . '</div>',
-                    'cabang' => '<div>' . $cabangName . '</div>',
-                    'wilayah' => '<div>' . $wilayahName . '</div>'
+                    'cabang' => $cabangLink,
+                    'wilayah' => $wilayahLink
                 ];
             }
 
