@@ -458,7 +458,7 @@ class NpypController extends Controller
             // Pagination
             $start = $request->start ?? 0;
             $length = $request->length ?? 10;
-            
+
             // Handle export all data
             if ($length == -1) {
                 // Don't limit for export
@@ -471,7 +471,7 @@ class NpypController extends Controller
                 $columns = ['id_npyp', 'nomor_npyp', 'nama_npyp', 'nama_operator', 'nomor_operator', 'wilayah'];
                 $orderColumn = $columns[$request->order[0]['column']] ?? 'nomor_npyp';
                 $orderDir = $request->order[0]['dir'] ?? 'asc';
-                
+
                 if ($orderColumn === 'wilayah') {
                     $query->join('provinsi', 'npyp.id_pw', '=', 'provinsi.id_prov')
                           ->orderBy('provinsi.nm_prov', $orderDir)
@@ -494,8 +494,9 @@ class NpypController extends Controller
 
                 $result[] = [
                     'no' => '<div class="text-center fw-bold">' . ($length == -1 ? ($index + 1) : ($start + $index + 1)) . '</div>',
+                    'id_npyp' => $item->id_npyp,
                     'nomor_npyp' => '<div class="fw-bold">' . ($item->nomor_npyp ?? '<span class="text-muted">-</span>') . '</div>',
-                    'nama_npyp' => '<div>' . ($item->nama_npyp ?? '<span class="text-muted">-</span>') . '</div>',
+                    'nama_npyp' => $item->nama_npyp ?? '-',
                     'nama_operator' => '<div>' . ($item->nama_operator ?? '<span class="text-muted">-</span>') . '</div>',
                     'nomor_operator' => '<div>' . ($item->nomor_operator ?? '<span class="text-muted">-</span>') . '</div>',
                     'wilayah' => $wilayahLink
@@ -520,7 +521,76 @@ class NpypController extends Controller
         }
     }
 
-    public function indexNpypCabang() 
+    public function getSatpenByNpyp($npypId)
+    {
+        try {
+            $npyp = NPYP::find($npypId);
+
+            if (!$npyp) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data NPYP tidak ditemukan'
+                ], 404);
+            }
+
+            // Get all satpen under this NPYP
+            $satpenList = NPYPSatpen::with(['satpen.jenjang', 'satpen.kabupaten', 'satpen.provinsi'])
+                ->where('id_npyp', $npypId)
+                ->get();
+
+            $data = [];
+            $stats = [
+                'total' => 0,
+                'ra_tk' => 0,
+                'mi_sd' => 0,
+                'mts_smp_ma_sma' => 0
+            ];
+
+            foreach ($satpenList as $index => $item) {
+                if ($item->satpen) {
+                    $satpen = $item->satpen;
+                    $jenjang = $satpen->jenjang ? $satpen->jenjang->nm_jenjang : '';
+
+                    // Count by jenjang
+                    $stats['total']++;
+                    if (in_array($jenjang, ['RA', 'TK'])) {
+                        $stats['ra_tk']++;
+                    } elseif (in_array($jenjang, ['MI', 'SD'])) {
+                        $stats['mi_sd']++;
+                    } elseif (in_array($jenjang, ['MTs', 'SMP', 'MA', 'SMA', 'SMK'])) {
+                        $stats['mts_smp_ma_sma']++;
+                    }
+
+                    $data[] = [
+                        'no' => $index + 1,
+                        'id_satpen' => $satpen->id_satpen,
+                        'npsn' => $satpen->npsn ?? '-',
+                        'no_registrasi' => $satpen->no_registrasi ?? '-',
+                        'nama_satpen' => $satpen->nm_satpen ?? '-',
+                        'jenjang' => $jenjang ?: '-',
+                        'kabupaten' => $satpen->kabupaten ? $satpen->kabupaten->nama_kab : '-',
+                        'alamat' => ($satpen->kelurahan ? $satpen->kelurahan . ', ' : '') .
+                                   ($satpen->kecamatan ? $satpen->kecamatan : '-')
+                    ];
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $data,
+                'statistics' => $stats,
+                'npyp_name' => $npyp->nama_npyp
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function indexNpypCabang()
     {
         if (in_array(auth()->user()->role, ["admin cabang"])) {
             return $this->indexNpyp();
@@ -613,8 +683,9 @@ class NpypController extends Controller
 
                 $result[] = [
                     'no' => '<div class="text-center fw-bold">' . ($length == -1 ? ($index + 1) : ($start + $index + 1)) . '</div>',
+                    'id_npyp' => $item->id_npyp,
                     'nomor_npyp' => '<div class="fw-bold">' . ($item->nomor_npyp ?? '<span class="text-muted">-</span>') . '</div>',
-                    'nama_npyp' => '<div>' . ($item->nama_npyp ?? '<span class="text-muted">-</span>') . '</div>',
+                    'nama_npyp' => $item->nama_npyp ?? '-',
                     'nama_operator' => '<div>' . ($item->nama_operator ?? '<span class="text-muted">-</span>') . '</div>',
                     'nomor_operator' => '<div>' . ($item->nomor_operator ?? '<span class="text-muted">-</span>') . '</div>',
                     'cabang' => $cabangLink,
