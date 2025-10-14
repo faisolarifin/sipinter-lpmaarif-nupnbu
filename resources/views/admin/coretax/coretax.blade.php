@@ -968,16 +968,16 @@
                                                 <td>{{ $row->nitku }}</td>
                                                 <td>{{ $row->nama_pic }}</td>
                                                 <td>{{ $row->nik_pic }}</td>
-                                                <td>
+                                                <td class="text-center">
                                                     <button class="btn btn-sm btn-info me-1 my-sm-1"
                                                         data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop"
                                                         data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
                                                     @if (in_array(auth()->user()->role, ['super admin']))
                                                         <form action="{{ route('a.coretax.destroy', $row->id) }}"
-                                                            method="post" class="deleteBtn">
+                                                            method="post" class="d-inline deleteBtn">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger me-1">
+                                                            <button type="submit" class="btn btn-sm btn-danger">
                                                                 <i class="ti ti-trash"></i>
                                                             </button>
                                                         </form>
@@ -1080,16 +1080,16 @@
                                                 <td>{{ $row->nitku }}</td>
                                                 <td>{{ $row->nama_pic }}</td>
                                                 <td>{{ $row->nik_pic }}</td>
-                                                <td>
+                                                <td class="text-center">
                                                     <button class="btn btn-sm btn-info me-1 my-sm-1"
                                                         data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop"
                                                         data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
                                                     @if (in_array(auth()->user()->role, ['super admin']))
                                                         <form action="{{ route('a.coretax.destroy', $row->id) }}"
-                                                            method="post" class="deleteBtn">
+                                                            method="post" class="d-inline deleteBtn">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger me-1">
+                                                            <button type="submit" class="btn btn-sm btn-danger">
                                                                 <i class="ti ti-trash"></i>
                                                             </button>
                                                         </form>
@@ -1145,46 +1145,79 @@
         });
 
         $(document).ready(function() {
-            $('#dtable').DataTable();
-            $('#dtable2').DataTable();
-            $('#dtable3').DataTable();
-            $('#dtable4').DataTable({
-                dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                buttons: [{
-                    extend: 'excelHtml5',
-                    title: 'Coretax Approved Satpen',
-                    text: 'Export ke Excel',
-                    className: 'btn btn-success me-2',
-                    exportOptions: {
-                        columns: ':not(:last-child)'
-                    }
-                }]
-            });
-            $('#dtable5').DataTable({
-                dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                buttons: [{
-                    extend: 'excelHtml5',
-                    title: 'Coretax Approved Cabang',
-                    text: 'Export ke Excel',
-                    className: 'btn btn-success me-2',
-                    exportOptions: {
-                        columns: ':not(:last-child)'
-                    }
-                }]
-            });
-            $('#dtable6').DataTable({
-                dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                buttons: [{
-                    extend: 'excelHtml5',
-                    title: 'Coretax Approved Wilayah',
-                    text: 'Export ke Excel',
-                    className: 'btn btn-success me-2',
-                    exportOptions: {
-                        columns: ':not(:last-child)'
-                    }
-                }]
-            });
-            $('#dtable7').DataTable();
+            // Inisialisasi DataTables dengan pengecekan
+            if ($('#dtable').length) {
+                $('#dtable').DataTable();
+            }
+            if ($('#dtable2').length) {
+                $('#dtable2').DataTable();
+            }
+            if ($('#dtable3').length) {
+                $('#dtable3').DataTable();
+            }
+            
+            if ($('#dtable4').length) {
+                $('#dtable4').DataTable({
+                    dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Coretax Approved Satpen',
+                        text: 'Export ke Excel',
+                        className: 'btn btn-success me-2',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }]
+                });
+            }
+            
+            if ($('#dtable5').length) {
+                // Destroy jika sudah ada untuk menghindari double initialization
+                if ($.fn.DataTable.isDataTable('#dtable5')) {
+                    $('#dtable5').DataTable().destroy();
+                }
+                $('#dtable5').DataTable({
+                    dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Coretax Approved Cabang',
+                        text: 'Export ke Excel',
+                        className: 'btn btn-success me-2',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }],
+                    pageLength: 10,
+                    ordering: true,
+                    searching: true
+                });
+            }
+            
+            if ($('#dtable6').length) {
+                // Destroy jika sudah ada untuk menghindari double initialization
+                if ($.fn.DataTable.isDataTable('#dtable6')) {
+                    $('#dtable6').DataTable().destroy();
+                }
+                $('#dtable6').DataTable({
+                    dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+                    buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Coretax Approved Wilayah',
+                        text: 'Export ke Excel',
+                        className: 'btn btn-success me-2',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }],
+                    pageLength: 10,
+                    ordering: true,
+                    searching: true
+                });
+            }
+            
+            if ($('#dtable7').length) {
+                $('#dtable7').DataTable();
+            }
 
             // Get the hash value from the URL (e.g., #profile)
             let hash = window.location.hash;
@@ -1196,6 +1229,12 @@
             $('.nav-link[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
                 let target = $(e.target).attr('data-bs-target');
                 window.location.hash = target;
+            });
+
+            // Re-inisialisasi dan adjust kolom DataTable saat tab ditampilkan
+            $('button[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
+                // Adjust semua tabel yang visible
+                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
             });
 
         });
