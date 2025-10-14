@@ -702,5 +702,3 @@
 
 </script>
 @endsection
-
-@include('admin.satpen.detailSatpenPermohonan')
