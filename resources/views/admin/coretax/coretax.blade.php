@@ -281,7 +281,7 @@
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.cabang.detail', $row->id_pc) }}"
                                                             class="text-decoration-underline">
@@ -290,7 +290,7 @@
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.wilayah.detail', $row->id_pw) }}"
                                                             class="text-decoration-underline">
@@ -310,6 +310,8 @@
                                                         <span class="badge bg-info rounded-3 fw-semibold">CABANG</span>
                                                     @elseif ($row->wilayah)
                                                         <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
+                                                    @else
+                                                        <span class="badge bg-secondary rounded-3 fw-semibold">-</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -425,7 +427,7 @@
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.cabang.detail', $row->id_pc) }}"
                                                             class="text-decoration-underline">
@@ -434,7 +436,7 @@
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.wilayah.detail', $row->id_pw) }}"
                                                             class="text-decoration-underline">
@@ -442,6 +444,11 @@
                                                         </a></td>
                                                     <td>{{ $row->wilayah->nm_prov }}</td>
                                                     <td>{{ $row->wilayah->profile->kabupaten }}</td>
+                                                @else
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
                                                 @endif
                                                 <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
                                                 <td>{{ $row->nitku }}</td>
@@ -454,6 +461,8 @@
                                                         <span class="badge bg-info rounded-3 fw-semibold">CABANG</span>
                                                     @elseif ($row->wilayah)
                                                         <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
+                                                    @else
+                                                        <span class="badge bg-secondary rounded-3 fw-semibold">-</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -565,7 +574,7 @@
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.cabang.detail', $row->id_pc) }}"
                                                             class="text-decoration-underline">
@@ -574,7 +583,7 @@
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.wilayah.detail', $row->id_pw) }}"
                                                             class="text-decoration-underline">
@@ -594,6 +603,8 @@
                                                         <span class="badge bg-info rounded-3 fw-semibold">CABANG</span>
                                                     @elseif ($row->wilayah)
                                                         <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
+                                                    @else
+                                                        <span class="badge bg-secondary rounded-3 fw-semibold">-</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -708,7 +719,7 @@
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.cabang.detail', $row->id_pc) }}"
                                                             class="text-decoration-underline">
@@ -717,7 +728,7 @@
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
-                                                    <td></td>
+                                                    <td>-</td>
                                                     <td><a class="text-decoration-none"
                                                             href="{{ route('a.wilayah.detail', $row->id_pw) }}"
                                                             class="text-decoration-underline">
@@ -737,6 +748,8 @@
                                                         <span class="badge bg-info rounded-3 fw-semibold">CABANG</span>
                                                     @elseif ($row->wilayah)
                                                         <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
+                                                    @else
+                                                        <span class="badge bg-secondary rounded-3 fw-semibold">-</span>
                                                     @endif
                                                 </td>
                                                 <td>
