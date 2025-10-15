@@ -415,58 +415,58 @@
                                                             <td class="text-center">
                                                                 <span class="badge bg-light text-dark">{{ $loop->iteration }}</span>
                                                             </td>
-                                                @if ($row->satpen)
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->satpen->no_registrasi }}
-                                                        </a></td>
-                                                    <td>{{ $row->satpen->nm_satpen }}</td>
-                                                    <td>{{ $row->satpen->provinsi->nm_prov }}</td>
-                                                    <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
-                                                @elseif ($row->cabang)
-                                                    <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.cabang.detail', $row->id_pc) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->cabang->nama_pc }}
-                                                        </a></td>
-                                                    <td>{{ $row->cabang->prov->nm_prov }}</td>
-                                                    <td>{{ $row->cabang->profile->kabupaten }}</td>
-                                                @elseif ($row->wilayah)
-                                                    <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.wilayah.detail', $row->id_pw) }}"
-                                                            class="text-decoration-underline">
-                                                            Wilayah {{ $row->wilayah->nm_prov }}
-                                                        </a></td>
-                                                    <td>{{ $row->wilayah->nm_prov }}</td>
-                                                    <td>{{ $row->wilayah->profile->kabupaten }}</td>
-                                                @endif
-                                                <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
-                                                <td>{{ $row->nitku }}</td>
-                                                <td>{{ $row->nama_pic }}</td>
-                                                <td>{{ $row->nik_pic }}</td>
-                                                <td>
-                                                    @if ($row->satpen)
-                                                        <span class="badge bg-info rounded-3 fw-semibold">SATPEN</span>
-                                                    @elseif ($row->cabang)
-                                                        <span class="badge bg-info rounded-3 fw-semibold">CABANG</span>
-                                                    @elseif ($row->wilayah)
-                                                        <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-info me-1 my-sm-1"
-                                                        data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop"
-                                                        data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
-                                                    @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
-                                                        <a href="{{ route('a.coretax.open-expiry', $row->id) }}">
-                                                            <button class="btn btn-sm btn-success me-1">
-                                                                <i class="ti ti-checks"></i>
-                                                            </button>
-                                                        </a>
-                                                    @endif
+                                                            @if ($row->satpen)
+                                                                <td><a class="text-decoration-none"
+                                                                        href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
+                                                                        class="text-decoration-underline">
+                                                                        {{ $row->satpen->no_registrasi }}
+                                                                    </a></td>
+                                                                <td>{{ $row->satpen->nm_satpen }}</td>
+                                                                <td>{{ $row->satpen->provinsi->nm_prov }}</td>
+                                                                <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
+                                                            @elseif ($row->cabang)
+                                                                <td></td>
+                                                                <td><a class="text-decoration-none"
+                                                                        href="{{ route('a.cabang.detail', $row->id_pc) }}"
+                                                                        class="text-decoration-underline">
+                                                                        {{ $row->cabang->nama_pc }}
+                                                                    </a></td>
+                                                                <td>{{ $row->cabang->prov->nm_prov }}</td>
+                                                                <td>{{ $row->cabang->profile->kabupaten }}</td>
+                                                            @elseif ($row->wilayah)
+                                                                <td></td>
+                                                                <td><a class="text-decoration-none"
+                                                                        href="{{ route('a.wilayah.detail', $row->id_pw) }}"
+                                                                        class="text-decoration-underline">
+                                                                        Wilayah {{ $row->wilayah->nm_prov }}
+                                                                    </a></td>
+                                                                <td>{{ $row->wilayah->nm_prov }}</td>
+                                                                <td>{{ $row->wilayah->profile->kabupaten }}</td>
+                                                            @endif
+                                                            <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
+                                                            <td>{{ $row->nitku }}</td>
+                                                            <td>{{ $row->nama_pic }}</td>
+                                                            <td>{{ $row->nik_pic }}</td>
+                                                            <td>
+                                                                @if ($row->satpen)
+                                                                    <span class="badge bg-info rounded-3 fw-semibold">SATPEN</span>
+                                                                @elseif ($row->cabang)
+                                                                    <span class="badge bg-info rounded-3 fw-semibold">CABANG</span>
+                                                                @elseif ($row->wilayah)
+                                                                    <span class="badge bg-info rounded-3 fw-semibold">WILAYAH</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-info me-1 my-sm-1"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop"
+                                                                    data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
+                                                                @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
+                                                                    <a href="{{ route('a.coretax.open-expiry', $row->id) }}">
+                                                                        <button class="btn btn-sm btn-success me-1">
+                                                                            <i class="ti ti-checks"></i>
+                                                                        </button>
+                                                                    </a>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -1148,7 +1148,8 @@
             // Flag untuk track tabel yang sudah diinit
             var initializedTables = {
                 dtable5: false,
-                dtable6: false
+                dtable6: false,
+                dtable7: false
             };
 
             // Inisialisasi DataTables untuk tab yang aktif (Verifikasi)
@@ -1175,10 +1176,6 @@
                         }
                     }]
                 });
-            }
-
-            if ($('#dtable7').length) {
-                $('#dtable7').DataTable();
             }
 
             // Fungsi untuk inisialisasi dtable5 (Cabang)
@@ -1235,6 +1232,19 @@
                 }
             }
 
+            // Fungsi untuk inisialisasi dtable7 (Buka Expiry)
+            function initDtable7() {
+                if ($('#dtable7').length && !initializedTables.dtable7) {
+                    setTimeout(function() {
+                        if ($.fn.DataTable.isDataTable('#dtable7')) {
+                            $('#dtable7').DataTable().destroy();
+                        }
+                        $('#dtable7').DataTable();
+                        initializedTables.dtable7 = true;
+                    }, 100);
+                }
+            }
+
             // Get the hash value from the URL (e.g., #profile)
             let hash = window.location.hash;
             // If a hash is present and corresponds to a tab, activate that tab
@@ -1246,6 +1256,8 @@
                     initDtable5();
                 } else if (hash === '#wilayah') {
                     initDtable6();
+                } else if (hash === '#buka-expiry') {
+                    initDtable7();
                 }
             }
 
@@ -1264,6 +1276,8 @@
                     initDtable5();
                 } else if (target === '#wilayah') {
                     initDtable6();
+                } else if (target === '#buka-expiry') {
+                    initDtable7();
                 }
 
                 // Adjust semua tabel yang visible
