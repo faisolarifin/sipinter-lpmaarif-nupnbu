@@ -956,34 +956,34 @@
                                                             <td class="text-center">
                                                                 <span class="badge bg-light text-dark">{{ $loop->iteration }}</span>
                                                             </td>
-                                                <td><a class="text-decoration-none"
-                                                        href="{{ route('a.cabang.detail', $row->id_pc) }}"
-                                                        class="text-decoration-underline">
-                                                        {{ $row->cabang->nama_pc }}
-                                                    </a></td>
-                                                <td>{{ $row->cabang->prov->nm_prov }}</td>
-                                                <td>{{ $row->cabang->profile->kabupaten }}</td>
-                                                <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
-                                                <td>{{ Date::tglReverseDash($row->tgl_expiry) }}</td>
-                                                <td>{{ $row->nitku }}</td>
-                                                <td>{{ $row->nama_pic }}</td>
-                                                <td>{{ $row->nik_pic }}</td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-sm btn-info me-1 my-sm-1"
-                                                        data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop"
-                                                        data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
-                                                    @if (in_array(auth()->user()->role, ['super admin']))
-                                                        <form action="{{ route('a.coretax.destroy', $row->id) }}"
-                                                            method="post" class="d-inline deleteBtn">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                                <i class="ti ti-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    @endif
-                                                </td>
-                                            </tr>
+                                                            <td><a class="text-decoration-none"
+                                                                    href="{{ route('a.cabang.detail', $row->id_pc) }}"
+                                                                    class="text-decoration-underline">
+                                                                    {{ $row->cabang->nama_pc }}
+                                                                </a></td>
+                                                            <td>{{ $row->cabang->prov->nm_prov }}</td>
+                                                            <td>{{ $row->cabang->profile->kabupaten }}</td>
+                                                            <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
+                                                            <td>{{ Date::tglReverseDash($row->tgl_expiry) }}</td>
+                                                            <td>{{ $row->nitku }}</td>
+                                                            <td>{{ $row->nama_pic }}</td>
+                                                            <td>{{ $row->nik_pic }}</td>
+                                                            <td class="text-center">
+                                                                <button class="btn btn-sm btn-info me-1 my-sm-1"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop"
+                                                                    data-bs="{{ $row->id }}"><i class="ti ti-eye"></i></button>
+                                                                @if (in_array(auth()->user()->role, ['super admin']))
+                                                                    <form action="{{ route('a.coretax.destroy', $row->id) }}"
+                                                                        method="post" class="d-inline deleteBtn">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                                            <i class="ti ti-trash"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
                                                     @endforeach
                                                 @else
                                                     <tr>
