@@ -1000,7 +1000,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="11" class="text-center py-5">
+                                                        <td colspan="10" class="text-center py-5">
                                                             <div class="d-flex flex-column align-items-center">
                                                                 <i class="ti ti-building fs-1 text-muted mb-3"></i>
                                                                 <h6 class="text-muted mb-1">Tidak Ada Data Cabang</h6>
@@ -1112,7 +1112,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="11" class="text-center py-5">
+                                                        <td colspan="10" class="text-center py-5">
                                                             <div class="d-flex flex-column align-items-center">
                                                                 <i class="ti ti-map fs-1 text-muted mb-3"></i>
                                                                 <h6 class="text-muted mb-1">Tidak Ada Data Wilayah</h6>
@@ -1160,35 +1160,76 @@
         $(document).ready(function() {
             // Flag untuk track tabel yang sudah diinit
             var initializedTables = {
+                dtable: false,
+                dtable2: false,
+                dtable3: false,
+                dtable4: false,
                 dtable5: false,
                 dtable6: false,
                 dtable7: false
             };
 
-            // Inisialisasi DataTables untuk tab yang aktif (Verifikasi)
-            if ($('#dtable').length) {
-                $('#dtable').DataTable();
-            }
-            if ($('#dtable2').length) {
-                $('#dtable2').DataTable();
-            }
-            if ($('#dtable3').length) {
-                $('#dtable3').DataTable();
+            // Fungsi untuk inisialisasi dtable (Verifikasi)
+            function initDtable() {
+                if ($('#dtable').length && !initializedTables.dtable) {
+                    setTimeout(function() {
+                        if ($.fn.DataTable.isDataTable('#dtable')) {
+                            $('#dtable').DataTable().destroy();
+                        }
+                        $('#dtable').DataTable();
+                        initializedTables.dtable = true;
+                    }, 100);
+                }
             }
 
-            if ($('#dtable4').length) {
-                $('#dtable4').DataTable({
-                    dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                    buttons: [{
-                        extend: 'excelHtml5',
-                        title: 'Coretax Approved Satpen',
-                        text: 'Export ke Excel',
-                        className: 'btn btn-success me-2',
-                        exportOptions: {
-                            columns: ':not(:last-child)'
+            // Fungsi untuk inisialisasi dtable2 (Revisi)
+            function initDtable2() {
+                if ($('#dtable2').length && !initializedTables.dtable2) {
+                    setTimeout(function() {
+                        if ($.fn.DataTable.isDataTable('#dtable2')) {
+                            $('#dtable2').DataTable().destroy();
                         }
-                    }]
-                });
+                        $('#dtable2').DataTable();
+                        initializedTables.dtable2 = true;
+                    }, 100);
+                }
+            }
+
+            // Fungsi untuk inisialisasi dtable3 (Proses)
+            function initDtable3() {
+                if ($('#dtable3').length && !initializedTables.dtable3) {
+                    setTimeout(function() {
+                        if ($.fn.DataTable.isDataTable('#dtable3')) {
+                            $('#dtable3').DataTable().destroy();
+                        }
+                        $('#dtable3').DataTable();
+                        initializedTables.dtable3 = true;
+                    }, 100);
+                }
+            }
+
+            // Fungsi untuk inisialisasi dtable4 (Satpen)
+            function initDtable4() {
+                if ($('#dtable4').length && !initializedTables.dtable4) {
+                    setTimeout(function() {
+                        if ($.fn.DataTable.isDataTable('#dtable4')) {
+                            $('#dtable4').DataTable().destroy();
+                        }
+                        $('#dtable4').DataTable({
+                            dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+                            buttons: [{
+                                extend: 'excelHtml5',
+                                title: 'Coretax Approved Satpen',
+                                text: 'Export ke Excel',
+                                className: 'btn btn-success me-2',
+                                exportOptions: {
+                                    columns: ':not(:last-child)'
+                                }
+                            }]
+                        });
+                        initializedTables.dtable4 = true;
+                    }, 100);
+                }
             }
 
             // Fungsi untuk inisialisasi dtable5 (Cabang)
@@ -1252,24 +1293,8 @@
                         if ($.fn.DataTable.isDataTable('#dtable7')) {
                             $('#dtable7').DataTable().destroy();
                         }
-
-                        // Tunggu sampai tabel benar-benar visible
-                        var checkVisible = setInterval(function() {
-                            if ($('#dtable7').is(':visible') && $('#dtable7 tbody tr').length > 0) {
-                                clearInterval(checkVisible);
-                                try {
-                                    $('#dtable7').DataTable();
-                                    initializedTables.dtable7 = true;
-                                } catch (e) {
-                                    console.error('Error initializing dtable7:', e);
-                                }
-                            }
-                        }, 50);
-
-                        // Timeout setelah 3 detik
-                        setTimeout(function() {
-                            clearInterval(checkVisible);
-                        }, 3000);
+                        $('#dtable7').DataTable();
+                        initializedTables.dtable7 = true;
                     }, 100);
                 }
             }
@@ -1281,13 +1306,24 @@
                 $('.nav-link[data-bs-toggle="pill"][data-bs-target="' + hash + '"]').tab('show');
 
                 // Init table untuk hash yang dibuka
-                if (hash === '#cabang') {
+                if (hash === '#verifikasi') {
+                    initDtable();
+                } else if (hash === '#buka-expiry') {
+                    initDtable7();
+                } else if (hash === '#revisi') {
+                    initDtable2();
+                } else if (hash === '#proses') {
+                    initDtable3();
+                } else if (hash === '#satpen') {
+                    initDtable4();
+                } else if (hash === '#cabang') {
                     initDtable5();
                 } else if (hash === '#wilayah') {
                     initDtable6();
-                } else if (hash === '#buka-expiry') {
-                    initDtable7();
                 }
+            } else {
+                // Default: init dtable (Verifikasi) karena tab pertama yang aktif
+                initDtable();
             }
 
             // Update the URL hash when a tab is clicked
@@ -1301,12 +1337,20 @@
                 let target = $(e.target).attr('data-bs-target');
 
                 // Inisialisasi table sesuai tab yang dibuka
-                if (target === '#cabang') {
+                if (target === '#verifikasi') {
+                    initDtable();
+                } else if (target === '#buka-expiry') {
+                    initDtable7();
+                } else if (target === '#revisi') {
+                    initDtable2();
+                } else if (target === '#proses') {
+                    initDtable3();
+                } else if (target === '#satpen') {
+                    initDtable4();
+                } else if (target === '#cabang') {
                     initDtable5();
                 } else if (target === '#wilayah') {
                     initDtable6();
-                } else if (target === '#buka-expiry') {
-                    initDtable7();
                 }
 
                 // Adjust semua tabel yang visible
