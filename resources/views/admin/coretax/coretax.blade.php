@@ -1145,7 +1145,13 @@
         });
 
         $(document).ready(function() {
-            // Inisialisasi DataTables dengan pengecekan
+            // Flag untuk track tabel yang sudah diinit
+            var initializedTables = {
+                dtable5: false,
+                dtable6: false
+            };
+
+            // Inisialisasi DataTables untuk tab yang aktif (Verifikasi)
             if ($('#dtable').length) {
                 $('#dtable').DataTable();
             }
@@ -1155,7 +1161,7 @@
             if ($('#dtable3').length) {
                 $('#dtable3').DataTable();
             }
-            
+
             if ($('#dtable4').length) {
                 $('#dtable4').DataTable({
                     dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
@@ -1170,53 +1176,63 @@
                     }]
                 });
             }
-            
-            if ($('#dtable5').length) {
-                // Destroy jika sudah ada untuk menghindari double initialization
-                if ($.fn.DataTable.isDataTable('#dtable5')) {
-                    $('#dtable5').DataTable().destroy();
-                }
-                $('#dtable5').DataTable({
-                    dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                    buttons: [{
-                        extend: 'excelHtml5',
-                        title: 'Coretax Approved Cabang',
-                        text: 'Export ke Excel',
-                        className: 'btn btn-success me-2',
-                        exportOptions: {
-                            columns: ':not(:last-child)'
-                        }
-                    }],
-                    pageLength: 10,
-                    ordering: true,
-                    searching: true
-                });
-            }
-            
-            if ($('#dtable6').length) {
-                // Destroy jika sudah ada untuk menghindari double initialization
-                if ($.fn.DataTable.isDataTable('#dtable6')) {
-                    $('#dtable6').DataTable().destroy();
-                }
-                $('#dtable6').DataTable({
-                    dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                    buttons: [{
-                        extend: 'excelHtml5',
-                        title: 'Coretax Approved Wilayah',
-                        text: 'Export ke Excel',
-                        className: 'btn btn-success me-2',
-                        exportOptions: {
-                            columns: ':not(:last-child)'
-                        }
-                    }],
-                    pageLength: 10,
-                    ordering: true,
-                    searching: true
-                });
-            }
-            
+
             if ($('#dtable7').length) {
                 $('#dtable7').DataTable();
+            }
+
+            // Fungsi untuk inisialisasi dtable5 (Cabang)
+            function initDtable5() {
+                if ($('#dtable5').length && !initializedTables.dtable5) {
+                    setTimeout(function() {
+                        if ($.fn.DataTable.isDataTable('#dtable5')) {
+                            $('#dtable5').DataTable().destroy();
+                        }
+                        $('#dtable5').DataTable({
+                            dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+                            buttons: [{
+                                extend: 'excelHtml5',
+                                title: 'Coretax Approved Cabang',
+                                text: 'Export ke Excel',
+                                className: 'btn btn-success me-2',
+                                exportOptions: {
+                                    columns: ':not(:last-child)'
+                                }
+                            }],
+                            pageLength: 10,
+                            ordering: true,
+                            searching: true
+                        });
+                        initializedTables.dtable5 = true;
+                    }, 100);
+                }
+            }
+
+            // Fungsi untuk inisialisasi dtable6 (Wilayah)
+            function initDtable6() {
+                if ($('#dtable6').length && !initializedTables.dtable6) {
+                    setTimeout(function() {
+                        if ($.fn.DataTable.isDataTable('#dtable6')) {
+                            $('#dtable6').DataTable().destroy();
+                        }
+                        $('#dtable6').DataTable({
+                            dom: '<"row mb-3"<"col-md-4"l><"col-md-8 d-flex justify-content-end align-items-center" Bf>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+                            buttons: [{
+                                extend: 'excelHtml5',
+                                title: 'Coretax Approved Wilayah',
+                                text: 'Export ke Excel',
+                                className: 'btn btn-success me-2',
+                                exportOptions: {
+                                    columns: ':not(:last-child)'
+                                }
+                            }],
+                            pageLength: 10,
+                            ordering: true,
+                            searching: true
+                        });
+                        initializedTables.dtable6 = true;
+                    }, 100);
+                }
             }
 
             // Get the hash value from the URL (e.g., #profile)
@@ -1224,17 +1240,36 @@
             // If a hash is present and corresponds to a tab, activate that tab
             if (hash) {
                 $('.nav-link[data-bs-toggle="pill"][data-bs-target="' + hash + '"]').tab('show');
+
+                // Init table untuk hash yang dibuka
+                if (hash === '#cabang') {
+                    initDtable5();
+                } else if (hash === '#wilayah') {
+                    initDtable6();
+                }
             }
+
             // Update the URL hash when a tab is clicked
             $('.nav-link[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
                 let target = $(e.target).attr('data-bs-target');
                 window.location.hash = target;
             });
 
-            // Re-inisialisasi dan adjust kolom DataTable saat tab ditampilkan
+            // Inisialisasi DataTable ketika tab pertama kali dibuka
             $('button[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
+                let target = $(e.target).attr('data-bs-target');
+
+                // Inisialisasi table sesuai tab yang dibuka
+                if (target === '#cabang') {
+                    initDtable5();
+                } else if (target === '#wilayah') {
+                    initDtable6();
+                }
+
                 // Adjust semua tabel yang visible
-                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+                setTimeout(function() {
+                    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+                }, 150);
             });
 
         });
