@@ -1000,7 +1000,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="10" class="text-center py-5">
+                                                        <td colspan="11" class="text-center py-5">
                                                             <div class="d-flex flex-column align-items-center">
                                                                 <i class="ti ti-building fs-1 text-muted mb-3"></i>
                                                                 <h6 class="text-muted mb-1">Tidak Ada Data Cabang</h6>
@@ -1112,7 +1112,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="10" class="text-center py-5">
+                                                        <td colspan="11" class="text-center py-5">
                                                             <div class="d-flex flex-column align-items-center">
                                                                 <i class="ti ti-map fs-1 text-muted mb-3"></i>
                                                                 <h6 class="text-muted mb-1">Tidak Ada Data Wilayah</h6>
