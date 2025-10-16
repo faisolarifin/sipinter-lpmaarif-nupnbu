@@ -6,6 +6,289 @@
     @include('template.navadmin')
 @endsection
 
+@section('style')
+<style>
+    /* Modern Card Styling */
+    .modern-card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin-bottom: 24px;
+    }
+
+    .modern-card-header {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        padding: 24px 32px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .modern-card-header h5 {
+        color: #1e293b;
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin: 0 0 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .modern-card-header small {
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .card-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: white;
+    }
+
+    /* Modern Table */
+    .modern-table {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-table thead {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    }
+
+    .modern-table thead th {
+        color: #1e293b !important;
+        font-weight: 700;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 16px 20px !important;
+        border: none;
+        border-bottom: 2px solid #e5e7eb !important;
+        background: transparent !important;
+    }
+
+    .modern-table tbody tr {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-table tbody tr:hover {
+        background: linear-gradient(135deg, #f8fafc 0%, #f9fafb 100%);
+        transform: scale(1.01);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-table tbody td {
+        padding: 16px 20px !important;
+        color: #374151;
+        font-weight: 500;
+        vertical-align: middle;
+        border: none;
+    }
+
+    /* Modern Badges */
+    .badge-modern {
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-kategori {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        color: #2563eb;
+    }
+
+    .badge-jenjang-ra {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        color: #dc2626;
+    }
+
+    .badge-jenjang-mi {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        color: #2563eb;
+    }
+
+    .badge-jenjang-mts {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        color: #d97706;
+    }
+
+    .badge-jenjang-ma {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        color: #059669;
+    }
+
+    .badge-active {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        color: #059669;
+    }
+
+    .badge-expired {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        color: #dc2626;
+    }
+
+    /* Modern Buttons */
+    .btn-modern {
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-modern-success {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+
+    .btn-modern-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        color: white;
+    }
+
+    .btn-modern-danger {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+
+    .btn-modern-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        color: white;
+    }
+
+    .btn-modern-primary {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+    }
+
+    .btn-modern-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        color: white;
+    }
+
+    .btn-modern-info {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        color: white;
+    }
+
+    .btn-modern-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+        color: white;
+    }
+
+    .btn-action {
+        padding: 8px 14px;
+        font-size: 0.875rem;
+    }
+
+    /* Statistics Card */
+    .stats-card-inline {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border-radius: 12px;
+        padding: 16px 24px;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+    }
+
+    .stats-card-inline h5 {
+        color: #1e40af;
+        font-weight: 700;
+        font-size: 1.75rem;
+        margin: 0;
+    }
+
+    .stats-card-inline small {
+        color: #3b82f6;
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Filter Offcanvas */
+    .offcanvas-header {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .offcanvas-body h5 {
+        color: #1e293b;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .offcanvas-body h5::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+        border-radius: 2px;
+    }
+
+    /* Search Box */
+    .search-box {
+        position: relative;
+    }
+
+    .search-box input {
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+        padding: 10px 16px;
+        transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    /* Expired Style */
+    .expired {
+        color: #dc2626 !important;
+        font-weight: 700;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .modern-card-header {
+            padding: 20px;
+        }
+
+        .modern-table thead th,
+        .modern-table tbody td {
+            padding: 12px 16px !important;
+            font-size: 0.813rem;
+        }
+    }
+</style>
+@endsection
+
 @section('container')
     <!--  Row 1 -->
     <div class="row container-begin">
@@ -21,24 +304,29 @@
 
             @include('template.alert')
 
-            <div class="card w-100">
-                <div class="card-body pt-3">
-
-                    <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-4">
+            <div class="modern-card">
+                <div class="modern-card-header">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="mb-0">Rekap Satpen</h5>
-                            <small>data satpen yang telah diterima</small>
+                            <h5 class="mb-0">
+                                <span class="card-icon">
+                                    <i class="ti ti-file-database"></i>
+                                </span>
+                                Rekapitulasi Satuan Pendidikan
+                            </h5>
+                            <small>Data satuan pendidikan yang telah disetujui dan aktif terdaftar</small>
                         </div>
-                        <div class="text-center">
-                            {{--                        <h5 class="mb-0">{{ $satpenProfile->count()  }}</h5> --}}
+                        <div class="stats-card-inline text-center">
                             <h5 class="mb-0">{{ $satpenProfileCount }}</h5>
-                            <small>record satpen</small>
+                            <small>Total Satpen</small>
                         </div>
                     </div>
+                </div>
 
+                <div class="card-body pt-3">
                     <div class="table-responsive">
-                        <form class="d-flex justify-content-end mb-2">
-                            <div class="d-flex flex-column flex-sm-row">
+                        <form class="d-flex justify-content-end mb-3 gap-2 flex-wrap">
+                            <div class="d-flex gap-2">
                                 <!-- offcanvas filter form -->
                                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFilter"
                                     aria-labelledby="offcanvasRightLabel" style="max-width:27rem;">
@@ -47,7 +335,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="offcanvas-body">
-                                        <h5 class="mb-3">Filter Berdasarkan</h5>
+                                        <h5 class="mb-3">Filter Data</h5>
                                         @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
                                             <div class="mb-3">
                                                 @include('component.selectpicker', [
@@ -127,39 +415,44 @@
                                                 ],
                                             ])
                                         </div>
-                                        <button type="submit" class="btn btn-primary w-100"><i class="ti ti-filter"></i>
-                                            Filter</button>
+                                        <button type="submit" class="btn btn-modern-primary w-100">
+                                            <i class="ti ti-filter"></i> Terapkan Filter
+                                        </button>
                                     </div>
                                 </div>
                                 <!-- end offcanvas -->
 
-                                <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i
-                                        class="ti ti-file-spreadsheet"></i> Export to Excel</a>
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i
-                                        class="ti ti-filter"></i> Filter</button>
+                                <a href="#" class="btn btn-modern-success btn-action" id="export-btn">
+                                    <i class="ti ti-file-spreadsheet"></i> Export Excel
+                                </a>
+                                <button type="button" class="btn btn-modern-primary btn-action" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter">
+                                    <i class="ti ti-filter"></i> Filter
+                                </button>
                             </div>
-                            <div class="d-flex">
+                            <div class="d-flex search-box">
                                 <input type="text" name="keyword" id="keyword"
-                                    class="form-control form-control-sm mx-2"
-                                    placeholder="NPSN/Nomor Registrasi/Nama Satpen" value="{{ request()->keyword }}">
-                                <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>
+                                    class="form-control form-control-sm"
+                                    placeholder="Cari NPSN, No. Registrasi, atau Nama Satpen..." value="{{ request()->keyword }}" style="min-width: 300px;">
+                                <button type="submit" class="btn btn-modern-primary btn-action ms-2">
+                                    <i class="ti ti-search"></i>
+                                </button>
                             </div>
                         </form>
-                        <table class="table table-hover" id="mytable">
+                        <table class="table modern-table" id="mytable">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Kategori</th>
-                                    <th scope="col">NPSN</th>
-                                    <th scope="col">No. Registrasi</th>
-                                    <th scope="col">Nama Satpen</th>
-                                    <th scope="col">Yayasan</th>
-                                    <th scope="col">Jenjang</th>
-                                    <th scope="col">Provinsi</th>
-                                    <th scope="col">Kabupaten</th>
-                                    <th scope="col">Aktif</th>
-                                    <th scope="col">Aksi</th>
+                                    <th width="3%" class="text-center">#</th>
+                                    <th width="10%">Kategori</th>
+                                    <th width="10%">NPSN</th>
+                                    <th width="12%">No. Registrasi</th>
+                                    <th width="18%">Nama Satpen</th>
+                                    <th width="13%">Yayasan</th>
+                                    <th width="8%">Jenjang</th>
+                                    <th width="10%">Provinsi</th>
+                                    <th width="10%">Kabupaten</th>
+                                    <th width="8%">Aktif</th>
+                                    <th width="8%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -168,41 +461,85 @@
                                 @if ($satpenProfile->count() > 0)
                                     @foreach ($satpenProfile as $row)
                                         @php($diff = $today->diffInMonths(\Carbon\Carbon::parse($row->actived_date)))
+                                        @php($jenjang = $row->jenjang->nm_jenjang)
+                                        @php($badgeClass = 'badge-jenjang-ra')
+                                        @if (in_array($jenjang, ['MI', 'SD']))
+                                            @php($badgeClass = 'badge-jenjang-mi')
+                                        @elseif (in_array($jenjang, ['MTs', 'SMP']))
+                                            @php($badgeClass = 'badge-jenjang-mts')
+                                        @elseif (in_array($jenjang, ['MA', 'SMA', 'SMK']))
+                                            @php($badgeClass = 'badge-jenjang-ma')
+                                        @endif
                                         <tr>
-                                            <td>{{ ++$no }}</td>
-                                            <td>{{ $row->kategori?->nm_kategori }}</td>
-                                            <td>{{ $row->npsn }}</td>
-                                            <td>{{ $row->no_registrasi }}</td>
-                                            <td>{{ $row->nm_satpen }}</td>
-                                            <td>{{ $row->yayasan }}</td>
-                                            <td>{{ $row->jenjang->nm_jenjang }}</td>
-                                            <td>{{ $row->provinsi->nm_prov }}</td>
-                                            <td>{{ $row->kabupaten->nama_kab }}</td>
-                                            <td class="{{ $row->status == 'expired' ? 'expired' : '' }}">
-                                                {{ $diff . ' bln' }}</td>
+                                            <td class="text-center">
+                                                <span class="badge bg-light text-dark">{{ ++$no }}</span>
+                                            </td>
                                             <td>
-                                                <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
-                                                    <button class="btn btn-sm btn-info"><i
-                                                            class="ti ti-eye"></i></button></a>
+                                                <span class="badge-modern badge-kategori">{{ $row->kategori?->nm_kategori }}</span>
+                                            </td>
+                                            <td>
+                                                <strong class="text-primary">{{ $row->npsn }}</strong>
+                                            </td>
+                                            <td>
+                                                <small class="fw-bold">{{ $row->no_registrasi }}</small>
+                                            </td>
+                                            <td>
+                                                <strong>{{ $row->nm_satpen }}</strong>
+                                            </td>
+                                            <td>
+                                                <small>{{ $row->yayasan }}</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge-modern {{ $badgeClass }}">{{ $jenjang }}</span>
+                                            </td>
+                                            <td>
+                                                <small>{{ $row->provinsi->nm_prov }}</small>
+                                            </td>
+                                            <td>
+                                                <small>{{ $row->kabupaten->nama_kab }}</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge-modern {{ $row->status == 'expired' ? 'badge-expired' : 'badge-active' }}">
+                                                    {{ $diff . ' bulan' }}
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center gap-1">
+                                                    <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
+                                                        <button class="btn btn-modern-info btn-action" title="Lihat Detail">
+                                                            <i class="ti ti-eye"></i>
+                                                        </button>
+                                                    </a>
 
-                                                @if (in_array(auth()->user()->role, ['super admin']))
-                                                    <form action="{{ route('a.rekapsatpen.destroy', $row->id_satpen) }}"
-                                                        method="post" class="d-inline deleteBtn">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger"><i
-                                                                class="ti ti-trash"></i></button>
-                                                    </form>
-                                                @endif
+                                                    @if (in_array(auth()->user()->role, ['super admin']))
+                                                        <form action="{{ route('a.rekapsatpen.destroy', $row->id_satpen) }}"
+                                                            method="post" class="d-inline deleteBtn">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-modern-danger btn-action" title="Hapus Data">
+                                                                <i class="ti ti-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
-                                    <td colspan="10">No data available in table</td>
+                                    <tr>
+                                        <td colspan="11" class="text-center py-4">
+                                            <div class="text-muted">
+                                                <i class="ti ti-inbox-off fs-1"></i>
+                                                <p class="mt-2 mb-0">Tidak ada data tersedia</p>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endif
                             </tbody>
                         </table>
-                        {{ $satpenProfile->links() }}
+                        <div class="mt-3">
+                            {{ $satpenProfile->links() }}
+                        </div>
                     </div>
 
                 </div>
@@ -215,7 +552,7 @@
 @section('extendscripts')
     <script>
         $(".deleteBtn").on('click', function() {
-            if (confirm("benar anda akan menghapus data?")) {
+            if (confirm("Apakah Anda yakin akan menghapus data satuan pendidikan ini? Data yang dihapus tidak dapat dikembalikan.")) {
                 return true;
             }
             return false;

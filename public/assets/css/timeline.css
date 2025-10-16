@@ -134,7 +134,7 @@ ul.timeline:before {
     background: #d4d9df;
     display: inline-block;
     position: absolute;
-    left: 10px;
+    left: 30px;
     width: 2px;
     height: 100%;
     z-index: 0;
