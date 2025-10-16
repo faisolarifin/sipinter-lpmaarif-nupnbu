@@ -20,10 +20,7 @@ class OnlyAdmin
             if (auth()->user()->status_active == 'block') {
                 return redirect()->route('login')->with('error', 'this account has blocked');
             }
-            $specificFilter = [
-                "id_prov" => null,
-                "id_pc" => null,
-            ];
+            $specificFilter = null;
             if (in_array(auth()->user()->role, ["admin wilayah"])) {
                 $specificFilter = [
                     "id_prov" => auth()->user()->provId,
