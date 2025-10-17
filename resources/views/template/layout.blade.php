@@ -16,6 +16,7 @@
         }
     </style>
   @yield('style')
+  @yield('spicker-style')
   @yield('modal-style')
 </head>
 
@@ -216,6 +217,7 @@
 
   @yield('scripts')
   @yield('modalscripts')
+  @yield('spicker-scripts')
   @yield('extendscripts')
 
 </body>

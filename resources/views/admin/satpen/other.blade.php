@@ -6,6 +6,257 @@
     @include('template.navadmin')
 @endsection
 
+@section('style')
+<style>
+    /* Modern Card Styling */
+    .modern-card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin-bottom: 24px;
+    }
+
+    .modern-card-header {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        padding: 24px 32px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .modern-card-header h5 {
+        color: #1e293b;
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin: 0 0 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .modern-card-header small {
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .card-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: white;
+    }
+
+    /* Modern Table */
+    .modern-table {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-table thead {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    }
+
+    .modern-table thead th {
+        color: #1e293b !important;
+        font-weight: 700;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 16px 20px !important;
+        border: none;
+        border-bottom: 2px solid #e5e7eb !important;
+        background: transparent !important;
+    }
+
+    .modern-table tbody tr {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-table tbody tr:hover {
+        background: linear-gradient(135deg, #f8fafc 0%, #f9fafb 100%);
+        transform: scale(1.01);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-table tbody td {
+        padding: 16px 20px !important;
+        color: #374151;
+        font-weight: 500;
+        vertical-align: middle;
+        border: none;
+    }
+
+    /* Modern Badges */
+    .badge-modern {
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-akreditasi-a {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        color: #059669;
+    }
+
+    .badge-akreditasi-b {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        color: #2563eb;
+    }
+
+    .badge-akreditasi-c {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        color: #d97706;
+    }
+
+    .badge-akreditasi-none {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        color: #dc2626;
+    }
+
+    /* Modern Buttons */
+    .btn-modern {
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-modern-success {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+
+    .btn-modern-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        color: white;
+    }
+
+    .btn-modern-primary {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+    }
+
+    .btn-modern-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        color: white;
+    }
+
+    .btn-modern-info {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        color: white;
+    }
+
+    .btn-modern-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+        color: white;
+    }
+
+    .btn-action {
+        padding: 8px 14px;
+        font-size: 0.875rem;
+    }
+
+    /* Statistics Card */
+    .stats-card-inline {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border-radius: 12px;
+        padding: 16px 24px;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+    }
+
+    .stats-card-inline h5 {
+        color: #1e40af;
+        font-weight: 700;
+        font-size: 1.75rem;
+        margin: 0;
+    }
+
+    .stats-card-inline small {
+        color: #3b82f6;
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Filter Offcanvas */
+    .offcanvas-header {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .offcanvas-body h5 {
+        color: #1e293b;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .offcanvas-body h5::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+        border-radius: 2px;
+    }
+
+    /* Search Box */
+    .search-box {
+        position: relative;
+    }
+
+    .search-box input {
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+        padding: 10px 16px;
+        transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .modern-card-header {
+            padding: 20px;
+        }
+
+        .modern-table thead th,
+        .modern-table tbody td {
+            padding: 12px 16px !important;
+            font-size: 0.813rem;
+        }
+    }
+</style>
+@endsection
+
 @section('container')
     <!--  Row 1 -->
     <div class="row container-begin">
@@ -21,31 +272,38 @@
 
             @include('template.alert')
 
-            <div class="card w-100">
-                <div class="card-body pt-3">
-
-                    <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-4">
+            <div class="modern-card">
+                <div class="modern-card-header">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="mb-0">Data Lainnya</h5>
-                            <small>informasi data lainnya dari satuan pendidikan</small>
+                            <h5 class="mb-0">
+                                <span class="card-icon">
+                                    <i class="ti ti-file-text"></i>
+                                </span>
+                                Informasi Data Lainnya Satuan Pendidikan
+                            </h5>
+                            <small>Data pelengkap satuan pendidikan meliputi NPYP, akreditasi, SK pendirian, dan informasi tambahan lainnya</small>
                         </div>
-                        <div class="text-center">
-                            {{--                        <h5 class="mb-0">{{ $satpenProfile->count()  }}</h5> --}}
+                        <div class="stats-card-inline text-center">
                             <h5 class="mb-0">{{ $othersCount }}</h5>
-                            <small>record satpen</small>
+                            <small>Total Satpen</small>
                         </div>
                     </div>
+                </div>
+
+                <div class="card-body pt-3">
 
                     <div>
-                        <form class="d-flex justify-content-between mb-2">
-                            <div class="d-flex">
+                        <form class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                            <div class="d-flex gap-2">
                                 @if (in_array(auth()->user()->role, ['super admin']))
-                                    <a href="{{ route('a.other.sync') }}" class="btn btn-info btn-sm mx-2 py-2"><i
-                                            class="ti ti-reload"></i> Sinkron Bulk</a>
+                                    <a href="{{ route('a.other.sync') }}" class="btn btn-modern-info btn-action">
+                                        <i class="ti ti-reload"></i> Sinkron Bulk
+                                    </a>
                                 @endif
                             </div>
-                            <div class="d-flex">
-                                <div class="d-flex flex-column flex-sm-row">
+                            <div class="d-flex gap-2">
+                                <div class="d-flex gap-2 flex-wrap">
                                     <!-- offcanvas filter form -->
                                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFilter"
                                         aria-labelledby="offcanvasRightLabel" style="max-width:27rem;">
@@ -54,7 +312,7 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body">
-                                            <h5 class="mb-3">Filter Berdasarkan</h5>
+                                            <h5 class="mb-3">Filter Data</h5>
                                             @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
                                                 <div class="mb-3">
                                                     @include('component.selectpicker', [
@@ -167,84 +425,120 @@
                                                 ])
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary w-100"><i
-                                                    class="ti ti-filter"></i>
-                                                Filter</button>
+                                            <button type="submit" class="btn btn-modern-primary w-100">
+                                                <i class="ti ti-filter"></i> Terapkan Filter
+                                            </button>
                                         </div>
                                     </div>
                                     <!-- end offcanvas -->
 
-                                    <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i
-                                            class="ti ti-file-spreadsheet"></i> Export to Excel</a>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i
-                                            class="ti ti-filter"></i> Filter</button>
+                                    <a href="#" class="btn btn-modern-success btn-action" id="export-btn">
+                                        <i class="ti ti-file-spreadsheet"></i> Export Excel
+                                    </a>
+                                    <button type="button" class="btn btn-modern-primary btn-action" data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter">
+                                        <i class="ti ti-filter"></i> Filter
+                                    </button>
                                 </div>
-                                <div class="d-flex">
+                                <div class="d-flex search-box">
                                     <input type="text" name="keyword" id="keyword"
-                                        class="form-control form-control-sm mx-2"
-                                        placeholder="NPSN/Nomor Registrasi/Nama Satpen" value="{{ request()->keyword }}">
-                                    <button type="submit" class="btn btn-primary btn-sm"><i
-                                            class="ti ti-search"></i></button>
+                                        class="form-control form-control-sm"
+                                        placeholder="Cari NPSN, No. Registrasi, atau Nama Satpen..." value="{{ request()->keyword }}" style="min-width: 300px;">
+                                    <button type="submit" class="btn btn-modern-primary btn-action ms-2">
+                                        <i class="ti ti-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </form>
                         <div class="table-responsive" id="table-scroll-container">
-                            <table class="table table-hover" id="mytable">
+                            <table class="table modern-table" id="mytable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">No. Registrasi</th>
-                                        <th scope="col">Nama Satpen</th>
-                                        <th scope="col">Jenjang</th>
-                                        <th scope="col">Provinsi</th>
-                                        <th scope="col">Kab/Kota</th>
-                                        <th width="70" scope="col">NPYP</th>
-                                        <th width="70" scope="col">Naungan</th>
-                                        <th width="70" scope="col">No. SK Pendirian</th>
-                                        <th width="70" scope="col">Tgl. SK Pendirian</th>
-                                        <th width="70" scope="col">No. SK Operasional</th>
-                                        <th width="70" scope="col">Tgl. SK Operasional</th>
-                                        <th width="70" scope="col">Akreditasi</th>
-                                        <th width="70" scope="col">Website</th>
-                                        <th width="70" scope="col">Lingkungan Satpen</th>
-                                        <th width="70" scope="col">Last Sync</th>
-                                        <th scope="col">Aksi</th>
+                                        <th width="2%" class="text-center">#</th>
+                                        <th width="8%">No. Registrasi</th>
+                                        <th width="12%">Nama Satpen</th>
+                                        <th width="6%">Jenjang</th>
+                                        <th width="8%">Provinsi</th>
+                                        <th width="8%">Kab/Kota</th>
+                                        <th width="8%">NPYP</th>
+                                        <th width="7%">Naungan</th>
+                                        <th width="8%">No. SK Pendirian</th>
+                                        <th width="7%">Tgl. SK Pendirian</th>
+                                        <th width="8%">No. SK Operasional</th>
+                                        <th width="7%">Tgl. SK Operasional</th>
+                                        <th width="6%" class="text-center">Akreditasi</th>
+                                        <th width="8%">Website</th>
+                                        <th width="10%">Lingkungan Satpen</th>
+                                        <th width="7%" class="text-center">Last Sync</th>
+                                        <th width="4%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if ($othersData->count() > 0)
                                         @foreach ($othersData as $row)
+                                            @php($akreditasiBadge = 'badge-akreditasi-none')
+                                            @if ($row->akreditasi == 'A')
+                                                @php($akreditasiBadge = 'badge-akreditasi-a')
+                                            @elseif ($row->akreditasi == 'B')
+                                                @php($akreditasiBadge = 'badge-akreditasi-b')
+                                            @elseif ($row->akreditasi == 'C')
+                                                @php($akreditasiBadge = 'badge-akreditasi-c')
+                                            @endif
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $row->satpen->no_registrasi }}</td>
-                                                <td>{{ $row->satpen->nm_satpen }}</td>
-                                                <td>{{ $row->satpen->jenjang->nm_jenjang }}</td>
-                                                <td>{{ $row->satpen->provinsi->nm_prov }}</td>
-                                                <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
-                                                <td>{{ $row->npyp }}</td>
-                                                <td>{{ $row->naungan }}</td>
-                                                <td>{{ $row->no_sk_pendirian }}</td>
-                                                <td>{{ Date::tglReverseDash($row->tgl_sk_pendirian) }}</td>
-                                                <td>{{ $row->no_sk_operasional }}</td>
-                                                <td>{{ Date::tglReverseDash($row->tgl_sk_operasional) }}</td>
-                                                <td>{{ $row->akreditasi }}</td>
-                                                <td>{{ $row->website }}</td>
-                                                <td>{{ $row->lingkungan_satpen }}</td>
-                                                <td>{{ $row->last_sinkron }}</td>
+                                                <td class="text-center">
+                                                    <span class="badge bg-light text-dark">{{ $loop->iteration }}</span>
+                                                </td>
+                                                <td><small class="fw-bold">{{ $row->satpen->no_registrasi }}</small></td>
+                                                <td><strong>{{ $row->satpen->nm_satpen }}</strong></td>
+                                                <td><small>{{ $row->satpen->jenjang->nm_jenjang }}</small></td>
+                                                <td><small>{{ $row->satpen->provinsi->nm_prov }}</small></td>
+                                                <td><small>{{ $row->satpen->kabupaten->nama_kab }}</small></td>
+                                                <td><small class="text-primary fw-bold">{{ $row->npyp }}</small></td>
+                                                <td><small>{{ $row->naungan }}</small></td>
+                                                <td><small>{{ $row->no_sk_pendirian }}</small></td>
+                                                <td><small>{{ Date::tglReverseDash($row->tgl_sk_pendirian) }}</small></td>
+                                                <td><small>{{ $row->no_sk_operasional }}</small></td>
+                                                <td><small>{{ Date::tglReverseDash($row->tgl_sk_operasional) }}</small></td>
+                                                <td class="text-center">
+                                                    <span class="badge-modern {{ $akreditasiBadge }}">
+                                                        {{ $row->akreditasi ?: '-' }}
+                                                    </span>
+                                                </td>
                                                 <td>
+                                                    @if($row->website)
+                                                        <a href="{{ $row->website }}" target="_blank" class="text-primary text-decoration-none">
+                                                            <i class="ti ti-external-link"></i> <small>Website</small>
+                                                        </a>
+                                                    @else
+                                                        <small class="text-muted">-</small>
+                                                    @endif
+                                                </td>
+                                                <td><small>{{ $row->lingkungan_satpen }}</small></td>
+                                                <td class="text-center"><small>{{ $row->last_sinkron }}</small></td>
+                                                <td class="text-center">
                                                     <a href="{{ route('a.other.syncid', $row->id_satpen) }}"
-                                                        class="btn btn-sm btn-info"><i class="ti ti-reload"></i></a>
+                                                        class="btn btn-modern-info btn-action" title="Sinkronisasi Data">
+                                                        <i class="ti ti-reload"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @else
-                                        <td colspan="17">No data available in table</td>
+                                        <tr>
+                                            <td colspan="17" class="text-center py-4">
+                                                <div class="text-muted">
+                                                    <i class="ti ti-inbox-off fs-1"></i>
+                                                    <p class="mt-2 mb-0">Tidak ada data tersedia</p>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>
                         </div>
-                        {{ $othersData->links() }}
+                        <div class="mt-3">
+                            {{ $othersData->links() }}
+                        </div>
                     </div>
 
                 </div>
@@ -256,12 +550,8 @@
 
 @section('extendscripts')
     <script>
-        // $(document).ready(function () {
-        //     $('#mytable').DataTable();
-        // });
-
         $(".deleteBtn").on('click', function() {
-            if (confirm("benar anda akan menghapus data?")) {
+            if (confirm("Apakah Anda yakin akan menghapus data ini? Data yang dihapus tidak dapat dikembalikan.")) {
                 return true;
             }
             return false;
