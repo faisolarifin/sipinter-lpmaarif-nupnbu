@@ -5,23 +5,514 @@
 @section('style')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            background: linear-gradient(135deg, #059669 0%, #34d399 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .register-container {
+            min-height: 100vh;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* Animated Background Shapes */
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .bg-shape-1 {
+            width: 300px;
+            height: 300px;
+            background: #fff;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .bg-shape-2 {
+            width: 200px;
+            height: 200px;
+            background: #fff;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .bg-shape-3 {
+            width: 150px;
+            height: 150px;
+            background: #fff;
+            top: 60%;
+            left: 15%;
+            animation-delay: 10s;
+        }
+
+        .bg-shape-4 {
+            width: 180px;
+            height: 180px;
+            background: #fff;
+            top: 40%;
+            right: 20%;
+            animation-delay: 15s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-30px) translateX(20px) scale(1.1); }
+            50% { transform: translateY(-50px) translateX(-20px) scale(0.9); }
+            75% { transform: translateY(-20px) translateX(30px) scale(1.05); }
+        }
+
+        /* Header Section */
+        .register-header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .register-header .logo-img {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .register-header .logo-img img {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+        }
+
+        .register-header h6 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        /* Main Card */
+        .register-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            border: none;
+        }
+
+        .register-card .card-body {
+            padding: 2.5rem;
+        }
+
+        .register-card h5 {
+            color: #059669;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .register-card > .card-body > small {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        /* Progress Navigation */
+        .card-header-navs {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            border: none;
+            padding: 1rem 2.5rem;
+        }
+
+        .nav-pills {
+            gap: 0.5rem;
+        }
+
+        .tab-pills {
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .tab-pills:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .tab-pills.active {
+            background: #fff;
+            color: #059669;
+            border-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Form Styling */
+        .form-label {
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-label.required::after {
+            content: " *";
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e5e7eb;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #059669;
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1);
+            background: #fff;
+        }
+
+        .form-control.is-invalid {
+            border-color: #ef4444;
+        }
+
+        .form-control:read-only {
+            background: #f3f4f6;
+            cursor: not-allowed;
+        }
+
+        /* Bootstrap Select Override */
+        .bootstrap-select .btn {
+            background: #f9fafb;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+
+        .bootstrap-select .btn:focus {
+            border-color: #059669 !important;
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1) !important;
+            background: #fff !important;
+            outline: none !important;
+        }
+
+        .bootstrap-select.show .btn {
+            border-color: #059669 !important;
+        }
+
+        .bootstrap-select .dropdown-menu {
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-top: 0.5rem;
+        }
+
+        .bootstrap-select .dropdown-item {
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .bootstrap-select .dropdown-item:hover {
+            background: #f0fdf4;
+            color: #059669;
+        }
+
+        .bootstrap-select .dropdown-item.active {
+            background: #059669;
+            color: #fff;
+        }
+
+        /* Input Group (Password) */
+        .input-group .form-control {
+            border-right: none;
+            background: #f9fafb;
+        }
+
+        .input-group .input-group-text {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-group .form-control:focus + .input-group-text {
+            border-color: #059669;
+            background: #fff;
+        }
+
+        .input-group .input-group-text:hover {
+            color: #059669;
+        }
+
+        /* Section Headers */
+        .card-body h5 {
+            color: #059669;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #e5e7eb;
+            position: relative;
+        }
+
+        .card-body h5::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #059669, #34d399);
+            border-radius: 2px;
+        }
+
+        /* File Input */
+        input[type="file"].form-control {
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+        }
+
+        input[type="file"].form-control::file-selector-button {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            margin-right: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"].form-control::file-selector-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        .text-primary {
+            color: #059669 !important;
+            font-weight: 500;
+        }
+
+        /* Footer Buttons */
+        .card-footer {
+            background: #f9fafb;
+            border-top: 2px solid #e5e7eb;
+            padding: 1.5rem 2.5rem;
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: #fff;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+        }
+
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
+            color: #fff;
+        }
+
+        .btn-green:active {
+            transform: translateY(0);
+        }
+
+        .btn-green:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Alert Styling */
+        .alert {
+            border-radius: 12px;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .alert-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* Invalid Feedback */
+        .invalid-feedback {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Footer Copyright */
+        .register-footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .register-footer p {
+            color: #fff;
+            margin: 0;
+            text-align: center;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .register-header {
+                padding: 1.5rem;
+            }
+
+            .register-header .logo-img {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .register-header h6 {
+                font-size: 0.95rem;
+            }
+
+            .register-card .card-body {
+                padding: 1.5rem;
+            }
+
+            .card-header-navs {
+                padding: 1rem 1.5rem;
+            }
+
+            .tab-pills {
+                font-size: 0.75rem;
+                padding: 0.6rem 0.75rem;
+            }
+
+            .card-footer {
+                padding: 1rem 1.5rem;
+            }
+
+            .btn-green {
+                padding: 0.65rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .register-header .logo-img img {
+                width: 150px;
+            }
+
+            .register-header h6 {
+                font-size: 0.85rem;
+            }
+
+            .register-card h5 {
+                font-size: 1.2rem;
+            }
+
+            .tab-pills {
+                font-size: 0.7rem;
+                padding: 0.5rem 0.5rem;
+            }
+
+            .card-body h5 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Tab Animation */
+        .tab {
+            animation: slideInRight 0.4s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
 @endsection
 
 @section('container')
-    <div class="container-fluid login-side-right">
-        <div class="row justify-content-sm-center align-items-center" style="height:25vh;">
-            <div class="col-sm-10">
-                <a href="{{ route('home') }}" class="text-nowrap logo-img d-block py-2 w-100">
-                    <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
-                    <h6 class="fw-bold">Sistem Administrasi Pendidikan Terpadu Lembaga Pendidikan Ma'arif NU PBNU</h6>
+    <!-- Animated Background Shapes -->
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <div class="bg-shape bg-shape-3"></div>
+    <div class="bg-shape bg-shape-4"></div>
+
+    <div class="register-container">
+        <div class="container">
+            <!-- Header Section -->
+            <div class="register-header">
+                <a href="{{ route('home') }}" class="logo-img">
+                    <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="Logo">
+                    <h6>Sistem Administrasi Pendidikan Terpadu<br>Lembaga Pendidikan Ma'arif NU PBNU</h6>
                 </a>
             </div>
-        </div>
-    </div>
 
-    <section class="mt-4" style="min-height:32rem">
-        <div class="container">
-            <form class="card mx-auto w-75" style="margin-top:-3.3rem;" action="{{ route('register.proses') }}" method="post" enctype="multipart/form-data">
+            <!-- Registration Form Card -->
+            <form class="card register-card" action="{{ route('register.proses') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body pb-0">
                     <h5 class="fw-medium mb-0">Registrasi Satpen</h5>
@@ -450,15 +941,9 @@
                 </div>
             </form>
 
-        </div>
-    </section>
-
-    <div class="container-fluid login-side-right mt-4">
-        <div class="row justify-content-center">
-            <div class="col-sm-10">
-                <div class="py-6 px-6">
-                    <p class="mb-0 fs-4 py-3"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU </p>
-                </div>
+            <!-- Footer Copyright -->
+            <div class="register-footer">
+                <p>Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU</p>
             </div>
         </div>
     </div>

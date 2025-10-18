@@ -7,7 +7,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
         body {
-            background: linear-gradient(135deg, #059669 0%, #34d399 100%);
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.85) 0%, rgba(52, 211, 153, 0.85) 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
@@ -157,7 +157,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             position: relative;
         }
 
