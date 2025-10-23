@@ -6,17 +6,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
         body {
             background: linear-gradient(135deg, #059669 0%, #34d399 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
 
         .virtual-container {
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
+            overflow: hidden;
         }
 
         /* Animated Background Shapes */
@@ -67,9 +70,10 @@
             backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255,255,255,0.2);
             color: #fff;
-            padding: 3rem;
+            padding: 1.5rem;
             position: relative;
             overflow: hidden;
+            height: 100vh;
         }
 
         .virtual-side-left::before {
@@ -94,26 +98,26 @@
         }
 
         .welcome-text {
-            font-size: 1.9rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 0.7rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .welcome-subtitle {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 400;
             opacity: 0.95;
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
         }
 
         .benefit-item {
             display: flex;
             align-items: start;
-            margin-bottom: 1.2rem;
-            padding: 1rem;
+            margin-bottom: 0.7rem;
+            padding: 0.6rem;
             background: rgba(255,255,255,0.1);
             border-radius: 12px;
             backdrop-filter: blur(5px);
@@ -126,31 +130,32 @@
         }
 
         .benefit-icon {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             background: rgba(255,255,255,0.2);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
+            margin-right: 0.7rem;
             flex-shrink: 0;
         }
 
         .benefit-icon i {
-            font-size: 1.3rem;
+            font-size: 1rem;
         }
 
         .benefit-content h6 {
             font-weight: 600;
             margin-bottom: 0.3rem;
-            font-size: 0.95rem;
+            font-size: .9rem;
         }
 
         .benefit-content p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0.9;
             margin: 0;
+            line-height: 1.3;
         }
 
         /* Right Side - Form Card */
@@ -158,9 +163,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 0.5rem 0.7rem;
             background: #ffffff;
             position: relative;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .virtual-card {
@@ -171,7 +178,11 @@
             max-width: 550px;
             width: 100%;
             animation: slideInRight 0.6s ease-out;
-            margin: 2rem 0;
+            margin: 0;
+            height: 96vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes slideInRight {
@@ -186,9 +197,9 @@
         }
 
         .virtual-card .card-body {
-            padding: 2rem 2.5rem;
-            max-height: 90vh;
+            padding: 1.2rem 1.8rem;
             overflow-y: auto;
+            flex: 1;
         }
 
         /* Custom Scrollbar */
@@ -212,23 +223,28 @@
 
         .logo-wrapper {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .logo-wrapper img {
+            width: 120px !important;
         }
 
         .virtual-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #2d3748;
             text-align: center;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
         .virtual-subtitle {
             text-align: center;
             color: #718096;
-            font-size: 0.88rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
             font-weight: 500;
+            line-height: 1.4;
         }
 
         /* Info Box */
@@ -236,42 +252,43 @@
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             border-left: 4px solid #f59e0b;
             border-radius: 10px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1.5rem;
+            padding: 0.7rem 1rem;
+            margin-bottom: 1rem;
         }
 
         .info-box-title {
             font-weight: 700;
             color: #b45309;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
             display: flex;
             align-items: center;
         }
 
         .info-box-title i {
-            margin-right: 0.5rem;
-            font-size: 1.1rem;
+            margin-right: 0.4rem;
+            font-size: 0.9rem;
         }
 
         .info-box-text {
             color: #92400e;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             margin: 0;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         /* Form Styling */
         .form-label {
             font-weight: 600;
             color: #4a5568;
-            font-size: 0.85rem;
-            margin-bottom: 0.4rem;
+            font-size: 0.78rem;
+            margin-bottom: 0.3rem;
         }
 
         .form-control, 
         .bootstrap-select .dropdown-toggle {
-            font-size: 0.9rem !important;
+            font-size: 0.82rem !important;
+            padding: 0.5rem 0.7rem !important;
             transition: all 0.3s ease !important;
         }
 
@@ -287,8 +304,8 @@
         }
 
         .bootstrap-select .dropdown-menu li a {
-            font-size: 0.9rem !important;
-            padding: 0.5rem 1rem !important;
+            font-size: 0.82rem !important;
+            padding: 0.4rem 0.8rem !important;
         }
 
         .bootstrap-select .dropdown-menu li a:hover {
@@ -303,21 +320,21 @@
 
         textarea.form-control {
             resize: vertical;
-            min-height: 80px;
+            min-height: 60px;
         }
 
         .form-text-small {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #f59e0b;
             font-weight: 500;
-            margin-top: 0.25rem;
+            margin-top: 0.2rem;
             display: flex;
             align-items: start;
         }
 
         .form-text-small i {
-            margin-right: 0.25rem;
-            margin-top: 0.15rem;
+            margin-right: 0.2rem;
+            margin-top: 0.1rem;
             flex-shrink: 0;
         }
 
@@ -325,9 +342,9 @@
             background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             border: none;
             border-radius: 10px;
-            padding: 0.8rem 2rem;
+            padding: 0.65rem 1.5rem;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
         }
@@ -350,7 +367,7 @@
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 1.5rem 0;
+            margin: 1rem 0;
         }
 
         .divider::before,
@@ -363,20 +380,20 @@
         .divider span {
             padding: 0 1rem;
             color: #a0aec0;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
         }
 
         .action-links {
             background: #f7fafc;
             border-radius: 12px;
-            padding: 1rem;
+            padding: 0.7rem;
             text-align: center;
         }
 
         .action-links span {
             color: #4a5568;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .action-links a {
@@ -389,33 +406,33 @@
         .helpdesk-section {
             background: rgba(255,255,255,0.1);
             border-radius: 16px;
-            padding: 1.5rem;
-            margin-top: 2rem;
+            padding: 1rem;
+            margin-top: 1rem;
             backdrop-filter: blur(5px);
         }
 
         .helpdesk-title {
             font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.7rem;
             display: flex;
             align-items: center;
         }
 
         .helpdesk-title i {
-            margin-right: 0.5rem;
+            margin-right: 0.4rem;
         }
 
         .helpdesk-item {
             display: flex;
             align-items: center;
-            margin-bottom: 0.75rem;
-            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
         }
 
         .helpdesk-item i {
-            margin-right: 0.5rem;
-            width: 20px;
+            margin-right: 0.4rem;
+            width: 16px;
         }
 
         .helpdesk-item a {
@@ -429,6 +446,27 @@
             text-decoration: underline;
         }
 
+        /* Form Spacing Optimization */
+        .mb-3 {
+            margin-bottom: 0.8rem !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem !important;
+        }
+
+        .mt-4 {
+            margin-top: 1rem !important;
+        }
+
+        .pt-4 {
+            padding-top: 1rem !important;
+        }
+
+        .form-label i {
+            font-size: 0.9rem;
+        }
+
         /* Responsive */
         @media (max-width: 991px) {
             .virtual-side-left {
@@ -436,11 +474,16 @@
             }
 
             .virtual-card .card-body {
-                padding: 1.5rem 1.25rem;
+                padding: 1rem 1.2rem;
             }
 
             .virtual-card {
                 max-width: 100%;
+                margin: 0.3rem 0;
+            }
+
+            .virtual-card-wrapper {
+                padding: 0.5rem 0.5rem;
             }
         }
 
@@ -469,14 +512,14 @@
     <div class="bg-shape bg-shape-2"></div>
     <div class="bg-shape bg-shape-3"></div>
 
-    <div class="container-fluid">
-        <div class="row" style="min-height: 100vh;">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
             <!-- Left Side - Welcome & Benefits -->
             <div class="col-lg-6 virtual-side-left d-none d-lg-flex order-lg-1">
                 <div class="info-content d-flex flex-column justify-content-between" style="width: 100%;">
                     <div>
-                        <h1 class="welcome-text">
-                            NPSN Virtual untuk<br>
+                        <h1 class="welcome-text mb-3">
+                            NPSN Virtual untuk 
                             <span style="background: linear-gradient(120deg, #fff 0%, rgba(255,255,255,0.8) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Satuan Pendidikan Ma'arif</span>
                         </h1>
 
@@ -579,8 +622,7 @@
                             </a>
                         </div>
 
-                        <h2 class="virtual-title">Ajukan NPSN Virtual</h2>
-                        <p class="virtual-subtitle">Lengkapi formulir di bawah ini untuk mengajukan NPSN Virtual satuan pendidikan Anda</p>
+                        <h2 class="virtual-title mb-3">Ajukan NPSN Virtual</h2>
 
                         <div class="info-box">
                             <div class="info-box-title">
@@ -744,9 +786,9 @@
                             <a class="text-primary" href="{{ route('ceknpsn') }}">Verifikasi NPSN</a>
                         </div>
 
-                        <div class="mt-4 pt-4 border-top text-center">
-                            <p style="font-size: 0.85rem; color: #a0aec0; margin: 0;">
-                                <i class="ti ti-lock-check" style="font-size: 1rem;"></i>
+                        <div class="mt-3 pt-3 border-top text-center">
+                            <p style="font-size: 0.75rem; color: #a0aec0; margin: 0;">
+                                <i class="ti ti-lock-check" style="font-size: 0.9rem;"></i>
                                 Data Anda aman dan akan diproses oleh tim LP Ma'arif NU PBNU
                             </p>
                         </div>

@@ -6,63 +6,63 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
         body {
             background: linear-gradient(135deg, #059669 0%, #34d399 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
 
         .register-container {
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
-            padding: 2rem 0;
+            padding: 1rem 0;
         }
 
         /* Animated Background Shapes */
         .bg-shape {
             position: fixed;
             border-radius: 50%;
-            opacity: 0.1;
-            animation: float 20s infinite ease-in-out;
+            opacity: 0.08;
+            animation: float 25s infinite ease-in-out;
             z-index: 1;
         }
 
         .bg-shape-1 {
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: 250px;
             background: #fff;
-            top: 10%;
-            left: 5%;
+            top: 8%;
+            left: 3%;
             animation-delay: 0s;
         }
 
         .bg-shape-2 {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             background: #fff;
-            bottom: 15%;
-            right: 10%;
+            bottom: 12%;
+            right: 8%;
             animation-delay: 5s;
         }
 
         .bg-shape-3 {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             background: #fff;
-            top: 60%;
-            left: 15%;
+            top: 55%;
+            left: 12%;
             animation-delay: 10s;
         }
 
         .bg-shape-4 {
-            width: 180px;
-            height: 180px;
+            width: 150px;
+            height: 150px;
             background: #fff;
-            top: 40%;
-            right: 20%;
+            top: 35%;
+            right: 15%;
             animation-delay: 15s;
         }
 
@@ -77,9 +77,9 @@
         .register-header {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             z-index: 2;
@@ -89,12 +89,12 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .register-header .logo-img img {
             background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .register-header h6 {
@@ -102,15 +102,15 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             margin: 0;
             font-weight: 700;
-            font-size: 1.1rem;
-            line-height: 1.4;
+            font-size: 0.9rem;
+            line-height: 1.3;
         }
 
         /* Main Card */
         .register-card {
             background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
             overflow: hidden;
             position: relative;
             z-index: 2;
@@ -118,48 +118,47 @@
         }
 
         .register-card .card-body {
-            padding: 2.5rem;
+            padding: 1.5rem 3rem;
+
         }
 
         .register-card h5 {
             color: #059669;
             font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
         }
 
         .register-card > .card-body > small {
             color: #6b7280;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         /* Progress Navigation */
         .card-header-navs {
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             border: none;
-            padding: 1rem 2.5rem;
+            padding: 0.7rem 1.5rem;
         }
 
         .nav-pills {
-            gap: 0.5rem;
+            gap: 0.3rem;
         }
 
         .tab-pills {
             color: rgba(255, 255, 255, 0.7);
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            padding: 0.5rem 0.7rem;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             transition: all 0.3s ease;
             cursor: pointer;
             text-align: center;
         }
 
         .tab-pills:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             transform: translateY(-2px);
         }
 
@@ -172,10 +171,10 @@
 
         /* Form Styling */
         .form-label {
-            color: #374151;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            color: #4a5568;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
         }
 
         .form-label.required::after {
@@ -185,16 +184,15 @@
         }
 
         .form-control, .form-select {
-            border: 2px solid #e5e7eb;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            background: #f9fafb;
+            padding: 0.55rem 0.8rem;
+            font-size: 0.85rem;
+            transition: all 0.1s ease;
         }
 
         .form-control:focus, .form-select:focus {
-            border-color: #059669;
-            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1);
-            background: #fff;
+            border: 2px solid;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
         }
 
         .form-control.is-invalid {
@@ -208,95 +206,95 @@
 
         /* Bootstrap Select Override */
         .bootstrap-select .btn {
-            background: #f9fafb;
-            color: #374151;
-            font-size: 0.95rem;
+            padding: 0.55rem 0.8rem;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            background: #fff;
+            color: #4a5568;
         }
 
         .bootstrap-select .btn:focus {
-            border-color: #059669 !important;
-            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1) !important;
-            background: #fff !important;
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
             outline: none !important;
         }
 
         .bootstrap-select.show .btn {
-            border-color: #059669 !important;
+            border-color: #10b981 !important;
         }
 
         .bootstrap-select .dropdown-menu {
-            border-radius: 12px;
-            border: 2px solid #e5e7eb;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-top: 0.5rem;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-top: 0.25rem;
         }
 
         .bootstrap-select .dropdown-item {
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
+            padding: 0.55rem 0.8rem;
+            font-size: 0.85rem;
             transition: all 0.2s ease;
         }
 
         .bootstrap-select .dropdown-item:hover {
             background: #f0fdf4;
-            color: #059669;
+            color: #10b981;
         }
 
         .bootstrap-select .dropdown-item.active {
-            background: #059669;
+            background: #10b981;
             color: #fff;
         }
 
         /* Input Group (Password) */
         .input-group .form-control {
             border-right: none;
-            background: #f9fafb;
+            border-radius: 8px 0 0 8px;
         }
 
         .input-group .input-group-text {
-            background: #f9fafb;
-            border: 2px solid #e5e7eb;
+            background: transparent;
+            border: 2px solid #e2e8f0;
             border-left: none;
-            border-radius: 0 12px 12px 0;
+            border-radius: 0 8px 8px 0;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .input-group .form-control:focus + .input-group-text {
-            border-color: #059669;
-            background: #fff;
+            border-color: #10b981;
         }
 
         .input-group .input-group-text:hover {
-            color: #059669;
+            background: #f7fafc;
         }
 
         /* Section Headers */
         .card-body h5 {
             color: #059669;
             font-weight: 700;
-            font-size: 1.3rem;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 3px solid #e5e7eb;
+            font-size: 1.1rem;
+            margin-top: 0.7rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
             position: relative;
         }
 
         .card-body h5::after {
             content: '';
             position: absolute;
-            bottom: -3px;
+            bottom: -2px;
             left: 0;
-            width: 60px;
-            height: 3px;
+            width: 50px;
+            height: 2px;
             background: linear-gradient(90deg, #059669, #34d399);
             border-radius: 2px;
         }
 
         /* File Input */
         input[type="file"].form-control {
-            padding: 0.6rem 1rem;
+            padding: 0.55rem 0.8rem;
             cursor: pointer;
         }
 
@@ -304,46 +302,52 @@
             background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             color: #fff;
             border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            margin-right: 1rem;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            margin-right: 0.8rem;
             cursor: pointer;
             font-weight: 600;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
         input[type="file"].form-control::file-selector-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(5, 150, 105, 0.3);
+            background: linear-gradient(135deg, #047857 0%, #059669 100%);
         }
 
         .text-primary {
             color: #059669 !important;
-            font-weight: 500;
+        }
+
+        .text-primary:hover {
+            color: #047857 !important;
         }
 
         /* Footer Buttons */
         .card-footer {
             background: #f9fafb;
             border-top: 2px solid #e5e7eb;
-            padding: 1.5rem 2.5rem;
+            padding: 1rem 1.5rem;
         }
 
         .btn-green {
             background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             color: #fff;
             border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 12px;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+            box-shadow: 0 3px 12px rgba(5, 150, 105, 0.4);
         }
 
         .btn-green:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(5, 150, 105, 0.5);
+            background: linear-gradient(135deg, #047857 0%, #059669 100%);
             color: #fff;
         }
 
@@ -360,10 +364,11 @@
 
         /* Alert Styling */
         .alert {
-            border-radius: 12px;
+            border-radius: 8px;
             border: none;
-            padding: 1rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             font-weight: 500;
+            font-size: 0.85rem;
         }
 
         .alert-success {
@@ -389,18 +394,31 @@
         /* Invalid Feedback */
         .invalid-feedback {
             color: #ef4444;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            margin-top: 0.3rem;
             font-weight: 500;
+        }
+
+        /* Compact Form Groups */
+        .mb-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .row {
+            margin-bottom: 0.5rem;
+        }
+
+        .text-primary {
+            font-size: 0.8rem !important;
         }
 
         /* Footer Copyright */
         .register-footer {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1.5rem 2rem;
-            margin-top: 2rem;
+            border-radius: 16px;
+            padding: 0.8rem 1rem;
+            margin-top: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             z-index: 2;
@@ -411,68 +429,89 @@
             margin: 0;
             text-align: center;
             font-weight: 500;
+            font-size: 0.8rem;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         /* Responsive Design */
         @media (max-width: 991px) {
             .register-header {
-                padding: 1.5rem;
+                padding: 0.8rem;
             }
 
             .register-header .logo-img {
                 flex-direction: column;
                 text-align: center;
-                gap: 1rem;
+                gap: 0.7rem;
             }
 
             .register-header h6 {
-                font-size: 0.95rem;
+                font-size: 0.8rem;
             }
 
             .register-card .card-body {
-                padding: 1.5rem;
+                padding: 1rem;
             }
 
             .card-header-navs {
-                padding: 1rem 1.5rem;
+                padding: 0.5rem 1rem;
             }
 
             .tab-pills {
-                font-size: 0.75rem;
-                padding: 0.6rem 0.75rem;
+                font-size: 0.65rem;
+                padding: 0.4rem 0.5rem;
             }
 
             .card-footer {
-                padding: 1rem 1.5rem;
+                padding: 0.8rem 1rem;
             }
 
             .btn-green {
-                padding: 0.65rem 1.5rem;
-                font-size: 0.9rem;
+                padding: 0.5rem 1.2rem;
+                font-size: 0.8rem;
             }
         }
 
         @media (max-width: 576px) {
             .register-header .logo-img img {
-                width: 150px;
+                width: 120px;
             }
 
             .register-header h6 {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
 
             .register-card h5 {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .tab-pills {
-                font-size: 0.7rem;
-                padding: 0.5rem 0.5rem;
+                font-size: 0.6rem;
+                padding: 0.3rem 0.4rem;
             }
 
             .card-body h5 {
-                font-size: 1.1rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-height: 900px) {
+            .register-container {
+                padding: 2rem 0;
+            }
+            
+            .register-header {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .register-card .card-body {
+                padding: 2rem;
+                max-height: 60vh;
+            }
+            
+            .register-card {
+                max-height: 90vh;
             }
         }
 
@@ -506,7 +545,7 @@
             <!-- Header Section -->
             <div class="register-header">
                 <a href="{{ route('home') }}" class="logo-img">
-                    <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="Logo">
+                    <img src="{{ asset('assets/images/logos/logo.png') }}" width="150" alt="Logo">
                     <h6>Sistem Administrasi Pendidikan Terpadu<br>Lembaga Pendidikan Ma'arif NU PBNU</h6>
                 </a>
             </div>
