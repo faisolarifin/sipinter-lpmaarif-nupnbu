@@ -8,7 +8,6 @@
         body {
             background: linear-gradient(135deg, #059669 0%, #34d399 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            height: 100vh;
             margin: 0;
             padding: 0;
         }
@@ -16,7 +15,6 @@
         .success-container {
             height: 100vh;
             position: relative;
-            overflow: hidden;
         }
 
         /* Animated Background Shapes */
@@ -123,7 +121,6 @@
             background: #fff;
             border-radius: 24px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            overflow: hidden;
             position: relative;
             z-index: 2;
             border: none;
