@@ -8,7 +8,6 @@
         body {
             background: linear-gradient(135deg, #059669 0%, #34d399 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow: hidden;
             height: 100vh;
             margin: 0;
             padding: 0;
