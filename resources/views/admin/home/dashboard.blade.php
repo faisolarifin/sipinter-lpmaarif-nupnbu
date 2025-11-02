@@ -158,19 +158,12 @@
     <div class="col-lg-4">
         <div class="card overflow-hidden shadow-sm modern-chart-card" style="cursor: pointer; transition: all 0.3s ease; border: 1px solid #e3e3e3;" data-bs-toggle="modal" data-bs-target="#modalKabupatenChart">
             <div class="card-body p-4 position-relative">
-                <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="card-title mb-0 fw-semibold">Satpen Kabupaten</h5>
                     <div class="bg-info bg-opacity-10 rounded-circle p-2">
                         <i class="ti ti-chart-line text-info fs-5"></i>
                     </div>
                 </div>
-                <form class="form mb-3" style="width:50%;">
-                    <select id="chartSelectProv" class="form-select form-select-sm">
-                        @foreach($listProvinsi as $row)
-                        <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                        @endforeach
-                    </select>
-                </form>
                 <div class="row align-items-center">
                     <div class="col-8">
                         <h2 class="fw-bold mb-2 count-kab text-info">0</h2>
@@ -201,19 +194,12 @@
     <div class="col-lg-4">
         <div class="card overflow-hidden shadow-sm modern-chart-card" style="cursor: pointer; transition: all 0.3s ease; border: 1px solid #e3e3e3;" data-bs-toggle="modal" data-bs-target="#modalCabangChart">
             <div class="card-body p-4 position-relative">
-                <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="card-title mb-0 fw-semibold">Satpen Cabang</h5>
                     <div class="bg-info bg-opacity-10 rounded-circle p-2">
                         <i class="ti ti-chart-line text-info fs-5"></i>
                     </div>
                 </div>
-                <form class="form mb-3" style="width:50%;">
-                    <select id="chartSelectProv" class="form-select form-select-sm">
-                        @foreach($listProvinsi as $row)
-                            <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                        @endforeach
-                    </select>
-                </form>
                 <div class="row align-items-center">
                     <div class="col-8">
                         <h2 class="fw-bold mb-2 count-pc text-info">0</h2>
@@ -319,7 +305,7 @@
                             <td class="py-3 ps-3">
                                 <div class="d-flex align-items-center">
                                     <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
-                                        <i class="ti ti-location text-primary fs-6"></i>
+                                        <i class="ti ti-location text-primary fs-3"></i>
                                     </div>
                                     <div>
                                         <span class="fw-semibold">{{ $row->nm_prov }}</span>
@@ -354,7 +340,7 @@
                     </div>
                 </div>
                 <div class="modern-status-table">
-                    <div class="status-item cursor-pointer clickable-sigle-row mb-3 p-3 rounded-3 bg-light border-start border-primary border-4 status-row-hover"
+                    <div class="status-item cursor-pointer clickable-sigle-row mb-2 p-3 rounded-3 bg-light border-start border-primary border-4 status-row-hover"
                          data-link="{{ route('a.satpen'). "#permohonan" }}" style="transition: all 0.3s ease;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
@@ -367,7 +353,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-primary px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-primary px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->permohonan) }}
                                 </span>
                             </div>
@@ -387,7 +373,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-info px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-info px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->proses_dokumen) }}
                                 </span>
                             </div>
@@ -407,7 +393,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-warning px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-warning px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->revisi) }}
                                 </span>
                             </div>
@@ -427,7 +413,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-danger px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-danger px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->expired) }}
                                 </span>
                             </div>
@@ -447,7 +433,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-success px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-success px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->perpanjangan) }}
                                 </span>
                             </div>
@@ -658,17 +644,25 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-0">Total Jenjang: <span class="text-success fw-bold count-jp-modal">0</span></h6>
-                                <small class="text-muted">Distribusi satuan pendidikan berdasarkan tingkat pendidikan</small>
+                                <small class="text-muted">Pilih provinsi untuk melihat data jenjang pendidikan</small>
                             </div>
-                            <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="chartTypeJenjang" id="barTypeJenjang" autocomplete="off" checked>
-                                <label class="btn btn-outline-success btn-sm" for="barTypeJenjang">
-                                    <i class="ti ti-chart-bar me-1"></i>Bar Chart
-                                </label>
-                                <input type="radio" class="btn-check" name="chartTypeJenjang" id="lineTypeJenjang" autocomplete="off">
-                                <label class="btn btn-outline-success btn-sm" for="lineTypeJenjang">
-                                    <i class="ti ti-chart-line me-1"></i>Line Chart
-                                </label>
+                            <div class="d-flex gap-2">
+                                <select id="modalChartSelectProvJenjang" class="form-select form-select-sm" style="width: 200px;">
+                                    <option value="">Semua Provinsi</option>
+                                    @foreach($listProvinsi as $row)
+                                        <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="chartTypeJenjang" id="barTypeJenjang" autocomplete="off" checked>
+                                    <label class="btn btn-outline-success btn-sm" for="barTypeJenjang">
+                                        <i class="ti ti-chart-bar me-1"></i>Bar Chart
+                                    </label>
+                                    <input type="radio" class="btn-check" name="chartTypeJenjang" id="lineTypeJenjang" autocomplete="off">
+                                    <label class="btn btn-outline-success btn-sm" for="lineTypeJenjang">
+                                        <i class="ti ti-chart-line me-1"></i>Line Chart
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -829,6 +823,11 @@ $(document).ready(function () {
         isLoadingCabang = false; // Reset loading state
         loadCabangModalChart();
     });
+
+    $('#modalChartSelectProvJenjang').change(function() {
+        isLoadingJenjang = false; // Reset loading state
+        loadJenjangModalChart();
+    });
 });
 
 // Load and render Provinsi modal chart
@@ -954,11 +953,14 @@ function loadJenjangModalChart() {
     // Prevent duplicate loading
     if (isLoadingJenjang) return;
 
+    const selectedProv = $('#modalChartSelectProvJenjang').val();
+    const url = selectedProv ? `/api/jenjangcount/${selectedProv}` : "/api/jenjangcount";
+
     isLoadingJenjang = true;
     showChartLoading('jenjangModalChart');
 
     $.ajax({
-        url: "/api/jenjangcount",
+        url: url,
         type: "GET",
         dataType: 'json',
         timeout: 15000, // 15 second timeout
@@ -1010,17 +1012,21 @@ function renderProvinsiChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#5D87FF'],
+            colors: ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Provinsi`,
@@ -1051,7 +1057,7 @@ function renderProvinsiChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#5D87FF'],
+            colors: ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
@@ -1110,17 +1116,21 @@ function renderKabupatenChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Kabupaten`,
@@ -1151,7 +1161,7 @@ function renderKabupatenChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
@@ -1211,17 +1221,21 @@ function renderCabangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Pengurus Cabang`,
@@ -1252,7 +1266,7 @@ function renderCabangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
@@ -1312,17 +1326,21 @@ function renderJenjangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#13DEB9'],
+            colors: ['#13DEB9', '#49BEFF', '#5D87FF', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Jenjang Pendidikan`,
@@ -1353,7 +1371,7 @@ function renderJenjangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#13DEB9'],
+            colors: ['#13DEB9', '#49BEFF', '#5D87FF', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
