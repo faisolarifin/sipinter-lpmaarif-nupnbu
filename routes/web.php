@@ -308,6 +308,7 @@ Route::middleware('mustlogin')->group(function () {
                     Route::get('/wilayah', [NpypController::class, 'indexNpypWilayah'])->name('a.npyp.wilayah');
                     Route::get('/cabang', [NpypController::class, 'indexNpypCabang'])->name('a.npyp.cabang');
                     Route::get('/cabang/data', [NpypController::class, 'getNpypCabangData'])->name('a.npyp.cabang.data');
+                    Route::get('/satpen/{npypId}', [NpypController::class, 'getSatpenByNpyp'])->name('a.npyp.satpen-detail');
                     
                     // Admin PTK Verification Routes
                     Route::prefix('ptk')->group(function () {

@@ -197,7 +197,7 @@
                         </div>
                         @endif
 
-                        <div class="card border">
+                        <div class="card border shadow-none">
                             <div class="card-header bg-light">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h6 class="mb-0">
