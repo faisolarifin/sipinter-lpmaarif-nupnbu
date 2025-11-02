@@ -20,37 +20,6 @@
 
             @include('template.alert')
 
-            <!-- Header Information -->
-            <div class="card w-100 mb-4">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h4 class="card-title fw-bold text-warning mb-2">
-                                <i class="ti ti-shield-star me-2"></i>MANAJEMEN DATA NPYP
-                            </h4>
-                            <p class="text-muted mb-0">
-                                Halaman ini digunakan untuk mengelola data Nomor Pokok Yayasan Penyelenggara (NPYP) tingkat. 
-                                NPYP merupakan identitas unik yang diberikan kepada yayasan penyelenggara pendidikan yang telah memenuhi 
-                                persyaratan dan terdaftar secara resmi di sistem.
-                            </p>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <div class="bg-light-warning p-3 rounded">
-                                <h6 class="text-warning mb-1">Status Data</h6>
-                                <h4 class="text-warning mb-0">
-                                    @if($npyp)
-                                        <i class="ti ti-check-circle"></i> Tersedia
-                                    @else
-                                        <i class="ti ti-alert-circle"></i> Belum Ada
-                                    @endif
-                                </h4>
-                                <small class="text-muted">NPYP</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Form Section -->
             <div class="card w-100 mb-4">
                 <div class="card-body pt-3">
@@ -70,18 +39,6 @@
                                 Mode Tambah
                             @endif
                         </span>
-                    </div>
-
-                    <div class="alert alert-warning d-flex align-items-center mb-3" role="alert">
-                        <i class="ti ti-info-circle me-2"></i>
-                        <div>
-                            <strong>Petunjuk:</strong> 
-                            @if($npyp)
-                                Anda dapat mengubah informasi NPYP melalui form di bawah ini. Pastikan semua data terisi dengan benar sebelum menyimpan.
-                            @else
-                                Lengkapi semua informasi yang diperlukan untuk mendaftarkan NPYP baru. Semua field wajib diisi.
-                            @endif
-                        </div>
                     </div>
 
                     <form method="POST" action="{{ $npyp ? route('a.npyp.update', $npyp->id_npyp) : route('a.npyp.store') }}">
@@ -199,22 +156,6 @@
                     </div>
 
                     @if($npyp)
-                        <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
-                            <i class="ti ti-info-circle me-2"></i>
-                            <div>
-                                <strong>Informasi:</strong> Tabel di bawah ini menampilkan daftar sekolah/satuan pendidikan yang berada dalam naungan NPYP. 
-                                Gunakan tombol "Tambah Sekolah Naungan" untuk menambahkan sekolah baru atau fitur pencarian untuk menemukan data tertentu.
-                            </div>
-                        </div>
-                    @else
-                        <div class="alert alert-warning d-flex align-items-center mb-3" role="alert">
-                            <i class="ti ti-alert-triangle me-2"></i>
-                            <div>
-                                <strong>Perhatian:</strong> Untuk dapat mengelola sekolah naungan, silakan lengkapi dan simpan data NPYP terlebih dahulu 
-                                menggunakan form di atas. Setelah data NPYP tersimpan, Anda dapat menambahkan sekolah-sekolah yang berada dalam naungan NPYP tersebut.
-                            </div>
-                        </div>
-                    @endif
                         
                         <!-- Filter Section -->
                         @if (!in_array(auth()->user()->role, ['admin cabang']))
@@ -273,37 +214,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body p-0">
+                            <div class="card-body p-4">
                                 <div class="table-responsive">
                                     <table class="table table-hover mb-0" id="sekolahNaunganTable">
                                         <thead class="table-light">
                                             <tr>
                                                 <th width="5%" class="text-center">
-                                                    <i class="ti ti-hash text-muted"></i>
+                                                    No
                                                 </th>
                                                 <th width="10%">
-                                                    <i class="ti ti-id text-primary me-1"></i>NPSN
+                                                    NPSN
                                                 </th>
                                                 <th width="12%">
-                                                    <i class="ti ti-file-text text-success me-1"></i>No Registrasi
+                                                    No Registrasi
                                                 </th>
                                                 <th width="22%">
-                                                    <i class="ti ti-school text-warning me-1"></i>Nama Sekolah
+                                                    Nama Sekolah
                                                 </th>
                                                 <th width="12%">
-                                                    <i class="ti ti-map-pin text-info me-1"></i>Kelurahan
+                                                    Kelurahan
                                                 </th>
                                                 <th width="12%">
-                                                    <i class="ti ti-map text-purple me-1"></i>Kecamatan
+                                                    Kecamatan
                                                 </th>
                                                 <th width="12%">
-                                                    <i class="ti ti-map-2 text-orange me-1"></i>Kabupaten
+                                                    Kabupaten
                                                 </th>
                                                 <th width="10%">
-                                                    <i class="ti ti-world text-cyan me-1"></i>Provinsi
+                                                    Provinsi
                                                 </th>
                                                 <th width="5%" class="text-center">
-                                                    <i class="ti ti-settings text-muted"></i>
+                                                    Aksi
                                                 </th>
                                             </tr>
                                         </thead>
@@ -325,7 +266,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -338,6 +279,7 @@
 @section('extendscripts')
     <script src="{{ asset('assets/libs/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables/dataTables.bootstrap5.min.js') }}"></script>
+        
     <script>
         $(".deleteBtn").on('click', function() {
             if (confirm("benar anda akan menghapus data?")) {

@@ -15,6 +15,12 @@ use Maatwebsite\Excel\Facades\Excel;
 class NpypController extends Controller
 {
     protected function specificFilter() {
+        if (!request()->specificFilter) {
+            return [
+                "id_pw" => null,
+                "id_pc" => null,
+            ];
+        }
         $specificFilter = request()->specificFilter;
         $specificFilter["id_pw"] = @$specificFilter["id_prov"];
         unset($specificFilter["id_prov"]);

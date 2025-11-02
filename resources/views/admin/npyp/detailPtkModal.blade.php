@@ -10,41 +10,6 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Header Info -->
-                <div class="row mb-1">
-                    <div class="col-md-12">
-                        <div class="card border-0 bg-light">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-md-2 text-center">
-                                        <div class="bg-primary rounded-circle p-4 d-inline-block">
-                                            <i class="ti ti-user-circle text-white" style="font-size: 3rem;"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <h4 class="text-primary fw-bold mb-1" id="modalNamaPtkHeader">-</h4>
-                                        <p class="text-muted mb-1">
-                                            <i class="ti ti-id-badge me-2"></i>
-                                            NIK: <span class="fw-semibold" id="modalNikHeader">-</span>
-                                        </p>
-                                        <div class="d-flex flex-wrap gap-2">
-                                            <span class="badge bg-primary" id="modalJenisPtkBadge">
-                                                -
-                                            </span>
-                                            <span class="badge bg-info" id="modalStatusKepegawaianBadge">
-                                                -
-                                            </span>
-                                            <span class="badge bg-success" id="modalStatusPengajuanBadge">
-                                                -
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Group 1: Identitas PTK -->
                 <div class="card mb-4">
                     <div class="card-header bg-light">
@@ -431,13 +396,6 @@
 @section('modalscripts')
 <script>
 function populateDetailModal(data) {
-    // Header Information
-    $('#modalNamaPtkHeader').text(data.nama_ptk || '-');
-    $('#modalNikHeader').text(data.nik || '-');
-    $('#modalJenisPtkBadge').text(data.jenis_ptk || '-');
-    $('#modalStatusKepegawaianBadge').text(data.status_kepegawaian || '-');
-    $('#modalStatusPengajuanBadge').text(getStatusLabel(data.status_ajuan));
-
     // Group 1: Identitas PTK
     $('#modalNik').text(data.nik || '-');
     $('#modalNamaPtk').text(data.nama_ptk || '-');
@@ -513,11 +471,6 @@ function populateDetailModal(data) {
     $('#modalTanggalApprove').text(data.tanggal_approve ? formatDateTime(data.tanggal_approve) : '-');
     $('#modalNomorSkKeluar').text(data.nomor_sk_keluar || '-');
     $('#modalTanggalDikeluarkan').text(data.tanggal_dikeluarkan ? formatDateTime(data.tanggal_dikeluarkan) : '-');
-
-    // Update header badge classes
-    updateBadgeClass('#modalJenisPtkBadge', 'bg-primary');
-    updateBadgeClass('#modalStatusKepegawaianBadge', 'bg-info');
-    updateBadgeClass('#modalStatusPengajuanBadge', statusClass);
 }
 
 function getStatusLabel(status) {

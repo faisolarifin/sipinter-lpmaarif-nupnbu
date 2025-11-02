@@ -21,31 +21,6 @@
 
             @include('template.alert')
 
-            <!-- Header Information -->
-            <div class="card w-100 mb-4">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h4 class="card-title fw-bold text-primary mb-2">
-                                <i class="ti ti-database me-2"></i>REKAP DATA NPYP TINGKAT WILAYAH
-                            </h4>
-                            <p class="text-muted mb-0">
-                                Halaman ini menampilkan rekapitulasi seluruh data Nomor Pokok Yayasan Penyelenggara (NPYP) 
-                                yang telah terdaftar di tingkat wilayah/provinsi. Data mencakup informasi lengkap NPYP 
-                                beserta operator yang bertanggung jawab di setiap wilayah.
-                            </p>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <div class="bg-light-primary p-3 rounded">
-                                <h6 class="text-primary mb-1">Total Data</h6>
-                                <h4 class="text-primary mb-0" id="totalData">-</h4>
-                                <small class="text-muted">NPYP Wilayah</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="card w-100">
                 <div class="card-body pt-3">
                     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -59,14 +34,6 @@
                         </div>
                     </div>
                     
-                    <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
-                        <i class="ti ti-info-circle me-2"></i>
-                        <div>
-                            <strong>Informasi:</strong> Tabel di bawah ini menampilkan data NPYP yang terdaftar untuk setiap wilayah/provinsi. 
-                            Gunakan fitur pencarian untuk menemukan data tertentu atau export ke Excel untuk keperluan laporan.
-                        </div>
-                    </div>
-
                     <div class="card border">
                         <div class="card-header bg-light">
                             <div class="d-flex justify-content-between align-items-center">
@@ -84,28 +51,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-0">
+                        <div class="card-body p-4">
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="npypWilayahTable">
                                     <thead class="table-primary">
                                         <tr>
                                             <th width="5%" class="text-center">
-                                                <i class="ti ti-hash text-white"></i>
+                                                No
                                             </th>
                                             <th width="15%">
-                                                <i class="ti ti-id text-white me-1"></i>Nomor NPYP
+                                                Nomor NPYP
                                             </th>
                                             <th width="25%">
-                                                <i class="ti ti-building text-white me-1"></i>Nama NPYP
+                                                Nama NPYP
                                             </th>
                                             <th width="20%">
-                                                <i class="ti ti-user text-white me-1"></i>Nama Operator
+                                                Nama Operator
                                             </th>
                                             <th width="15%">
-                                                <i class="ti ti-phone text-white me-1"></i>No. HP Operator
+                                                No. HP Operator
                                             </th>
                                             <th width="20%">
-                                                <i class="ti ti-map-pin text-white me-1"></i>Wilayah
+                                                Wilayah
                                             </th>
                                         </tr>
                                     </thead>
@@ -137,31 +104,7 @@
 @section('scripts')
     <script src="{{ asset('assets/libs/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables/dataTables.bootstrap5.min.js') }}"></script>
-    
-    <style>
-        #npypWilayahTable {
-            width: 100% !important;
-            table-layout: fixed;
-        }
-        #npypWilayahTable tbody td {
-            padding: 12px 8px !important;
-            vertical-align: middle;
-            word-wrap: break-word;
-        }
-        #npypWilayahTable thead th {
-            padding: 15px 8px !important;
-        }
-        #npypWilayahTable tbody td div {
-            padding: 4px 0;
-        }
-        .table-responsive {
-            overflow-x: auto;
-        }
-        #npypWilayahTable_wrapper {
-            width: 100%;
-        }
-    </style>
-    
+        
     <script>
         $(document).ready(function() {
             // Initialize DataTable

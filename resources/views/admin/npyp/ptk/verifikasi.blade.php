@@ -20,103 +20,6 @@
 
             @include('template.alert')
 
-            <!-- Header Information -->
-            <div class="card w-100 mb-4">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h4 class="card-title fw-bold text-primary mb-2">
-                                <i class="ti ti-user-check me-2"></i>VERIFIKASI DAN PROSES PTK
-                            </h4>
-                            <p class="text-muted mb-0">
-                                Halaman ini digunakan untuk melakukan verifikasi, proses, dan pengelolaan data Pendidik dan Tenaga Kependidikan (PTK)
-                                yang diajukan oleh satuan pendidikan. Setiap tahap memiliki aksi yang berbeda sesuai dengan status pengajuan PTK.
-                            </p>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <div class="bg-light-primary p-3 rounded">
-                                <h6 class="text-primary mb-1">Total PTK</h6>
-                                <h4 class="text-primary mb-0" id="totalPTKCount">
-                                    <i class="ti ti-users"></i> <span>0</span>
-                                </h4>
-                                <small class="text-muted">Semua Status</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Statistics Cards -->
-            <div class="row mb-2">
-                <div class="col-md-2">
-                    <div class="card border-warning">
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <i class="ti ti-clock-hour-9 text-warning fs-3"></i>
-                            </div>
-                            <h5 class="card-title text-warning mb-1" id="verifikasiCount">0</h5>
-                            <small class="text-muted">Verifikasi</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card border-danger">
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <i class="ti ti-edit text-danger fs-3"></i>
-                            </div>
-                            <h5 class="card-title text-danger mb-1" id="revisiCount">0</h5>
-                            <small class="text-muted">Revisi PTK</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card border-info">
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <i class="ti ti-settings text-info fs-3"></i>
-                            </div>
-                            <h5 class="card-title text-info mb-1" id="prosesCount">0</h5>
-                            <small class="text-muted">Proses PTK</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card border-success">
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <i class="ti ti-check text-success fs-3"></i>
-                            </div>
-                            <h5 class="card-title text-success mb-1" id="approveCount">0</h5>
-                            <small class="text-muted">Di Approve</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card border-primary">
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <i class="ti ti-cut text-primary fs-3"></i>
-                            </div>
-                            <h5 class="card-title text-primary mb-1" id="dikeluarkanCount">0</h5>
-                            <small class="text-muted">Dikeluarkan</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card border-secondary">
-                        <div class="card-body text-center">
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <i class="ti ti-refresh text-secondary fs-3"></i>
-                            </div>
-                            <button class="btn btn-sm btn-outline-secondary w-100" onclick="refreshStatistics()">
-                                <i class="ti ti-refresh me-1"></i>Refresh
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Main Content with Tabs -->
             <div class="card w-100">
                 <div class="card-body">
@@ -158,61 +61,26 @@
                     <div class="tab-content" id="ptkTabsContent">
                         <!-- Verifikasi Tab -->
                         <div class="tab-pane fade show active" id="verifikasi" role="tabpanel" aria-labelledby="verifikasi-tab">
-                            <div class="alert alert-warning d-flex align-items-center mb-3" role="alert">
-                                <i class="ti ti-info-circle me-2"></i>
-                                <div>
-                                    <strong>Informasi:</strong> Data PTK pada tab ini menunggu verifikasi dari admin.
-                                    Anda dapat menerima atau menolak pengajuan PTK berdasarkan kelengkapan dokumen dan data yang disubmit.
-                                </div>
-                            </div>
                             @include('admin.npyp.ptk._table', ['tabId' => 'verifikasi', 'status' => 'verifikasi'])
                         </div>
 
                         <!-- Revisi Tab -->
                         <div class="tab-pane fade" id="revisi" role="tabpanel" aria-labelledby="revisi-tab">
-                            <div class="alert alert-danger d-flex align-items-center mb-3" role="alert">
-                                <i class="ti ti-alert-triangle me-2"></i>
-                                <div>
-                                    <strong>Perhatian:</strong> Data PTK pada tab ini telah dikembalikan untuk direvisi oleh satuan pendidikan.
-                                    PTK yang sudah direvisi akan kembali masuk ke tahap verifikasi.
-                                </div>
-                            </div>
                             @include('admin.npyp.ptk._table', ['tabId' => 'revisi', 'status' => 'revisi'])
                         </div>
 
                         <!-- Proses Tab -->
                         <div class="tab-pane fade" id="proses" role="tabpanel" aria-labelledby="proses-tab">
-                            <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
-                                <i class="ti ti-settings me-2"></i>
-                                <div>
-                                    <strong>Status:</strong> Data PTK pada tab ini sedang dalam tahap proses lebih lanjut setelah verifikasi diterima.
-                                    PTK dapat diproses untuk tahap approval atau dikembalikan untuk revisi.
-                                </div>
-                            </div>
                             @include('admin.npyp.ptk._table', ['tabId' => 'proses', 'status' => 'proses'])
                         </div>
 
                         <!-- Approve Tab -->
                         <div class="tab-pane fade" id="approve" role="tabpanel" aria-labelledby="approve-tab">
-                            <div class="alert alert-success d-flex align-items-center mb-3" role="alert">
-                                <i class="ti ti-check-circle me-2"></i>
-                                <div>
-                                    <strong>Sukses:</strong> Data PTK pada tab ini telah disetujui dan siap untuk diKeluarkan PTK-nya.
-                                    Anda dapat memproses pengeluaran SK atau mengembalikan ke tahap sebelumnya jika diperlukan.
-                                </div>
-                            </div>
                             @include('admin.npyp.ptk._table', ['tabId' => 'approve', 'status' => 'approve'])
                         </div>
 
                         <!-- Dikeluarkan Tab -->
                         <div class="tab-pane fade" id="dikeluarkan" role="tabpanel" aria-labelledby="dikeluarkan-tab">
-                            <div class="alert alert-primary d-flex align-items-center mb-3" role="alert">
-                                <i class="ti ti-cut me-2"></i>
-                                <div>
-                                    <strong>Selesai:</strong> Data PTK pada tab ini telah selesai diproses dan SK telah dikeluarkan.
-                                    Anda dapat melihat detail dan mengunduh dokumen SK yang telah diterbitkan.
-                                </div>
-                            </div>
                             @include('admin.npyp.ptk._table', ['tabId' => 'dikeluarkan', 'status' => 'dikeluarkan'])
                         </div>
                     </div>
@@ -233,12 +101,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="detailPTKContent">
-                    <div class="text-center py-5">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <p class="mt-2">Memuat detail PTK...</p>
-                    </div>
+                    <!-- Content will be loaded here -->
                 </div>
                 <div class="modal-footer" id="detailPTKModalFooter" style="display: none;">
                     <div class="d-flex justify-content-between w-100">
@@ -310,9 +173,6 @@
             // Initialize all tables
             initializeTables();
 
-            // Load statistics
-            loadStatistics();
-
             // Tab change handler
             $('#ptkTabs button[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
                 let targetTab = $(e.target).attr('data-bs-target').replace('#', '');
@@ -377,9 +237,8 @@
                         $('#actionPTKModal').modal('hide');
                         if (response.success) {
                             alert(response.message);
-                            // Refresh current table and statistics
+                            // Refresh current table
                             refreshCurrentTable();
-                            loadStatistics();
                             // Clear form
                             $('#actionPTKForm')[0].reset();
 
@@ -455,38 +314,6 @@
                     }
                 });
             });
-        }
-
-        function loadStatistics() {
-            $.ajax({
-                url: '{{ route("admin.ptk.statistics") }}',
-                type: 'GET',
-                success: function(response) {
-                    if (response.success) {
-                        let data = response.data;
-                        $('#verifikasiCount').text(data.verifikasi || 0);
-                        $('#revisiCount').text(data.revisi || 0);
-                        $('#prosesCount').text(data.proses || 0);
-                        $('#approveCount').text(data.approve || 0);
-                        $('#dikeluarkanCount').text(data.dikeluarkan || 0);
-                        $('#totalPTKCount span').text(data.total || 0);
-
-                        // Update badges
-                        $('#verifikasiBadge').text(data.verifikasi || 0);
-                        $('#revisiBadge').text(data.revisi || 0);
-                        $('#prosesBadge').text(data.proses || 0);
-                        $('#approveBadge').text(data.approve || 0);
-                        $('#dikeluarkanBadge').text(data.dikeluarkan || 0);
-                    }
-                },
-                error: function() {
-                    console.log('Error loading statistics');
-                }
-            });
-        }
-
-        function refreshStatistics() {
-            loadStatistics();
         }
 
         function refreshCurrentTable() {
