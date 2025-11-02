@@ -158,18 +158,26 @@ class ApiController extends Controller
         }
     }
 
-    public function getJenjangAndCount() {
+    public function getJenjangAndCount($provId = null) {
         try {
             $additionQuery = " ";
+            
+            // Check for user role restrictions first
             if (in_array(auth()->user()->role, ["admin wilayah"])) {
-                $provId = auth()->user()->provId;
-                $additionQuery .= "AND id_prov='$provId'";
+                $userProvId = auth()->user()->provId;
+                $additionQuery .= "AND id_prov='$userProvId'";
             }
             elseif (in_array(auth()->user()->role, ["admin cabang"])) {
                 $pcId = auth()->user()->cabangId;
                 $additionQuery .= "AND id_pc='$pcId'";
             }
+            // If a specific province ID is provided and user has permission, filter by it
+            elseif ($provId && in_array(auth()->user()->role, ["super admin", "admin pusat"])) {
+                $additionQuery .= "AND id_prov='$provId'";
+            }
+            
             $recordByJenjang = DB::select("SELECT nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan') $additionQuery ) AS record_count FROM jenjang_pendidikan");
+            
             if (!$recordByJenjang) return response()->json(['error' => 'Forbidden to access record']);
 
             return response()->json($recordByJenjang, HttpResponse::HTTP_OK);
