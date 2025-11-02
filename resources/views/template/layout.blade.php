@@ -16,6 +16,7 @@
         }
     </style>
   @yield('style')
+  @yield('modal-style')
 </head>
 
 <body>
