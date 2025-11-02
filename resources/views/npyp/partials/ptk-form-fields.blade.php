@@ -272,8 +272,8 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label class="form-label fw-semibold">Upload SK/Surat Tugas <span class="text-danger">*</span></label>
-                <input type="file" class="form-control" name="upload_sk" accept=".pdf,.jpg,.jpeg,.png" required>
-                <small class="text-muted">Format: PDF, JPG, PNG. Max: 5MB</small>
+                <input type="file" class="form-control" name="upload_sk" accept=".pdf" required>
+                <small class="text-muted">Format: PDF. Max: 1MB</small>
             </div>
         </div>
     </div>
@@ -309,7 +309,7 @@ $('input[name="kode_pos"]').on('input', function() {
 $('input[name="upload_sk"]').on('change', function() {
     const file = this.files[0];
     const maxSize = 5 * 1024 * 1024; // 5MB
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+    const allowedTypes = ['application/pdf'];
     
     if (file) {
         if (file.size > maxSize) {
@@ -319,7 +319,7 @@ $('input[name="upload_sk"]').on('change', function() {
         }
         
         if (!allowedTypes.includes(file.type)) {
-            alert('Format file harus PDF, JPG, JPEG, atau PNG');
+            alert('Format file harus PDF saja');
             this.value = '';
             return;
         }
