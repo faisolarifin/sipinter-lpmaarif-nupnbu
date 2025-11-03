@@ -265,8 +265,51 @@ hr {
     display:inline;
 }
 
+.table-hover > tbody > tr:hover > .expired {
+    --bs-table-accent-bg: rgba(227, 53, 30, 0.8);
+    color: var(--bs-table-hover-color);
+}
+
+.scroll-mirror-top {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 16px; /* tinggi scrollbar */
+}
+
+.table-scroll-top {
+    width: 100%;
+}
+
+.scroll-mirror-top::-webkit-scrollbar {
+    height: 8px;
+}
+
+#table-scroll-container {
+    overflow-x: auto;
+}
+
+.table-rekap tr td, .table-rekap tr th {
+    text-align: left;
+}
+
 @media (max-width: 575.98px) {
     .w-50, .w-60 {
         width: 90% !important;
     }
+}
+
+input[readonly] {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+  border-color: #ced4da;
+}
+
+input[readonly]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.first-level .sidebar-link span {
+    margin-left: 2.3rem;
 }

@@ -42,7 +42,7 @@ class InformasiController extends Controller
             ]);
             if ($request->hasFile('fileuploads')) {
                 foreach ($request->file('fileuploads') as $file) {
-                    $path =  $file->store('fileInformasi');
+                    $path =  $file->storeAs('fileInformasi', str_replace("#", "", $file->getClientOriginalName()));
                     InformasiFile::create([
                         'id_info' => $post->id_info,
                         'fileupload' => $path,
@@ -84,7 +84,7 @@ class InformasiController extends Controller
                 }
                 $files->delete();
                 foreach ($request->file('fileuploads') as $file) {
-                    $path =  $file->store('fileInformasi');
+                    $path =  $file->storeAs('fileInformasi', str_replace("#", "", $file->getClientOriginalName()));
                     InformasiFile::create([
                         'id_info' => $informasi->id_info,
                         'fileupload' => $path,

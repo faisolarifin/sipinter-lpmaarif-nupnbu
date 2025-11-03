@@ -7,7 +7,7 @@
 
 @if (Session::has('error'))
     <div class="alert alert-danger shadow-sm alert-dismissible" role="alert">
-        {{ Session::get('error') }}
+        {!! Session::get('error') !!}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif

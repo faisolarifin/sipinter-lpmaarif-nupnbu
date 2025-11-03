@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => 'Siapinter - Cek NPSN'
+    'title' => 'Sipinter - Cek NPSN'
 ])
 
 @section('style')
@@ -37,6 +37,13 @@
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email anda">
                                 <div class="invalid-feedback">
                                     @error('email') {{ $message }} @enderror
+                                </div>
+                            </div>
+                            <div class="mt-1 mb-3">
+                                <label for="nik_kepsek" class="form-label">NIK Kepala Sekolah</label>
+                                <input type="text" class="form-control @error('nik_kepsek') is-invalid @enderror" id="nik_kepsek" name="nik_kepsek" value="{{ old('nik_kepsek') }}" placeholder="Masukkan NIK Kepala Sekolah">
+                                <div class="invalid-feedback">
+                                    @error('nik_kepsek') {{ $message }} @enderror
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -99,15 +106,19 @@
                         <div class="row">
                             <div class="col-sm-6 pt-1">
                                 <p class="mb-2 mt-3"><i class="ti ti-mail"></i>
-                                    Email. sekretariat@maarifnu.org</p>
+                                    Email. bhp.maarifnu@gmail.com</p>
                                 <p class="mb-2"><i class="ti ti-phone"></i>
                                     Telp. 021-3904115</p>
-                                <p><i class="ti ti-brand-telegram"></i>
+                                <p class="mb-2"><i class="ti ti-brand-telegram"></i>
                                     Fax. 021-31906679</p>
+                                <a href="https://wa.me/628176536731" style="color:#5A6A85;">
+                                    <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
+                                        WA. +628176536731</p>
+                                </a>
                             </div>
                             <div class="col-sm-6 text-center">
                                 <i class="ti ti-map-pin fs-5"></i>
-                                <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
+                                <p>Gedung PBNU II, Lantai 2 <br> Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng <br> Jakarta Pusat 10320</p>
                             </div>
                         </div>
                     </div>

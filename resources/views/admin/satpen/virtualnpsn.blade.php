@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Tab Permohonan NPSN Virtual'
+    'title' => 'Sipinter - Tab Permohonan NPSN Virtual'
 ])
 
 @section('navbar')
@@ -47,6 +47,7 @@
                                     <th>#</th>
                                     <th>Nama Sekolah</th>
                                     <th>Jenjang</th>
+                                    <th>NIK Kepala Sekolah</th>
                                     <th>Email</th>
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
@@ -61,6 +62,7 @@
                                     <td>{{ ++$no }}</td>
                                     <td>{{ $row->nama_sekolah }}</td>
                                     <td>{{ $row->jenjang->nm_jenjang }}</td>
+                                    <td>{{ $row->nik_kepsek }}</td>
                                     <td>{{ $row->email }}</td>
                                     <td>{{ $row->provinsi->nm_prov }}</td>
                                     <td>{{ $row->kabupaten->nama_kab }}</td>
@@ -105,7 +107,9 @@
                                     <th>Provinsi</th>
                                     <th>Kabupaten</th>
                                     <th>Alamat</th>
+                                    @if(in_array(auth()->user()->role, ["super admin"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -119,6 +123,7 @@
                                         <td>{{ $row->provinsi->nm_prov }}</td>
                                         <td>{{ $row->kabupaten->nama_kab }}</td>
                                         <td>{{ $row->alamat }}</td>
+                                        @if(in_array(auth()->user()->role, ["super admin"]))
                                         <td>
                                             <form action="{{ route('a.vnpsn.destroy', $row->id_npsn ) }}" method="post" class="d-inline deleteBtn">
                                                 @csrf
@@ -126,6 +131,7 @@
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

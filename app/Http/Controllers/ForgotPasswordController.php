@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MailService;
 use App\Models\PasswordReset;
 use App\Models\Satpen;
 use App\Models\User;
@@ -30,22 +31,26 @@ class ForgotPasswordController extends Controller
     public function submitForgetPasswordForm(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:satpen',
+            'no_registrasi' => 'required|exists:satpen',
         ]);
-
+        $satpen = Satpen::where('no_registrasi', $request->no_registrasi)->first();
         $token = Str::random(64);
 
         PasswordReset::create([
-            'email' => $request->email,
+            'email' => $satpen->email,
             'token' => $token,
         ]);
 
-        Mail::send('emails.forgetPassword', ['token' => $token], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Reset Password');
+        $link_reset = url('auth/reset', $token);
+        MailService::send([
+            "to" => $satpen->email,
+            "subject" => "Reset Password",
+            "recipient" => "Operator Sekolah",
+            "content" => "<p>Anda dapat mengatur ulang kata sandi dari tautan di bawah ini:</p>
+                            <a href='$link_reset' class='cta-button'>Reset Password</a>"
+        ]);
 
-        });
-        return back()->with('success', 'Link reset password telah dikirimkan pada email anda!');
+        return back()->with('success', sprintf("Link reset password telah dikirimkan pada email %s !", $satpen->email));
     }
 
     /**
@@ -72,7 +77,7 @@ class ForgotPasswordController extends Controller
         $request->validate([
             'email' => 'required|email|exists:satpen',
             'new_password' => 'required|string',
-            'password_confirm' => 'required:same:new_password'
+            'password_confirm' => 'required|same:new_password'
 
         ]);
 

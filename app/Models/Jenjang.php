@@ -13,6 +13,8 @@ class Jenjang extends Model
     protected $hidden = ['created_at', 'updated_at'];
     protected $fillable = [
         'nm_jenjang',
+        'lembaga',
         'keterangan',
+        'lembaga',
     ];
 }

@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => 'Siapinter - Register'
+    'title' => 'Sipinter - Register'
 ])
 
 @section('style')
@@ -45,7 +45,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="npsn" class="form-label required">NPSN</label>
-                                    <input type="text" class="form-control  @error('npsn') is-invalid @enderror" id="npsn" name="npsn" value="{{ $cookieValue->npsn }}" readonly placeholder="Masukkan nama kecamatan" required>
+                                    <input type="text" class="form-control  @error('npsn') is-invalid @enderror" id="npsn" name="npsn" value="{{ $cookieValue->npsn }}" readonly placeholder="Masukkan nama kecamatan" required readonly>
                                     <div class="invalid-feedback">
                                         @error('npsn') {{ $message }} @enderror
                                     </div>
@@ -54,7 +54,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="nm_satpen" class="form-label required">Nama Satpen</label>
-                                    <input type="text" class="form-control  @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama }}" placeholder="Masukkan nama satpen" required>
+                                    <input type="text" class="form-control  @error('nm_satpen') is-invalid @enderror" id="nm_satpen" name="nm_satpen" value="{{ $cookieValue->nama }}" placeholder="Masukkan nama satpen" required readonly>
                                     <div class="invalid-feedback">
                                         @error('nm_satpen') {{ $message }} @enderror
                                     </div>
@@ -162,7 +162,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="kabupaten" class="form-label required">Kabupaten</label>
-                                    <select class="selectpicker @error('kabupaten') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="kabupaten">
+                                    <select class="selectpicker @error('kabupaten') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="kabupaten" required>
                                         @foreach($kabupaten as $row)
                                             <option value="{{ $row->id_kab }}" {{ Strings::removeFirstWord($row->nama_kab) == Strings::removeFirstWord($cookieValue->kabkotanegara_ln) ? 'selected' : '' }}>{{ $row->nama_kab }}</option>
                                         @endforeach
@@ -177,7 +177,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="cabang" class="form-label required">Cabang</label>
-                                    <select class="selectpicker @error('cabang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="cabang">
+                                    <select class="selectpicker @error('cabang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="cabang" required>
                                         @foreach($cabang as $row)
                                             <option value="{{ $row->id_pc }}" {{ Strings::removeFirstWord($row->nama_pc, 2) == Strings::removeFirstWord($cookieValue->kabkotanegara_ln) ? 'selected' : '' }}>{{ $row->nama_pc }}</option>
                                         @endforeach
@@ -232,7 +232,7 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="telp" class="form-label required">Telpon</label>
+                                    <label for="telp" class="form-label required">No. HP/WA</label>
                                     <input type="text" class="form-control  @error('telp') is-invalid @enderror" id="telp" name="telp" value="{{ old('telp') }}" placeholder="Masukkan nomor telepon sekolah" required>
                                     <div class="invalid-feedback">
                                         @error('telp') {{ $message }} @enderror
@@ -279,21 +279,22 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="file_permohonan" class="form-label required">File Permohonan</label>
-                                    <input type="file" class="form-control  @error('file_permohonan') is-invalid @enderror" id="file_permohonan" name="file_permohonan" value="{{ old('file_permohonan') }}" required>
+                                    <input type="file" class="form-control mb-1 @error('file_permohonan') is-invalid @enderror" id="file_permohonan" name="file_permohonan" value="{{ old('file_permohonan') }}" accept="application/pdf" required>
+                                    <small class="text-primary">ukuran maksimum untuk dokumen pdf 1MB</small>
                                     <div class="invalid-feedback">
                                         @error('file_permohonan') {{ $message }} @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h5 class="my-3">Rekomendasi Cabang</h5>
+                        <h5 class="mt-2 mb-3">Surat Keterangan Cabang</h5>
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="nm_rekom_pc" class="form-label required">Pemberi Rekomendasi</label>
+                                    <label for="nm_rekom_pc" class="form-label required">Pemberi Keterangan</label>
                                     <select class="form-select  @error('nm_rekom_pc') is-invalid @enderror" id="nm_rekom_pc" name="nm_rekom_pc">
-                                        <option value="PCNU">PCNU</option>
                                         <option value="LP Ma'arif NU PCNU">LP Ma'arif NU PCNU</option>
+                                        <option value="PCNU">PCNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pc') {{ $message }} @enderror
@@ -335,22 +336,23 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="file_rekom_pc" class="form-label required">File Rekomendasi PC</label>
-                                    <input type="file" class="form-control  @error('file_rekom_pc') is-invalid @enderror" id="file_rekom_pc" name="file_rekom_pc" value="{{ old('file_rekom_pc') }}" required>
+                                    <label for="file_rekom_pc" class="form-label required">File Keterangan PC</label>
+                                    <input type="file" class="form-control mb-1 @error('file_rekom_pc') is-invalid @enderror" id="file_rekom_pc" name="file_rekom_pc" value="{{ old('file_rekom_pc') }}" accept="application/pdf" required>
+                                    <small class="text-primary">ukuran maksimum untuk dokumen pdf 1MB</small>
                                     <div class="invalid-feedback">
                                         @error('file_rekom_pc') {{ $message }} @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h5 class="my-3">Rekomendasi Wilayah</h5>
+                        <h5 class="mt-2 mb-3">Rekomendasi Wilayah</h5>
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3">
                                     <label for="nm_rekom_pw" class="form-label required">Pemberi Rekomendasi</label>
                                     <select class="form-select  @error('nm_rekom_pw') is-invalid @enderror" id="nm_rekom_pw" name="nm_rekom_pw">
-                                        <option value="PWNU">PWNU</option>
                                         <option value="LP Ma'arif NU PWNU">LP Ma'arif NU PWNU</option>
+                                        <option value="PWNU">PWNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pw') {{ $message }} @enderror
@@ -359,7 +361,7 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <label for="wilayah_rekom_pw" class="form-label required">Nama Wilayah</label>
-                                <select class="selectpicker @error('wilayah_rekom_pw') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="wilayah_rekom_pw">
+                                <select class="selectpicker @error('wilayah_rekom_pw') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="wilayah_rekom_pw" required>
                                     @foreach($propinsi as $row)
                                         <option value="{{ $row->nm_prov }}" {{ strtolower($row->nm_prov) == Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln) ? 'selected' : '' }}>{{ $row->nm_prov }}</option>
                                     @endforeach
@@ -393,7 +395,8 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="file_rekom_pw" class="form-label required">File Rekomendasi PW</label>
-                                    <input type="file" class="form-control  @error('file_rekom_pw') is-invalid @enderror" id="file_rekom_pw" name="file_rekom_pw" value="{{ old('file_rekom_pw') }}" required>
+                                    <input type="file" class="form-control mb-1  @error('file_rekom_pw') is-invalid @enderror" id="file_rekom_pw" name="file_rekom_pw" value="{{ old('file_rekom_pw') }}" accept="application/pdf" required>
+                                    <small class="text-primary">ukuran maksimum untuk dokumen pdf 1MB</small>
                                     <div class="invalid-feedback">
                                         @error('file_rekom_pw') {{ $message }} @enderror
                                     </div>
@@ -440,8 +443,8 @@
                 </div>
                 <div class="card-footer text-end">
                     <div class="d-flex">
-                        <button type="button" id="back_button" class="btn btn-green" onclick="back()">Back</button>
-                        <button type="button" id="next_button" class="btn btn-green ms-auto" onclick="next()">Next</button>
+                        <button type="button" id="back_button" class="btn btn-green" onclick="back()">Sebelumnya</button>
+                        <button type="button" id="next_button" class="btn btn-green ms-auto" onclick="next()">Berikutnya</button>
                         <button type="submit" id="submit_button" class="btn btn-green ms-auto d-none">Daftar</button>
                     </div>
                 </div>
@@ -584,9 +587,12 @@
                 success: function(res) {
 
                     let $select = $("select[name='cabang']");
+                    let $selectPc = $("select[name='cabang_rekom_pc']");
                     $select.empty();
+                    $selectPc.empty();
                     $.each(res,function(key, value) {
                         $select.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
+                        $selectPc.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
                     });
 
                     $('.selectpicker').selectpicker('refresh');

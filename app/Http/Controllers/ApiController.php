@@ -8,15 +8,16 @@ use App\Models\Kabupaten;
 use App\Models\PengurusCabang;
 use App\Models\Provinsi;
 use App\Models\Satpen;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class ApiController extends Controller
 {
-    public function getSatpenById(string $satpenId=null) {
+    public function getSatpenById($satpenId=null) {
         try {
             if ($satpenId) {
-                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'jenjang', 'filereg', 'timeline' => function($query){
+                $satpenProfile = Satpen::with(['kategori', 'provinsi', 'kabupaten', 'cabang', 'jenjang', 'filereg', 'timeline' => function($query){
                         $query->skip($query->count("*") - 7)->limit(7);
                     }])
                     ->where('id_satpen', '=', $satpenId)
@@ -32,7 +33,43 @@ class ApiController extends Controller
         }
     }
 
-    public function getKabupatenByProv(string $provId=null) {
+    public function searchSatpen(Request $request) {
+        try {
+            if ($request) {
+                $filter = [];
+                $keywordFilter = [];
+                if ($request->jenjang) $filter["id_jenjang"] = $request->jenjang;
+                if ($request->kab) $filter["id_kab"] = $request->kab;
+                if ($request->prov) $filter["id_prov"] = $request->prov;
+                if ($request->kecamatan){
+                    array_push($keywordFilter, ["kecamatan", "like", "%". $request->kecamatan ."%"]);
+                }
+                $listSatpen = Satpen::with([
+                    'kategori:id_kategori,nm_kategori',
+                    'provinsi:id_prov,nm_prov',
+                    'kabupaten:id_kab,nama_kab',
+                    'jenjang:id_jenjang,nm_jenjang'])
+                    ->select('id_kategori','id_kab', 'id_prov', 'id_jenjang', 'npsn', 'nm_satpen', 'kecamatan', 'kelurahan', 'alamat')
+                    ->where('status', '=', 'setujui')
+                    ->where($filter)
+                    ->where(function ($query) use ($keywordFilter) {
+                            foreach ($keywordFilter as $condition) {
+                                $query->where(...$condition);
+                            }
+                        })
+                    ->get();
+                if (!$listSatpen) return response()->json(['error' => 'Forbidden to access satpen profile']);
+
+                return response()->json($listSatpen, HttpResponse::HTTP_OK);
+
+            }
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[GET SATPEN BY ID] has error ". $e);
+
+        }
+    }
+
+    public function getKabupatenByProv($provId=null) {
         try {
             if ($provId) {
                 $provs = Kabupaten::where('id_prov', '=', $provId)->get();
@@ -47,7 +84,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getPCByProv(string $provId=null) {
+    public function getPCByProv($provId=null) {
         try {
             if ($provId) {
                 $provs = PengurusCabang::where('id_prov', '=', $provId)->get();
@@ -83,7 +120,7 @@ class ApiController extends Controller
 
     }
 
-    public function getKabAndCount(int $provId=null) {
+    public function getKabAndCount($provId=null) {
         try {
             if (!$provId) $provId = Provinsi::min("id_prov");
             $recordPerKabupaten = DB::select("SELECT nama_kab, (SELECT COUNT(id_kab) FROM satpen WHERE id_kab=kabupaten.id_kab and status IN ('setujui','expired','perpanjangan')) AS record_count FROM kabupaten WHERE id_prov='$provId'");
@@ -121,18 +158,26 @@ class ApiController extends Controller
         }
     }
 
-    public function getJenjangAndCount() {
+    public function getJenjangAndCount($provId = null) {
         try {
             $additionQuery = " ";
+            
+            // Check for user role restrictions first
             if (in_array(auth()->user()->role, ["admin wilayah"])) {
-                $provId = auth()->user()->provId;
-                $additionQuery .= "AND id_prov='$provId'";
+                $userProvId = auth()->user()->provId;
+                $additionQuery .= "AND id_prov='$userProvId'";
             }
             elseif (in_array(auth()->user()->role, ["admin cabang"])) {
                 $pcId = auth()->user()->cabangId;
                 $additionQuery .= "AND id_pc='$pcId'";
             }
+            // If a specific province ID is provided and user has permission, filter by it
+            elseif ($provId && in_array(auth()->user()->role, ["super admin", "admin pusat"])) {
+                $additionQuery .= "AND id_prov='$provId'";
+            }
+            
             $recordByJenjang = DB::select("SELECT nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan') $additionQuery ) AS record_count FROM jenjang_pendidikan");
+            
             if (!$recordByJenjang) return response()->json(['error' => 'Forbidden to access record']);
 
             return response()->json($recordByJenjang, HttpResponse::HTTP_OK);
@@ -143,7 +188,7 @@ class ApiController extends Controller
         }
     }
 
-    public function checkNPSNtoReferensiData(string $npsn=null) {
+    public function checkNPSNtoReferensiData($npsn=null) {
         try {
             if ($npsn) {
                 $cloneSekolah = new ReferensiKemdikbud();
@@ -161,4 +206,38 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * Get kabupaten by provinsi for dropdown filter
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getKabupatenByProvinsi(Request $request)
+    {
+        try {
+            $provinsi_id = $request->query('provinsi_id');
+            
+            if (!$provinsi_id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Provinsi ID is required',
+                    'data' => []
+                ], 400);
+            }
+
+            $kabupaten = Kabupaten::where('id_prov', $provinsi_id)
+                ->orderBy('nama_kab')
+                ->select('id_kab as id', 'nama_kab as nama')
+                ->get();
+
+            return response()->json($kabupaten, HttpResponse::HTTP_OK);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengambil data kabupaten: ' . $e->getMessage(),
+                'data' => []
+            ], 500);
+        }
+    }
 }

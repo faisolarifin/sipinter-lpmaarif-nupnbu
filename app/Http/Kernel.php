@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'primaryadmin' => \App\Http\Middleware\PrimaryAdmin::class,
         'superadmin' => \App\Http\Middleware\SuperAdmin::class,
         'verifysatpenactive' => \App\Http\Middleware\VerifySatpenActive::class,
+        'authverifytoken' => \App\Http\Middleware\AuthVerifyToken::class,
     ];
 }

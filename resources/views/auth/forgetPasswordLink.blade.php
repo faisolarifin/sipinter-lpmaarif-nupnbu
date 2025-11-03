@@ -32,8 +32,8 @@
                                     <div class="input-group form-password">
                                         <input type="password" class="form-control @error('new_password') is-invalid @enderror" placeholder="Masukkan password baru" id="new_password" name="new_password">
                                         <span class="input-group-text password-toggle">
-                                               <i class="ti ti-eye-off"></i>
-                                            </span>
+                                            <i class="ti ti-eye-off"></i>
+                                        </span>
                                         <div class="invalid-feedback">
                                             @error('new_password') {{ $message }} @enderror
                                         </div>
@@ -44,9 +44,9 @@
                                     <div class="input-group form-password">
                                         <input type="password" class="form-control @error('password_confirm') is-invalid @enderror" placeholder="Konfirmasi password anda" id="password_confirm" name="password_confirm">
                                         <span class="input-group-text password-toggle">
-                                           <i class="ti ti-eye-off"></i>
+                                            <i class="ti ti-eye-off"></i>
                                         </span>
-                                        <div class="invalid-feedback">
+                                        <div class="invalid-feedback" id="password-match-message">
                                             @error('password_confirm') {{ $message }} @enderror
                                         </div>
                                     </div>
@@ -69,8 +69,12 @@
                                         Email. sekretariat@maarifnu.org</p>
                                     <p class="mb-2"><i class="ti ti-phone"></i>
                                         Telp. 021-3904115</p>
-                                    <p><i class="ti ti-brand-telegram"></i>
+                                    <p class="mb-2"><i class="ti ti-brand-telegram"></i>
                                         Fax. 021-31906679</p>
+                                    <a href="https://wa.me/628176536731" style="color:#5A6A85;">
+                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
+                                            WA. +628176536731</p>
+                                    </a>
                                 </div>
                                 <div class="col-sm-6 text-center">
                                     <i class="ti ti-map-pin fs-5"></i>
@@ -100,6 +104,26 @@
                 toggleIcon.removeClass("ti-eye").addClass("ti-eye-off");
             }
         });
+
+        $('#password_confirm').on('keyup', function () {
+            let password = $('#new_password').val();
+            let confirmPassword = $(this).val();
+            let message = $('#password-match-message');
+
+            if (confirmPassword.length > 0) {
+                if (password !== confirmPassword) {
+                    message.text("Password tidak cocok!");
+                    message.show();
+                } else {
+                    message.text("");
+                    message.hide();
+                }
+            } else {
+                message.text("");
+                message.hide();
+            }
+        });
+
     </script>
 @endsection
 

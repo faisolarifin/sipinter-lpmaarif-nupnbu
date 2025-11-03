@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Data Jenjang Pendidikan'
+    'title' => 'Sipinter - Data Jenjang Pendidikan'
 ])
 
 @section('navbar')
@@ -41,6 +41,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nama Jenjang</th>
+                            <th scope="col">Lembaga</th>
                             <th scope="col">Keterangan</th>
                             <th scope="col" width="100">Aksi</th>
                         </tr>
@@ -51,6 +52,7 @@
                             <tr>
                                 <td>{{ ++$no }}</td>
                                 <td>{{ $row->nm_jenjang }}</td>
+                                <td>{{ $row->lembaga }}</td>
                                 <td>{{ $row->keterangan }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalFormUpdateBackdrop" data-bs="{{ $row->id_jenjang }}">
@@ -99,7 +101,17 @@
                                     @error('nama_jenjang') {{ $message }} @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
+                                <label for="lembaga" class="form-label">Lembaga</label>
+                                <select id="lembaga" name="lembaga" class="form-select form-select-sm @error('lembaga') is-invalid @enderror">
+                                    <option value="MADRASAH">MADRASAH</option>
+                                    <option value="SEKOLAH">SEKOLAH</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    @error('lembaga') {{ $message }} @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <label for="keterangan" class="form-label">Keterangan</label>
                                 <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" value="{{ old('keterangan') }}">
                                 <div class="invalid-feedback">
@@ -124,8 +136,8 @@
             <div class="modal-content rounded-2">
                 <div class="modal-header">
                     <div>
-                        <h5 class="modal-title mb-0" id="exampleModalLabel">Ubah Propinsi</h5>
-                        <small>koreksi kesalahan propinsi</small>
+                        <h5 class="modal-title mb-0" id="exampleModalLabel">Ubah Jenjang Pendidikan</h5>
+                        <small>perbaharui data jenjang pendidikan</small>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -141,7 +153,17 @@
                                     @error('nama_jenjang') {{ $message }} @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
+                                <label for="lembaga" class="form-label">Lembaga</label>
+                                <select id="lembaga" name="lembaga" class="form-select form-select-sm @error('lembaga') is-invalid @enderror">
+                                    <option value="MADRASAH">MADRASAH</option>
+                                    <option value="SEKOLAH">SEKOLAH</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    @error('lembaga') {{ $message }} @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <label for="keterangan" class="form-label">Keterangan</label>
                                 <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" value="{{ old('keterangan') }}">
                                 <div class="invalid-feedback">
@@ -190,6 +212,7 @@
             dataType: 'json',
             success: function (res) {
                 $("input[name='nama_jenjang']").val(res.nm_jenjang);
+                $("select[name='lembaga']").val(res.lembaga);
                 $("input[name='keterangan']").val(res.keterangan);
             }
         });

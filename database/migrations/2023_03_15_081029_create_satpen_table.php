@@ -76,24 +76,26 @@ return new class extends Migration
             $table->unsignedBigInteger('id_prov');
             $table->unsignedBigInteger('id_kab');
             $table->unsignedBigInteger('id_pc');
-            $table->unsignedBigInteger('id_kategori');
+            $table->unsignedBigInteger('id_kategori')->nullable();
             $table->unsignedBigInteger('id_jenjang');
 
             $table->string('npsn', 45)->unique();
             $table->string('no_registrasi', 45)->unique();
+            $table->string('no_urut', 10)->unique();
             $table->string('nm_satpen', 255);
             $table->string('yayasan', 255);
-            $table->string('kepsek', 100);
-            $table->string('telpon', 15);
+            $table->string('kepsek', 100)->nullable();
+            $table->string('telpon', 15)->nullable();
             $table->string('fax', 15)->nullable();
-            $table->string('email', 100);
-            $table->year('thn_berdiri');
+            $table->string('email', 100)->nullable();
+            $table->year('thn_berdiri')->nullable();
             $table->string('kecamatan', 255);
             $table->string('kelurahan', 255);
             $table->text('alamat');
-            $table->string('aset_tanah', 45);
-            $table->string('nm_pemilik', 100);
+            $table->string('aset_tanah', 45)->nullable();
+            $table->string('nm_pemilik', 100)->nullable();
             $table->dateTime('tgl_registrasi');
+            $table->dateTime('actived_date')->nullable();
             $table->enum('status', ['permohonan', 'revisi', 'proses dokumen', 'setujui', 'expired', 'perpanjangan']);
 
             $table->foreign('id_user')->references('id_user')->on('users')
@@ -147,7 +149,6 @@ return new class extends Migration
             $table->id('id_file');
             $table->unsignedBigInteger('id_satpen');
             $table->enum('typefile', ['sk', 'piagam']);
-            $table->string('no_file', 50)->nullable();
             $table->string('qrcode', 255)->nullable();
             $table->string('nm_file', 255);
             $table->date('tgl_file');

@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Data Kabupaten'
+    'title' => 'Sipinter - Data Kabupaten'
 ])
 
 @section('navbar')
@@ -123,8 +123,8 @@
             <div class="modal-content rounded-2">
                 <div class="modal-header">
                     <div>
-                        <h5 class="modal-title mb-0" id="exampleModalLabel">Ubah Propinsi</h5>
-                        <small>koreksi kesalahan propinsi</small>
+                        <h5 class="modal-title mb-0" id="exampleModalLabel">Ubah Kabupaten</h5>
+                        <small>pebaharui data kabupaten</small>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>

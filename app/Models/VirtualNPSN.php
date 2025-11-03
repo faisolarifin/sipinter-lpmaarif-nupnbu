@@ -19,7 +19,10 @@ class VirtualNPSN extends Model
         'nama_sekolah',
         'alamat',
         'email',
-        'expired_after'
+        'nik_kepsek',
+        'expired_after',
+        'accepted_date',
+        'actived_date'
     ];
 
     public function provinsi() {

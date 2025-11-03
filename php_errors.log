@@ -68,3 +68,124 @@
 [07-Jul-2023 11:05:36 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\autoload.php:12
 [07-Jul-2023 11:05:36 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
 [07-Jul-2023 11:05:36 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\siap-lpmaarif-nupbnu\vendor\composer\platform_check.php:25
+[05-Oct-2023 06:18:26 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[05-Oct-2023 06:18:26 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[05-Oct-2023 06:18:28 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[05-Oct-2023 08:18:29 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[05-Oct-2023 08:18:29 Europe/Amsterdam] PHP Stack trace:
+[05-Oct-2023 08:18:29 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[05-Oct-2023 08:18:29 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[05-Oct-2023 08:18:29 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[05-Oct-2023 08:18:29 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[05-Oct-2023 08:18:29 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[01-Nov-2023 15:26:31 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[01-Nov-2023 15:26:32 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[01-Nov-2023 15:26:34 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[01-Nov-2023 16:26:35 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[01-Nov-2023 16:26:35 Europe/Amsterdam] PHP Stack trace:
+[01-Nov-2023 16:26:35 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[01-Nov-2023 16:26:35 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[01-Nov-2023 16:26:35 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[01-Nov-2023 16:26:35 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[01-Nov-2023 16:26:35 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[01-Nov-2023 15:34:07 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[01-Nov-2023 15:34:07 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[01-Nov-2023 15:34:07 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[01-Nov-2023 16:34:07 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[01-Nov-2023 16:34:07 Europe/Amsterdam] PHP Stack trace:
+[01-Nov-2023 16:34:07 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[01-Nov-2023 16:34:07 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[01-Nov-2023 16:34:07 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[01-Nov-2023 16:34:07 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[01-Nov-2023 16:34:07 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[02-Nov-2023 02:06:26 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[02-Nov-2023 02:06:26 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[02-Nov-2023 02:06:26 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[02-Nov-2023 03:06:26 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[02-Nov-2023 03:06:26 Europe/Amsterdam] PHP Stack trace:
+[02-Nov-2023 03:06:26 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[02-Nov-2023 03:06:26 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[02-Nov-2023 03:06:26 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[02-Nov-2023 03:06:26 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[02-Nov-2023 03:06:26 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[03-Nov-2023 05:14:59 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[03-Nov-2023 05:14:59 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[03-Nov-2023 05:15:01 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[03-Nov-2023 06:15:01 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[03-Nov-2023 06:15:01 Europe/Amsterdam] PHP Stack trace:
+[03-Nov-2023 06:15:01 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[03-Nov-2023 06:15:01 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[03-Nov-2023 06:15:01 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[03-Nov-2023 06:15:01 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[03-Nov-2023 06:15:01 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[04-Nov-2023 03:33:45 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[04-Nov-2023 03:33:46 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[04-Nov-2023 03:33:49 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[04-Nov-2023 04:33:50 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[04-Nov-2023 04:33:50 Europe/Amsterdam] PHP Stack trace:
+[04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[04-Nov-2023 04:33:50 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[25-Nov-2023 03:15:29 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[25-Nov-2023 03:15:30 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[25-Nov-2023 03:15:32 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP Stack trace:
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[25-Nov-2023 04:15:33 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[26-Nov-2023 08:14:44 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[26-Nov-2023 08:14:45 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[26-Nov-2023 08:14:46 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[26-Nov-2023 09:14:47 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[26-Nov-2023 09:14:47 Europe/Amsterdam] PHP Stack trace:
+[26-Nov-2023 09:14:47 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[26-Nov-2023 09:14:47 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[26-Nov-2023 09:14:47 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[26-Nov-2023 09:14:47 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[26-Nov-2023 09:14:47 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24
+[27-Nov-2023 00:37:17 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[27-Nov-2023 00:37:17 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[28-Nov-2023 06:03:12 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_excel.dll' - The specified module could not be found.
+ in Unknown on line 0
+[28-Nov-2023 06:03:13 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+[28-Nov-2023 06:03:15 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'ext\php_svn.dll' - The specified module could not be found.
+ in Unknown on line 0
+[28-Nov-2023 07:03:16 Europe/Amsterdam] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php on line 24
+[28-Nov-2023 07:03:16 Europe/Amsterdam] PHP Stack trace:
+[28-Nov-2023 07:03:16 Europe/Amsterdam] PHP   1. {main}() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:0
+[28-Nov-2023 07:03:16 Europe/Amsterdam] PHP   2. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\artisan:18
+[28-Nov-2023 07:03:16 Europe/Amsterdam] PHP   3. ComposerAutoloaderInit1f6e33752d5e0fe48aefec36616a442e::getLoader() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\autoload.php:12
+[28-Nov-2023 07:03:16 Europe/Amsterdam] PHP   4. require() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\autoload_real.php:25
+[28-Nov-2023 07:03:16 Europe/Amsterdam] PHP   5. trigger_error() D:\Workspace\laragon\www\sipinter-lpmaarif-nupbnu\vendor\composer\platform_check.php:24

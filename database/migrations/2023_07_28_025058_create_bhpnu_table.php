@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('icon', 50);
             $table->string('textstatus', 50);
             $table->enum('status', ['success', 'failed'])->nullable();
-            $table->string('keterangan', 255)->nullable();
+            $table->text('keterangan')->nullable();
             $table->foreign('id_bhpnu')->references('id_bhpnu')->on('bhpnu')
                 ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();

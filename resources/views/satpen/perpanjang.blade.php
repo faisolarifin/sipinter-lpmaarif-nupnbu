@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Perpanjangan Satuan Pendidikan'
+    'title' => 'Sipinter - Perpanjangan Satuan Pendidikan'
 ])
 
 @section('navbar')
@@ -98,7 +98,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="propinsi" class="form-label required">Propinsi</label>
-                                    <select class="form-select @error('propinsi') is-invalid @enderror" name="propinsi">
+                                    <select class="form-select @error('propinsi') is-invalid @enderror" name="propinsi" disabled>
                                         @foreach($propinsi as $row)
                                             <option value="{{ $row->id_prov }}" {{$satpenProfile->id_prov == $row->id_prov ? 'selected' : ''}}>{{ $row->nm_prov }}</option>
                                         @endforeach
@@ -111,7 +111,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="kabupaten" class="form-label required">Kabupaten</label>
-                                    <select class="form-select @error('kabupaten') is-invalid @enderror" name="kabupaten">
+                                    <select class="form-select @error('kabupaten') is-invalid @enderror" name="kabupaten" disabled>
                                         @foreach($kabupaten as $row)
                                             <option value="{{ $row->id_kab }}" {{$satpenProfile->id_kab == $row->id_kab ? 'selected' : ''}}>{{ $row->nama_kab }}</option>
                                         @endforeach
@@ -126,7 +126,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="cabang" class="form-label required">Cabang</label>
-                                    <select class="form-select @error('cabang') is-invalid @enderror" name="cabang">
+                                    <select class="form-select @error('cabang') is-invalid @enderror" name="cabang" disabled>
                                         @foreach($cabang as $row)
                                             <option value="{{ $row->id_pc }}" {{$satpenProfile->id_pc == $row->id_pc ? 'selected' : ''}}>{{ $row->nama_pc }}</option>
                                         @endforeach
@@ -211,8 +211,8 @@
                                 <div class="mb-2">
                                     <label for="aset_tanah" class="form-label required">Aset Tanah</label>
                                     <select class="form-select @error('aset_tanah') is-invalid @enderror" name="aset_tanah">
-                                        <option value="jamiyah">Jamiyah</option>
-                                        <option value="masyarakat nu">Masyarakat NU</option>
+                                        <option value="jamiyah" {{$satpenProfile->aset_tanah == 'jamiyah' ? 'selected' : ''}}>Jamiyah</option>
+                                        <option value="masyarakat nu" {{$satpenProfile->aset_tanah == 'masyarakat nu' ? 'selected' : ''}}>Masyarakat NU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('aset_tanah') {{ $message }} @enderror
@@ -246,7 +246,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="no_srt_permohonan" class="form-label required">Nomor Surat</label>
-                                    <input type="text" class="form-control @error('no_srt_permohonan') is-invalid @enderror" id="no_srt_permohonan" name="no_srt_permohonan" value="{{ old('no_srt_permohonan') ?? $satpenProfile->filereg[0]->nomor_surat }}">
+                                    <input type="text" class="form-control @error('no_srt_permohonan') is-invalid @enderror" id="no_srt_permohonan" name="no_srt_permohonan" value="{{ old('no_srt_permohonan') ?? @$satpenProfile->filereg[0]->nomor_surat }}">
                                     <div class="invalid-feedback">
                                         @error('no_srt_permohonan') {{ $message }} @enderror
                                     </div>
@@ -255,7 +255,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="tgl_srt_permohonan" class="form-label required">Tanggal Surat</label>
-                                    <input type="date" class="form-control @error('tgl_srt_permohonan') is-invalid @enderror" id="tgl_srt_permohonan" name="tgl_srt_permohonan" value="{{ old('tgl_srt_permohonan') ?? $satpenProfile->filereg[0]->tgl_surat }}">
+                                    <input type="date" class="form-control @error('tgl_srt_permohonan') is-invalid @enderror" id="tgl_srt_permohonan" name="tgl_srt_permohonan" value="{{ old('tgl_srt_permohonan') ?? @$satpenProfile->filereg[0]->tgl_surat }}">
                                     <div class="invalid-feedback">
                                         @error('tgl_srt_permohonan') {{ $message }} @enderror
                                     </div>
@@ -273,14 +273,14 @@
                                 </div>
                             </div>
                         </div>
-                        <h5 class="my-3">Rekomendasi Cabang</h5>
+                        <h5 class="my-3">Surat Keterangan Cabang</h5>
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
-                                    <label for="nm_rekom_pc" class="form-label required">Pemberi Rekomendasi</label>
+                                    <label for="nm_rekom_pc" class="form-label required">Pemberi Keterangan</label>
                                     <select class="form-select @error('nm_rekom_pc') is-invalid @enderror" id="nm_rekom_pc" name="nm_rekom_pc">
-                                        <option value="PCNU" {{$satpenProfile->filereg[1]->nm_lembaga == 'PCNU' ? 'selected' : ''}}>PCNU</option>
-                                        <option value="LP Ma'arif PCNU" {{$satpenProfile->filereg[1]->nm_lembaga == "LP Ma'arif PCNU" ? 'selected' : ''}}>LP Ma'arif PCNU</option>
+                                        <option value="LP Ma'arif PCNU" {{@$satpenProfile->filereg[1]->nm_lembaga == "LP Ma'arif PCNU" ? 'selected' : ''}}>LP Ma'arif PCNU</option>
+                                        <option value="PCNU" {{@$satpenProfile->filereg[1]->nm_lembaga == 'PCNU' ? 'selected' : ''}}>PCNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pc') {{ $message }} @enderror
@@ -291,7 +291,7 @@
                                 <label for="cabang_rekom_pc" class="form-label required">Nama Cabang</label>
                                 <select class="form-select @error('cabang_rekom_pc') is-invalid @enderror" name="cabang_rekom_pc">
                                     @foreach($cabang as $row)
-                                        <option value="{{ $row->nama_pc }}" {{$satpenProfile->filereg[1]->daerah == $row->nama_pc ? 'selected' : ''}}>{{ $row->nama_pc }}</option>
+                                        <option value="{{ $row->nama_pc }}" {{@$satpenProfile->filereg[1]->daerah == $row->nama_pc ? 'selected' : ''}}>{{ $row->nama_pc }}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -303,7 +303,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="no_srt_rekom_pc" class="form-label required">Nomor Surat</label>
-                                    <input type="text" class="form-control @error('no_srt_rekom_pc') is-invalid @enderror" id="no_srt_rekom_pc" name="no_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') ?? $satpenProfile->filereg[1]->nomor_surat }}">
+                                    <input type="text" class="form-control @error('no_srt_rekom_pc') is-invalid @enderror" id="no_srt_rekom_pc" name="no_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') ?? @$satpenProfile->filereg[1]->nomor_surat }}">
                                     <div class="invalid-feedback">
                                         @error('no_srt_rekom_pc') {{ $message }} @enderror
                                     </div>
@@ -312,7 +312,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="tgl_srt_rekom_pc" class="form-label required">Tanggal Surat</label>
-                                    <input type="date" class="form-control @error('tgl_srt_rekom_pc') is-invalid @enderror" id="tgl_srt_rekom_pc" name="tgl_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') ?? $satpenProfile->filereg[1]->tgl_surat }}">
+                                    <input type="date" class="form-control @error('tgl_srt_rekom_pc') is-invalid @enderror" id="tgl_srt_rekom_pc" name="tgl_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') ?? @$satpenProfile->filereg[1]->tgl_surat }}">
                                     <div class="invalid-feedback">
                                         @error('tgl_srt_rekom_pc') {{ $message }} @enderror
                                     </div>
@@ -322,7 +322,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-2">
-                                    <label for="file_rekom_pc" class="form-label required">File Rekomendasi PC</label>
+                                    <label for="file_rekom_pc" class="form-label required">File Keterangan PC</label>
                                     <input type="file" class="form-control @error('file_rekom_pc') is-invalid @enderror" id="file_rekom_pc" name="file_rekom_pc">
                                     <div class="invalid-feedback">
                                         @error('file_rekom_pc') {{ $message }} @enderror
@@ -336,8 +336,8 @@
                                 <div class="mb-2">
                                     <label for="nm_rekom_pw" class="form-label required">Pemberi Rekomendasi</label>
                                     <select class="form-select @error('nm_rekom_pw') is-invalid @enderror" id="nm_rekom_pw" name="nm_rekom_pw">
-                                        <option value="PWNU" {{$satpenProfile->filereg[1]->nm_lembaga == 'PWNU' ? 'selected' : ''}}>PWNU</option>
-                                        <option value="LP Ma'arif PWNU" {{$satpenProfile->filereg[1]->nm_lembaga == "LP Ma'arif PWNU" ? 'selected' : ''}}>LP Ma'arif PWNU</option>
+                                        <option value="LP Ma'arif PWNU" {{@$satpenProfile->filereg[1]->nm_lembaga == "LP Ma'arif PWNU" ? 'selected' : ''}}>LP Ma'arif PWNU</option>
+                                        <option value="PWNU" {{@$satpenProfile->filereg[1]->nm_lembaga == 'PWNU' ? 'selected' : ''}}>PWNU</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('nm_rekom_pw') {{ $message }} @enderror
@@ -348,7 +348,7 @@
                                 <label for="wilayah_rekom_pw" class="form-label required">Nama Wilayah</label>
                                 <select class="form-select @error('wilayah_rekom_pw') is-invalid @enderror" name="wilayah_rekom_pw">
                                     @foreach($propinsi as $row)
-                                        <option value="{{ $row->nm_prov }}" {{$satpenProfile->filereg[2]->daerah == $row->nm_prov ? 'selected' : ''}}>{{ $row->nm_prov }}</option>
+                                        <option value="{{ $row->nm_prov }}" {{@$satpenProfile->filereg[2]->daerah == $row->nm_prov ? 'selected' : ''}}>{{ $row->nm_prov }}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -360,7 +360,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="no_srt_rekom_pw" class="form-label required">Nomor Surat</label>
-                                    <input type="text" class="form-control @error('no_srt_rekom_pw') is-invalid @enderror" id="no_srt_rekom_pw" name="no_srt_rekom_pw" value="{{ old('no_srt_rekom_pw') ?? $satpenProfile->filereg[2]->nomor_surat }}">
+                                    <input type="text" class="form-control @error('no_srt_rekom_pw') is-invalid @enderror" id="no_srt_rekom_pw" name="no_srt_rekom_pw" value="{{ old('no_srt_rekom_pw') ?? @$satpenProfile->filereg[2]->nomor_surat }}">
                                     <div class="invalid-feedback">
                                         @error('no_srt_rekom_pw') {{ $message }} @enderror
                                     </div>
@@ -369,7 +369,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="mb-2">
                                     <label for="tgl_srt_rekom_pw" class="form-label required">Tanggal Surat</label>
-                                    <input type="date" class="form-control @error('tgl_srt_rekom_pw') is-invalid @enderror" id="tgl_srt_rekom_pw" name="tgl_srt_rekom_pw" value="{{ old('tgl_srt_rekom_pw') ?? $satpenProfile->filereg[2]->tgl_surat }}">
+                                    <input type="date" class="form-control @error('tgl_srt_rekom_pw') is-invalid @enderror" id="tgl_srt_rekom_pw" name="tgl_srt_rekom_pw" value="{{ old('tgl_srt_rekom_pw') ?? @$satpenProfile->filereg[2]->tgl_surat }}">
                                     <div class="invalid-feedback">
                                         @error('tgl_srt_rekom_pw') {{ $message }} @enderror
                                     </div>
@@ -427,7 +427,6 @@
                         $select.append('<option value=' + value.id_kab + '>' + value.nama_kab + '</option>');
                     });
 
-                    $('.selectpicker').selectpicker('refresh');
                 }
             })
 
@@ -438,12 +437,14 @@
                 success: function(res) {
 
                     let $select = $("select[name='cabang']");
+                    let $selectcabang = $("select[name='cabang_rekom_pc']");
                     $select.empty();
+                    $selectcabang.empty();
                     $.each(res,function(key, value) {
                         $select.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
+                        $selectcabang.append('<option value=' + value.id_pc + '>' + value.nama_pc + '</option>');
                     });
 
-                    $('.selectpicker').selectpicker('refresh');
                 }
             });
 

@@ -26,15 +26,15 @@
                 <div class="card-group">
                     @foreach($listInformasi as $row)
                     <a href="{{ route('informasi', $row->slug) }}">
-                    <div class="card mx-auto me-sm-4" style="width:13.6rem">
-                        <img src="{{ Storage::url("public/".$row->image) }}" class="card-img-top" alt="...">
-                        <div class="card-body px-3 pt-3 pb-4">
-                            <h6 class="card-title fs-4">{{ $row->headline }}</h6>
-                            {!! Str::limit($row->content , 50)  !!}
+                    <div class="card mx-auto me-sm-4" style="width:13.6rem;height:100%;">
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url($row->image) }}" class="card-img-top" alt="..." style="max-height:150px;">
+                        <div class="card-body px-3 pt-3 pb-3">
+                            <h6 class="card-title mb-3 fs-4">{{ $row->headline }}</h6>
+                            <p class="mb-0 text-dark">{!! strip_tags(Str::limit($row->content , 50)) !!}</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between px-2">
-                            <p class="card-text mb-0">{{ Date::hariIni($row->tgl_upload). ", ". Date::tglIndo($row->tgl_upload) }}</p>
-                            <span class="badge bg-coksu fs-2">{{ $row->type }}</span>
+                            <p class="card-text fs-2 mb-0">{{ Date::hariIni($row->tgl_upload). ", ". Date::tglIndo($row->tgl_upload) }}</p>
+                            <span class="badge py-1 px-1 bg-coksu fs-2">{{ $row->type }}</span>
                         </div>
                     </div>
                     </a>

@@ -1,6 +1,6 @@
 $(function () {
   // =====================================
-  // Propinsi
+  // Propinsi - Preview Card
   // =====================================
     $.ajax({
         url: "/api/provcount",
@@ -13,7 +13,8 @@ $(function () {
             series: res.map(item => item.record_count),
             labels: res.map(item => item.nm_prov),
             chart: {
-              width: 180,
+              width: 60,
+              height: 60,
               type: "donut",
               fontFamily: "Plus Jakarta Sans', sans-serif",
               foreColor: "#adb0bb",
@@ -23,7 +24,7 @@ $(function () {
                 startAngle: 0,
                 endAngle: 360,
                 donut: {
-                  size: '75%',
+                  size: '70%',
                 },
               },
             },
@@ -38,36 +39,25 @@ $(function () {
             legend: {
               show: false,
             },
-            colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+            colors: ["#5D87FF", "#49BEFF", "#13DEB9", "#FA896B", "#FFAE1F"],
 
-            responsive: [
-              {
-                breakpoint: 991,
-                options: {
-                  chart: {
-                    width: 150,
-                  },
-                },
-              },
-            ],
             tooltip: {
-              theme: "dark",
-              fillSeriesColor: false,
+              enabled: false,
             },
           };
 
           $(".count-prop").text(res.length)
-          var chart = new ApexCharts(document.querySelector("#propinsi"), breakup);
+          var chart = new ApexCharts(document.querySelector("#propinsi-preview"), breakup);
           chart.render();
         }
     });
 
     // =====================================
-    // Kabupaten
+    // Kabupaten - Preview Card
     // =====================================
     function chartKabupaten(uri) {
         //Reset Chart
-        $("#kabupaten").html("");
+        $("#kabupaten-preview").html("");
         //Create Chart
         $.ajax({
             url: uri,
@@ -80,7 +70,8 @@ $(function () {
                     series: res.map(item => item.record_count),
                     labels: res.map(item => item.nama_kab),
                     chart: {
-                        width: 180,
+                        width: 60,
+                        height: 60,
                         type: "donut",
                         fontFamily: "Plus Jakarta Sans', sans-serif",
                         foreColor: "#adb0bb",
@@ -90,7 +81,7 @@ $(function () {
                             startAngle: 0,
                             endAngle: 360,
                             donut: {
-                                size: '75%',
+                                size: '70%',
                             },
                         },
                     },
@@ -105,40 +96,29 @@ $(function () {
                     legend: {
                         show: false,
                     },
-                    colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+                    colors: ["#14A4C6", "#49BEFF", "#13DEB9", "#FA896B", "#FFAE1F"],
 
-                    responsive: [
-                        {
-                            breakpoint: 991,
-                            options: {
-                                chart: {
-                                    width: 150,
-                                },
-                            },
-                        },
-                    ],
                     tooltip: {
-                        theme: "dark",
-                        fillSeriesColor: false,
+                        enabled: false,
                     },
                 };
 
                 $(".count-kab").text(res.length)
-                var chart = new ApexCharts(document.querySelector("#kabupaten"), breakup);
+                var chart = new ApexCharts(document.querySelector("#kabupaten-preview"), breakup);
                 chart.render();
             }
         });
     }
-    if ($("#kabupaten").length > 0) {
+    if ($("#kabupaten-preview").length > 0) {
         chartKabupaten("/api/kabcount");
     }
 
     // =====================================
-    // Pengurus Cabang
+    // Pengurus Cabang - Preview Card
     // =====================================
     function chartPC(uri) {
         //Reset Chart
-        $("#pc").html("");
+        $("#pc-preview").html("");
         //Create Chart
         $.ajax({
             url: uri,
@@ -151,7 +131,8 @@ $(function () {
                     series: res.map(item => item.record_count),
                     labels: res.map(item => item.nama_pc),
                     chart: {
-                        width: 180,
+                        width: 60,
+                        height: 60,
                         type: "donut",
                         fontFamily: "Plus Jakarta Sans', sans-serif",
                         foreColor: "#adb0bb",
@@ -161,7 +142,7 @@ $(function () {
                             startAngle: 0,
                             endAngle: 360,
                             donut: {
-                                size: '75%',
+                                size: '70%',
                             },
                         },
                     },
@@ -176,37 +157,26 @@ $(function () {
                     legend: {
                         show: false,
                     },
-                    colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+                    colors: ["#14A4C6", "#49BEFF", "#13DEB9", "#FA896B", "#FFAE1F"],
 
-                    responsive: [
-                        {
-                            breakpoint: 991,
-                            options: {
-                                chart: {
-                                    width: 150,
-                                },
-                            },
-                        },
-                    ],
                     tooltip: {
-                        theme: "dark",
-                        fillSeriesColor: false,
+                        enabled: false,
                     },
                 };
 
                 $(".count-pc").text(res.length)
-                var chart = new ApexCharts(document.querySelector("#pc"), breakup);
+                var chart = new ApexCharts(document.querySelector("#pc-preview"), breakup);
                 chart.render();
             }
         });
     }
 
-    if ($("#pc").length > 0) {
+    if ($("#pc-preview").length > 0) {
         chartPC("/api/pccount");
     }
 
     // =====================================
-    // Jenjang Pendidikan
+    // Jenjang Pendidikan - Preview Card
     // =====================================
     $.ajax({
         url: "/api/jenjangcount",
@@ -219,7 +189,8 @@ $(function () {
                 series: res.map(item => item.record_count),
                 labels: res.map(item => item.nm_jenjang),
                 chart: {
-                    width: 180,
+                    width: 60,
+                    height: 60,
                     type: "donut",
                     fontFamily: "Plus Jakarta Sans', sans-serif",
                     foreColor: "#adb0bb",
@@ -229,7 +200,7 @@ $(function () {
                         startAngle: 0,
                         endAngle: 360,
                         donut: {
-                            size: '75%',
+                            size: '70%',
                         },
                     },
                 },
@@ -244,26 +215,15 @@ $(function () {
                 legend: {
                     show: false,
                 },
-                colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+                colors: ["#13DEB9", "#49BEFF", "#5D87FF", "#FA896B", "#FFAE1F"],
 
-                responsive: [
-                    {
-                        breakpoint: 991,
-                        options: {
-                            chart: {
-                                width: 150,
-                            },
-                        },
-                    },
-                ],
                 tooltip: {
-                    theme: "dark",
-                    fillSeriesColor: false,
+                    enabled: false,
                 },
             };
 
             $(".count-jp").text(res.length)
-            var chart = new ApexCharts(document.querySelector("#jenjang-pendidikan"), breakup);
+            var chart = new ApexCharts(document.querySelector("#jenjang-preview"), breakup);
             chart.render();
         }
     });

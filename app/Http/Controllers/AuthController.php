@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CatchErrorException;
+use App\Helpers\MailService;
 use App\Helpers\ReferensiKemdikbud;
+use App\Helpers\DapoMaarifNU;
 use App\Helpers\Strings;
 use App\Http\Requests\VirtualNPSNRequest;
 use App\Models\Jenjang;
@@ -42,12 +44,18 @@ class AuthController extends Controller
                 'alamat' => $request->alamat,
                 'nama_sekolah' => $request->nama_sekolah,
                 'email' => $request->email,
+                'nik_kepsek' => $request->nik_kepsek,
             ]);
             //send email
-            Mail::send('emails.noticevnpsn', ['sekolah' => $request->nama_sekolah], function($message) use($request){
-                $message->to($request->email);
-                $message->subject('Permohonan Virtual NPSN');
-            });
+            MailService::send([
+                "to" => $request->email,
+                "subject" => "Permohonan Virtual NPSN",
+                "recipient" => $request->nama_sekolah,
+                "content" => "<p>Anda telah melakukan permohonan NPSN Virtual untuk Sekolah $request->nama_sekolah.</p>
+                            <p>Permohonan NPSN telah dikirimkan. Data sedang divalidasi oleh Admin, silahkan tunggu balasan NPSN Virtual oleh admin pada email ini.</p>
+                            <p>Setelah mendapatkan NPSN Virtual, VNSN akan terhapus otomatis setelah 2 minggu jika tidak digunakan</p>
+                            <h4>Jika dalam 2 hari kerja belum memperoleh balasan, silahkan kontak Admin.</h4>"
+            ]);
             return redirect()->route('ceknpsn')->with("success", "Permohonan VNPSN berhasil dikirimkan. Tunggu NPSN Virtual dikirimkan oleh admin pada email anda. Jika dalam 2 hari kerja belum memperoleh balasan, silahkan kontak Admin.");
 
         } catch (\Exception $e) {
@@ -66,17 +74,20 @@ class AuthController extends Controller
 
             $keyProv = Strings::removeFirstWord($cookieValue->propinsiluar_negeri_ln);
             $selectedProv = Provinsi::where('nm_prov', 'like', $keyProv)->first();
+            $kabupaten = [];
+            $cabang = [];
+
             if ($selectedProv) {
                 $kabupaten = Kabupaten::where('id_prov', '=', $selectedProv->id_prov)
                                 ->orderBy('id_kab')->get();
                 $cabang = PengurusCabang::where('id_prov', '=', $selectedProv->id_prov)
                                 ->orderBy('id_pc')->get();
-                $propinsi = Provinsi::orderBy('id_prov')->get();
-                $jenjang = Jenjang::orderBy('id_jenjang')->get();
-
-                return view('auth.steapform', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
             }
-            return redirect()->back()->with("error", "Provinsi belum ada pada sistem");
+
+            $propinsi = Provinsi::orderBy('id_prov')->get();
+            $jenjang = Jenjang::orderBy('id_jenjang')->get();
+
+            return view('auth.steapform', compact('cookieValue', 'kabupaten', 'propinsi', 'jenjang', 'cabang'));
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[REGISTER PAGE] has error ". $e);
@@ -140,11 +151,16 @@ class AuthController extends Controller
                 return redirect()->back()->with('error', 'Nomor NPSN Virtual sudah expired');
             }
 
-            /**
-             * Cek npsn on referensi.data.kemdikbud.go.id/
-             */
-            $cloneSekolah = new ReferensiKemdikbud();
+            $cloneSekolah = new DapoMaarifNU();
             $cloneSekolah->clone($request->npsn);
+
+            if (!$cloneSekolah->getStatus()) {
+                /**
+                 * Cek npsn on referensi.data.kemdikbud.go.id/
+                 */
+                $cloneSekolah = new ReferensiKemdikbud();
+                $cloneSekolah->clone($request->npsn);
+            }
 
             if ($cloneSekolah->getStatus() && $cloneSekolah->getResult() !== null) {
                 $jsonResultSekolah = $cloneSekolah->getResult();

@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SyncController;
+use App\Http\Controllers\Admin\VirtualNPSNController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('authverifytoken')->group(function() {
+    Route::post('sync', [SyncController::class, 'bypassExistingData'])->name('sync.data');
+    Route::get('clean-vnpsn', [VirtualNPSNController::class, 'checkAndRemoveUnusedVNPSN'])->name('vnpsn.clean');
 });

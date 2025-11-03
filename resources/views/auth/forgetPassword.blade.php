@@ -20,10 +20,10 @@
                             <form action="{{ route('forget.send') }}" method="post">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan email anda" id="email" name="email" value="{{ old('email') }}">
+                                    <label for="no_registrasi" class="form-label">Nomor Registrasi Ma'arif</label>
+                                    <input type="text" class="form-control @error('no_registrasi') is-invalid @enderror" placeholder="Masukkan Nomor Registrasi Ma'arif" id="no_registrasi" name="no_registrasi" value="{{ old('no_registrasi') }}">
                                     <div class="invalid-feedback">
-                                        @error('email') {{ $message }} @enderror
+                                        @error('no_registrasi') {{ $message }} @enderror
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-4 rounded-2 w-100">Kirim Link Reset Password</button>
@@ -48,8 +48,12 @@
                                         Email. sekretariat@maarifnu.org</p>
                                     <p class="mb-2"><i class="ti ti-phone"></i>
                                         Telp. 021-3904115</p>
-                                    <p><i class="ti ti-brand-telegram"></i>
+                                    <p class="mb-2"><i class="ti ti-brand-telegram"></i>
                                         Fax. 021-31906679</p>
+                                    <a href="https://wa.me/628176536731" style="color:#5A6A85;">
+                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
+                                            WA. +628176536731</p>
+                                    </a>
                                 </div>
                                 <div class="col-sm-6 text-center">
                                     <i class="ti ti-map-pin fs-5"></i>

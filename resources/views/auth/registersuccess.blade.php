@@ -1,5 +1,5 @@
 @extends('template.general', [
-    'title' => 'Siapinter - Register'
+    'title' => 'Sipinter - Register'
 ])
 @section('container')
 <div class="d-flex flex-column align-items-center">

@@ -1,35 +1,30 @@
 @section('modals')
+
     <!-- Modal -->
-    <div class="modal fade" id="modalTolak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalVerifikasi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tolak Permohonan</h5>
+                    <h5 class="modal-title"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
-                <div class="modal-body">
-                    @csrf
-                    @method('PUT')
-                    <div>
-                        <label for="keterangan" class="form-label">Catatan Penolakan</label>
-                        <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" placeholder="Catatan penolakan" value="{{ old('keterangan') }}">
-                        <div class="invalid-feedback">
-                            @error('keterangan') {{ $message }} @enderror
-                        </div>
+                    <div class="modal-body pb-1">
+                        @csrf
+                        @method('PUT')
+                        @include('admin.oss.form-modal')
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Tolak Permohonan</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success"></button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- Modal Izin -->
-    <div class="modal fade" id="modalIzin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalIzin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -37,19 +32,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
-                    <div class="modal-body">
+                    <div class="modal-body pb-1">
                         @csrf
                         @method('PUT')
-                        <div class="mb-2">
-                            <label for="keterangan" class="form-label">Keterangan</label>
-                            <input type="text" class="form-control form-control-sm @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" placeholder="Keterangan Penerbitan" value="{{ old('keterangan') }}">
-                            <div class="invalid-feedback">
-                                @error('keterangan') {{ $message }} @enderror
-                            </div>
-                        </div>
+                        @include('admin.oss.form-modal')
                         <div>
                             <label for="tgl_expired" class="form-label">Tanggal Expired Izin</label>
-                            <input type="date" class="form-control form-control-sm @error('tgl_expired') is-invalid @enderror" id="tgl_expired" name="tgl_expired" value="{{ old('tgl_expired') }}">
+                            <input type="date" class="form-control form-control-sm @error('tgl_expired') is-invalid @enderror" id="tgl_expired" name="tgl_expired" value="{{ old('tgl_expired') }}" required>
                             <div class="invalid-feedback">
                                 @error('tgl_expired') {{ $message }} @enderror
                             </div>
@@ -69,11 +58,21 @@
 
 @section('extendscripts')
     <script>
-        let modalTolak = document.getElementById('modalTolak')
-        modalTolak.addEventListener('show.bs.modal', function (event) {
+        let modalVerifikasi = document.getElementById('modalVerifikasi')
+        modalVerifikasi.addEventListener('show.bs.modal', function (event) {
             let ossId = event.relatedTarget.getAttribute('data-bs')
-            let routeReject = "{{ route('a.oss.reject', ['oss' => ':param']) }}".replace(':param', ossId);
-            $("#modalTolak form").attr('action', routeReject);
+            let ossState = event.relatedTarget.getAttribute('data-st')
+            let route;
+            if (ossState.toLocaleLowerCase() === "tolak") {
+                route = "{{ route('a.oss.reject', ['oss' => ':param']) }}".replace(':param', ossId);
+                $('#modalVerifikasi .modal-title').text('Tolak Permohonan');
+                $('#modalVerifikasi button[type=submit]').addClass('btn-danger').text('Tolak Permohonan');
+            } else if (ossState.toLocaleLowerCase() == "terima") {
+                route = "{{ route('a.oss.acc', ['oss' => ':param']) }}".replace(':param', ossId);
+                $('#modalVerifikasi .modal-title').text('Terima Permohonan');
+                $('#modalVerifikasi button[type=submit]').addClass('btn-success').text('Terima Permohonan');
+            }
+            $("#modalVerifikasi form").attr('action', route);
         });
 
         let modalIzin = document.getElementById('modalIzin')

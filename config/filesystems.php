@@ -41,9 +41,19 @@ return [
             'root' => storage_path('app/uploads'),
         ],
 
-        'buktibayar' => [
+        'bhpnu-doc' => [
             'driver' => 'local',
-            'root' => storage_path('app/buktibayar'),
+            'root' => storage_path('app/bhpnu-doc'),
+        ],
+
+        'ptk-doc' => [
+            'driver' => 'local',
+            'root' => storage_path('app/ptk-doc'),
+        ],
+
+        'oss-doc' => [
+            'driver' => 'local',
+            'root' => storage_path('app/oss-doc'),
         ],
 
         'public' => [

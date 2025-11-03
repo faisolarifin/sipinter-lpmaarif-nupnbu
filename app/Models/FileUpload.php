@@ -14,7 +14,6 @@ class FileUpload extends Model
     protected $fillable = [
         'id_satpen',
         'typefile',
-        'no_file',
         'qrcode',
         'nm_file',
         'tgl_file',

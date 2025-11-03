@@ -1,5 +1,5 @@
 @extends('template.layout', [
-    'title' => 'Siapinter - Tab Permohonan BHPNU'
+    'title' => 'Sipinter - Tab Permohonan BHPNU'
 ])
 
 @section('navbar')
@@ -48,10 +48,13 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>Nomor Registrasi</th>
+                                    <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
+                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -62,10 +65,12 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
                                             <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
+                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <a href="{{ route('a.bhpnu.acc', $row->id_bhpnu) }}" class="btn btn-sm btn-success me-1">
                                                 <i class="ti ti-checks"></i>
@@ -74,6 +79,7 @@
                                                 <i class="ti ti-x"></i>
                                             </button>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -98,10 +104,13 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>Nomor Registrasi</th>
+                                    <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal</th>
+                                    @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -112,15 +121,18 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
+                                        @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
                                         <td>
                                             <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalDikirim" data-bs="{{ $row->id_bhpnu }}">
                                                 <i class="ti ti-checks"></i>
                                             </button>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -145,13 +157,16 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Noreg Satpen</th>
+                                    <th>Nomor Registrasi</th>
+                                    <th>Nama Satpen</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Nomor Resi</th>
                                     <th>Permohonan</th>
                                     <th>Dikirim</th>
                                     <th>Expired Dokumen</th>
+                                    @if(in_array(auth()->user()->role, ["super admin"]))
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -162,13 +177,15 @@
                                         <td><a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}" class="text-decoration-underline">
                                                 {{ $row->satpen->no_registrasi }}
                                             </a></td>
+                                        <td>{{ $row->satpen->nm_satpen }}</td>
                                         <td>
-                                            <a href="{{ route('a.oss.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
+                                            <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}" class="btn btn-sm btn-secondary">Lihat Berkas</a>
                                         </td>
                                         <td>{{ $row->no_resi }}</td>
                                         <td>{{ Date::tglMasehi($row->tanggal) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_dikirim) }}</td>
                                         <td>{{ Date::tglMasehi($row->tgl_expired) }}</td>
+                                        @if(in_array(auth()->user()->role, ["super admin"]))
                                         <td>
                                             <form action="{{ route('a.bhpnu.destroy', $row->id_bhpnu) }}" method="post" class="deleteBtn">
                                                 @csrf
@@ -178,6 +195,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
