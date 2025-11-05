@@ -87,7 +87,12 @@ class ApiController extends Controller
     public function getPCByProv($provId=null) {
         try {
             if ($provId) {
-                $provs = PengurusCabang::where('id_prov', '=', $provId)->get();
+                $provs = PengurusCabang::where('id_prov', '=', $provId);
+                if (in_array(auth()->user()->role, ["admin cabang"])) {
+                    $pcId = auth()->user()->cabangId;
+                    $provs = $provs->where('id_pc', '=', $pcId);
+                }
+                $provs = $provs->get();
                 if (!$provs) return response()->json(['error' => 'Forbidden to access kabupaten']);
 
                 return response()->json($provs, HttpResponse::HTTP_OK);
@@ -184,6 +189,38 @@ class ApiController extends Controller
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[GET JENJANG AND COUNT] has error ". $e);
+
+        }
+    }
+
+    public function getJenjangAndCountByCabang($provId = null, $cabangId = null) {
+        try {
+            $additionQuery = " ";
+            
+            // Check for user role restrictions first
+            if (in_array(auth()->user()->role, ["admin wilayah"])) {
+                $userProvId = auth()->user()->provId;
+                $additionQuery .= "AND id_prov='$userProvId'";
+            }
+            elseif (in_array(auth()->user()->role, ["admin cabang"])) {
+                $pcId = auth()->user()->cabangId;
+                $additionQuery .= "AND id_pc='$pcId'";
+            }
+
+            if ($cabangId) {
+                $additionQuery .= "AND id_pc='$cabangId'";
+            } elseif ($provId) {
+                $additionQuery .= "AND id_prov='$provId'";
+            }
+            
+            $recordByJenjang = DB::select("SELECT nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan') $additionQuery ) AS record_count FROM jenjang_pendidikan");
+            
+            if (!$recordByJenjang) return response()->json(['error' => 'Forbidden to access record']);
+
+            return response()->json($recordByJenjang, HttpResponse::HTTP_OK);
+
+        } catch (\Exception $e) {
+            throw new CatchErrorException("[GET JENJANG AND COUNT BY CABANG] has error ". $e);
 
         }
     }
