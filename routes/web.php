@@ -322,7 +322,7 @@ Route::middleware('mustlogin')->group(function () {
                 Route::get('/wilayah/data', [NpypController::class, 'getNpypWilayahData'])->name('a.npyp.wilayah.data');
                 Route::get('/rekap-ptk', [NpypController::class, 'rekapPtkNasional'])->name('a.npyp.rekap-ptk');
                 Route::get('/rekap-ptk/{id}/detail', [NpypController::class, 'getPtkDetail'])->name('a.npyp.ptk-detail');
-                Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file');
+                Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file')->withoutMiddleware('primaryadmin');
             });
 
             Route::group(["prefix" => "bantuan"], function () {
@@ -350,6 +350,7 @@ Route::middleware('mustlogin')->group(function () {
         Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
         Route::get('/pccount', [ApiController::class, 'getPCAndCount'])->name('api.pccount');
         Route::get('/jenjangcount/{provId?}', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
+        Route::get('/jenjangcount/{provId}/{cabangId}', [ApiController::class, 'getJenjangAndCountByCabang'])->name('api.jenjangcountbycabang');
         Route::get('/kabupaten', [ApiController::class, 'getKabupatenByProvinsi'])->name('api.kabupaten');
     });
 });

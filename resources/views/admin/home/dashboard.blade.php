@@ -277,8 +277,13 @@
                         </h5>
                         <small class="text-muted">Klik baris untuk melihat detail</small>
                     </div>
-                    <div class="bg-primary bg-opacity-10 rounded-circle p-2">
-                        <i class="ti ti-table text-primary"></i>
+                    <div class="d-flex align-items-center">
+                        <div class="input-group" style="width: 240px;">
+                            <span class="input-group-text">
+                                <i class="ti ti-search"></i>
+                            </span>
+                            <input type="text" id="provinsiSearch" class="form-control" placeholder="Cari provinsi...">
+                        </div>
                     </div>
                 </div>
                 <div class="table-responsive modern-table-wrapper">
@@ -644,7 +649,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-0">Total Jenjang: <span class="text-success fw-bold count-jp-modal">0</span></h6>
-                                <small class="text-muted">Pilih provinsi untuk melihat data jenjang pendidikan</small>
+                                <small class="text-muted">Pilih provinsi dan cabang untuk melihat data jenjang pendidikan</small>
                             </div>
                             <div class="d-flex gap-2">
                                 <select id="modalChartSelectProvJenjang" class="form-select form-select-sm" style="width: 200px;">
@@ -652,6 +657,9 @@
                                     @foreach($listProvinsi as $row)
                                         <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
                                     @endforeach
+                                </select>
+                                <select id="modalChartSelectCabangJenjang" class="form-select form-select-sm" style="width: 200px;">
+                                    <option value="">Semua Cabang</option>
                                 </select>
                                 <div class="btn-group" role="group">
                                     <input type="radio" class="btn-check" name="chartTypeJenjang" id="barTypeJenjang" autocomplete="off" checked>
@@ -711,11 +719,17 @@ let isLoadingJenjang = false;
 $(document).ready(function () {
 
     // DataTable initialization
-    $('#datatb').DataTable({
-        searching: false,
+    let provinceDT = $('#datatb').DataTable({
+        searching: true,
         paging: true,
         lengthChange: false,
         pageLength: 5,
+        dom: 'rt<"d-flex justify-content-between align-items-center mt-3"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
+    });
+
+    // Custom search for provinces
+    $('#provinsiSearch').on('keyup', function() {
+        provinceDT.search(this.value).draw();
     });
 
     // Clickable row handlers
@@ -767,6 +781,9 @@ $(document).ready(function () {
 
     $('#modalJenjangChart').on('shown.bs.modal', function () {
         setTimeout(() => {
+            // Reset filters
+            $('#modalChartSelectProvJenjang').val('');
+            $('#modalChartSelectCabangJenjang').html('<option value="">Semua Cabang</option>');
             loadJenjangModalChart();
         }, 300);
     });
@@ -825,6 +842,12 @@ $(document).ready(function () {
     });
 
     $('#modalChartSelectProvJenjang').change(function() {
+        isLoadingJenjang = false; // Reset loading state
+        loadCabangOptionsForJenjang();
+        loadJenjangModalChart();
+    });
+
+    $('#modalChartSelectCabangJenjang').change(function() {
         isLoadingJenjang = false; // Reset loading state
         loadJenjangModalChart();
     });
@@ -954,8 +977,15 @@ function loadJenjangModalChart() {
     if (isLoadingJenjang) return;
 
     const selectedProv = $('#modalChartSelectProvJenjang').val();
-    const url = selectedProv ? `/api/jenjangcount/${selectedProv}` : "/api/jenjangcount";
-
+    const selectedCabang = $('#modalChartSelectCabangJenjang').val();
+    
+    let url = "/api/jenjangcount";
+    if (selectedProv && selectedCabang) {
+        url = `/api/jenjangcount/${selectedProv}/${selectedCabang}`;
+    } else if (selectedProv) {
+        url = `/api/jenjangcount/${selectedProv}`;
+    }
+    
     isLoadingJenjang = true;
     showChartLoading('jenjangModalChart');
 
@@ -978,6 +1008,36 @@ function loadJenjangModalChart() {
         },
         complete: function() {
             isLoadingJenjang = false;
+        }
+    });
+}
+
+// Load cabang options for jenjang chart based on selected province
+function loadCabangOptionsForJenjang() {
+    const selectedProv = $('#modalChartSelectProvJenjang').val();
+    const cabangSelect = $('#modalChartSelectCabangJenjang');
+    
+    // Reset cabang dropdown
+    cabangSelect.html('<option value="">Semua Cabang</option>');
+    
+    if (!selectedProv) {
+        return;
+    }
+    
+    // Load cabang list for selected province
+    $.ajax({
+        url: `/api/pc/${selectedProv}`,
+        type: "GET",
+        dataType: 'json',
+        success: function (res) {
+            if (res && res.length > 0) {
+                res.forEach(function(cabang) {
+                    cabangSelect.append(`<option value="${cabang.id_pc}">${cabang.nama_pc}</option>`);
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error loading cabang options:', error);
         }
     });
 }

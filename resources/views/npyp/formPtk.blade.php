@@ -36,7 +36,6 @@
     }
     #breadcrumb li {
         display: inline;
-        margin-right: 10px;
     }
     #breadcrumb li:not(:last-child)::after {
         content: " > ";
@@ -101,7 +100,7 @@
             <ul id="breadcrumb" class="mb-0">
                 <li><a href="#"><i class="ti ti-home"></i></a></li>
                 <li><a href="#"><span class="fa fa-file-certificate"></span> NPYP</a></li>
-                <li><a href="#"><span class="fa fa-users"></span> Manajemen PTK</a></li>
+                <li><a href="#"><span class="fa fa-users"></span> Verval PTK</a></li>
             </ul>
         </nav>
 
@@ -113,11 +112,10 @@
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <h4 class="card-title fw-bold text-primary mb-2">
-                            <i class="ti ti-users me-2"></i>MANAJEMEN PTK (PENDIDIK DAN TENAGA KEPENDIDIKAN)
+                            <i class="ti ti-users me-2"></i>Verval PTK (PENDIDIK DAN TENAGA KEPENDIDIKAN)
                         </h4>
                         <p class="text-muted mb-0">
-                            Kelola data PTK satuan pendidikan Anda. Ajukan, pantau status verifikasi, dan kelola dokumen PTK 
-                            melalui sistem terintegrasi dengan NPYP.
+                            Anda dapat mengajukan Verval PTK dengan mengisi Formulir yang ada disini. Menu ini hanyalah perantara antara anda dan operator Yayasan agar pengajuan anda dapat teradministrasi dengan baik. PTK akan aktif di verval Yayasan jika admin telah selesai memproses data anda di vervalptk.kemdikbud.go.id
                         </p>
                     </div>
                     <div class="col-md-4 text-end">
