@@ -322,7 +322,7 @@ Route::middleware('mustlogin')->group(function () {
                 Route::get('/wilayah/data', [NpypController::class, 'getNpypWilayahData'])->name('a.npyp.wilayah.data');
                 Route::get('/rekap-ptk', [NpypController::class, 'rekapPtkNasional'])->name('a.npyp.rekap-ptk');
                 Route::get('/rekap-ptk/{id}/detail', [NpypController::class, 'getPtkDetail'])->name('a.npyp.ptk-detail');
-                Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file');
+                Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file')->withoutMiddleware('primaryadmin');
             });
 
             Route::group(["prefix" => "bantuan"], function () {

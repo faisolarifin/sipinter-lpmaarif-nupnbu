@@ -55,7 +55,7 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="{{ route('bhpnu') }}" aria-expanded="false">
                 <span>
-                    <i class="ti ti-heart"></i>
+                    <i class="ti ti-report"></i>
                 </span>
                 <span class="hide-menu">Layanan BHPNU</span>
             </a>
