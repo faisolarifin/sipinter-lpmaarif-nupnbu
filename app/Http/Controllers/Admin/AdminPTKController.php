@@ -13,10 +13,19 @@ class AdminPTKController extends Controller
 {
      protected function specificFilter() {
         $specificFilter = request()->specificFilter;
+        
+        if (!$specificFilter) {
+            return [];
+        }
+        
         $specificFilter["id_pw"] = @$specificFilter["id_prov"];
         unset($specificFilter["id_prov"]);
         empty($specificFilter["id_pc"]) ? $specificFilter["id_pc"] = @$specificFilter["id_pc"] : null;
-        return $specificFilter;
+        
+        // Remove null values
+        return array_filter($specificFilter, function($value) {
+            return $value !== null;
+        });
     }
 
     public function index()
@@ -32,7 +41,10 @@ class AdminPTKController extends Controller
             // Base query
             $query = PTK::with(['satpen.kabupaten', 'satpen.provinsi', 'npyp'])
                 ->whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })
                 ->where('status_ajuan', $status);
 
@@ -53,7 +65,10 @@ class AdminPTKController extends Controller
 
             // Get total records before pagination
             $totalRecords = PTK::whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })->where('status_ajuan', $status)->count();
             $filteredRecords = $query->count();
 
@@ -232,7 +247,10 @@ class AdminPTKController extends Controller
         try {
             $ptk = PTK::with(['satpen.kabupaten', 'satpen.provinsi', 'npyp'])
                 ->whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })
                 ->findOrFail($id);
 
@@ -267,7 +285,10 @@ class AdminPTKController extends Controller
             $tanggalSK = $request->input('tanggal_sk');
 
             $ptk = PTK::whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })->findOrFail($ptkId);
             $user = Auth::user();
 
@@ -368,8 +389,12 @@ class AdminPTKController extends Controller
     public function statistics()
     {
         try {
-            $ptk = PTK::whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+            $specificFilter = $this->specificFilter();
+            
+            $ptk = PTK::whereHas('npyp', function($q) use ($specificFilter) {
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 });
             $counts = [
                 'verifikasi' => (clone $ptk)->where('status_ajuan', 'verifikasi')->count(),

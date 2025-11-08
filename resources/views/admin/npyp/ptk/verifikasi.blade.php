@@ -200,6 +200,9 @@
         $(document).ready(function() {
             // Initialize all tables
             initializeTables();
+            
+            // Load statistics for tab counts immediately
+            loadStatistics();
 
             // Tab change handler
             $('#ptkTabs button[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
@@ -207,6 +210,8 @@
                 if (currentTables[targetTab]) {
                     currentTables[targetTab].columns.adjust().draw();
                 }
+                // Refresh statistics when switching tabs
+                loadStatistics();
             });
 
             // Action button handlers
@@ -267,6 +272,8 @@
                             alert(response.message);
                             // Refresh current table
                             refreshCurrentTable();
+                            // Update tab counts
+                            loadStatistics();
                             // Clear form
                             $('#actionPTKForm')[0].reset();
 
@@ -361,6 +368,16 @@
                         [1, 'desc']
                     ],
                     pageLength: 10,
+                    drawCallback: function(settings) {
+                        // Update statistics after table is drawn - only once per draw cycle
+                        if (!window.statisticsUpdateInProgress) {
+                            window.statisticsUpdateInProgress = true;
+                            setTimeout(function() {
+                                loadStatistics();
+                                window.statisticsUpdateInProgress = false;
+                            }, 100);
+                        }
+                    },
                     language: {
                         processing: "Memuat data...",
                         search: "Pencarian:",
@@ -385,8 +402,10 @@
         function refreshCurrentTable() {
             let activeTab = $('.nav-link.active').attr('data-bs-target').replace('#', '');
             if (currentTables[activeTab]) {
-                currentTables[activeTab].ajax.reload();
+                currentTables[activeTab].ajax.reload(null, false); // false to keep current page
             }
+            // Also refresh statistics
+            loadStatistics();
         }
 
         function loadPTKDetail(ptkId) {
@@ -463,6 +482,31 @@
                 $('#detailActionButtons').html(buttons);
                 $('#detailPTKModalFooter').show();
             }
+        }
+
+        function loadStatistics() {
+            $.ajax({
+                url: '{{ route('admin.ptk.statistics') }}',
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        updateTabCounts(response.data);
+                    } else {
+                        console.error('Failed to load statistics:', response.message);
+                    }
+                },
+                error: function(xhr) {
+                    console.error('AJAX error while loading statistics:', xhr.responseText);
+                }
+            });
+        }
+
+        function updateTabCounts(counts) {
+            $('#verifikasiBadge').text(counts.verifikasi || 0);
+            $('#revisiBadge').text(counts.revisi || 0);
+            $('#prosesBadge').text(counts.proses || 0);
+            $('#approveBadge').text(counts.approve || 0);
+            $('#dikeluarkanBadge').text(counts.dikeluarkan || 0);
         }
     </script>
 @endsection

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    ApiController,
     AuthController,
     BHPNUController,
     CoretaxController,
@@ -37,6 +36,7 @@ use App\Http\Controllers\Master\{
     DapoController,
     TahunPelajaranController
 };
+use App\Http\Controllers\Api\{ApiController, DashboardApiController};
 
 /*
 |--------------------------------------------------------------------------
@@ -352,6 +352,10 @@ Route::middleware('mustlogin')->group(function () {
         Route::get('/jenjangcount/{provId?}', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
         Route::get('/jenjangcount/{provId}/{cabangId}', [ApiController::class, 'getJenjangAndCountByCabang'])->name('api.jenjangcountbycabang');
         Route::get('/kabupaten', [ApiController::class, 'getKabupatenByProvinsi'])->name('api.kabupaten');
+        
+        // Dashboard API untuk Admin Cabang  
+        Route::get('/ptkcount', [DashboardApiController::class, 'getPTKCount'])->name('api.ptk.count');
+        Route::get('/pdcount', [DashboardApiController::class, 'getPDCount'])->name('api.pd.count');
     });
 });
 
