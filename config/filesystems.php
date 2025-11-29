@@ -56,6 +56,11 @@ return [
             'root' => storage_path('app/oss-doc'),
         ],
 
+        'coretax-doc' => [
+            'driver' => 'local',
+            'root' => storage_path('app/coretax-doc'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

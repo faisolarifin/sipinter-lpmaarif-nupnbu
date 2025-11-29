@@ -28,6 +28,7 @@ class CoretaxRequest extends FormRequest
             'nm_pic' => 'required|string|max:100',
             'nik_pic' => 'required|string|max:20',
             'whatsapp_pic' => 'required|string|max:20',
+            'npwp_lama' => 'required|file|mimes:pdf|max:512',
         ];
     }
 

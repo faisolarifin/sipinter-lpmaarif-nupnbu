@@ -78,6 +78,7 @@ Route::middleware('mustlogin')->group(function () {
         Route::get('/req-expiry', [CoretaxController::class, 'openExpiry'])->name('coretax.req-exipry');
         Route::get('/history', [CoretaxController::class, 'history'])->name('coretax.history');
         Route::put('/{coretax}', [CoretaxController::class, 'stored'])->name('coretax.save');
+        Route::get('/file/{fileName?}', [FileViewerController::class, 'viewNpwpLama'])->name('coretax.file');
     });
 
     Route::middleware('onlyoperator')->group(function () {
@@ -266,10 +267,10 @@ Route::middleware('mustlogin')->group(function () {
                 Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy')->middleware('superadmin');
                 Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file')->withoutMiddleware('primaryadmin');
             });
-
+            
             /**
              * CORETAX
-             */
+            */
             Route::group(["prefix" => "coretax"], function () {
                 Route::get('/', [CoretaxAdminController::class, 'index'])->name('a.coretax')->withoutMiddleware('primaryadmin');
                 Route::get('/{coretaxId}', [CoretaxAdminController::class, 'getById'])->name('a.coretax.byid');
@@ -278,6 +279,7 @@ Route::middleware('mustlogin')->group(function () {
                 Route::put('/appear/{coretax}', [CoretaxAdminController::class, 'appeared'])->name('a.coretax.appear');
                 Route::put('/reject/{coretax}', [CoretaxAdminController::class, 'rejected'])->name('a.coretax.reject');
                 Route::delete('/destroy/{coretax}', [CoretaxAdminController::class, 'destroy'])->name('a.coretax.destroy')->middleware('superadmin');
+                Route::get('/file/{fileName?}', [FileViewerController::class, 'viewNpwpLama'])->name('a.coretax.file')->withoutMiddleware('primaryadmin');
             });
 
             /**

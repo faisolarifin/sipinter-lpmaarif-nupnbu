@@ -26,6 +26,16 @@ class FileViewerController extends Controller
         return response("Invalid Document!");
     }
 
+    public function viewNpwpLama(string $fileName) {
+        if ($fileName) {
+            $filepath = storage_path("app/coretax-doc/npwp-lama/". $fileName);
+
+            if (!file_exists($filepath)) return response("File not found!");
+            return response()->file($filepath);
+        }
+        return response("Invalid Document!");
+    }
+
     public function viewSkPtk(string $path, string $fileName) {
         $fileName = $path.'/'.$fileName;
         if ($fileName) {
