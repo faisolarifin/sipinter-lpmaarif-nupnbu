@@ -302,6 +302,7 @@ class AdminPTKController extends Controller
             switch ($action) {
                 case 'terima':
                     if ($ptk->status_ajuan == 'verifikasi') {
+                        $ptk->tanggal_verifikasi = now();
                         $newStatus = 'proses';
                         $message = 'PTK berhasil diterima dan masuk tahap proses';
                         $historyNotes = 'PTK diterima untuk diproses oleh ' . $user->name;
@@ -322,6 +323,8 @@ class AdminPTKController extends Controller
 
                 case 'proses':
                     if ($ptk->status_ajuan == 'verifikasi') {
+                        $ptk->tanggal_proses = now();
+
                         $newStatus = 'proses';
                         $message = 'PTK berhasil diproses';
                         $historyNotes = 'PTK diproses oleh ' . $user->name;
@@ -332,6 +335,9 @@ class AdminPTKController extends Controller
 
                 case 'approve':
                     if ($ptk->status_ajuan == 'proses') {
+                        $ptk->tanggal_proses = now();
+                        $ptk->tanggal_approve = now();
+
                         $newStatus = 'approve';
                         $message = 'PTK berhasil disetujui';
                         $historyNotes = 'PTK disetujui oleh ' . $user->name;
@@ -342,7 +348,9 @@ class AdminPTKController extends Controller
 
                 case 'keluarkan':
                     if ($ptk->status_ajuan == 'approve') {
-
+                        $ptk->tanggal_dikeluarkan = now();
+                        $ptk->nomor_sk_keluar = $nomorSK;
+                        
                         $newStatus = 'dikeluarkan';
                         $message = 'SK PTK berhasil dikeluarkan';
                         $historyNotes = 'SK PTK dikeluarkan oleh ' . $user->name;

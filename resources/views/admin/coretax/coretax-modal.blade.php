@@ -86,8 +86,8 @@
                 <div class="modal-body px-sm-5" id="modal-detail">
                     
                 </div>
-                <div class="modal-footer">
-    
+                <div class="modal-footer" id="modal-footer">
+                    
                 </div>
             </div>
         </div>
@@ -263,6 +263,11 @@
                                         <td>${ctx?.nitku ?? ''}</td>
                                     </tr>
                                     <tr>
+                                        <td><strong>NPWP Lama</strong></td>
+                                        <td>:</td>
+                                        <td><a href="{{ route('a.coretax.file', '') }}/${ctx.npwp_lama}" class="btn btn-sm btn-secondary">Lihat Berkas</a></td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Nama PIC</strong></td>
                                         <td>:</td>
                                         <td>${ctx?.nama_pic}</td>
@@ -304,11 +309,14 @@
                     </div>`;
 
                     modalDetail += `<div class="row mt-4">
-                        <div class="col"> 
+                        <div class="col-md-6"> 
                                 <h5 class="mb-0">Riwayat Pengajuan</h5>
                                 <small>daftar riwayat pengajuan layanan coretax yang telah diapprove</small>
-                            </div>
-                        </div>`;
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end align-items-center" id="action-buttons-container">
+                            
+                        </div>
+                    </div>`;
 
                     modalDetail += `<div class="row mt-2">
                         <div class="col">
@@ -348,6 +356,48 @@
                     $("#modal-detail").html(modalDetail);
                     $('#detail-table').DataTable();
 
+                    // Add action buttons above table based on status
+                    let actionButtons = '';
+                    
+                    @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
+                        // Determine buttons based on status
+                        if (ctx?.status === 'verifikasi') {
+                            actionButtons = `
+                                <a href="{{ route('a.coretax.acc', '') }}/${ctx.id}" class="btn btn-success ms-2">
+                                    <i class="ti ti-checks"></i> Terima
+                                </a>
+                                <button class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="${ctx.id}" data-bs-dismiss="modal">
+                                    <i class="ti ti-x"></i> Tolak
+                                </button>
+                            `;
+                        } else if (ctx?.status === 'buka_expiry') {
+                            actionButtons = `
+                                <a href="{{ route('a.coretax.open-expiry', '') }}/${ctx.id}" class="btn btn-success ms-2">
+                                    <i class="ti ti-checks"></i> Buka Expiry
+                                </a>
+                            `;
+                        } else if (ctx?.status === 'perbaikan') {
+                            actionButtons = `
+                                <a href="{{ route('a.coretax.acc', '') }}/${ctx.id}" class="btn btn-success ms-2">
+                                    <i class="ti ti-checks"></i> Terima
+                                </a>
+                                <button class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="${ctx.id}" data-bs-dismiss="modal">
+                                    <i class="ti ti-x"></i> Tolak
+                                </button>
+                            `;
+                        } else if (ctx?.status === 'dokumen diproses') {
+                            actionButtons = `
+                                <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#modalAppear" data-bs="${ctx.id}" data-bs-dismiss="modal">
+                                    <i class="ti ti-checks"></i> Approve
+                                </button>
+                                <button class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#modalTolak" data-bs="${ctx.id}" data-bs-dismiss="modal">
+                                    <i class="ti ti-x"></i> Tolak
+                                </button>
+                            `;
+                        }
+                    @endif
+                    
+                    $("#action-buttons-container").html(actionButtons);
                 }
             });
         });
