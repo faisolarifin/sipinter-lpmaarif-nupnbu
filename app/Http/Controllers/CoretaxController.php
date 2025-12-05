@@ -126,7 +126,7 @@ class CoretaxController extends Controller
 
     public function stored(CoretaxRequest $request, Coretax $coretax)
     {
-        
+        $pathNpwpLama = $coretax->npwp_lama;
         if ($request->file('npwp_lama')
             && $request->file('npwp_lama')->isValid()) {
             $pathNpwpLama = Storage::disk('coretax-doc')->putFile("npwp-lama", $request->file('npwp_lama'));
