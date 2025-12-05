@@ -118,6 +118,43 @@
 
 <!--  Row 1 - Modern Chart Cards -->
 <div class="row">
+    @if(in_array(auth()->user()->role, ["admin cabang"]))
+    <div class="col-lg-4">
+        <div class="card overflow-hidden shadow-sm modern-chart-card" style="cursor: pointer; transition: all 0.3s ease; border: 1px solid #e3e3e3;" data-bs-toggle="modal" data-bs-target="#modalDataPTKChart">
+            <div class="card-body p-4 position-relative">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0 fw-semibold">Data PTK</h5>
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-2">
+                        <i class="ti ti-users text-primary fs-5"></i>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h2 class="fw-bold mb-2 count-ptk text-primary">0</h2>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-light-primary text-primary px-2 py-1">
+                                <i class="ti ti-user me-1"></i>
+                                PENDIDIK & TENAGA KEPENDIDIKAN
+                            </span>
+                        </div>
+                        <small class="text-muted">Klik untuk detail grafik</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                            <div id="ptk-preview" style="height: 60px; width: 60px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(93, 135, 255, 0.95); opacity: 0; transition: opacity 0.3s ease;">
+                    <div class="text-white text-center">
+                        <i class="ti ti-chart-bar-filled fs-1 mb-2"></i>
+                        <p class="mb-0">Lihat Grafik Detail</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @else
     <div class="col-lg-4">
         <div class="card overflow-hidden shadow-sm modern-chart-card" style="cursor: pointer; transition: all 0.3s ease; border: 1px solid #e3e3e3;" data-bs-toggle="modal" data-bs-target="#modalProvinsiChart">
             <div class="card-body p-4 position-relative">
@@ -153,24 +190,18 @@
             </div>
         </div>
     </div>
+    @endif
 
     @if(!in_array(auth()->user()->role, ["admin wilayah", "admin cabang"]))
     <div class="col-lg-4">
         <div class="card overflow-hidden shadow-sm modern-chart-card" style="cursor: pointer; transition: all 0.3s ease; border: 1px solid #e3e3e3;" data-bs-toggle="modal" data-bs-target="#modalKabupatenChart">
             <div class="card-body p-4 position-relative">
-                <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="card-title mb-0 fw-semibold">Satpen Kabupaten</h5>
                     <div class="bg-info bg-opacity-10 rounded-circle p-2">
                         <i class="ti ti-chart-line text-info fs-5"></i>
                     </div>
                 </div>
-                <form class="form mb-3" style="width:50%;">
-                    <select id="chartSelectProv" class="form-select form-select-sm">
-                        @foreach($listProvinsi as $row)
-                        <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                        @endforeach
-                    </select>
-                </form>
                 <div class="row align-items-center">
                     <div class="col-8">
                         <h2 class="fw-bold mb-2 count-kab text-info">0</h2>
@@ -197,23 +228,16 @@
             </div>
         </div>
     </div>
-    @else
+    @elseif(in_array(auth()->user()->role, ["admin wilayah"]))
     <div class="col-lg-4">
         <div class="card overflow-hidden shadow-sm modern-chart-card" style="cursor: pointer; transition: all 0.3s ease; border: 1px solid #e3e3e3;" data-bs-toggle="modal" data-bs-target="#modalCabangChart">
             <div class="card-body p-4 position-relative">
-                <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="card-title mb-0 fw-semibold">Satpen Cabang</h5>
                     <div class="bg-info bg-opacity-10 rounded-circle p-2">
                         <i class="ti ti-chart-line text-info fs-5"></i>
                     </div>
                 </div>
-                <form class="form mb-3" style="width:50%;">
-                    <select id="chartSelectProv" class="form-select form-select-sm">
-                        @foreach($listProvinsi as $row)
-                            <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                        @endforeach
-                    </select>
-                </form>
                 <div class="row align-items-center">
                     <div class="col-8">
                         <h2 class="fw-bold mb-2 count-pc text-info">0</h2>
@@ -228,6 +252,42 @@
                     <div class="col-4">
                         <div class="d-flex justify-content-center">
                             <div id="pc-preview" style="height: 60px; width: 60px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(20, 164, 198, 0.95); opacity: 0; transition: opacity 0.3s ease;">
+                    <div class="text-white text-center">
+                        <i class="ti ti-chart-line fs-1 mb-2"></i>
+                        <p class="mb-0">Lihat Grafik Detail</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @else
+    <div class="col-lg-4">
+        <div class="card overflow-hidden shadow-sm modern-chart-card" style="cursor: pointer; transition: all 0.3s ease; border: 1px solid #e3e3e3;" data-bs-toggle="modal" data-bs-target="#modalDataPDChart">
+            <div class="card-body p-4 position-relative">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0 fw-semibold">Data Peserta Didik</h5>
+                    <div class="bg-info bg-opacity-10 rounded-circle p-2">
+                        <i class="ti ti-school text-info fs-5"></i>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h2 class="fw-bold mb-2 count-pd text-info">0</h2>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-light-info text-info px-2 py-1">
+                                <i class="ti ti-users me-1"></i>
+                                PESERTA DIDIK
+                            </span>
+                        </div>
+                        <small class="text-muted">Klik untuk detail grafik</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                            <div id="pd-preview" style="height: 60px; width: 60px;"></div>
                         </div>
                     </div>
                 </div>
@@ -291,8 +351,13 @@
                         </h5>
                         <small class="text-muted">Klik baris untuk melihat detail</small>
                     </div>
-                    <div class="bg-primary bg-opacity-10 rounded-circle p-2">
-                        <i class="ti ti-table text-primary"></i>
+                    <div class="d-flex align-items-center">
+                        <div class="input-group" style="width: 240px;">
+                            <span class="input-group-text">
+                                <i class="ti ti-search"></i>
+                            </span>
+                            <input type="text" id="provinsiSearch" class="form-control" placeholder="Cari provinsi...">
+                        </div>
                     </div>
                 </div>
                 <div class="table-responsive modern-table-wrapper">
@@ -319,7 +384,7 @@
                             <td class="py-3 ps-3">
                                 <div class="d-flex align-items-center">
                                     <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
-                                        <i class="ti ti-location text-primary fs-6"></i>
+                                        <i class="ti ti-location text-primary fs-3"></i>
                                     </div>
                                     <div>
                                         <span class="fw-semibold">{{ $row->nm_prov }}</span>
@@ -354,7 +419,7 @@
                     </div>
                 </div>
                 <div class="modern-status-table">
-                    <div class="status-item cursor-pointer clickable-sigle-row mb-3 p-3 rounded-3 bg-light border-start border-primary border-4 status-row-hover"
+                    <div class="status-item cursor-pointer clickable-sigle-row mb-2 p-3 rounded-3 bg-light border-start border-primary border-4 status-row-hover"
                          data-link="{{ route('a.satpen'). "#permohonan" }}" style="transition: all 0.3s ease;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
@@ -367,7 +432,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-primary px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-primary px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->permohonan) }}
                                 </span>
                             </div>
@@ -387,7 +452,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-info px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-info px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->proses_dokumen) }}
                                 </span>
                             </div>
@@ -407,7 +472,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-warning px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-warning px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->revisi) }}
                                 </span>
                             </div>
@@ -427,7 +492,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-danger px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-danger px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->expired) }}
                                 </span>
                             </div>
@@ -447,7 +512,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-gradient-success px-3 py-2 rounded-pill fw-bold fs-6">
+                                <span class="badge bg-gradient-success px-3 py-2 rounded-pill fw-bold fs-3">
                                     {{ number_format($countPerStatus[0]->perpanjangan) }}
                                 </span>
                             </div>
@@ -463,6 +528,150 @@
 @endsection
 
 @section('modals')
+<!-- Modal PTK Chart -->
+<div class="modal fade" id="modalDataPTKChart" tabindex="-1" aria-labelledby="modalDataPTKChartLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <div>
+                    <h5 class="modal-title mb-0" id="modalDataPTKChartLabel">
+                        <i class="ti ti-users me-2"></i>Data Pendidik & Tenaga Kependidikan
+                    </h5>
+                    <small class="opacity-75">Grafik distribusi PTK di wilayah cabang</small>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="chart-loading text-center py-5" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Memuat data grafik...</p>
+                </div>
+                <div class="chart-container">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="mb-0">Total PTK: <span class="text-primary fw-bold count-ptk-modal">0</span></h6>
+                            <small class="text-muted">Data PTK dinamis dari cabang Anda</small>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-primary btn-sm chart-type-btn active" data-chart="bar" data-target="ptk">
+                                    <i class="ti ti-chart-bar me-1"></i>Bar Chart
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm chart-type-btn" data-chart="pie" data-target="ptk">
+                                    <i class="ti ti-chart-pie me-1"></i>Pie Chart
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm chart-type-btn" data-chart="line" data-target="ptk">
+                                    <i class="ti ti-chart-line me-1"></i>Line Chart
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="refreshPTKData()">
+                                    <i class="ti ti-refresh me-1"></i>Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <div id="chart-ptk" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-error text-center py-5" style="display: none;">
+                    <div class="text-danger">
+                        <i class="ti ti-alert-circle fs-1 mb-3"></i>
+                        <h5>Gagal memuat data</h5>
+                        <p class="text-muted">Terjadi kesalahan saat memuat data grafik.</p>
+                        <button class="btn btn-primary retry-chart" data-target="ptk">
+                            <i class="ti ti-refresh me-2"></i>Coba Lagi
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="ti ti-x me-1"></i>Tutup
+                </button>
+                <button type="button" class="btn btn-primary" onclick="exportChart('chart-ptk')">
+                    <i class="ti ti-download me-1"></i>Export Chart
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal PD Chart -->
+<div class="modal fade" id="modalDataPDChart" tabindex="-1" aria-labelledby="modalDataPDChartLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <div>
+                    <h5 class="modal-title mb-0" id="modalDataPDChartLabel">
+                        <i class="ti ti-school me-2"></i>Data Peserta Didik
+                    </h5>
+                    <small class="opacity-75">Grafik distribusi peserta didik di wilayah cabang</small>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="chart-loading text-center py-5" style="display: none;">
+                    <div class="spinner-border text-info" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Memuat data grafik...</p>
+                </div>
+                <div class="chart-container">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="mb-0">Total Peserta Didik: <span class="text-info fw-bold count-pd-modal">0</span></h6>
+                            <small class="text-muted">Data peserta didik dinamis dari cabang Anda</small>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-info btn-sm chart-type-btn active" data-chart="bar" data-target="pd">
+                                    <i class="ti ti-chart-bar me-1"></i>Bar Chart
+                                </button>
+                                <button type="button" class="btn btn-outline-info btn-sm chart-type-btn" data-chart="pie" data-target="pd">
+                                    <i class="ti ti-chart-pie me-1"></i>Pie Chart
+                                </button>
+                                <button type="button" class="btn btn-outline-info btn-sm chart-type-btn" data-chart="line" data-target="pd">
+                                    <i class="ti ti-chart-line me-1"></i>Line Chart
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="refreshPDData()">
+                                    <i class="ti ti-refresh me-1"></i>Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <div id="chart-pd" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-error text-center py-5" style="display: none;">
+                    <div class="text-danger">
+                        <i class="ti ti-alert-circle fs-1 mb-3"></i>
+                        <h5>Gagal memuat data</h5>
+                        <p class="text-muted">Terjadi kesalahan saat memuat data grafik.</p>
+                        <button class="btn btn-info retry-chart" data-target="pd">
+                            <i class="ti ti-refresh me-2"></i>Coba Lagi
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="ti ti-x me-1"></i>Tutup
+                </button>
+                <button type="button" class="btn btn-info" onclick="exportChart('chart-pd')">
+                    <i class="ti ti-download me-1"></i>Export Chart
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Provinsi Chart -->
 <div class="modal fade" id="modalProvinsiChart" tabindex="-1" aria-labelledby="modalProvinsiChartLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -658,17 +867,28 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-0">Total Jenjang: <span class="text-success fw-bold count-jp-modal">0</span></h6>
-                                <small class="text-muted">Distribusi satuan pendidikan berdasarkan tingkat pendidikan</small>
+                                <small class="text-muted">Pilih provinsi dan cabang untuk melihat data jenjang pendidikan</small>
                             </div>
-                            <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="chartTypeJenjang" id="barTypeJenjang" autocomplete="off" checked>
-                                <label class="btn btn-outline-success btn-sm" for="barTypeJenjang">
-                                    <i class="ti ti-chart-bar me-1"></i>Bar Chart
-                                </label>
-                                <input type="radio" class="btn-check" name="chartTypeJenjang" id="lineTypeJenjang" autocomplete="off">
-                                <label class="btn btn-outline-success btn-sm" for="lineTypeJenjang">
-                                    <i class="ti ti-chart-line me-1"></i>Line Chart
-                                </label>
+                            <div class="d-flex gap-2">
+                                <select id="modalChartSelectProvJenjang" class="form-select form-select-sm" style="width: 200px;">
+                                    <option value="">Semua Provinsi</option>
+                                    @foreach($listProvinsi as $row)
+                                        <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                                    @endforeach
+                                </select>
+                                <select id="modalChartSelectCabangJenjang" class="form-select form-select-sm" style="width: 200px;">
+                                    <option value="">Semua Cabang</option>
+                                </select>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="chartTypeJenjang" id="barTypeJenjang" autocomplete="off" checked>
+                                    <label class="btn btn-outline-success btn-sm" for="barTypeJenjang">
+                                        <i class="ti ti-chart-bar me-1"></i>Bar Chart
+                                    </label>
+                                    <input type="radio" class="btn-check" name="chartTypeJenjang" id="lineTypeJenjang" autocomplete="off">
+                                    <label class="btn btn-outline-success btn-sm" for="lineTypeJenjang">
+                                        <i class="ti ti-chart-line me-1"></i>Line Chart
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -702,26 +922,43 @@
 <script src="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
 
 <script>
-let provinsiModalChart, kabupatenModalChart, cabangModalChart, jenjangModalChart;
+let provinsiModalChart, kabupatenModalChart, cabangModalChart, jenjangModalChart, ptkModalChart, pdModalChart;
 let currentProvinsiData = [];
 let currentKabupatenData = [];
 let currentCabangData = [];
 let currentJenjangData = [];
+let currentPTKData = [];
+let currentPDData = [];
 
 // Track loading states to prevent duplicate calls
 let isLoadingProvinsi = false;
 let isLoadingKabupaten = false;
 let isLoadingCabang = false;
 let isLoadingJenjang = false;
+let isLoadingPTK = false;
+let isLoadingPD = false;
 
 $(document).ready(function () {
 
+    // Initialize preview charts for admin cabang
+    @if(in_array(auth()->user()->role, ["admin cabang"]))
+    // Load initial PTK and PD data for preview and counts
+    loadInitialPTKData();
+    loadInitialPDData();
+    @endif
+
     // DataTable initialization
-    $('#datatb').DataTable({
-        searching: false,
+    let provinceDT = $('#datatb').DataTable({
+        searching: true,
         paging: true,
         lengthChange: false,
         pageLength: 5,
+        dom: 'rt<"d-flex justify-content-between align-items-center mt-3"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
+    });
+
+    // Custom search for provinces
+    $('#provinsiSearch').on('keyup', function() {
+        provinceDT.search(this.value).draw();
     });
 
     // Clickable row handlers
@@ -735,6 +972,26 @@ $(document).ready(function () {
     });
 
     // Modal event handlers
+    $('#modalDataPTKChart').on('show.bs.modal', function () {
+        isLoadingPTK = false;
+    });
+
+    $('#modalDataPTKChart').on('shown.bs.modal', function () {
+        setTimeout(() => {
+            loadPTKModalChart();
+        }, 300);
+    });
+
+    $('#modalDataPDChart').on('show.bs.modal', function () {
+        isLoadingPD = false;
+    });
+
+    $('#modalDataPDChart').on('shown.bs.modal', function () {
+        setTimeout(() => {
+            loadPDModalChart();
+        }, 300);
+    });
+
     $('#modalProvinsiChart').on('show.bs.modal', function () {
         // Reset loading state when modal starts to show
         isLoadingProvinsi = false;
@@ -773,11 +1030,30 @@ $(document).ready(function () {
 
     $('#modalJenjangChart').on('shown.bs.modal', function () {
         setTimeout(() => {
+            // Reset filters
+            $('#modalChartSelectProvJenjang').val('');
+            $('#modalChartSelectCabangJenjang').html('<option value="">Semua Cabang</option>');
             loadJenjangModalChart();
         }, 300);
     });
 
     // Reset loading states when modals are hidden
+    $('#modalDataPTKChart').on('hidden.bs.modal', function () {
+        isLoadingPTK = false;
+        if (ptkModalChart) {
+            ptkModalChart.destroy();
+            ptkModalChart = null;
+        }
+    });
+
+    $('#modalDataPDChart').on('hidden.bs.modal', function () {
+        isLoadingPD = false;
+        if (pdModalChart) {
+            pdModalChart.destroy();
+            pdModalChart = null;
+        }
+    });
+
     $('#modalProvinsiChart').on('hidden.bs.modal', function () {
         isLoadingProvinsi = false;
     });
@@ -798,6 +1074,31 @@ $(document).ready(function () {
     $('input[name="chartTypeProvinsi"]').change(function() {
         if (currentProvinsiData.length > 0) {
             renderProvinsiChart(this.id === 'barTypeProvinsi' ? 'bar' : 'line');
+        }
+    });
+
+    $('.chart-type-btn').on('click', function() {
+        const target = $(this).data('target');
+        const chartType = $(this).data('chart');
+
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+
+        if (target === 'ptk' && currentPTKData.length > 0) {
+            renderPTKChart(chartType);
+        } else if (target === 'pd' && currentPDData.length > 0) {
+            renderPDChart(chartType);
+        }
+    });
+
+    $('.retry-chart').on('click', function() {
+        const target = $(this).data('target');
+        if (target === 'ptk') {
+            isLoadingPTK = false;
+            loadPTKModalChart();
+        } else if (target === 'pd') {
+            isLoadingPD = false;
+            loadPDModalChart();
         }
     });
 
@@ -829,7 +1130,229 @@ $(document).ready(function () {
         isLoadingCabang = false; // Reset loading state
         loadCabangModalChart();
     });
+
+    $('#modalChartSelectProvJenjang').change(function() {
+        isLoadingJenjang = false; // Reset loading state
+        loadCabangOptionsForJenjang();
+        loadJenjangModalChart();
+    });
+
+    $('#modalChartSelectCabangJenjang').change(function() {
+        isLoadingJenjang = false; // Reset loading state
+        loadJenjangModalChart();
+    });
 });
+
+// Load and render PTK modal chart
+function loadPTKModalChart() {
+    if (isLoadingPTK) return;
+
+    isLoadingPTK = true;
+    showChartLoading('chart-ptk');
+
+    $.ajax({
+        url: "/api/ptkcount",
+        type: "GET",
+        dataType: 'json',
+        timeout: 15000,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (res) {
+            if (res && res.success && res.data) {
+                currentPTKData = [
+                    {jabatan: 'Guru Laki-laki', count: parseInt(res.data.guru_lk || 0)},
+                    {jabatan: 'Guru Perempuan', count: parseInt(res.data.guru_pr || 0)},
+                    {jabatan: 'Tendik Laki-laki', count: parseInt(res.data.tendik_lk || 0)},
+                    {jabatan: 'Tendik Perempuan', count: parseInt(res.data.tendik_pr || 0)}
+                ];
+                
+                let total = parseInt(res.data.total_ptk || 0);
+                $('.count-ptk-modal').text(total);
+                $('.count-ptk').text(total);
+                renderPTKChart('bar');
+            } else {
+                showChartEmpty('chart-ptk', 'Data PTK tidak tersedia untuk cabang ini');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading PTK data:', error);
+            if (xhr.status === 404) {
+                showChartEmpty('chart-ptk', 'Data PTK tidak ditemukan');
+            } else if (xhr.status === 403) {
+                showChartEmpty('chart-ptk', 'Akses ditolak. Hanya admin cabang yang dapat mengakses data ini');
+            } else {
+                showChartError('chart-ptk');
+            }
+        },
+        complete: function() {
+            isLoadingPTK = false;
+        }
+    });
+}
+
+// Load and render PD modal chart
+function loadPDModalChart() {
+    if (isLoadingPD) return;
+
+    isLoadingPD = true;
+    showChartLoading('chart-pd');
+
+    $.ajax({
+        url: "/api/pdcount",
+        type: "GET",
+        dataType: 'json',
+        timeout: 15000,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (res) {
+            if (res && res.success && res.data) {
+                currentPDData = [
+                    {jenjang: 'Laki-laki', count: parseInt(res.data.pd_lk || 0)},
+                    {jenjang: 'Perempuan', count: parseInt(res.data.pd_pr || 0)}
+                ];
+                
+                let total = parseInt(res.data.total_pd || 0);
+                $('.count-pd-modal').text(total);
+                $('.count-pd').text(total);
+                renderPDChart('bar');
+            } else {
+                showChartEmpty('chart-pd', 'Data peserta didik tidak tersedia untuk cabang ini');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading PD data:', error);
+            if (xhr.status === 404) {
+                showChartEmpty('chart-pd', 'Data peserta didik tidak ditemukan');
+            } else if (xhr.status === 403) {
+                showChartEmpty('chart-pd', 'Akses ditolak. Hanya admin cabang yang dapat mengakses data ini');
+            } else {
+                showChartError('chart-pd');
+            }
+        },
+        complete: function() {
+            isLoadingPD = false;
+        }
+    });
+}
+
+// Create preview chart function
+function createPreviewChart(elementId, series, labels, color) {
+    const chart = new ApexCharts(document.querySelector(`#${elementId}`), {
+        color: "#adb5bd",
+        series: series,
+        labels: labels,
+        chart: {
+            width: 60,
+            height: 60,
+            type: "donut",
+            fontFamily: "Plus Jakarta Sans', sans-serif",
+            foreColor: "#adb0bb",
+        },
+        plotOptions: {
+            pie: {
+                startAngle: 0,
+                endAngle: 360,
+                donut: {
+                    size: '70%',
+                },
+            },
+        },
+        stroke: {
+            show: false,
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        legend: {
+            show: false,
+        },
+        colors: [color, "#49BEFF", "#13DEB9", "#FA896B", "#FFAE1F"],
+        tooltip: {
+            enabled: false,
+        },
+    });
+    chart.render();
+}
+
+// Load initial PTK data for preview and counts
+function loadInitialPTKData() {
+    $.ajax({
+        url: "/api/ptkcount",
+        type: "GET",
+        dataType: 'json',
+        timeout: 10000,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (res) {
+            let ptkData = [];
+            let total = 0;
+            
+            if (res && res.success && res.data) {
+                ptkData = [
+                    parseInt(res.data.guru_lk || 0),
+                    parseInt(res.data.guru_pr || 0),
+                    parseInt(res.data.tendik_lk || 0),
+                    parseInt(res.data.tendik_pr || 0)
+                ];
+                let labels = ['Guru L', 'Guru P', 'Tendik L', 'Tendik P'];
+                total = parseInt(res.data.total_ptk || 0);
+                
+                createPreviewChart('ptk-preview', ptkData, labels, '#5D87FF');
+            } else {
+                createPreviewChart('ptk-preview', [1], ['Tidak ada data'], '#5D87FF');
+                total = 0;
+            }
+            
+            $('.count-ptk').text(total);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading initial PTK data:', error);
+            createPreviewChart('ptk-preview', [1], ['Tidak ada data'], '#5D87FF');
+            $('.count-ptk').text('0');
+        }
+    });
+}
+
+// Load initial PD data for preview and counts
+function loadInitialPDData() {
+    $.ajax({
+        url: "/api/pdcount",
+        type: "GET",
+        dataType: 'json',
+        timeout: 10000,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (res) {
+            let pdData = [];
+            let total = 0;
+            
+            if (res && res.success && res.data) {
+                pdData = [
+                    parseInt(res.data.pd_lk || 0),
+                    parseInt(res.data.pd_pr || 0)
+                ];
+                let labels = ['Laki-laki', 'Perempuan'];
+                total = parseInt(res.data.total_pd || 0);
+                
+                createPreviewChart('pd-preview', pdData, labels, '#14A4C6');
+            } else {
+                createPreviewChart('pd-preview', [1], ['Tidak ada data'], '#14A4C6');
+                total = 0;
+            }
+            
+            $('.count-pd').text(total);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading initial PD data:', error);
+            createPreviewChart('pd-preview', [1], ['Tidak ada data'], '#14A4C6');
+            $('.count-pd').text('0');
+        }
+    });
+}
 
 // Load and render Provinsi modal chart
 function loadProvinsiModalChart() {
@@ -954,11 +1477,21 @@ function loadJenjangModalChart() {
     // Prevent duplicate loading
     if (isLoadingJenjang) return;
 
+    const selectedProv = $('#modalChartSelectProvJenjang').val();
+    const selectedCabang = $('#modalChartSelectCabangJenjang').val();
+    
+    let url = "/api/jenjangcount";
+    if (selectedProv && selectedCabang) {
+        url = `/api/jenjangcount/${selectedProv}/${selectedCabang}`;
+    } else if (selectedProv) {
+        url = `/api/jenjangcount/${selectedProv}`;
+    }
+    
     isLoadingJenjang = true;
     showChartLoading('jenjangModalChart');
 
     $.ajax({
-        url: "/api/jenjangcount",
+        url: url,
         type: "GET",
         dataType: 'json',
         timeout: 15000, // 15 second timeout
@@ -976,6 +1509,36 @@ function loadJenjangModalChart() {
         },
         complete: function() {
             isLoadingJenjang = false;
+        }
+    });
+}
+
+// Load cabang options for jenjang chart based on selected province
+function loadCabangOptionsForJenjang() {
+    const selectedProv = $('#modalChartSelectProvJenjang').val();
+    const cabangSelect = $('#modalChartSelectCabangJenjang');
+    
+    // Reset cabang dropdown
+    cabangSelect.html('<option value="">Semua Cabang</option>');
+    
+    if (!selectedProv) {
+        return;
+    }
+    
+    // Load cabang list for selected province
+    $.ajax({
+        url: `/api/pc/${selectedProv}`,
+        type: "GET",
+        dataType: 'json',
+        success: function (res) {
+            if (res && res.length > 0) {
+                res.forEach(function(cabang) {
+                    cabangSelect.append(`<option value="${cabang.id_pc}">${cabang.nama_pc}</option>`);
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error loading cabang options:', error);
         }
     });
 }
@@ -1010,17 +1573,21 @@ function renderProvinsiChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#5D87FF'],
+            colors: ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Provinsi`,
@@ -1051,7 +1618,7 @@ function renderProvinsiChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#5D87FF'],
+            colors: ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
@@ -1110,17 +1677,21 @@ function renderKabupatenChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Kabupaten`,
@@ -1151,7 +1722,7 @@ function renderKabupatenChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
@@ -1211,17 +1782,21 @@ function renderCabangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Pengurus Cabang`,
@@ -1252,7 +1827,7 @@ function renderCabangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#14A4C6'],
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
@@ -1312,17 +1887,21 @@ function renderJenjangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#13DEB9'],
+            colors: ['#13DEB9', '#49BEFF', '#5D87FF', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             plotOptions: {
                 bar: {
                     borderRadius: 8,
                     columnWidth: '60%',
-                    horizontal: false
+                    horizontal: false,
+                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: true,
                 style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
             },
             title: {
                 text: `Data Satpen per Jenjang Pendidikan`,
@@ -1353,7 +1932,7 @@ function renderJenjangChart(type) {
                     style: { fontSize: '12px' }
                 }
             },
-            colors: ['#13DEB9'],
+            colors: ['#13DEB9', '#49BEFF', '#5D87FF', '#FFAE1F', '#FA896B', '#539BFF', '#FF9F43', '#7367F0', '#28C76F', '#EA5455', '#00CFE8', '#FFC107', '#6F42C1', '#E91E63', '#FF5722', '#795548', '#607D8B', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'],
             stroke: {
                 width: 4,
                 curve: 'smooth'
@@ -1380,6 +1959,264 @@ function renderJenjangChart(type) {
 
     jenjangModalChart = new ApexCharts(document.querySelector("#jenjangModalChart"), chartConfig);
     jenjangModalChart.render();
+    $('.chart-loading').remove();
+}
+
+// Render PTK chart
+function renderPTKChart(type) {
+    if (ptkModalChart) ptkModalChart.destroy();
+
+    if (!currentPTKData || currentPTKData.length === 0) {
+        showChartEmpty('chart-ptk', 'Data PTK tidak tersedia');
+        return;
+    }
+
+    let chartConfig = {};
+
+    if (type === 'bar') {
+        chartConfig = {
+            chart: {
+                type: 'bar',
+                height: 400,
+                fontFamily: "Plus Jakarta Sans, sans-serif",
+                toolbar: { show: true }
+            },
+            series: [{
+                name: 'Jumlah PTK',
+                data: currentPTKData.map(item => item.count)
+            }],
+            xaxis: {
+                categories: currentPTKData.map(item => item.jabatan),
+                labels: {
+                    rotate: -45,
+                    style: { fontSize: '12px' }
+                }
+            },
+            colors: ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F'],
+            plotOptions: {
+                bar: {
+                    borderRadius: 8,
+                    columnWidth: '60%',
+                    horizontal: false,
+                    distributed: true
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                style: { fontSize: '10px' }
+            },
+            legend: {
+                show: false
+            },
+            title: {
+                text: `Data Pendidik & Tenaga Kependidikan`,
+                align: 'center',
+                style: { fontSize: '18px', fontWeight: 'bold' }
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 }
+            }
+        };
+    } else if (type === 'pie') {
+        chartConfig = {
+            chart: {
+                type: 'pie',
+                height: 400,
+                fontFamily: "Plus Jakarta Sans, sans-serif",
+                toolbar: { show: true }
+            },
+            series: currentPTKData.map(item => item.count),
+            labels: currentPTKData.map(item => item.jabatan),
+            colors: ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F'],
+            dataLabels: {
+                enabled: true,
+                style: { fontSize: '12px' }
+            },
+            legend: {
+                show: true,
+                position: 'bottom'
+            },
+            title: {
+                text: `Data Pendidik & Tenaga Kependidikan`,
+                align: 'center',
+                style: { fontSize: '18px', fontWeight: 'bold' }
+            }
+        };
+    } else {
+        chartConfig = {
+            chart: {
+                type: 'line',
+                height: 400,
+                fontFamily: "Plus Jakarta Sans, sans-serif",
+                toolbar: { show: true }
+            },
+            series: [{
+                name: 'Jumlah PTK',
+                data: currentPTKData.map(item => item.count)
+            }],
+            xaxis: {
+                categories: currentPTKData.map(item => item.jabatan),
+                labels: {
+                    rotate: -45,
+                    style: { fontSize: '12px' }
+                }
+            },
+            colors: ['#5D87FF'],
+            stroke: {
+                width: 4,
+                curve: 'smooth'
+            },
+            markers: {
+                size: 6,
+                hover: { size: 8 }
+            },
+            dataLabels: {
+                enabled: true,
+                style: { fontSize: '10px' }
+            },
+            title: {
+                text: `Data Pendidik & Tenaga Kependidikan`,
+                align: 'center',
+                style: { fontSize: '18px', fontWeight: 'bold' }
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 }
+            }
+        };
+    }
+
+    ptkModalChart = new ApexCharts(document.querySelector("#chart-ptk"), chartConfig);
+    ptkModalChart.render();
+    $('.chart-loading').remove();
+}
+
+// Render PD chart
+function renderPDChart(type) {
+    if (pdModalChart) pdModalChart.destroy();
+
+    if (!currentPDData || currentPDData.length === 0) {
+        showChartEmpty('chart-pd', 'Data peserta didik tidak tersedia');
+        return;
+    }
+
+    let chartConfig = {};
+
+    if (type === 'bar') {
+        chartConfig = {
+            chart: {
+                type: 'bar',
+                height: 400,
+                fontFamily: "Plus Jakarta Sans, sans-serif",
+                toolbar: { show: true }
+            },
+            series: [{
+                name: 'Jumlah Peserta Didik',
+                data: currentPDData.map(item => item.count)
+            }],
+            xaxis: {
+                categories: currentPDData.map(item => item.jenjang),
+                labels: {
+                    style: { fontSize: '12px' }
+                }
+            },
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FA896B', '#FFAE1F'],
+            plotOptions: {
+                bar: {
+                    borderRadius: 8,
+                    columnWidth: '60%',
+                    horizontal: false,
+                    distributed: true
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                style: { fontSize: '12px' }
+            },
+            legend: {
+                show: false
+            },
+            title: {
+                text: `Data Peserta Didik per Jenis Kelamin`,
+                align: 'center',
+                style: { fontSize: '18px', fontWeight: 'bold' }
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 }
+            }
+        };
+    } else if (type === 'pie') {
+        chartConfig = {
+            chart: {
+                type: 'pie',
+                height: 400,
+                fontFamily: "Plus Jakarta Sans, sans-serif",
+                toolbar: { show: true }
+            },
+            series: currentPDData.map(item => item.count),
+            labels: currentPDData.map(item => item.jenjang),
+            colors: ['#14A4C6', '#49BEFF', '#13DEB9', '#FA896B', '#FFAE1F'],
+            dataLabels: {
+                enabled: true,
+                style: { fontSize: '12px' }
+            },
+            legend: {
+                show: true,
+                position: 'bottom'
+            },
+            title: {
+                text: `Data Peserta Didik per Jenis Kelamin`,
+                align: 'center',
+                style: { fontSize: '18px', fontWeight: 'bold' }
+            }
+        };
+    } else {
+        chartConfig = {
+            chart: {
+                type: 'line',
+                height: 400,
+                fontFamily: "Plus Jakarta Sans, sans-serif",
+                toolbar: { show: true }
+            },
+            series: [{
+                name: 'Jumlah Peserta Didik',
+                data: currentPDData.map(item => item.count)
+            }],
+            xaxis: {
+                categories: currentPDData.map(item => item.jenjang), // Updated to use jenjang
+                labels: {
+                    style: { fontSize: '12px' }
+                }
+            },
+            colors: ['#14A4C6'],
+            stroke: {
+                width: 4,
+                curve: 'smooth'
+            },
+            markers: {
+                size: 6,
+                hover: { size: 8 }
+            },
+            dataLabels: {
+                enabled: true,
+                style: { fontSize: '12px' }
+            },
+            title: {
+                text: `Data Peserta Didik per Jenis Kelamin`,
+                align: 'center',
+                style: { fontSize: '18px', fontWeight: 'bold' }
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 }
+            }
+        };
+    }
+
+    pdModalChart = new ApexCharts(document.querySelector("#chart-pd"), chartConfig);
+    pdModalChart.render();
     $('.chart-loading').remove();
 }
 
@@ -1425,14 +2262,18 @@ function showChartError(chartId) {
 }
 
 function showChartEmpty(chartId, message) {
-    document.getElementById(chartId).innerHTML = `
-        <div class="chart-loading">
-            <div class="text-center text-muted">
-                <i class="ti ti-chart-bar fs-1"></i>
-                <p>${message}</p>
+    const element = document.getElementById(chartId);
+    if (element) {
+        element.innerHTML = `
+            <div class="chart-loading">
+                <div class="text-center text-muted">
+                    <i class="ti ti-chart-bar fs-1"></i>
+                    <p>${message}</p>
+                    <small class="text-muted">Tidak ada data untuk ditampilkan</small>
+                </div>
             </div>
-        </div>
-    `;
+        `;
+    }
 }
 
 // Retry loading chart function
@@ -1454,6 +2295,14 @@ function retryLoadChart(chartId) {
             isLoadingJenjang = false;
             loadJenjangModalChart();
             break;
+        case 'chart-ptk':
+            isLoadingPTK = false;
+            loadPTKModalChart();
+            break;
+        case 'chart-pd':
+            isLoadingPD = false;
+            loadPDModalChart();
+            break;
     }
 }
 
@@ -1474,6 +2323,12 @@ function exportChart(chartId) {
         case 'jenjangModalChart':
             chart = jenjangModalChart;
             break;
+        case 'chart-ptk':
+            chart = ptkModalChart;
+            break;
+        case 'chart-pd':
+            chart = pdModalChart;
+            break;
         default:
             return;
     }
@@ -1492,6 +2347,26 @@ function exportChart(chartId) {
     } else {
         alert('Chart belum dimuat. Silakan tunggu sebentar dan coba lagi.');
     }
+}
+
+// Refresh PTK data
+function refreshPTKData() {
+    isLoadingPTK = false;
+    currentPTKData = [];
+    loadPTKModalChart();
+    
+    // Also refresh preview and count
+    loadInitialPTKData();
+}
+
+// Refresh PD data  
+function refreshPDData() {
+    isLoadingPD = false;
+    currentPDData = [];
+    loadPDModalChart();
+    
+    // Also refresh preview and count
+    loadInitialPDData();
 }
 </script>
 @endsection

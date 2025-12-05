@@ -175,7 +175,7 @@ class PTKController extends Controller
                 'nomor_surat_tugas' => 'required|string|max:255',
                 'tanggal_surat_tugas' => 'required|date',
                 'tmt_tugas' => 'required|date',
-                'upload_sk' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120'
+                'upload_sk' => 'required|file|mimes:pdf|max:1024'
             ], [
                 'nik.required' => 'NIK harus diisi',
                 'nik.size' => 'NIK harus terdiri dari 16 digit',
@@ -183,8 +183,8 @@ class PTKController extends Controller
                 'nama_ptk.required' => 'Nama PTK harus diisi',
                 'email.unique' => 'Email sudah terdaftar',
                 'upload_sk.required' => 'File SK harus diupload',
-                'upload_sk.mimes' => 'Format file harus PDF, JPG, JPEG, atau PNG',
-                'upload_sk.max' => 'Ukuran file maksimal 5MB'
+                'upload_sk.mimes' => 'Format file harus PDF',
+                'upload_sk.max' => 'Ukuran file maksimal 1MB'
             ]);
 
             if ($validator->fails()) {

@@ -253,8 +253,7 @@
 
 /* Modern Status Table */
 .modern-status-table {
-  max-height: 400px;
-  overflow-y: auto;
+  width: 100%;
 }
 
 .status-item {
@@ -323,9 +322,6 @@
 /* DataTable pagination styling */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   border-radius: 20px !important;
-  margin: 0 2px !important;
-  padding: 0.375rem 0.75rem !important;
-  border: 1px solid rgba(93, 135, 255, 0.2) !important;
   background: linear-gradient(135deg, #ffffff, #f8f9fa) !important;
   color: #5D87FF !important;
   transition: all 0.3s ease !important;

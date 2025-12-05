@@ -565,6 +565,21 @@
                 loadModalChart('pd', 'bar');
             });
 
+            // Clean up charts when modals are hidden
+            $('#modalDataPTKChart').on('hidden.bs.modal', function () {
+                if (window.chart_ptk) {
+                    window.chart_ptk.destroy();
+                    delete window.chart_ptk;
+                }
+            });
+
+            $('#modalDataPDChart').on('hidden.bs.modal', function () {
+                if (window.chart_pd) {
+                    window.chart_pd.destroy();
+                    delete window.chart_pd;
+                }
+            });
+
             // Chart Type Buttons
             $('.chart-type-btn').on('click', function() {
                 const target = $(this).data('target');
@@ -634,8 +649,14 @@
             errorDiv.hide();
             chartDiv.show();
 
-            // Clear existing chart
+            // Clear existing chart completely
             chartContainer.html('');
+            
+            // Destroy any existing ApexCharts instance
+            if (window[`chart_${target}`]) {
+                window[`chart_${target}`].destroy();
+                delete window[`chart_${target}`];
+            }
 
             setTimeout(() => {
                 try {
@@ -696,8 +717,10 @@
                     }
 
                     chartConfig = getChartConfig(chartType, chartData, target);
-                    const chart = new ApexCharts(document.querySelector(`#chart-${target}`), chartConfig);
-                    chart.render();
+                    
+                    // Create new chart instance and store it globally
+                    window[`chart_${target}`] = new ApexCharts(document.querySelector(`#chart-${target}`), chartConfig);
+                    window[`chart_${target}`].render();
 
                     loadingDiv.hide();
                 } catch (error) {
@@ -719,6 +742,9 @@
                     fontFamily: "Plus Jakarta Sans', sans-serif",
                     foreColor: "#adb0bb",
                     height: 400,
+                    toolbar: {
+                        show: true
+                    }
                 },
                 colors: colors,
                 dataLabels: {
@@ -728,6 +754,9 @@
                     show: true,
                     position: 'bottom',
                 },
+                tooltip: {
+                    enabled: true
+                }
             };
 
             switch (type) {
@@ -739,6 +768,7 @@
                             type: 'bar',
                         },
                         series: [{
+                            name: target === 'ptk' ? 'Jumlah PTK' : 'Jumlah Peserta Didik',
                             data: data.series
                         }],
                         xaxis: {
@@ -748,6 +778,7 @@
                             bar: {
                                 borderRadius: 4,
                                 horizontal: false,
+                                distributed: true
                             }
                         }
                     };
@@ -761,6 +792,24 @@
                         },
                         series: data.series,
                         labels: data.labels,
+                        plotOptions: {
+                            pie: {
+                                donut: {
+                                    size: '0%'
+                                }
+                            }
+                        },
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                chart: {
+                                    width: 200
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }]
                     };
 
                 case 'line':
@@ -771,6 +820,7 @@
                             type: 'line',
                         },
                         series: [{
+                            name: target === 'ptk' ? 'Jumlah PTK' : 'Jumlah Peserta Didik',
                             data: data.series
                         }],
                         xaxis: {
@@ -779,6 +829,12 @@
                         stroke: {
                             curve: 'smooth',
                             width: 3
+                        },
+                        markers: {
+                            size: 6,
+                            hover: {
+                                size: 8
+                            }
                         }
                     };
 

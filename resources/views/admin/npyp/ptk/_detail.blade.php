@@ -92,10 +92,28 @@
                 <!-- Address Information -->
                 <div class="alert alert-light mt-3">
                     <h6><i class="ti ti-map-pin me-2"></i>Alamat</h6>
-                    <p class="mb-0">{{ $ptk->alamat }}</p>
-                    <small class="text-muted">
-                        {{ $ptk->desa_kelurahan }}, {{ $ptk->kecamatan }}, {{ $ptk->kabupaten_kota }} - {{ $ptk->kode_pos }}
-                    </small>
+                    <table class="table table-borderless table-sm mb-0">
+                        <tr>
+                            <td class="fw-bold" style="width: 30%;">Alamat</td>
+                            <td>: {{ $ptk->alamat }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Kelurahan/Desa</td>
+                            <td>: {{ $ptk->desa_kelurahan }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Kecamatan</td>
+                            <td>: {{ $ptk->kecamatan }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Kabupaten/Kota</td>
+                            <td>: {{ $ptk->kabupaten_kota }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Kode Pos</td>
+                            <td>: {{ $ptk->kode_pos }}</td>
+                        </tr>
+                    </table>
                 </div>
 
                 <!-- Work Assignment Information -->
@@ -114,6 +132,14 @@
                             <td class="fw-bold">TMT Tugas</td>
                             <td>: {{ \Carbon\Carbon::parse($ptk->tmt_tugas)->format('d F Y') }}</td>
                         </tr>
+                        @if($ptk->upload_sk)
+                        <tr>
+                            <td class="fw-bold">Dokumen SK Penugasan</td>
+                            <td>: <a href="{{ route('ptk.file', $ptk->upload_sk) }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="ti ti-download me-1"></i>Lihat Dokumen
+                            </a></td>
+                        </tr>
+                        @endif
                     </table>
                 </div>
 
@@ -175,16 +201,6 @@
                 <div class="alert alert-info mt-3">
                     <h6><i class="ti ti-note me-2"></i>Catatan Admin</h6>
                     <p class="mb-0">{{ $ptk->catatan_verifikator }}</p>
-                </div>
-                @endif
-
-                <!-- Document Link -->
-                @if($ptk->upload_sk)
-                <div class="alert alert-primary mt-3">
-                    <h6><i class="ti ti-file-text me-2"></i>Dokumen SK Pengugasan</h6>
-                    <a href="{{ route('ptk.file', $ptk->upload_sk) }}" target="_blank" class="btn btn-outline-primary btn-sm">
-                        <i class="ti ti-download me-1"></i>Lihat Dokumen
-                    </a>
                 </div>
                 @endif
             </div>

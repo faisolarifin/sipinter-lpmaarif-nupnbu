@@ -36,6 +36,21 @@
     color: white;
     border-color: #0d6efd;
 }
+
+/* Improved table padding */
+#ptkTable tbody td {
+    padding: 15px 12px !important;
+    vertical-align: middle;
+}
+#ptkTable thead th {
+    padding: 18px 12px !important;
+    vertical-align: middle;
+}
+
+/* Remove table and card shadows */
+.table, .card {
+    box-shadow: none !important;
+}
 </style>
 @endsection
 
@@ -54,37 +69,10 @@
 
             @include('template.alert')
 
-            <!-- Header Information -->
-            <div class="card w-100 mb-4">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h4 class="card-title fw-bold text-primary mb-2">
-                                <i class="ti ti-users-group me-2"></i>REKAP PTK NASIONAL
-                            </h4>
-                            <p class="text-muted mb-0">
-                                Halaman ini menampilkan rekapitulasi data Pendidik dan Tenaga Kependidikan (PTK) secara nasional. 
-                                Data yang ditampilkan merupakan agregasi dari seluruh wilayah dan cabang yang terdaftar dalam sistem NPYP. 
-                                Informasi ini membantu dalam monitoring dan evaluasi penyebaran PTK di seluruh Indonesia.
-                            </p>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <div class="bg-light-primary p-3 rounded">
-                                <h6 class="text-primary mb-1">Total PTK</h6>
-                                <h4 class="text-primary mb-0">
-                                    <i class="ti ti-users"></i> {{ number_format($totalPtk ?? 0) }}
-                                </h4>
-                                <small class="text-muted">PTK Terdaftar</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Statistics Cards -->
             <div class="row mb-2">
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="bg-light-success p-3 rounded me-3">
@@ -99,7 +87,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="bg-light-warning p-3 rounded me-3">
@@ -114,7 +102,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="bg-light-danger p-3 rounded me-3">
@@ -129,7 +117,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="bg-light-info p-3 rounded me-3">
@@ -157,43 +145,6 @@
                 </div>
                 <div class="card-body" id="filterSection">
                     <form id="filterForm">
-                        <!-- Search Section -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Pencarian</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="ti ti-search"></i>
-                                    </span>
-                                    <input type="text" class="form-control" name="search" id="search"
-                                           placeholder="Cari nama PTK, NIK, nama satpen, atau no registrasi..."
-                                           value="{{ request('search') }}">
-                                    <button type="button" class="btn btn-outline-secondary" id="clearSearch">
-                                        <i class="ti ti-x"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Items per page</label>
-                                <select class="form-control selectpicker" name="per_page" id="per_page">
-                                    <option value="10" {{ request('per_page') == '10' ? 'selected' : '' }}>10</option>
-                                    <option value="25" {{ request('per_page') == '25' ? 'selected' : '' }}>25</option>
-                                    <option value="50" {{ request('per_page') == '50' ? 'selected' : '' }}>50</option>
-                                    <option value="100" {{ request('per_page') == '100' ? 'selected' : '' }}>100</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">&nbsp;</label>
-                                <div class="d-grid">
-                                    <button type="button" class="btn btn-primary" id="searchBtn">
-                                        <i class="ti ti-search me-1"></i>Cari
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="my-3">
-
                         <!-- Filter Section -->
                         <div class="row">
                             <div class="col-md-3 mb-3">
@@ -251,9 +202,6 @@
                                 <button type="button" class="btn btn-outline-secondary me-2" id="resetBtn">
                                     <i class="ti ti-refresh me-1"></i>Reset Semua
                                 </button>
-                                <button type="button" class="btn btn-success" id="exportBtn">
-                                    <i class="ti ti-download me-1"></i>Export Excel
-                                </button>
                             </div>
                         </div>
                     </form>
@@ -267,30 +215,51 @@
                         <i class="ti ti-table me-2"></i>Data Rekap PTK Nasional
                     </h5>
                 </div>
+
+
                 <div class="card-body">
-                    <!-- Data Summary -->
-                    @if(isset($ptkData) && $ptkData->count() > 0)
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-muted">
-                                        Menampilkan {{ number_format($ptkData->firstItem()) }} - {{ number_format($ptkData->lastItem()) }}
-                                        dari {{ number_format($ptkData->total()) }} total data PTK
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                @if(request()->hasAny(['search', 'provinsi_id', 'cabang_id', 'status_pengajuan', 'jenis_ptk']))
-                                    <span class="badge bg-light-info text-info">
-                                        <i class="ti ti-filter-filled me-1"></i>Filter aktif
-                                    </span>
-                                @endif
+                    <div class="row align-items-center mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label mb-2">Pencarian Cepat</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="ti ti-search"></i>
+                                </span>
+                                <input type="text" class="form-control" name="quick_search" id="quick_search"
+                                       placeholder="Cari nama PTK, NIK, atau satpen..."
+                                       value="{{ request('search') }}">
+                                <button type="button" class="btn btn-outline-secondary" id="clearQuickSearch">
+                                    <i class="ti ti-x"></i>
+                                </button>
                             </div>
                         </div>
-                    @endif
+                        <div class="col-md-2">
+                            <label class="form-label mb-2">Items per page</label>
+                            <select class="form-control" name="quick_per_page" id="quick_per_page">
+                                <option value="10" {{ request('per_page') == '10' ? 'selected' : '' }}>10</option>
+                                <option value="25" {{ request('per_page') == '25' ? 'selected' : '' }}>25</option>
+                                <option value="50" {{ request('per_page') == '50' ? 'selected' : '' }}>50</option>
+                                <option value="100" {{ request('per_page') == '100' ? 'selected' : '' }}>100</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <label class="form-label mb-2">&nbsp;</label>
+                            <div class="d-flex gap-2 justify-content-end">
+                                <button type="button" class="btn btn-outline-primary" id="quickSearchBtn">
+                                    <i class="ti ti-search me-1"></i>Cari
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="quickResetBtn">
+                                    <i class="ti ti-refresh me-1"></i>Reset
+                                </button>
+                                <button type="button" class="btn btn-success" id="quickExportBtn">
+                                    <i class="ti ti-download me-1"></i>Export Excel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="ptkTable">
+                        <table class="table table-hover" id="ptkTable">
                             <thead class="table-dark">
                                 <tr>
                                     <th width="5%">No.</th>
@@ -325,7 +294,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <i class="ti ti-building-store me-2 text-muted"></i>
                                             <div>
                                                 <span class="fw-semibold">{{ $ptk->satpen->nm_satpen ?? '-' }}</span>
                                                 <br><small class="text-muted">{{ $ptk->satpen->jenjang->nm_jenjang ?? '-' }}</small>
@@ -516,12 +484,113 @@ $(document).ready(function() {
         performSearch();
     });
 
+    // Quick search functionality
+    $('#quickSearchBtn').click(function(e) {
+        e.preventDefault();
+        performQuickSearch();
+    });
+
+    $('#quick_search').keypress(function(e) {
+        if (e.which === 13) {
+            performQuickSearch();
+        }
+    });
+
+    // Clear quick search
+    $('#clearQuickSearch').click(function(e) {
+        e.preventDefault();
+        $('#quick_search').val('');
+        performQuickSearch();
+    });
+
+    // Quick per page change
+    $('#quick_per_page').change(function() {
+        applyQuickFilters();
+    });
+
+    // Quick reset
+    $('#quickResetBtn').click(function(e) {
+        e.preventDefault();
+        window.location.href = '{{ route("a.npyp.rekap-ptk") }}';
+    });
+
+    // Quick export
+    $('#quickExportBtn').click(function(e) {
+        e.preventDefault();
+        let filters = {
+            search: $('#quick_search').val(),
+            per_page: $('#quick_per_page').val(),
+            export: 'excel'
+        };
+
+        // Remove empty values
+        Object.keys(filters).forEach(key => {
+            if (!filters[key] && key !== 'export') {
+                delete filters[key];
+            }
+        });
+
+        let queryString = $.param(filters);
+        let url = '{{ route("a.npyp.rekap-ptk") }}';
+        if (queryString) {
+            url += '?' + queryString;
+        }
+        window.open(url, '_blank');
+    });
+
+    function performQuickSearch() {
+        let searchValue = $('#quick_search').val();
+
+        let currentUrl = new URL(window.location.href);
+
+        if (searchValue.trim()) {
+            currentUrl.searchParams.set('search', searchValue.trim());
+        } else {
+            currentUrl.searchParams.delete('search');
+        }
+
+        // Reset to page 1 when searching
+        currentUrl.searchParams.delete('page');
+
+        window.location.href = currentUrl.toString();
+    }
+
+    function applyQuickFilters() {
+        let filters = {
+            search: $('#quick_search').val(),
+            per_page: $('#quick_per_page').val()
+        };
+
+        // Remove empty values
+        Object.keys(filters).forEach(key => {
+            if (!filters[key]) {
+                delete filters[key];
+            }
+        });
+
+        let queryString = $.param(filters);
+        let url = '{{ route("a.npyp.rekap-ptk") }}';
+        if (queryString) {
+            url += '?' + queryString;
+        }
+        window.location.href = url;
+    }
+
     // Auto-search with debounce
     let searchTimeout;
     $('#search').on('input', function() {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(function() {
             performSearch();
+        }, 1000); // Wait 1 second after user stops typing
+    });
+
+    // Auto-search for quick search
+    let quickSearchTimeout;
+    $('#quick_search').on('input', function() {
+        clearTimeout(quickSearchTimeout);
+        quickSearchTimeout = setTimeout(function() {
+            performQuickSearch();
         }, 1000); // Wait 1 second after user stops typing
     });
 
@@ -715,7 +784,7 @@ function showModalError(message) {
         <div class="d-flex align-items-center justify-content-center min-vh-50">
             <div class="text-center">
                 <div class="mb-4">
-                    <div class="bg-gradient-danger rounded-circle p-4 d-inline-block shadow-lg" style="background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);">
+                    <div class="bg-gradient-danger rounded-circle p-4 d-inline-block" style="background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);">
                         <i class="ti ti-alert-triangle text-white" style="font-size: 3rem;"></i>
                     </div>
                 </div>

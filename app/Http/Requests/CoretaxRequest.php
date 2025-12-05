@@ -23,11 +23,14 @@ class CoretaxRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isEditing = $this->isMethod('put') || $this->isMethod('patch') || $this->has('id');
+
         return [
             'nitku' => 'nullable|string|max:255',
             'nm_pic' => 'required|string|max:100',
             'nik_pic' => 'required|string|max:20',
             'whatsapp_pic' => 'required|string|max:20',
+            'npwp_lama' => ($isEditing ? 'nullable' : 'required') . '|file|mimes:pdf|max:512',
         ];
     }
 

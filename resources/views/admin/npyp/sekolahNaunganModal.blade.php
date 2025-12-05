@@ -13,24 +13,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <!-- Information Alert -->
-                <div class="alert alert-info d-flex align-items-start mb-4" role="alert">
-                    <i class="ti ti-info-circle me-2 mt-1"></i>
-                    <div>
-                        <h6 class="alert-heading mb-1">Petunjuk Penggunaan</h6>
-                        <p class="mb-1">
-                            <strong>1.</strong> Gunakan fitur pencarian untuk menemukan sekolah yang diinginkan<br>
-                            <strong>2.</strong> Centang kotak di sebelah kiri untuk memilih sekolah<br>
-                            <strong>3.</strong> Anda dapat memilih beberapa sekolah sekaligus untuk efisiensi<br>
-                            <strong>4.</strong> Klik "Tambah Sekolah Terpilih" untuk menyimpan pilihan
-                        </p>
-                        <small class="text-muted">
-                            <i class="ti ti-bulb me-1"></i>
-                            <strong>Tips:</strong> Gunakan checkbox "Select All" untuk memilih semua sekolah yang tampil
-                        </small>
-                    </div>
-                </div>
-
                 <!-- Search Section -->
                 <div class="card border-0 bg-light mb-4">
                     <div class="card-body p-3">
@@ -83,19 +65,19 @@
                                             </div>
                                         </th>
                                         <th width="12%">
-                                            <i class="ti ti-id me-1"></i>No Registrasi
+                                            No Registrasi
                                         </th>
                                         <th width="30%">
-                                            <i class="ti ti-school me-1"></i>Nama Sekolah
+                                            Nama Sekolah
                                         </th>
                                         <th width="8%">
-                                            <i class="ti ti-category me-1"></i>Jenjang
+                                            Jenjang
                                         </th>
                                         <th width="22%">
-                                            <i class="ti ti-map-pin me-1"></i>Provinsi
+                                            Provinsi
                                         </th>
                                         <th width="23%">
-                                            <i class="ti ti-map-2 me-1"></i>Kabupaten
+                                            Kabupaten
                                         </th>
                                     </tr>
                                 </thead>
@@ -154,12 +136,6 @@
             </div>
             <div class="modal-footer bg-light">
                 <div class="d-flex w-100 justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <i class="ti ti-info-circle text-muted me-2"></i>
-                        <small class="text-muted">
-                            Pastikan pilihan sekolah sudah sesuai sebelum menyimpan
-                        </small>
-                    </div>
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-light border" data-bs-dismiss="modal">
                             <i class="ti ti-x me-1"></i>Batal

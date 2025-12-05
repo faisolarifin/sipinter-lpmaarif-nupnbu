@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    ApiController,
     AuthController,
     BHPNUController,
     CoretaxController,
@@ -37,6 +36,7 @@ use App\Http\Controllers\Master\{
     DapoController,
     TahunPelajaranController
 };
+use App\Http\Controllers\Api\{ApiController, DashboardApiController};
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +78,7 @@ Route::middleware('mustlogin')->group(function () {
         Route::get('/req-expiry', [CoretaxController::class, 'openExpiry'])->name('coretax.req-exipry');
         Route::get('/history', [CoretaxController::class, 'history'])->name('coretax.history');
         Route::put('/{coretax}', [CoretaxController::class, 'stored'])->name('coretax.save');
+        Route::get('/file/{fileName?}', [FileViewerController::class, 'viewNpwpLama'])->name('coretax.file');
     });
 
     Route::middleware('onlyoperator')->group(function () {
@@ -266,10 +267,10 @@ Route::middleware('mustlogin')->group(function () {
                 Route::delete('/destroy/{bhpnu}', [BHPNUControllerAdmin::class, 'destroyBHPNU'])->name('a.bhpnu.destroy')->middleware('superadmin');
                 Route::get('/file/{fileName?}', [FileViewerController::class, 'viewBuktiPembayaran'])->name('a.bhpnu.file')->withoutMiddleware('primaryadmin');
             });
-
+            
             /**
              * CORETAX
-             */
+            */
             Route::group(["prefix" => "coretax"], function () {
                 Route::get('/', [CoretaxAdminController::class, 'index'])->name('a.coretax')->withoutMiddleware('primaryadmin');
                 Route::get('/{coretaxId}', [CoretaxAdminController::class, 'getById'])->name('a.coretax.byid');
@@ -278,6 +279,7 @@ Route::middleware('mustlogin')->group(function () {
                 Route::put('/appear/{coretax}', [CoretaxAdminController::class, 'appeared'])->name('a.coretax.appear');
                 Route::put('/reject/{coretax}', [CoretaxAdminController::class, 'rejected'])->name('a.coretax.reject');
                 Route::delete('/destroy/{coretax}', [CoretaxAdminController::class, 'destroy'])->name('a.coretax.destroy')->middleware('superadmin');
+                Route::get('/file/{fileName?}', [FileViewerController::class, 'viewNpwpLama'])->name('a.coretax.file')->withoutMiddleware('primaryadmin');
             });
 
             /**
@@ -308,6 +310,7 @@ Route::middleware('mustlogin')->group(function () {
                     Route::get('/wilayah', [NpypController::class, 'indexNpypWilayah'])->name('a.npyp.wilayah');
                     Route::get('/cabang', [NpypController::class, 'indexNpypCabang'])->name('a.npyp.cabang');
                     Route::get('/cabang/data', [NpypController::class, 'getNpypCabangData'])->name('a.npyp.cabang.data');
+                    Route::get('/satpen/{npypId}', [NpypController::class, 'getSatpenByNpyp'])->name('a.npyp.satpen-detail');
                     
                     // Admin PTK Verification Routes
                     Route::prefix('ptk')->group(function () {
@@ -321,7 +324,7 @@ Route::middleware('mustlogin')->group(function () {
                 Route::get('/wilayah/data', [NpypController::class, 'getNpypWilayahData'])->name('a.npyp.wilayah.data');
                 Route::get('/rekap-ptk', [NpypController::class, 'rekapPtkNasional'])->name('a.npyp.rekap-ptk');
                 Route::get('/rekap-ptk/{id}/detail', [NpypController::class, 'getPtkDetail'])->name('a.npyp.ptk-detail');
-                Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file');
+                Route::get('/file/{path?}/{fileName?}', [FileViewerController::class, 'viewSkPtk'])->name('ptk.file')->withoutMiddleware('primaryadmin');
             });
 
             Route::group(["prefix" => "bantuan"], function () {
@@ -348,8 +351,13 @@ Route::middleware('mustlogin')->group(function () {
         Route::get('/pc/{provId}', [ApiController::class, 'getPCByProv'])->name('api.pcbyprov')->withoutMiddleware(["onlyadmin", "mustlogin"]);
         Route::get('/kabcount/{provId?}', [ApiController::class, 'getKabAndCount'])->name('api.kabcount');
         Route::get('/pccount', [ApiController::class, 'getPCAndCount'])->name('api.pccount');
-        Route::get('/jenjangcount', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
+        Route::get('/jenjangcount/{provId?}', [ApiController::class, 'getJenjangAndCount'])->name('api.jenjangcount');
+        Route::get('/jenjangcount/{provId}/{cabangId}', [ApiController::class, 'getJenjangAndCountByCabang'])->name('api.jenjangcountbycabang');
         Route::get('/kabupaten', [ApiController::class, 'getKabupatenByProvinsi'])->name('api.kabupaten');
+        
+        // Dashboard API untuk Admin Cabang  
+        Route::get('/ptkcount', [DashboardApiController::class, 'getPTKCount'])->name('api.ptk.count');
+        Route::get('/pdcount', [DashboardApiController::class, 'getPDCount'])->name('api.pd.count');
     });
 });
 
