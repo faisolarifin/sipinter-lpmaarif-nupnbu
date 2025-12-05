@@ -1009,12 +1009,7 @@ function generatePTKDetailHTML(ptk, history) {
                                                 <span class="badge ${ptk.lisensi_kepala_sekolah === 'Sudah' ? 'bg-success' : 'bg-secondary'}">${ptk.lisensi_kepala_sekolah || '-'}</span>
                                             </p>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label fw-bold text-warning">
-                                                <i class="ti ti-file-certificate me-1"></i>No. SK Keluar
-                                            </label>
-                                            <p class="form-control-plaintext border-bottom">${ptk.nomor_sk_keluar || '-'}</p>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
