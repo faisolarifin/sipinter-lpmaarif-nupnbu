@@ -62,8 +62,7 @@
                                     $expiryDate = \Carbon\Carbon::parse($coretax->tgl_expiry);
                                 @endphp
 
-                                @if (($expiryDate->isToday() || $expiryDate->isPast()) 
-                                        && $coretax->new_request != null)
+                                @if (($expiryDate->isToday() || $expiryDate->isPast()) && $coretax->new_request != null)
                                     <div class="alert alert-warning">Anda sudah bisa mengajukan permohonan coretax baru.
                                         Permohonan sebelumnya telah sampai pada tanggal kadaluarsa.</div>
                                 @elseif ($coretax->new_request == 1)
@@ -132,13 +131,33 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="nik_pic" class="form-label required">Upload NPWP Lama
+                                                            atas nama Sekolah/Lembaga
+                                                        </label>
+                                                        <input type="file"
+                                                            class="form-control  @error('npwp_lama') is-invalid @enderror"
+                                                            id="npwp_lama" name="npwp_lama" accept=".pdf"
+                                                            value="{{ old('npwp_lama') }}">
+                                                        <div class="invalid-feedback">
+                                                            @error('npwp_lama')
+                                                                {{ $message }}
+                                                            @enderror
+                                                        </div>
+                                                        <strong class="text-secondary">*format file pdf, ukuran maksimal
+                                                            500kb</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-12 col-sm-6">
                                                     <div class="mb-3">
                                                         <label for="nm_pic" class="form-label required">Nama PIC</label>
                                                         <input type="text"
                                                             class="form-control  @error('nm_pic') is-invalid @enderror"
-                                                            id="nm_pic" name="nm_pic" value="{{ $coretax->nama_pic }}"
-                                                            placeholder="Nama PIC">
+                                                            id="nm_pic" name="nm_pic"
+                                                            value="{{ $coretax->nama_pic }}" placeholder="Nama PIC">
                                                         <div class="invalid-feedback">
                                                             @error('nm_pic')
                                                                 {{ $message }}
@@ -148,7 +167,8 @@
                                                 </div>
                                                 <div class="col-12 col-sm-6">
                                                     <div class="mb-3">
-                                                        <label for="whatsapp_pic" class="form-label required">Nomor Whatsapp
+                                                        <label for="whatsapp_pic" class="form-label required">Nomor
+                                                            Whatsapp
                                                             PIC</label>
                                                         <input type="text"
                                                             class="form-control  @error('whatsapp_pic') is-invalid @enderror"
@@ -232,6 +252,15 @@
                                                 </td>
                                             </tr>
                                         @endif
+                                        <tr>
+                                            <td class="border-bottom-0 align-middle" width="300">
+                                                <p class="mb-0">NPWP Lama</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <h6 class="mb-0"><a href="{{ route('coretax.file', $coretax->npwp_lama) }}"
+                                                    class="btn btn-sm btn-secondary">Lihat Berkas</a></h6>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class="border-bottom-0 align-middle" width="300">
                                                 <p class="mb-0">NITKU/NPWP Lembaga</p>

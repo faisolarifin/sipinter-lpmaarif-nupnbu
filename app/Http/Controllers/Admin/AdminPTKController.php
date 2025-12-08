@@ -13,10 +13,19 @@ class AdminPTKController extends Controller
 {
      protected function specificFilter() {
         $specificFilter = request()->specificFilter;
+        
+        if (!$specificFilter) {
+            return [];
+        }
+        
         $specificFilter["id_pw"] = @$specificFilter["id_prov"];
         unset($specificFilter["id_prov"]);
         empty($specificFilter["id_pc"]) ? $specificFilter["id_pc"] = @$specificFilter["id_pc"] : null;
-        return $specificFilter;
+        
+        // Remove null values
+        return array_filter($specificFilter, function($value) {
+            return $value !== null;
+        });
     }
 
     public function index()
@@ -32,7 +41,10 @@ class AdminPTKController extends Controller
             // Base query
             $query = PTK::with(['satpen.kabupaten', 'satpen.provinsi', 'npyp'])
                 ->whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })
                 ->where('status_ajuan', $status);
 
@@ -53,7 +65,10 @@ class AdminPTKController extends Controller
 
             // Get total records before pagination
             $totalRecords = PTK::whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })->where('status_ajuan', $status)->count();
             $filteredRecords = $query->count();
 
@@ -232,7 +247,10 @@ class AdminPTKController extends Controller
         try {
             $ptk = PTK::with(['satpen.kabupaten', 'satpen.provinsi', 'npyp'])
                 ->whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })
                 ->findOrFail($id);
 
@@ -267,7 +285,10 @@ class AdminPTKController extends Controller
             $tanggalSK = $request->input('tanggal_sk');
 
             $ptk = PTK::whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+                    $specificFilter = $this->specificFilter();
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 })->findOrFail($ptkId);
             $user = Auth::user();
 
@@ -281,6 +302,7 @@ class AdminPTKController extends Controller
             switch ($action) {
                 case 'terima':
                     if ($ptk->status_ajuan == 'verifikasi') {
+                        $ptk->tanggal_verifikasi = now();
                         $newStatus = 'proses';
                         $message = 'PTK berhasil diterima dan masuk tahap proses';
                         $historyNotes = 'PTK diterima untuk diproses oleh ' . $user->name;
@@ -301,6 +323,8 @@ class AdminPTKController extends Controller
 
                 case 'proses':
                     if ($ptk->status_ajuan == 'verifikasi') {
+                        $ptk->tanggal_proses = now();
+
                         $newStatus = 'proses';
                         $message = 'PTK berhasil diproses';
                         $historyNotes = 'PTK diproses oleh ' . $user->name;
@@ -311,6 +335,9 @@ class AdminPTKController extends Controller
 
                 case 'approve':
                     if ($ptk->status_ajuan == 'proses') {
+                        $ptk->tanggal_proses = now();
+                        $ptk->tanggal_approve = now();
+
                         $newStatus = 'approve';
                         $message = 'PTK berhasil disetujui';
                         $historyNotes = 'PTK disetujui oleh ' . $user->name;
@@ -321,7 +348,9 @@ class AdminPTKController extends Controller
 
                 case 'keluarkan':
                     if ($ptk->status_ajuan == 'approve') {
-
+                        $ptk->tanggal_dikeluarkan = now();
+                        $ptk->nomor_sk_keluar = $nomorSK;
+                        
                         $newStatus = 'dikeluarkan';
                         $message = 'SK PTK berhasil dikeluarkan';
                         $historyNotes = 'SK PTK dikeluarkan oleh ' . $user->name;
@@ -368,8 +397,12 @@ class AdminPTKController extends Controller
     public function statistics()
     {
         try {
-            $ptk = PTK::whereHas('npyp', function($q) {
-                    $q->where($this->specificFilter());
+            $specificFilter = $this->specificFilter();
+            
+            $ptk = PTK::whereHas('npyp', function($q) use ($specificFilter) {
+                    if (!empty($specificFilter)) {
+                        $q->where($specificFilter);
+                    }
                 });
             $counts = [
                 'verifikasi' => (clone $ptk)->where('status_ajuan', 'verifikasi')->count(),

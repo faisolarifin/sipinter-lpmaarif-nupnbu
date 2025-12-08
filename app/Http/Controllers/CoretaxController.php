@@ -6,6 +6,7 @@ use App\Http\Requests\CoretaxRequest;
 use App\Models\Coretax;
 use App\Models\CoretaxStatus;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class CoretaxController extends Controller
 {
@@ -56,6 +57,7 @@ class CoretaxController extends Controller
             'nama_pic' => optional($lastCoretax)->nama_pic,
             'nik_pic' => optional($lastCoretax)->nik_pic,
             'whatsapp_pic' => optional($lastCoretax)->whatsapp_pic,
+            'npwp_lama' => optional($lastCoretax)->npwp_lama,
             'tanggal' => Carbon::now(),
             'tgl_submit' => null,
             'status' => 'mengisi persyaratan',
@@ -124,6 +126,12 @@ class CoretaxController extends Controller
 
     public function stored(CoretaxRequest $request, Coretax $coretax)
     {
+        $pathNpwpLama = $coretax->npwp_lama;
+        if ($request->file('npwp_lama')
+            && $request->file('npwp_lama')->isValid()) {
+            $pathNpwpLama = Storage::disk('coretax-doc')->putFile("npwp-lama", $request->file('npwp_lama'));
+            Storage::disk("coretax-doc")->delete("npwp-lama", "npwp-lama/".$coretax->npwp_lama);
+        }
 
         $coretax->update([
             'nitku' => $request->nitku,
@@ -132,6 +140,7 @@ class CoretaxController extends Controller
             'whatsapp_pic' => $request->whatsapp_pic,
             'tgl_submit' => Carbon::now(),
             'status' => 'verifikasi',
+            'npwp_lama' => basename($pathNpwpLama),
         ]);
 
         CoretaxStatus::where([

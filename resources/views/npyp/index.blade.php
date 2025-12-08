@@ -26,9 +26,7 @@
                     <i class="ti ti-file-certificate me-2"></i>DATA NPYP SATUAN PENDIDIKAN
                 </h4>
                 <p class="text-muted mb-0">
-                    Halaman ini menampilkan informasi Nomor Pokok Yayasan Penyelenggara (NPYP) 
-                    yang terkait dengan satuan pendidikan Anda. Data ini menunjukkan status 
-                    registrasi dan keterkaitan dengan yayasan penyelenggara.
+                    Halaman ini menampilkan informasi Nomor Pokok Yayasan Pendidikan (NPYP) yang menaungi satuan pendidikan Anda.
                 </p>
             </div>
             <div class="col-md-4 text-end">
