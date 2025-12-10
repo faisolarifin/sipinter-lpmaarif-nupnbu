@@ -129,16 +129,16 @@
     margin-right: 1.9rem;
 }
 /*mytable style*/
-#mytable td, #mytable1 td, #mytable2 td, #mytable2 td {
+/* #mytable td, #mytable1 td, #mytable2 td, #mytable2 td {
     font-size: .9em;
     font-weight: 500;
     vertical-align: middle;
     padding: .388rem;
-}
-#mytable th, #mytable1 th, #mytable2 th, #mytable3 th {
+} */
+/* #mytable th, #mytable1 th, #mytable2 th, #mytable3 th {
     background-color: rgba(50, 123, 50, .199);
     padding: .4rem;
-}
+} */
 #mytable td:last-child, #mytable td:first-child,
 #mytable1 td:last-child, #mytable1 td:first-child,
 #mytable2 td:last-child, #mytable2 td:first-child,
