@@ -21,22 +21,22 @@
 
             @include('template.alert')
 
-            <div class="card w-100">
+            <div class="card w-100 card-modern">
                 <div class="card-body pt-3">
 
-                    <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-3">
+                    <div class="table-header-modern d-flex justify-content-between align-items-sm-center">
                         <div>
-                            <h5 class="mb-0">Profile Wilayah</h5>
+                            <h5 class="mb-0"><i class="ti ti-map-pin me-2"></i>Profile Wilayah</h5>
                             <small>daftar profile pengurus wilayah</small>
                         </div>
                         <div class="btn-list">
-                            <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i
-                                    class="ti ti-file-spreadsheet"></i> Export to Excel</a>
+                            <a href="#" class="btn btn-success btn-modern btn-sm mx-2 py-2" id="export-btn"><i
+                                    class="ti ti-file-spreadsheet me-1"></i>Export to Excel</a>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="mytable">
+                    <div class="table-responsive mt-4">
+                        <table class="table table-modern table-hover" id="mytable">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -59,7 +59,7 @@
                                         <td>{{ $row->profile->telp_sekretaris }}</td>
                                         <td>
                                             <a href="{{ route('a.wilayah.detail', $row->id_prov) }}">
-                                                <button class="btn btn-sm btn-secondary me-1">
+                                                <button class="btn btn-sm btn-modern btn-secondary me-1">
                                                     <i class="ti ti-eye"></i>
                                                 </button>
                                             </a>
@@ -67,7 +67,7 @@
                                                 method="post" class="d-inline deleteBtn">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                                <button type="submit" class="btn btn-sm btn-modern btn-danger"><i
                                                         class="ti ti-trash"></i></button>
                                             </form>
                                         </td>

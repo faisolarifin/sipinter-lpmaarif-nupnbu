@@ -21,7 +21,7 @@
 
         @include('template.alert')
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs nav-tabs-modern" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#permohonan" type="button" role="tab" aria-controls="permohonan" aria-selected="true">PERMOHONAN</button>
             </li>
@@ -39,16 +39,14 @@
         <div class="tab-content" id="myTabContent">
             <!-- Permohonan -->
             <div class="tab-pane fade show active" id="permohonan" role="tabpanel" aria-labelledby="home-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="d-flex mt-2 mb-3">
-                            <div>
-                                <h5 class="mb-0">Permohonan Satpen</h5>
-                                <small>data permohonan satpen baru</small>
-                            </div>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-clipboard-check me-2"></i>Permohonan Satpen</h5>
+                            <small>data permohonan satpen baru</small>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="mytable">
+                        <div class="table-responsive mt-4">
+                            <table class="table table-modern table-hover" id="mytable">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -71,7 +69,7 @@
                                     <td>{{ $row->provinsi->nm_prov }}</td>
                                     <td>{{ $row->kabupaten->nama_kab }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                        <button class="btn btn-sm btn-modern btn-secondary" data-bs-toggle="modal" data-bs-target="#modalDetailBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -84,16 +82,14 @@
             <!-- End Permohonan -->
             <!-- Revisi -->
             <div class="tab-pane fade" id="revisi" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="d-flex mt-2 mb-3">
-                            <div>
-                                <h5 class="mb-0">Satpen Revisi</h5>
-                                <small>data satpen yang dalam masa perbaikan</small>
-                            </div>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-pencil me-2"></i>Satpen Revisi</h5>
+                            <small>data satpen yang dalam masa perbaikan</small>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="mytable1">
+                        <div class="table-responsive mt-4">
+                            <table class="table table-modern table-hover" id="mytable1">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -118,7 +114,7 @@
                                         <td>{{ $row->kabupaten->nama_kab }}</td>
                                         <td>{{ $row->kecamatan }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalRevisiBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                            <button class="btn btn-sm btn-modern btn-secondary" data-bs-toggle="modal" data-bs-target="#modalRevisiBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -131,16 +127,14 @@
             <!-- End Revisi -->
             <!-- Proses Document -->
             <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="d-flex mt-2 mb-3">
-                            <div>
-                                <h5 class="mb-0">Proses Dokumen</h5>
-                                <small>buatkan </small>
-                            </div>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-hourglass-empty me-2"></i>Proses Dokumen</h5>
+                            <small>data satpen dalam proses pembuatan dokumen</small>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="mytable2">
+                        <div class="table-responsive mt-4">
+                            <table class="table table-modern table-hover" id="mytable2">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -163,7 +157,7 @@
                                         <td>{{ $row->kabupaten->nama_kab }}</td>
                                         <td>{{ $row->kecamatan }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalProsesDokumenBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                            <button class="btn btn-sm btn-modern btn-secondary" data-bs-toggle="modal" data-bs-target="#modalProsesDokumenBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -176,16 +170,14 @@
             <!-- End Proses Document -->
             <!-- Perpanjangan -->
             <div class="tab-pane fade" id="perpanjang" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="d-flex mt-2 mb-3">
-                            <div>
-                                <h5 class="mb-0">Perpanjangan</h5>
-                                <small>permohonan perpanjangan dokumen </small>
-                            </div>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-calendar-time me-2"></i>Perpanjangan</h5>
+                            <small>permohonan perpanjangan dokumen</small>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="mytable3">
+                        <div class="table-responsive mt-4">
+                            <table class="table table-modern table-hover" id="mytable3">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -208,7 +200,7 @@
                                         <td>{{ $row->kabupaten->nama_kab }}</td>
                                         <td>{{ $row->kecamatan }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-green" data-bs-toggle="modal" data-bs-target="#modalPerpanjangBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
+                                            <button class="btn btn-sm btn-modern btn-secondary" data-bs-toggle="modal" data-bs-target="#modalPerpanjangBackdrop" data-bs="{{ $row->id_satpen }}"><i class="ti ti-eye"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach

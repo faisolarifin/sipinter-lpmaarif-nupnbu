@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
   <link rel="stylesheet" href="{{asset('assets/libs/datatables/dataTables.bootstrap5.min.css')}}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/modern-table.css') }}" />
     <style>
         body {
             background: url("/assets/images/backgrounds/layout_bg.jpg") no-repeat #F5F5F5;

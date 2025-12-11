@@ -21,12 +21,12 @@
 
             @include('template.alert')
 
-            <div class="card w-100">
+            <div class="card w-100 card-modern">
                 <div class="card-body pt-3">
 
-                    <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-4">
+                    <div class="table-header-modern d-flex justify-content-between align-items-sm-center">
                         <div>
-                            <h5 class="mb-0">Data Lainnya</h5>
+                            <h5 class="mb-0"><i class="ti ti-database me-2"></i>Data Lainnya</h5>
                             <small>informasi data lainnya dari satuan pendidikan</small>
                         </div>
                         <div class="text-center">
@@ -36,12 +36,12 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="mt-4">
                         <form class="d-flex justify-content-between mb-2">
                             <div class="d-flex">
                                 @if (in_array(auth()->user()->role, ['super admin']))
-                                    <a href="{{ route('a.other.sync') }}" class="btn btn-info btn-sm mx-2 py-2"><i
-                                            class="ti ti-reload"></i> Sinkron Bulk</a>
+                                    <a href="{{ route('a.other.sync') }}" class="btn btn-info btn-modern btn-sm mx-2 py-2"><i
+                                            class="ti ti-reload me-1"></i>Sinkron Bulk</a>
                                 @endif
                             </div>
                             <div class="d-flex">
@@ -167,30 +167,30 @@
                                                 ])
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary w-100"><i
-                                                    class="ti ti-filter"></i>
+                                            <button type="submit" class="btn btn-primary btn-modern w-100"><i
+                                                    class="ti ti-filter me-1"></i>
                                                 Filter</button>
                                         </div>
                                     </div>
                                     <!-- end offcanvas -->
 
-                                    <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i
-                                            class="ti ti-file-spreadsheet"></i> Export to Excel</a>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas"
+                                    <a href="#" class="btn btn-success btn-modern btn-sm mx-2 py-2" id="export-btn"><i
+                                            class="ti ti-file-spreadsheet me-1"></i>Export to Excel</a>
+                                    <button type="button" class="btn btn-primary btn-modern btn-sm" data-bs-toggle="offcanvas"
                                         data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i
-                                            class="ti ti-filter"></i> Filter</button>
+                                            class="ti ti-filter me-1"></i>Filter</button>
                                 </div>
                                 <div class="d-flex">
                                     <input type="text" name="keyword" id="keyword"
                                         class="form-control form-control-sm mx-2"
                                         placeholder="NPSN/Nomor Registrasi/Nama Satpen" value="{{ request()->keyword }}">
-                                    <button type="submit" class="btn btn-primary btn-sm"><i
+                                    <button type="submit" class="btn btn-primary btn-modern btn-sm"><i
                                             class="ti ti-search"></i></button>
                                 </div>
                             </div>
                         </form>
                         <div class="table-responsive" id="table-scroll-container">
-                            <table class="table table-hover" id="mytable">
+                            <table class="table table-modern table-hover" id="mytable">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -234,7 +234,7 @@
                                                 <td>{{ $row->last_sinkron }}</td>
                                                 <td>
                                                     <a href="{{ route('a.other.syncid', $row->id_satpen) }}"
-                                                        class="btn btn-sm btn-info"><i class="ti ti-reload"></i></a>
+                                                        class="btn btn-sm btn-modern btn-info"><i class="ti ti-reload"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

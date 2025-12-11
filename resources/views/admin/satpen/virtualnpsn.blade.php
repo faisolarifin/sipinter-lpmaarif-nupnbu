@@ -20,7 +20,7 @@
 
         @include('template.alert')
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs nav-tabs-modern" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#permohonan" type="button" role="tab" aria-controls="permohonan" aria-selected="true">PERMOHONAN</button>
             </li>
@@ -32,16 +32,14 @@
         <div class="tab-content" id="myTabContent">
             <!-- Verifikasi -->
             <div class="tab-pane fade show active" id="permohonan" role="tabpanel" aria-labelledby="home-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="d-flex justify-content-between mt-2 mb-3">
-                            <div>
-                                <h5 class="mb-0">Permintaan VNPSN</h5>
-                                <small>data permintaan pembuatan npsn virtual baru</small>
-                            </div>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-clipboard-check me-2"></i>Permintaan VNPSN</h5>
+                            <small>data permintaan pembuatan npsn virtual baru</small>
                         </div>
                         <div class="table-responsive mt-4">
-                            <table class="table table-stripped mt-4" id="dtable">
+                            <table class="table table-modern table-hover mt-4" id="dtable">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -71,9 +69,9 @@
                                         <form action="{{ route('a.vnpsn.accept', $row->id_npsn) }}" method="post" class="d-inline acceptBtn">
                                             @csrf
                                             @method('PUT')
-                                            <button class="btn btn-sm btn-success"><i class="ti ti-checks"></i></button>
+                                            <button class="btn btn-sm btn-modern btn-success"><i class="ti ti-checks"></i></button>
                                         </form>
-                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalVNPSN" data-bs="{{ $row->id_npsn }}">
+                                        <button class="btn btn-sm btn-modern btn-danger" data-bs-toggle="modal" data-bs-target="#modalVNPSN" data-bs="{{ $row->id_npsn }}">
                                             <i class="ti ti-x"></i>
                                         </button>
                                     </td>
@@ -88,16 +86,14 @@
             <!-- End Verifikasi -->
             <!-- Proses -->
             <div class="tab-pane fade" id="sedangaktif" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="card w-100">
+                <div class="card w-100 card-modern">
                     <div class="card-body pt-3">
-                        <div class="d-flex mt-2 mb-3">
-                            <div>
-                                <h5 class="mb-0">VNPSN Aktif</h5>
-                                <small>data npsn virtual yang masih aktif</small>
-                            </div>
+                        <div class="table-header-modern">
+                            <h5 class="mb-0"><i class="ti ti-circle-check me-2"></i>VNPSN Aktif</h5>
+                            <small>data npsn virtual yang masih aktif</small>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-stripped mt-4" id="dtable2">
+                        <div class="table-responsive mt-4">
+                            <table class="table table-modern table-hover mt-4" id="dtable2">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -128,7 +124,7 @@
                                             <form action="{{ route('a.vnpsn.destroy', $row->id_npsn ) }}" method="post" class="d-inline deleteBtn">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
+                                                <button type="submit" class="btn btn-sm btn-modern btn-danger"><i class="ti ti-trash"></i></button>
                                             </form>
                                         </td>
                                         @endif

@@ -1,10 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(php -l:*)",
-      "Bash(php artisan:*)",
-      "Bash(dir:*)",
-      "Bash(findstr /v /r \"\\[^\\]*\\[^\\]*\\[^\\]*\"\")"
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
