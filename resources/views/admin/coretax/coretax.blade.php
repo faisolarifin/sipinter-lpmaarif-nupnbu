@@ -20,7 +20,7 @@
 
             @include('template.alert')
 
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs nav-tabs-modern" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#verifikasi"
                         type="button" role="tab" aria-controls="verifikasi" aria-selected="true">VERIFIKASI
@@ -65,16 +65,14 @@
             <div class="tab-content" id="myTabContent">
                 <!-- Verifikasi -->
                 <div class="tab-pane fade show active" id="verifikasi" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="card w-100">
+                    <div class="card w-100 card-modern">
                         <div class="card-body pt-3">
-                            <div class="d-flex justify-content-between mt-2 mb-3">
-                                <div>
-                                    <h5 class="mb-0">Pengajuan Layanan Coretax</h5>
-                                    <small>daftar permohonan pengajuan coretax semua level pengguna</small>
-                                </div>
+                            <div class="table-header-modern">
+                                <h5 class="mb-0"><i class="ti ti-clipboard-check me-2"></i>Pengajuan Layanan Coretax</h5>
+                                <small>daftar permohonan pengajuan coretax semua level pengguna</small>
                             </div>
                             <div class="table-responsive mt-4">
-                                <table class="table table-stripped mt-4" id="dtable">
+                                <table class="table table-modern table-hover mt-4" id="dtable">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -95,30 +93,33 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 @if ($row->satpen)
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->satpen->no_registrasi }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->satpen->nm_satpen }}</td>
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.cabang.detail', $row->id_pc) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->cabang->nama_pc }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.cabang.detail', $row->id_pc) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->cabang->nama_pc }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.wilayah.detail', $row->id_pw) }}"
-                                                            class="text-decoration-underline">
-                                                            Wilayah {{ $row->wilayah->nm_prov }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.wilayah.detail', $row->id_pw) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>Wilayah {{ $row->wilayah->nm_prov }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->wilayah->nm_prov }}</td>
                                                     <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                                 @endif
@@ -162,16 +163,14 @@
                 <!-- End Verifikasi -->
                 <!-- Buka Expiry -->
                 <div class="tab-pane fade" id="buka-expiry" role="tabpanel" aria-labelledby="buka-expiry-tab">
-                    <div class="card w-100">
+                    <div class="card w-100 card-modern">
                         <div class="card-body pt-3">
-                            <div class="d-flex justify-content-between mt-2 mb-3">
-                                <div>
-                                    <h5 class="mb-0">Pengajuan Buka Expiry Coretax</h5>
-                                    <small>daftar permohonan memajukan tanggal expiry coretax</small>
-                                </div>
+                            <div class="table-header-modern">
+                                <h5 class="mb-0"><i class="ti ti-calendar-time me-2"></i>Pengajuan Buka Expiry Coretax</h5>
+                                <small>daftar permohonan memajukan tanggal expiry coretax</small>
                             </div>
                             <div class="table-responsive mt-4">
-                                <table class="table table-stripped mt-4" id="dtable7">
+                                <table class="table table-modern table-hover mt-4" id="dtable7">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -192,30 +191,33 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 @if ($row->satpen)
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->satpen->no_registrasi }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->satpen->nm_satpen }}</td>
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.cabang.detail', $row->id_pc) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->cabang->nama_pc }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.cabang.detail', $row->id_pc) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->cabang->nama_pc }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.wilayah.detail', $row->id_pw) }}"
-                                                            class="text-decoration-underline">
-                                                            Wilayah {{ $row->wilayah->nm_prov }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.wilayah.detail', $row->id_pw) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>Wilayah {{ $row->wilayah->nm_prov }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->wilayah->nm_prov }}</td>
                                                     <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                                 @endif
@@ -255,16 +257,14 @@
                 <!-- End Buka Expiry -->
                 <!-- Revisi -->
                 <div class="tab-pane fade" id="revisi" role="tabpanel" aria-labelledby="revisi-tab">
-                    <div class="card w-100">
+                    <div class="card w-100 card-modern">
                         <div class="card-body pt-3">
-                            <div class="d-flex justify-content-between mt-2 mb-3">
-                                <div>
-                                    <h5 class="mb-0">Revisi Layanan Coretax</h5>
-                                    <small>daftar permohonan coretax perlu perbaikan</small>
-                                </div>
+                            <div class="table-header-modern">
+                                <h5 class="mb-0"><i class="ti ti-pencil me-2"></i>Revisi Layanan Coretax</h5>
+                                <small>daftar permohonan coretax perlu perbaikan</small>
                             </div>
                             <div class="table-responsive mt-4">
-                                <table class="table table-stripped mt-4" id="dtable2">
+                                <table class="table table-modern table-hover mt-4" id="dtable2">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -285,30 +285,33 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 @if ($row->satpen)
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->satpen->no_registrasi }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->satpen->nm_satpen }}</td>
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.cabang.detail', $row->id_pc) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->cabang->nama_pc }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.cabang.detail', $row->id_pc) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->cabang->nama_pc }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.wilayah.detail', $row->id_pw) }}"
-                                                            class="text-decoration-underline">
-                                                            Wilayah {{ $row->wilayah->nm_prov }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.wilayah.detail', $row->id_pw) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>Wilayah {{ $row->wilayah->nm_prov }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->wilayah->nm_prov }}</td>
                                                     <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                                 @endif
@@ -351,16 +354,14 @@
                 <!-- End Revisi -->
                 <!-- Proses -->
                 <div class="tab-pane fade" id="proses" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="card w-100">
+                    <div class="card w-100 card-modern">
                         <div class="card-body pt-3">
-                            <div class="d-flex mt-2 mb-3">
-                                <div>
-                                    <h5 class="mb-0">Dokumen Coretax Diproses</h5>
-                                    <small>daftar layanan dalam proses pembuatan/pengecekan dokumen</small>
-                                </div>
+                            <div class="table-header-modern">
+                                <h5 class="mb-0"><i class="ti ti-hourglass-empty me-2"></i>Dokumen Coretax Diproses</h5>
+                                <small>daftar layanan dalam proses pembuatan/pengecekan dokumen</small>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-stripped mt-4" id="dtable3">
+                                <table class="table table-modern table-hover mt-4" id="dtable3">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -381,30 +382,33 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 @if ($row->satpen)
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->satpen->no_registrasi }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->satpen->nm_satpen }}</td>
                                                     <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                     <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 @elseif ($row->cabang)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.cabang.detail', $row->id_pc) }}"
-                                                            class="text-decoration-underline">
-                                                            {{ $row->cabang->nama_pc }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.cabang.detail', $row->id_pc) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>{{ $row->cabang->nama_pc }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                     <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 @elseif ($row->wilayah)
                                                     <td></td>
-                                                    <td><a class="text-decoration-none"
-                                                            href="{{ route('a.wilayah.detail', $row->id_pw) }}"
-                                                            class="text-decoration-underline">
-                                                            Wilayah {{ $row->wilayah->nm_prov }}
-                                                        </a></td>
+                                                    <td>
+                                                        <a href="{{ route('a.wilayah.detail', $row->id_pw) }}"
+                                                            class="text-primary fw-bold text-decoration-none">
+                                                            <i class="ti ti-link me-1"></i>Wilayah {{ $row->wilayah->nm_prov }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $row->wilayah->nm_prov }}</td>
                                                     <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                                 @endif
@@ -449,16 +453,14 @@
                 <!-- End Proses -->
                 <!-- Satpen -->
                 <div class="tab-pane fade" id="satpen" role="tabpanel" aria-labelledby="satpen-tab">
-                    <div class="card w-100">
+                    <div class="card w-100 card-modern">
                         <div class="card-body pt-3">
-                            <div class="d-flex mt-2 mb-3">
-                                <div>
-                                    <h5 class="mb-0">Final Aprove Coretax Satpen</h5>
-                                    <small>daftar layanan coretax yang telah disetujui untuk satuan pendidikan</small>
-                                </div>
+                            <div class="table-header-modern">
+                                <h5 class="mb-0"><i class="ti ti-circle-check me-2"></i>Final Aprove Coretax Satpen</h5>
+                                <small>daftar layanan coretax yang telah disetujui untuk satuan pendidikan</small>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-stripped mt-4" id="dtable4">
+                                <table class="table table-modern table-hover mt-4" id="dtable4">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -478,11 +480,12 @@
                                         @foreach ($coretaxSatpen as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td><a class="text-decoration-none"
-                                                        href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
-                                                        class="text-decoration-underline">
-                                                        {{ $row->satpen->no_registrasi }}
-                                                    </a></td>
+                                                <td>
+                                                    <a href="{{ route('a.rekapsatpen.detail', $row->satpen->id_satpen) }}"
+                                                        class="text-primary fw-bold text-decoration-none">
+                                                        <i class="ti ti-link me-1"></i>{{ $row->satpen->no_registrasi }}
+                                                    </a>
+                                                </td>
                                                 <td>{{ $row->satpen->nm_satpen }}</td>
                                                 <td>{{ $row->satpen->provinsi->nm_prov }}</td>
                                                 <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
@@ -516,16 +519,14 @@
                 </div>
 
                 <div class="tab-pane fade" id="cabang" role="tabpanel" aria-labelledby="cabang-tab">
-                    <div class="card w-100">
+                    <div class="card w-100 card-modern">
                         <div class="card-body pt-3">
-                            <div class="d-flex mt-2 mb-3">
-                                <div>
-                                    <h5 class="mb-0">Final Aprove Cabang</h5>
-                                    <small>daftar layanan coretax yang telah disetujui untuk cabang</small>
-                                </div>
+                            <div class="table-header-modern">
+                                <h5 class="mb-0"><i class="ti ti-building me-2"></i>Final Aprove Cabang</h5>
+                                <small>daftar layanan coretax yang telah disetujui untuk cabang</small>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-stripped mt-4" id="dtable5">
+                                <table class="table table-modern table-hover mt-4" id="dtable5">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -544,11 +545,12 @@
                                         @foreach ($coretaxCab as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td><a class="text-decoration-none"
-                                                        href="{{ route('a.cabang.detail', $row->id_pc) }}"
-                                                        class="text-decoration-underline">
-                                                        {{ $row->cabang->nama_pc }}
-                                                    </a></td>
+                                                <td>
+                                                    <a href="{{ route('a.cabang.detail', $row->id_pc) }}"
+                                                        class="text-primary fw-bold text-decoration-none">
+                                                        <i class="ti ti-link me-1"></i>{{ $row->cabang->nama_pc }}
+                                                    </a>
+                                                </td>
                                                 <td>{{ $row->cabang->prov->nm_prov }}</td>
                                                 <td>{{ $row->cabang->profile->kabupaten }}</td>
                                                 <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>
@@ -581,16 +583,14 @@
                 </div>
 
                 <div class="tab-pane fade" id="wilayah" role="tabpanel" aria-labelledby="wilayah-tab">
-                    <div class="card w-100">
+                    <div class="card w-100 card-modern">
                         <div class="card-body pt-3">
-                            <div class="d-flex mt-2 mb-3">
-                                <div>
-                                    <h5 class="mb-0">Final Aprove Wilayah</h5>
-                                    <small>daftar layanan coretax yang telah disetujui untuk wilayah</small>
-                                </div>
+                            <div class="table-header-modern">
+                                <h5 class="mb-0"><i class="ti ti-map-pin me-2"></i>Final Aprove Wilayah</h5>
+                                <small>daftar layanan coretax yang telah disetujui untuk wilayah</small>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-stripped mt-4" id="dtable6">
+                                <table class="table table-modern table-hover mt-4" id="dtable6">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -609,11 +609,12 @@
                                         @foreach ($coretaxWil as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td><a class="text-decoration-none"
-                                                        href="{{ route('a.wilayah.detail', $row->id_pw) }}"
-                                                        class="text-decoration-underline">
-                                                        Wilayah {{ $row->wilayah->nm_prov }}
-                                                    </a></td>
+                                                <td>
+                                                    <a href="{{ route('a.wilayah.detail', $row->id_pw) }}"
+                                                        class="text-primary fw-bold text-decoration-none">
+                                                        <i class="ti ti-link me-1"></i>Wilayah {{ $row->wilayah->nm_prov }}
+                                                    </a>
+                                                </td>
                                                 <td>{{ $row->wilayah->nm_prov }}</td>
                                                 <td>{{ $row->wilayah->profile->kabupaten }}</td>
                                                 <td>{{ Date::tglReverseDash($row->tgl_submit) }}</td>

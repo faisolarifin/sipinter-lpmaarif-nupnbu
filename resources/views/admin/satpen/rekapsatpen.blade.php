@@ -21,12 +21,12 @@
 
             @include('template.alert')
 
-            <div class="card w-100">
+            <div class="card w-100 card-modern">
                 <div class="card-body pt-3">
 
-                    <div class="d-flex justify-content-between align-items-sm-center mt-2 mb-4">
+                    <div class="table-header-modern d-flex justify-content-between align-items-sm-center">
                         <div>
-                            <h5 class="mb-0">Rekap Satpen</h5>
+                            <h5 class="mb-0"><i class="ti ti-file-text me-2"></i>Rekap Satpen</h5>
                             <small>data satpen yang telah diterima</small>
                         </div>
                         <div class="text-center">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive mt-4">
                         <form class="d-flex justify-content-end mb-2">
                             <div class="d-flex flex-column flex-sm-row">
                                 <!-- offcanvas filter form -->
@@ -127,26 +127,26 @@
                                                 ],
                                             ])
                                         </div>
-                                        <button type="submit" class="btn btn-primary w-100"><i class="ti ti-filter"></i>
+                                        <button type="submit" class="btn btn-primary btn-modern w-100"><i class="ti ti-filter me-1"></i>
                                             Filter</button>
                                     </div>
                                 </div>
                                 <!-- end offcanvas -->
 
-                                <a href="#" class="btn btn-success btn-sm mx-2 py-2" id="export-btn"><i
-                                        class="ti ti-file-spreadsheet"></i> Export to Excel</a>
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas"
+                                <a href="#" class="btn btn-success btn-modern btn-sm mx-2 py-2" id="export-btn"><i
+                                        class="ti ti-file-spreadsheet me-1"></i>Export to Excel</a>
+                                <button type="button" class="btn btn-primary btn-modern btn-sm" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"><i
-                                        class="ti ti-filter"></i> Filter</button>
+                                        class="ti ti-filter me-1"></i>Filter</button>
                             </div>
                             <div class="d-flex">
                                 <input type="text" name="keyword" id="keyword"
                                     class="form-control form-control-sm mx-2"
                                     placeholder="NPSN/Nomor Registrasi/Nama Satpen" value="{{ request()->keyword }}">
-                                <button type="submit" class="btn btn-primary btn-sm"><i class="ti ti-search"></i></button>
+                                <button type="submit" class="btn btn-primary btn-modern btn-sm"><i class="ti ti-search"></i></button>
                             </div>
                         </form>
-                        <table class="table table-hover" id="mytable">
+                        <table class="table table-modern table-hover" id="mytable">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -182,7 +182,7 @@
                                                 {{ $diff . ' bln' }}</td>
                                             <td>
                                                 <a href="{{ route('a.rekapsatpen.detail', $row->id_satpen) }}">
-                                                    <button class="btn btn-sm btn-info"><i
+                                                    <button class="btn btn-sm btn-modern btn-info"><i
                                                             class="ti ti-eye"></i></button></a>
 
                                                 @if (in_array(auth()->user()->role, ['super admin']))
@@ -190,7 +190,7 @@
                                                         method="post" class="d-inline deleteBtn">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger"><i
+                                                        <button type="submit" class="btn btn-sm btn-modern btn-danger"><i
                                                                 class="ti ti-trash"></i></button>
                                                     </form>
                                                 @endif

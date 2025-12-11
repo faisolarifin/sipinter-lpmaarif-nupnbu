@@ -36,9 +36,9 @@
   }
 
   .nav-tabs-modern .nav-link.active {
-      background: #f9fafb;
+      background: #ffc107;
       color: #111827;
-      border-bottom-color: #111827;
+      border-bottom-color: #cd9b04;
   }
 
   .tab-text {
@@ -85,8 +85,8 @@
   }
 
   .table-modern thead th {
-      background: transparent;
-      color: #6b7280;
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 140%);
+      color: #ffffff;
       font-weight: 600;
       text-transform: uppercase;
       font-size: 0.75rem;
