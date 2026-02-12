@@ -51,6 +51,8 @@
                                             <th>#</th>
                                             <th>Nomor Registrasi</th>
                                             <th>Nama Satpen</th>
+                                            <th>Provinsi</th>
+                                            <th>Kabupaten</th>
                                             <th>Bukti Pembayaran</th>
                                             <th>Tanggal</th>
                                             @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
@@ -70,6 +72,8 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $row->satpen->nm_satpen }}</td>
+                                                <td>{{ $row->satpen->provinsi->nm_prov }}</td>
+                                                <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 <td>
                                                     <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}"
                                                         class="btn btn-sm btn-modern btn-secondary">
@@ -113,6 +117,8 @@
                                             <th>#</th>
                                             <th>Nomor Registrasi</th>
                                             <th>Nama Satpen</th>
+                                            <th>Provinsi</th>
+                                            <th>Kabupaten</th>
                                             <th>Bukti Pembayaran</th>
                                             <th>Tanggal</th>
                                             @if (!in_array(auth()->user()->role, ['admin wilayah', 'admin cabang']))
@@ -131,6 +137,8 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $row->satpen->nm_satpen }}</td>
+                                                <td>{{ $row->satpen->provinsi->nm_prov }}</td>
+                                                <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 <td>
                                                     <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}"
                                                         class="btn btn-sm btn-modern btn-secondary">
@@ -170,6 +178,8 @@
                                             <th>#</th>
                                             <th>Nomor Registrasi</th>
                                             <th>Nama Satpen</th>
+                                            <th>Provinsi</th>
+                                            <th>Kabupaten</th>
                                             <th>Bukti Pembayaran</th>
                                             <th>Nomor Resi</th>
                                             <th>Permohonan</th>
@@ -191,6 +201,8 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $row->satpen->nm_satpen }}</td>
+                                                <td>{{ $row->satpen->provinsi->nm_prov }}</td>
+                                                <td>{{ $row->satpen->kabupaten->nama_kab }}</td>
                                                 <td>
                                                     <a href="{{ route('a.bhpnu.file', $row->bukti_bayar) }}"
                                                         class="btn btn-sm btn-modern btn-secondary">
