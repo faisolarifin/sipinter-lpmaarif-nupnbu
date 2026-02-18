@@ -34,7 +34,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-10">
                 <div class="py-6 px-6">
-                    <p class="mb-0 fs-4 py-3"> Copyright &copy; {{ date('Y') }} Siapin LP Ma'arif NU </p>
+                    <p class="mb-0 fs-4 py-3"> Copyright &copy; 2023 Siapin LP Ma'arif NU </p>
                 </div>
             </div>
         </div>

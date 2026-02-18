@@ -60,9 +60,13 @@
                                     Telp. 021-3904115</p>
                                 <p class="mb-2"><i class="ti ti-brand-telegram"></i>
                                     Fax. 021-31906679</p>
-                                <a href="https://wa.me/628176536731" style="color:#5A6A85;">
+                                <a href="https://wa.me/6285883858897" style="color:#5A6A85;">
                                     <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
-                                        WA. +628176536731</p>
+                                        WA 1 +6285883858897</p>
+                                </a>
+                                <a href="https://wa.me/6281319868302" style="color:#5A6A85;">
+                                    <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
+                                        WA 2 +6281319868302</p>
                                 </a>
                             </div>
                             <div class="col-sm-6 text-center">

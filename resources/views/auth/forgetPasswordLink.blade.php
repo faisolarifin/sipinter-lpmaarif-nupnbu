@@ -1,10 +1,12 @@
 @extends('template.general', [
-    'title' => "Reset Password - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU"
+    'title' => "Reset Password - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU",
 ])
 
 @section('style')
     <style>
-        body {background: #fafafa;}
+        body {
+            background: #fafafa;
+        }
     </style>
 @endsection
 
@@ -22,32 +24,45 @@
                                 <input type="hidden" name="token" value="{{ $token }}">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan alamat email anda" id="email" name="email" value="{{ old('email') }}">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                        placeholder="Masukkan alamat email anda" id="email" name="email"
+                                        value="{{ old('email') }}">
                                     <div class="invalid-feedback">
-                                        @error('email') {{ $message }} @enderror
+                                        @error('email')
+                                            {{ $message }}
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="new_password" class="form-label">Password Baru</label>
                                     <div class="input-group form-password">
-                                        <input type="password" class="form-control @error('new_password') is-invalid @enderror" placeholder="Masukkan password baru" id="new_password" name="new_password">
+                                        <input type="password"
+                                            class="form-control @error('new_password') is-invalid @enderror"
+                                            placeholder="Masukkan password baru" id="new_password" name="new_password">
                                         <span class="input-group-text password-toggle">
                                             <i class="ti ti-eye-off"></i>
                                         </span>
                                         <div class="invalid-feedback">
-                                            @error('new_password') {{ $message }} @enderror
+                                            @error('new_password')
+                                                {{ $message }}
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password_confirm" class="form-label">Konfirmasi Password</label>
                                     <div class="input-group form-password">
-                                        <input type="password" class="form-control @error('password_confirm') is-invalid @enderror" placeholder="Konfirmasi password anda" id="password_confirm" name="password_confirm">
+                                        <input type="password"
+                                            class="form-control @error('password_confirm') is-invalid @enderror"
+                                            placeholder="Konfirmasi password anda" id="password_confirm"
+                                            name="password_confirm">
                                         <span class="input-group-text password-toggle">
                                             <i class="ti ti-eye-off"></i>
                                         </span>
                                         <div class="invalid-feedback" id="password-match-message">
-                                            @error('password_confirm') {{ $message }} @enderror
+                                            @error('password_confirm')
+                                                {{ $message }}
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -57,9 +72,11 @@
                     </div>
                 </div>
                 <div class="col-sm-5 d-flex align-items-end login-side-right px-5 py-4 order-sm-1">
-                    <div class="d-flex align-items-center flex-column justify-content-between bd-highlight" style="height:60vh;">
+                    <div class="d-flex align-items-center flex-column justify-content-between bd-highlight"
+                        style="height:60vh;">
                         <div class="bd-highlight">
-                            <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu" width="230">
+                            <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu"
+                                width="230">
                         </div>
                         <div class="bd-highlight">
                             <h5>Helpdesk</h5>
@@ -71,14 +88,19 @@
                                         Telp. 021-3904115</p>
                                     <p class="mb-2"><i class="ti ti-brand-telegram"></i>
                                         Fax. 021-31906679</p>
-                                    <a href="https://wa.me/628176536731" style="color:#5A6A85;">
+                                    <a href="https://wa.me/6285883858897" style="color:#5A6A85;">
                                         <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
-                                            WA. +628176536731</p>
+                                            WA 1 +6285883858897</p>
+                                    </a>
+                                    <a href="https://wa.me/6281319868302" style="color:#5A6A85;">
+                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
+                                            WA 2 +6281319868302</p>
                                     </a>
                                 </div>
                                 <div class="col-sm-6 text-center">
                                     <i class="ti ti-map-pin fs-5"></i>
-                                    <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
+                                    <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU
+                                        II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +127,7 @@
             }
         });
 
-        $('#password_confirm').on('keyup', function () {
+        $('#password_confirm').on('keyup', function() {
             let password = $('#new_password').val();
             let confirmPassword = $(this).val();
             let message = $('#password-match-message');
@@ -123,7 +145,5 @@
                 message.hide();
             }
         });
-
     </script>
 @endsection
-
