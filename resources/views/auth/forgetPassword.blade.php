@@ -1,10 +1,12 @@
 @extends('template.general', [
-    'title' => "Reset Password - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU"
+    'title' => "Reset Password - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU",
 ])
 
 @section('style')
     <style>
-        body {background: #fafafa;}
+        body {
+            background: #fafafa;
+        }
     </style>
 @endsection
 
@@ -21,12 +23,17 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="no_registrasi" class="form-label">Nomor Registrasi Ma'arif</label>
-                                    <input type="text" class="form-control @error('no_registrasi') is-invalid @enderror" placeholder="Masukkan Nomor Registrasi Ma'arif" id="no_registrasi" name="no_registrasi" value="{{ old('no_registrasi') }}">
+                                    <input type="text" class="form-control @error('no_registrasi') is-invalid @enderror"
+                                        placeholder="Masukkan Nomor Registrasi Ma'arif" id="no_registrasi"
+                                        name="no_registrasi" value="{{ old('no_registrasi') }}">
                                     <div class="invalid-feedback">
-                                        @error('no_registrasi') {{ $message }} @enderror
+                                        @error('no_registrasi')
+                                            {{ $message }}
+                                        @enderror
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mb-4 rounded-2 w-100">Kirim Link Reset Password</button>
+                                <button type="submit" class="btn btn-primary mb-4 rounded-2 w-100">Kirim Link Reset
+                                    Password</button>
                             </form>
                             <div class="d-flex align-items-center justify-content-between">
                                 <a class="text-primary" href="{{ route('ceknpsn') }}">Buat akun baru?</a>
@@ -36,9 +43,11 @@
                     </div>
                 </div>
                 <div class="col-sm-5 d-flex align-items-end login-side-right px-5 py-4 order-sm-1">
-                    <div class="d-flex align-items-center flex-column justify-content-between bd-highlight" style="height:60vh;">
+                    <div class="d-flex align-items-center flex-column justify-content-between bd-highlight"
+                        style="height:60vh;">
                         <div class="bd-highlight">
-                            <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu" width="230">
+                            <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu"
+                                width="230">
                         </div>
                         <div class="bd-highlight">
                             <h5>Helpdesk</h5>
@@ -50,14 +59,19 @@
                                         Telp. 021-3904115</p>
                                     <p class="mb-2"><i class="ti ti-brand-telegram"></i>
                                         Fax. 021-31906679</p>
-                                    <a href="https://wa.me/628176536731" style="color:#5A6A85;">
+                                    <a href="https://wa.me/6285883858897" style="color:#5A6A85;">
                                         <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
-                                            WA. +628176536731</p>
+                                            WA 1 +6285883858897</p>
+                                    </a>
+                                    <a href="https://wa.me/6281319868302" style="color:#5A6A85;">
+                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
+                                            WA 2 +6281319868302</p>
                                     </a>
                                 </div>
                                 <div class="col-sm-6 text-center">
                                     <i class="ti ti-map-pin fs-5"></i>
-                                    <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
+                                    <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU
+                                        II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
                                 </div>
                             </div>
                         </div>
