@@ -457,7 +457,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-10">
                 <div class="py-6 px-6">
-                    <p class="mb-0 fs-4 py-3"> Copyright &copy; {{ date('Y') }} Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU </p>
+                    <p class="mb-0 fs-4 py-3"> Copyright &copy; 2023 Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU </p>
                 </div>
             </div>
         </div>
