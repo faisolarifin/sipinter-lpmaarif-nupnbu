@@ -35,7 +35,7 @@
         width: 42px; height: 42px; border-radius: 10px;
         overflow: hidden; flex-shrink: 0;
     }
-    .sip-brand-mark-nav img { width: 100%; height: 100%; object-fit: cover; }
+    .sip-brand-mark-nav img { width: 100%; height: 100%; object-fit: cover; background: none !important; border-radius: 0 !important; padding: 0 !important; }
     .sip-brand-text-nav { line-height: 1.2; }
     .sip-brand-text-nav b { display: block; font-size: 14.5px; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
     .sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: #F8B23E; }
