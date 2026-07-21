@@ -16,7 +16,7 @@
                 <div class="card w-60 mt-4 mt-sm-0">
                     <div class="card-body">
                         <a href="{{ route('home') }}" class="text-nowrap text-center logo-img d-block py-2 w-100">
-                            <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
+                            <img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" width="210" alt="">
                         </a>
                         <p class="text-center fw-medium mb-4">Sistem Administrasi Pendidikan Terpadu <br> Lembaga Pendidikan Ma'arif NU PBNU</p>
                         @include('template.alert')
