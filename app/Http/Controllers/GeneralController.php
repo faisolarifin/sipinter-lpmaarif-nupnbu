@@ -22,7 +22,8 @@ class GeneralController extends Controller
             $jmlSatpenByJenjang = DB::select("SELECT id_jenjang, nm_jenjang, keterangan, (SELECT COUNT(id_jenjang) FROM satpen WHERE id_jenjang=jenjang_pendidikan.id_jenjang and status IN ('setujui','expired','perpanjangan')) AS jml_satpen FROM jenjang_pendidikan");
             $berandaInformasi = Informasi::orderBy('id_info')->limit(7)->get();
             $countSatpen = Satpen::whereIn('status', ['setujui', 'expired','perpanjangan'])->count('id_satpen');
-            return view('landing.home', compact('jmlSatpenByJenjang', 'jmlSatpenByKabupaten', 'berandaInformasi', 'countSatpen', 'provinsi', 'jenjang'));
+            $topProvinsi = DB::select("SELECT nm_prov, (SELECT COUNT(id_prov) FROM satpen WHERE id_prov=provinsi.id_prov and status IN ('setujui','expired','perpanjangan')) AS record_count FROM provinsi ORDER BY record_count DESC LIMIT 6");
+            return view('landing.home', compact('jmlSatpenByJenjang', 'jmlSatpenByKabupaten', 'berandaInformasi', 'countSatpen', 'provinsi', 'jenjang', 'topProvinsi'));
 
         } catch (\Exception $e) {
             throw new CatchErrorException("[HOME PAGE] has error ". $e);
