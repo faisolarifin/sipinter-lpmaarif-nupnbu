@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\DomCrawler\Crawler;
 
 class DapoMaarifNU {
@@ -25,8 +26,8 @@ class DapoMaarifNU {
     {
         try {
             $response = Http::withOptions(['verify' => false])
-            ->withToken('7FJ9KP0Q3W8H6R2D5T1V')
-            ->get("http://dapo.maarifnu.or.id/api/pusatdata/pendidikan/". $npsn);
+            ->withToken(config('services.dapo.token'))
+            ->get(config('services.dapo.url') . '/' . $npsn);
 
             if ($response->successful()) {
                 $jsonResponse = $response->json();
@@ -37,17 +38,20 @@ class DapoMaarifNU {
                 $errorBody = $response->json(); // The response body that might contain error details
                 
                 if ($statusCode == 400) {
-                    return $this->set(false, "NPSN tidak ditemukan");
+                    Log::warning("DapoMaarifNU: NPSN {$npsn} tidak ditemukan (HTTP 400)");
+                    return $this->set(false, "NPSN {$npsn} tidak ditemukan di Dapo Maarif NU");
                 } else {
-                    // Handle other types of errors
-                    return $this->set(false, $errorBody["error"]);
+                    Log::error("DapoMaarifNU: HTTP {$statusCode} untuk NPSN {$npsn}", ['body' => $errorBody]);
+                    return $this->set(false, "Gagal mengakses API Dapo Maarif NU untuk NPSN {$npsn}: HTTP {$statusCode}, " . ($errorBody["error"] ?? 'tidak ada detail error'));
                 }
 
             } else {
-                return $this->set(false, "Crawling status in not successed");
+                Log::error("DapoMaarifNU: Response tidak terduga untuk NPSN {$npsn}");
+                return $this->set(false, "Gagal mengakses API Dapo Maarif NU untuk NPSN {$npsn}: response tidak terduga");
             }
         } catch (\Exception $err) {
-            return $this->set(false, "Server dalam masalah untuk pengecekan NPSN");
+            Log::error("DapoMaarifNU: Exception NPSN {$npsn} - {$err->getMessage()}", ['exception' => $err]);
+            return $this->set(false, "Koneksi ke Dapo Maarif NU gagal saat mengecek NPSN {$npsn}");
 
         }
     }

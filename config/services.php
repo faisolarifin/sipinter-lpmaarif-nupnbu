@@ -31,4 +31,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'dapo' => [
+        'token' => env('DAPO_TOKEN'),
+        'url' => env('DAPO_URL', 'http://dapo.maarifnu.or.id/api/pusatdata/pendidikan'),
+    ],
+
+    'referensi_kemdikbud' => [
+        'url' => env('REFERENSI_KEMDIKBUD_URL', 'https://referensi.data.kemdikbud.go.id/pendidikan/npsn'),
+    ],
+
 ];
