@@ -163,7 +163,7 @@
 .sip-brand-mark-nav img { width: 100%; height: 100%; object-fit: cover; }
 .sip-brand-text-nav { line-height: 1.2; }
 .sip-brand-text-nav b { display: block; font-size: 14.5px; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
-.sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: #FFF3C4; }
+.sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: #D4A017; }
 .sip-nav-links { gap: 8px; margin-left: auto; margin-right: auto; }
 .sip-nav-links .nav-link {
     font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.78);
