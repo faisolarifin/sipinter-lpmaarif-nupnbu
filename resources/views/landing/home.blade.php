@@ -163,7 +163,7 @@
 .sip-brand-mark-nav img { width: 100%; height: 100%; object-fit: cover; }
 .sip-brand-text-nav { line-height: 1.2; }
 .sip-brand-text-nav b { display: block; font-size: 14.5px; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
-.sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: #F4D03F; }
+.sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: #F8B23E; }
 .sip-nav-links { gap: 8px; margin-left: auto; margin-right: auto; }
 .sip-nav-links .nav-link {
     font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.78);
@@ -178,7 +178,7 @@
 }
 .sip-nav-actions { display: flex; gap: 10px; align-items: center; }
 .sip-btn-nav-primary {
-    background: var(--sip-gold) !important; color: #12261C !important;
+    background: #F8B23E !important; color: #12261C !important;
     padding: 8px 16px; font-size: 13px;
 }
 .sip-btn-nav-primary:hover { filter: brightness(0.92); color: #12261C !important; }
