@@ -618,7 +618,7 @@ class SatpenController extends Controller
     public function hitDapo(string $npsn)
     {
         $tapel = Settings::get('current_tapel');
-        $url = config('app.referensi_crawler') . "dapo-data/$tapel/$npsn";
+        $url = config('app.referensi_data_crawler') . "dapo-data/$tapel/$npsn";
         $response = Http::get($url);
 
         if ($response->failed()) {
@@ -679,7 +679,7 @@ class SatpenController extends Controller
 
     public function hitReferensi(string $npsn)
     {
-        $url = config('app.referensi_crawler') . "referensi-data/$npsn";
+        $url = config('app.referensi_data_crawler') . "referensi-data/$npsn";
         $response = Http::get($url);
 
         if ($response->failed()) {

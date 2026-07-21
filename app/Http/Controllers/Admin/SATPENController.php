@@ -547,7 +547,7 @@ class SATPENController extends Controller
     public function processBulkSyncPDPTK(Request $request)
     {
         try {
-            $url = config('app.referensi_crawler') . 'dapo-data/bulk';
+            $url = config('app.referensi_data_crawler') . 'dapo-data/bulk';
 
             $school = [];
             $tapel = $request->tapel ?? Settings::get("current_tapel");
@@ -581,7 +581,7 @@ class SATPENController extends Controller
     public function processSyncPDPTK(Request $request, Satpen $satpen)
     {
         try {
-            $url = config('app.referensi_crawler') . 'dapo-data/';
+            $url = config('app.referensi_data_crawler') . 'dapo-data/';
 
             $payload = [
                 "satpenid" => $satpen->id_satpen,
@@ -704,7 +704,7 @@ class SATPENController extends Controller
     public function processBulkSyncOthers()
     {
         try {
-            $url = config('app.referensi_crawler') . 'referensi-data/bulk';
+            $url = config('app.referensi_data_crawler') . 'referensi-data/bulk';
 
             $school = [];
             Satpen::select('id_satpen', 'npsn')
@@ -737,7 +737,7 @@ class SATPENController extends Controller
     {
         try {
 
-            $url = config('app.referensi_crawler') . 'referensi-data/';
+            $url = config('app.referensi_data_crawler') . 'referensi-data/';
 
             $payload = [
                 "satpenid" => $satpen->id_satpen,
