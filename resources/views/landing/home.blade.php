@@ -647,30 +647,13 @@
                     <div class="sip-rank-panel">
                         <h4>Provinsi terbanyak</h4>
                         <div class="sip-sub">Jumlah satuan pendidikan terdata</div>
+                        @php $maxVal = count($topProvinsi) > 0 ? $topProvinsi[0]->record_count : 1; @endphp
+                        @foreach($topProvinsi as $rank)
                         <div class="sip-rank-row">
-                            <div class="sip-rank-top"><span>Jawa Timur</span><b>2.410</b></div>
-                            <div class="sip-rank-bar"><span style="width:100%"></span></div>
+                            <div class="sip-rank-top"><span>{{ $rank->nm_prov }}</span><b>{{ number_format($rank->record_count, 0, ',', '.') }}</b></div>
+                            <div class="sip-rank-bar"><span style="width:{{ $maxVal > 0 ? round(($rank->record_count / $maxVal) * 100) : 0 }}%"></span></div>
                         </div>
-                        <div class="sip-rank-row">
-                            <div class="sip-rank-top"><span>Jawa Tengah</span><b>1.860</b></div>
-                            <div class="sip-rank-bar"><span style="width:77%"></span></div>
-                        </div>
-                        <div class="sip-rank-row">
-                            <div class="sip-rank-top"><span>Jawa Barat</span><b>1.140</b></div>
-                            <div class="sip-rank-bar"><span style="width:47%"></span></div>
-                        </div>
-                        <div class="sip-rank-row">
-                            <div class="sip-rank-top"><span>Sumatera Utara</span><b>640</b></div>
-                            <div class="sip-rank-bar"><span style="width:27%"></span></div>
-                        </div>
-                        <div class="sip-rank-row">
-                            <div class="sip-rank-top"><span>Kalimantan Selatan</span><b>512</b></div>
-                            <div class="sip-rank-bar"><span style="width:21%"></span></div>
-                        </div>
-                        <div class="sip-rank-row" style="margin-bottom:0;">
-                            <div class="sip-rank-top"><span>Sulawesi Selatan</span><b>398</b></div>
-                            <div class="sip-rank-bar"><span style="width:16%"></span></div>
-                        </div>
+                        @endforeach
                     </div>
 
                     <button class="sip-map-toggle" id="sipMapToggleBtn" aria-label="Tampilkan provinsi terbanyak" title="Provinsi terbanyak">
