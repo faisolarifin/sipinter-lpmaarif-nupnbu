@@ -38,7 +38,7 @@
     .sip-brand-mark-nav img { width: 100%; height: 100%; object-fit: cover; }
     .sip-brand-text-nav { line-height: 1.2; }
     .sip-brand-text-nav b { display: block; font-size: 14.5px; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
-    .sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: rgba(244,217,153,0.9); }
+    .sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: #FDE68A; }
     .sip-nav-links { gap: 8px; margin-left: auto; margin-right: auto; }
     .sip-nav-links .nav-link { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.78); padding: 6px 10px; position: relative; border-radius: 6px; }
     .sip-nav-links .nav-link:hover { color: #fff; background: rgba(255,255,255,0.1); }
