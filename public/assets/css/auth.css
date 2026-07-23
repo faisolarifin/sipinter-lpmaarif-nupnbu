@@ -26,8 +26,8 @@ a{text-decoration:none;}
 .sip-card-wide .sip-input-wrap input,
 .sip-card-wide .sip-input-wrap textarea{font-size:13.5px;}
 .sip-card-wide .sip-input-wrap textarea{resize:none;}
-.sip-card-wide .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){border-radius:10px;}
-.sip-card-wide .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) .dropdown-toggle{border-radius:10px;}
+.sip-card-wide .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){border-radius:12px;}
+.sip-card-wide .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) .dropdown-toggle{border-radius:12px;}
 .sip-back-home{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--sip-ink-soft); margin-bottom:14px; transition:color .15s ease;}
 .sip-back-home:hover{color:var(--sip-primary);}
 .sip-brand{display:block; margin-bottom:20px; text-align:center;}
