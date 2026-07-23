@@ -49,7 +49,7 @@ a{text-decoration:none;}
 }
 .sip-input-wrap input:focus{border-color:var(--sip-primary); box-shadow:0 0 0 3px var(--sip-primary-tint);}
 .sip-toggle-eye{position:absolute; right:17px; color:var(--sip-ink-soft); cursor:pointer; background:none; border:none; padding:10px; display:flex; z-index:3; pointer-events:auto;}
-.sip-toggle-eye svg{position:relative; left:2px; top:3px;}
+.sip-toggle-eye svg{position:relative; left:2px; top:2px;}
 .sip-input-wrap.has-toggle input{padding-right:56px;}
 
 /* row */
