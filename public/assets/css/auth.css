@@ -24,12 +24,10 @@ a{text-decoration:none;}
 .sip-card{width:100%; max-width:400px; background:#FFFFFF; border:1px solid var(--sip-line); border-radius:24px; padding:40px 38px; box-shadow:0 34px 64px -30px rgba(11,66,38,0.28);}
 .sip-card-wide{max-width:560px; padding:28px 32px;}
 .sip-card-wide .sip-input-wrap input,
-.sip-card-wide .sip-input-wrap textarea,
-.sip-card-wide .bootstrap-select .dropdown-toggle{border-radius:10px; padding:10px 14px 10px 42px; font-size:13.5px;}
+.sip-card-wide .sip-input-wrap textarea{font-size:13.5px;}
 .sip-card-wide .sip-input-wrap textarea{resize:none;}
-.sip-card-wide .bootstrap-select .dropdown-toggle{border:1.5px solid var(--sip-line)!important; background:#fff!important; box-shadow:none!important; outline:none!important; height:auto;}
-.sip-card-wide .bootstrap-select .dropdown-toggle:focus,
-.sip-card-wide .bootstrap-select.show .dropdown-toggle{border-color:var(--sip-primary)!important; box-shadow:0 0 0 3px var(--sip-primary-tint)!important;}
+.sip-card-wide .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){border-radius:10px;}
+.sip-card-wide .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) .dropdown-toggle{border-radius:10px;}
 .sip-back-home{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--sip-ink-soft); margin-bottom:14px; transition:color .15s ease;}
 .sip-back-home:hover{color:var(--sip-primary);}
 .sip-brand{display:block; margin-bottom:20px; text-align:center;}
