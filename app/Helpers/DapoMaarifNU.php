@@ -25,9 +25,13 @@ class DapoMaarifNU {
     public function clone($npsn)
     {
         try {
+            $token = config('services.dapo.token');
+            $url = config('services.dapo.url') . '/' . $npsn;
+            Log::info("DapoMaarifNU: Requesting {$url} with token length: " . strlen($token));
+            
             $response = Http::withOptions(['verify' => false])
-            ->withToken(config('services.dapo.token'))
-            ->get(config('services.dapo.url') . '/' . $npsn);
+            ->withHeaders(['Authorization' => 'Bearer ' . $token])
+            ->get($url);
 
             if ($response->successful()) {
                 $jsonResponse = $response->json();
