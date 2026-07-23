@@ -48,7 +48,8 @@ a{text-decoration:none;}
     transition:border-color .15s ease, box-shadow .15s ease; background:#fff;
 }
 .sip-input-wrap input:focus{border-color:var(--sip-primary); box-shadow:0 0 0 3px var(--sip-primary-tint);}
-.sip-toggle-eye{position:absolute; right:14px; color:var(--sip-ink-soft); cursor:pointer; background:none; border:none; padding:0; display:flex; z-index:1;}
+.sip-toggle-eye{position:absolute; right:14px; color:var(--sip-ink-soft); cursor:pointer; background:none; border:none; padding:0; display:flex; z-index:2;}
+.sip-input-wrap.has-toggle input{padding-right:42px;}
 
 /* row */
 .sip-row-between{display:flex; align-items:center; justify-content:space-between; margin:2px 0 22px; font-size:13px;}

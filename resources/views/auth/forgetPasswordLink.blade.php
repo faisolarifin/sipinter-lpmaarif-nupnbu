@@ -43,7 +43,7 @@
                 </div>
                 <div class="sip-field">
                     <label for="new_password">Password Baru</label>
-                    <div class="sip-input-wrap">
+                    <div class="sip-input-wrap has-toggle">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
                         <input id="new_password" name="new_password" type="password" placeholder="Masukkan password baru" class="@error('new_password') is-invalid @enderror">
                         <button type="button" class="sip-toggle-eye" onclick="var p=document.getElementById('new_password');p.type=p.type==='password'?'text':'password';">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="sip-field">
                     <label for="password_confirm">Konfirmasi Password</label>
-                    <div class="sip-input-wrap">
+                    <div class="sip-input-wrap has-toggle">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
                         <input id="password_confirm" name="password_confirm" type="password" placeholder="Konfirmasi password anda" class="@error('password_confirm') is-invalid @enderror">
                         <button type="button" class="sip-toggle-eye" onclick="var p=document.getElementById('password_confirm');p.type=p.type==='password'?'text':'password';">
