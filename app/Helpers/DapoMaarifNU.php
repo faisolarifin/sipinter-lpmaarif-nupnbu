@@ -26,13 +26,14 @@ class DapoMaarifNU {
     {
         try {
             $token = config('services.dapo.token');
-            $url = config('services.dapo.url') . '/' . $npsn;
+            $url = str_replace('http://', 'https://', config('services.dapo.url')) . '/' . $npsn;
             Log::info("DapoMaarifNU: Requesting {$url}");
 
             $ch = curl_init($url);
             curl_setopt_array($ch, [
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_HTTPHEADER => [
                     'Authorization: Bearer ' . trim($token),
