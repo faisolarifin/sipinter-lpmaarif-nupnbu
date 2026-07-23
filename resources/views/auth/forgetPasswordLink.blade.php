@@ -46,7 +46,9 @@
                     <div class="sip-input-wrap has-toggle">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
                         <input id="new_password" name="new_password" type="password" placeholder="Masukkan password baru" class="@error('new_password') is-invalid @enderror">
-                        <button type="button" class="sip-toggle-eye" onclick="var p=document.getElementById('new_password');var s=this.querySelector('svg');if(p.type==='password'){p.type='text';s.innerHTML='<path d=\"M3 3l18 18M10.5 9a3 3 0 0 1 4 4M6.5 6.5c-2 2-4 5.5-4 5.5s3.6 7 10 7c2 0 3.8-.6 5.3-1.6M21.5 17.5l-3-6\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>'}else{p.type='password';s.innerHTML='<path d=\"M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z\" stroke=\"currentColor\" stroke-width=\"1.8\"/><circle cx=\"12\" cy=\"12\" r=\"3\" stroke=\"currentColor\" stroke-width=\"1.8\"/>'}">
+                        <button type="button" class="sip-toggle-eye" onclick="sipToggleEye('new_password', this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
+                        </button>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
                         </button>
                     </div>
@@ -57,7 +59,9 @@
                     <div class="sip-input-wrap has-toggle">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
                         <input id="password_confirm" name="password_confirm" type="password" placeholder="Konfirmasi password anda" class="@error('password_confirm') is-invalid @enderror">
-                        <button type="button" class="sip-toggle-eye" onclick="var p=document.getElementById('password_confirm');var s=this.querySelector('svg');if(p.type==='password'){p.type='text';s.innerHTML='<path d=\"M3 3l18 18M10.5 9a3 3 0 0 1 4 4M6.5 6.5c-2 2-4 5.5-4 5.5s3.6 7 10 7c2 0 3.8-.6 5.3-1.6M21.5 17.5l-3-6\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>'}else{p.type='password';s.innerHTML='<path d=\"M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z\" stroke=\"currentColor\" stroke-width=\"1.8\"/><circle cx=\"12\" cy=\"12\" r=\"3\" stroke=\"currentColor\" stroke-width=\"1.8\"/>'}">
+                        <button type="button" class="sip-toggle-eye" onclick="sipToggleEye('password_confirm', this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
+                        </button>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
                         </button>
                     </div>
@@ -102,6 +106,14 @@
 
 @section('scripts')
 <script>
+function sipToggleEye(id, btn) {
+    var p = document.getElementById(id);
+    var s = btn.querySelector('svg');
+    var eyeOff = '<path d="M3 3l18 18M10.5 9a3 3 0 0 1 4 4M6.5 6.5c-2 2-4 5.5-4 5.5s3.6 7 10 7c2 0 3.8-.6 5.3-1.6M21.5 17.5l-3-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>';
+    var eyeOn = '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>';
+    if (p.type === 'password') { p.type = 'text'; s.innerHTML = eyeOff; }
+    else { p.type = 'password'; s.innerHTML = eyeOn; }
+}
 $('#password_confirm').on('keyup', function() {
     var p = $('#new_password').val();
     var c = $(this).val();
