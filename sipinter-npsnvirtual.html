@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIPINTER — Ajukan NPSN Virtual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6FAF7; --surface:#FFFFFF; --ink:#12261C; --ink-soft:#5A6B61;
+    --primary:#0B6B3A; --primary-dark:#063D22; --primary-tint:#E7F3EB;
+    --gold:#C08A22; --gold-tint:#F7EDD9; --line:#E1EBE5;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%; margin:0; overflow:hidden;}
+  body{
+    font-family:'Inter', sans-serif; color:var(--ink); background:linear-gradient(160deg, #FFFFFF 0%, #DCEEE2 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;}
+  .shell{display:flex; height:100vh; width:100vw;}
+
+  /* ---------- LEFT: form panel ---------- */
+  .left{order:2;
+    flex:1.5; display:flex; align-items:center; justify-content:center;
+    padding:28px; position:relative; background:linear-gradient(160deg, #FFFFFF 0%, #DCEEE2 100%);
+  }
+  .left::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg, var(--primary), var(--gold));
+  }
+  .card{width:100%; max-width:560px; background:#FFFFFF; border:1px solid var(--line); border-radius:24px; padding:32px 38px; box-shadow:0 34px 64px -30px rgba(11,66,38,0.28);}
+  .field-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:11.5px; font-weight:700; color:var(--ink); margin-bottom:5px;}
+  .field select{
+    width:100%; padding:10.5px 14px 10.5px 42px; border:1.5px solid var(--line); border-radius:11px;
+    font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink); outline:none; background:#fff;
+    appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'><path d='M6 9l6 6 6-6' stroke='%235A6B61' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat:no-repeat; background-position:right 14px center;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field select:focus{border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-tint);}
+  .field textarea{
+    width:100%; padding:10.5px 14px 10.5px 42px; border:1.5px solid var(--line); border-radius:11px;
+    font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink); outline:none; background:#fff;
+    resize:none; transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field textarea:focus{border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-tint);}
+  .field .input-wrap svg.select-icon{z-index:1;}
+  .back-home{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:clamp(12px,2.2vh,20px); transition:color .15s ease;}
+  .back-home:hover{color:var(--primary);}
+  .brand{display:flex; align-items:center; gap:11px; margin-bottom:clamp(20px,4vh,40px);}
+  .brand-link{display:flex; align-items:center; gap:11px; text-decoration:none;}
+  .brand-mark{
+    width:40px; height:40px; border-radius:11px;
+    background:linear-gradient(160deg, var(--primary), var(--primary-dark));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:700; font-size:17px; flex-shrink:0;
+  }
+  .brand-text b{display:block; font-size:15px; font-weight:800; color:var(--primary-dark); letter-spacing:0.01em;}
+  .brand-text span{display:block; font-size:11px; color:var(--ink-soft);}
+
+  .card h1{font-size:22px; font-weight:700; letter-spacing:-0.01em; margin:0 0 5px;}
+  .card .sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:clamp(12px,2.2vh,18px); line-height:1.45;}
+
+  .field label{display:block; font-size:11.5px; font-weight:700; color:var(--ink); margin-bottom:5px;}
+  .field .input-wrap{position:relative; display:flex; align-items:center;}
+  .field .input-wrap svg{position:absolute; left:14px; color:var(--ink-soft); pointer-events:none; z-index:1;}
+  .field input{
+    width:100%; padding:10.5px 14px 10.5px 42px; border:1.5px solid var(--line); border-radius:11px;
+    font-size:13.5px; font-family:'Inter',sans-serif; color:var(--ink); outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease; background:#fff;
+  }
+  .field input:focus{border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-tint);}
+  .toggle-eye{position:absolute; right:14px; color:var(--ink-soft); cursor:pointer; background:none; border:none; padding:0; display:flex;}
+
+  .row-between{display:flex; align-items:center; justify-content:space-between; margin:2px 0 22px; font-size:13px;}
+  .checkbox{display:flex; align-items:center; gap:7px; color:var(--ink-soft);}
+  .checkbox input{width:15px; height:15px; accent-color:var(--primary); cursor:pointer;}
+  .row-between a{color:var(--primary); font-weight:600;}
+  .row-between a:hover{text-decoration:underline;}
+
+  .btn-submit{
+    width:100%; padding:12px; border:none; border-radius:11px; margin-top:4px;
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark)); color:#fff;
+    font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:filter .15s ease, transform .15s ease; box-shadow:0 14px 28px -12px rgba(11,66,38,0.55);
+  }
+  .btn-submit:hover{filter:brightness(1.07); transform:translateY(-1px);}
+
+  .foot-note{text-align:center; margin-top:14px; font-size:12.5px; color:var(--ink-soft);}
+  .foot-note a{color:var(--gold); font-weight:700;}
+  .foot-note a:hover{text-decoration:underline;}
+
+  /* ---------- RIGHT: brand / info panel ---------- */
+  .right{order:1;
+    flex:1; position:relative; overflow:hidden; color:#fff;
+    background:linear-gradient(165deg, var(--primary) 0%, var(--primary-dark) 85%);
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:clamp(24px,4vh,44px) clamp(28px,3.5vw,48px);
+  }
+  .lattice{
+    position:absolute; inset:0; opacity:.5; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(192,138,34,0.16) 0px, rgba(192,138,34,0.16) 1.5px, transparent 1.5px, transparent 24px),
+      repeating-linear-gradient(-45deg, rgba(192,138,34,0.16) 0px, rgba(192,138,34,0.16) 1.5px, transparent 1.5px, transparent 24px);
+  }
+  .right-inner{position:relative; z-index:1; display:flex; flex-direction:column; height:100%;}
+
+  .emblem{
+    width:52px; height:52px; border-radius:50%; flex-shrink:0;
+    background:radial-gradient(circle at 35% 30%, #F4D999, var(--gold));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 26px -8px rgba(0,0,0,0.4);
+  }
+  .emblem svg{width:26px; height:26px;}
+
+  .brand-block{display:flex; align-items:center; gap:14px; margin-bottom:clamp(16px,3vh,28px);}
+  .brand-block h2{font-size:18px; font-weight:700; margin:0 0 3px; line-height:1.3;}
+  .brand-block span{font-size:12.5px; color:rgba(255,255,255,0.75);}
+
+  .feature-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:clamp(9px,1.6vh,15px); flex:1;}
+  .feature-list li{display:flex; align-items:flex-start; gap:11px; font-size:13.5px; line-height:1.4; color:rgba(255,255,255,0.92);}
+  .feature-list .ic{
+    width:22px; height:22px; border-radius:50%; background:rgba(255,255,255,0.16);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
+  }
+
+  .help-card{
+    background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.2);
+    border-radius:16px; padding:clamp(14px,2.2vh,20px); backdrop-filter:blur(6px);
+    margin-top:clamp(14px,2vh,20px);
+  }
+  .help-card h4{font-size:12.5px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; margin:0 0 10px; color:rgba(255,255,255,0.85);}
+  .help-row{display:flex; align-items:center; gap:9px; font-size:12.5px; color:rgba(255,255,255,0.9); margin-bottom:7px;}
+  .help-row:last-child{margin-bottom:0;}
+  .help-row svg{flex-shrink:0; color:var(--gold);}
+  .wa-row{display:flex; gap:8px; margin-top:9px;}
+  .wa-pill{
+    flex:1; text-align:center; font-size:11.5px; font-weight:700; color:#fff;
+    background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.25);
+    padding:7px 8px; border-radius:99px;
+  }
+  .address{font-size:11.5px; color:rgba(255,255,255,0.65); line-height:1.5; margin-top:12px;}
+
+  @media(max-width:860px){
+    .shell{flex-direction:column; height:100vh;}
+    .right{display:none;}
+    .left{flex:1;}
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="left">
+    <div class="card">
+      <a href="https://sipinter.maarifnu.or.id/" class="back-home">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Kembali ke Beranda
+      </a>
+      <a href="https://sipinter.maarifnu.or.id/" class="brand brand-link">
+        <div class="brand-mark">S</div>
+        <div class="brand-text">
+          <b>SIPINTER</b>
+          <span>LP Ma'arif NU PBNU</span>
+        </div>
+      </a>
+
+      <h1>Ajukan NPSN Virtual</h1>
+      <p class="sub">Lengkapi data berikut untuk mengajukan NPSN Virtual bagi satuan pendidikan Anda.</p>
+
+      <form onsubmit="return false;">
+        <div class="field">
+          <label for="nama_sekolah">Nama Sekolah</label>
+          <div class="input-wrap">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-5 9 5-9 5-9-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 12v5c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5v-5" stroke="currentColor" stroke-width="1.8"/></svg>
+            <input id="nama_sekolah" type="text" placeholder="Nama lengkap satuan pendidikan">
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="input-wrap">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.8"/></svg>
+              <input id="email" type="email" placeholder="email@sekolah.sch.id">
+            </div>
+          </div>
+          <div class="field">
+            <label for="nik">NIK Kepala Sekolah</label>
+            <div class="input-wrap">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="8.5" cy="11" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M13 10h5M13 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <input id="nik" type="text" inputmode="numeric" placeholder="16 digit NIK">
+            </div>
+          </div>
+        </div>
+        <p style="font-size:11px; color:var(--ink-soft); margin:-6px 0 12px; line-height:1.4;">*) pastikan email aktif — konfirmasi permohonan akan dikirim ke alamat ini.</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="jenjang">Jenjang Pendidikan</label>
+            <div class="input-wrap">
+              <svg class="select-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-5 9 5-9 5-9-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              <select id="jenjang">
+                <option>Pilih Jenjang</option>
+                <option>PAUD</option><option>KB</option><option>TPQ</option><option>RA</option><option>TK</option>
+                <option>SD</option><option>MI</option><option>SMP</option><option>MTs</option><option>SMA</option>
+                <option>SMK</option><option>MA</option><option>MD</option><option>SLB</option><option>PT</option><option>PKBM</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="provinsi">Provinsi</label>
+            <div class="input-wrap">
+              <svg class="select-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>
+              <select id="provinsi">
+                <option>Pilih Provinsi</option>
+                <option>Jawa Timur</option><option>Jawa Tengah</option><option>Jawa Barat</option><option>DKI Jakarta</option>
+                <option>DI Yogyakarta</option><option>Banten</option><option>Bali</option><option>Sumatera Utara</option>
+                <option>Sumatera Barat</option><option>Sumatera Selatan</option><option>Kalimantan Selatan</option>
+                <option>Sulawesi Selatan</option><option>Aceh</option><option>Lainnya</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="kabupaten">Kabupaten/Kota</label>
+            <div class="input-wrap">
+              <svg class="select-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 9h2M8 13h2M14 9h2M14 13h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <select id="kabupaten">
+                <option>Pilih Kabupaten/Kota</option>
+                <option>Kab. Sidoarjo</option><option>Kab. Malang</option><option>Kab. Jember</option>
+                <option>Kota Surabaya</option><option>Kab. Gresik</option><option>Lainnya</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="alamat">Alamat</label>
+            <div class="input-wrap">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="top:12px; transform:none;"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.8"/></svg>
+              <textarea id="alamat" rows="1" placeholder="Alamat lengkap satuan pendidikan"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Ajukan NPSN Virtual
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+
+      <div class="foot-note">
+        Sudah Punya NPSN? <a href="https://sipinter.maarifnu.or.id/ceknpsn">Daftar Sekarang</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="lattice"></div>
+    <div class="right-inner">
+      <div class="brand-block">
+        <div class="emblem">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14.2 8.6 L21 9.3 L15.8 13.6 L17.5 20.2 L12 16.4 L6.5 20.2 L8.2 13.6 L3 9.3 L9.8 8.6 Z" fill="#063D22"/></svg>
+        </div>
+        <div>
+          <h2>Sipinter LP Ma'arif NU PBNU</h2>
+          <span>Pelayanan Terintegrasi dan Terpadu</span>
+        </div>
+      </div>
+
+      <ul class="feature-list">
+        <li><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Menjadi Pusat Data Satuan Pendidikan Ma'arif NU</li>
+        <li><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Izin Sistem OSS/NIB</li>
+        <li><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Badan Hukum NU (BHPNU)</li>
+        <li><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Bantuan Pendidikan Ma'arif</li>
+        <li><span class="ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Beasiswa Pendidikan</li>
+      </ul>
+
+      <div class="help-card">
+        <h4>Helpdesk</h4>
+        <div class="help-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.8"/></svg>
+          bhp.maarifnu@gmail.com
+        </div>
+        <div class="help-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.6 22 2 14.4 2 6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          021-3904115 &nbsp;•&nbsp; Fax 021-31906679
+        </div>
+        <div class="wa-row">
+          <a class="wa-pill" href="https://wa.me/6285883858897">WA 1 · 0858-8385-8897</a>
+          <a class="wa-pill" href="https://wa.me/6281319868302">WA 2 · 0813-1986-8302</a>
+        </div>
+        <div class="address">Gedung PBNU II, Lt. 2, Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng, Jakarta Pusat 10320</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
