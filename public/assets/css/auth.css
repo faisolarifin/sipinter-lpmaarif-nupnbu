@@ -17,6 +17,7 @@ a{text-decoration:none;}
 
 /* left panel */
 .sip-left{order:2; flex:1.2; display:flex; align-items:center; justify-content:center; padding:32px; position:relative; background:linear-gradient(160deg, #FFFFFF 0%, #DCEEE2 100%); overflow-y:auto;}
+.sip-left-wide{flex:1.5; padding:24px;}
 .sip-left::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--sip-primary), var(--sip-gold));}
 
 /* card */
