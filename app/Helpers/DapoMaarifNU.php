@@ -27,11 +27,13 @@ class DapoMaarifNU {
         try {
             $token = config('services.dapo.token');
             $url = config('services.dapo.url') . '/' . $npsn;
-            Log::info("DapoMaarifNU: Requesting {$url} with token length: " . strlen($token));
-            
-            $response = Http::withOptions(['verify' => false])
-            ->withHeaders(['Authorization' => 'Bearer ' . $token])
-            ->get($url);
+            Log::info("DapoMaarifNU: Requesting {$url} | Token exists: " . (!empty($token) ? 'YES (' . strlen($token) . ' chars)' : 'NO'));
+
+            $http = Http::withOptions(['verify' => false])->timeout(30);
+            if (!empty($token)) {
+                $http = $http->withToken(trim($token));
+            }
+            $response = $http->get($url);
 
             if ($response->successful()) {
                 $jsonResponse = $response->json();
