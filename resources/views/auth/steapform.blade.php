@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}" />
+<style>html,body{overflow:auto!important; height:auto!important;} #main-wrapper,#main-wrapper>.page-wrapper{height:auto!important;}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
 @endsection
 
