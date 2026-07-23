@@ -60,18 +60,18 @@
                         </div>
                     </div>
                     <div class="sip-row row-nm-yayasan" style="display:none;">
-                        <div class="sip-field"><label>Nama Yayasan</label><input type="text" class="form-control" name="nm_yayasan" placeholder="Masukkan nama yayasan"></div>
+                        <div class="sip-field"><label>Nama Yayasan</label><input type="text" class="form-control @error('nm_yayasan') is-invalid @enderror" name="nm_yayasan" placeholder="Masukkan nama yayasan" required></div>
                     </div>
                     <div class="sip-row">
-                        <div class="sip-field"><label>Kepala Sekolah</label><input type="text" class="form-control" name="kepsek" value="{{ old('kepsek') }}" placeholder="Masukkan nama kepala sekolah"></div>
-                        <div class="sip-field"><label>Tahun Berdiri</label><input type="text" class="form-control" name="thn_berdiri" value="{{ old('thn_berdiri') }}" placeholder="Masukkan tahun berdiri"></div>
+                        <div class="sip-field"><label>Kepala Sekolah</label><input type="text" class="form-control @error('kepsek') is-invalid @enderror" name="kepsek" value="{{ old('kepsek') }}" placeholder="Masukkan nama kepala sekolah" required></div>
+                        <div class="sip-field"><label>Tahun Berdiri</label><input type="text" class="form-control @error('thn_berdiri') is-invalid @enderror" name="thn_berdiri" value="{{ old('thn_berdiri') }}" placeholder="Masukkan tahun berdiri" required></div>
                     </div>
                     <div class="sip-row">
                         <div class="sip-field">
                             <label>Aset Tanah</label>
                             <select class="form-select" name="aset_tanah"><option value="jamiyah">Jamiyah</option><option value="masyarakat nu">Masyarakat NU</option></select>
                         </div>
-                        <div class="sip-field"><label>Nama Pemilik</label><input type="text" class="form-control" name="nm_pemilik" value="{{ old('nm_pemilik') }}" placeholder="Masukkan nama pemilik tanah"></div>
+                        <div class="sip-field"><label>Nama Pemilik</label><input type="text" class="form-control @error('nm_pemilik') is-invalid @enderror" name="nm_pemilik" value="{{ old('nm_pemilik') }}" placeholder="Masukkan nama pemilik tanah" required></div>
                     </div>
                 </div>
 
@@ -103,18 +103,18 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="sip-field"><label>Kecamatan</label><input type="text" class="form-control" name="kecamatan" value="{{ $cookieValue->kecamatankota_ln }}" placeholder="Masukkan nama kecamatan"></div>
+                        <div class="sip-field"><label>Kecamatan</label><input type="text" class="form-control @error('kecamatan') is-invalid @enderror" name="kecamatan" value="{{ $cookieValue->kecamatankota_ln }}" placeholder="Masukkan nama kecamatan" required></div>
                     </div>
                     <div class="sip-row">
-                        <div class="sip-field"><label>Kelurahan</label><input type="text" class="form-control" name="kelurahan" value="{{ $cookieValue->desakelurahan }}" placeholder="Masukkan nama kelurahan"></div>
-                        <div class="sip-field"><label>Alamat</label><input type="text" class="form-control" name="alamat" value="{{ $cookieValue->alamat }}" placeholder="Masukkan alamat sekolah"></div>
+                        <div class="sip-field"><label>Kelurahan</label><input type="text" class="form-control @error('kelurahan') is-invalid @enderror" name="kelurahan" value="{{ $cookieValue->desakelurahan }}" placeholder="Masukkan nama kelurahan" required></div>
+                        <div class="sip-field"><label>Alamat</label><input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ $cookieValue->alamat }}" placeholder="Masukkan alamat sekolah" required></div>
                     </div>
                 </div>
 
                 <div class="tab d-none">
                     <div class="sip-row">
-                        <div class="sip-field"><label>Email</label><input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Masukkan email aktif"></div>
-                        <div class="sip-field"><label>No. HP/WA</label><input type="text" class="form-control" name="telp" value="{{ old('telp') }}" placeholder="Masukkan nomor telepon"></div>
+                        <div class="sip-field"><label>Email</label><input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Masukkan email aktif" required></div>
+                        <div class="sip-field"><label>No. HP/WA</label><input type="text" class="form-control @error('telp') is-invalid @enderror" name="telp" value="{{ old('telp') }}" placeholder="Masukkan nomor telepon" required></div>
                     </div>
                     <div class="sip-row">
                         <div class="sip-field"><label>Fax</label><input type="text" class="form-control" name="fax" value="{{ old('fax') }}" placeholder="Masukkan nomor FAX (jika ada)"></div>
@@ -124,10 +124,10 @@
                 <div class="tab d-none">
                     <h6 style="font-weight:700;margin-bottom:12px;color:var(--sip-primary-dark);">Surat Permohonan</h6>
                     <div class="sip-row">
-                        <div class="sip-field"><label>Nomor Surat</label><input type="text" class="form-control" name="no_srt_permohonan" value="{{ old('no_srt_permohonan') }}" placeholder="Nomor surat permohonan"></div>
-                        <div class="sip-field"><label>Tanggal Surat</label><input type="date" class="form-control" name="tgl_srt_permohonan" value="{{ old('tgl_srt_permohonan') }}"></div>
+                        <div class="sip-field"><label>Nomor Surat</label><input type="text" class="form-control @error('no_srt_permohonan') is-invalid @enderror" name="no_srt_permohonan" value="{{ old('no_srt_permohonan') }}" placeholder="Nomor surat permohonan" required></div>
+                        <div class="sip-field"><label>Tanggal Surat</label><input type="date" class="form-control @error('tgl_srt_permohonan') is-invalid @enderror" name="tgl_srt_permohonan" value="{{ old('tgl_srt_permohonan') }}" required></div>
                     </div>
-                    <div class="sip-field"><label>File Permohonan (PDF max 1MB)</label><input type="file" class="form-control" name="file_permohonan" accept="application/pdf"></div>
+                    <div class="sip-field"><label>File Permohonan (PDF max 1MB)</label><input type="file" class="form-control @error('file_permohonan') is-invalid @enderror" name="file_permohonan" accept="application/pdf" required></div>
 
                     <h6 style="font-weight:700;margin:20px 0 12px;color:var(--sip-primary-dark);">Surat Keterangan Cabang</h6>
                     <div class="sip-row">
@@ -145,10 +145,10 @@
                         </div>
                     </div>
                     <div class="sip-row">
-                        <div class="sip-field"><label>Nomor Surat</label><input type="text" class="form-control" name="no_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') }}" placeholder="Nomor surat dari cabang"></div>
-                        <div class="sip-field"><label>Tanggal Surat</label><input type="date" class="form-control" name="tgl_srt_rekom_pc" value="{{ old('tgl_srt_rekom_pc') }}"></div>
+                        <div class="sip-field"><label>Nomor Surat</label><input type="text" class="form-control @error('no_srt_rekom_pc') is-invalid @enderror" name="no_srt_rekom_pc" value="{{ old('no_srt_rekom_pc') }}" placeholder="Nomor surat dari cabang" required></div>
+                        <div class="sip-field"><label>Tanggal Surat</label><input type="date" class="form-control @error('tgl_srt_rekom_pc') is-invalid @enderror" name="tgl_srt_rekom_pc" value="{{ old('tgl_srt_rekom_pc') }}" required></div>
                     </div>
-                    <div class="sip-field"><label>File Keterangan PC (PDF max 1MB)</label><input type="file" class="form-control" name="file_rekom_pc" accept="application/pdf"></div>
+                    <div class="sip-field"><label>File Keterangan PC (PDF max 1MB)</label><input type="file" class="form-control @error('file_rekom_pc') is-invalid @enderror" name="file_rekom_pc" accept="application/pdf" required></div>
 
                     <h6 style="font-weight:700;margin:20px 0 12px;color:var(--sip-primary-dark);">Rekomendasi Wilayah</h6>
                     <div class="sip-row">
@@ -166,10 +166,10 @@
                         </div>
                     </div>
                     <div class="sip-row">
-                        <div class="sip-field"><label>Nomor Surat</label><input type="text" class="form-control" name="no_srt_rekom_pw" value="{{ old('no_srt_rekom_pw') }}" placeholder="Nomor surat dari wilayah"></div>
-                        <div class="sip-field"><label>Tanggal Surat</label><input type="date" class="form-control" name="tgl_srt_rekom_pw" value="{{ old('tgl_srt_rekom_pw') }}"></div>
+                        <div class="sip-field"><label>Nomor Surat</label><input type="text" class="form-control @error('no_srt_rekom_pw') is-invalid @enderror" name="no_srt_rekom_pw" value="{{ old('no_srt_rekom_pw') }}" placeholder="Nomor surat dari wilayah" required></div>
+                        <div class="sip-field"><label>Tanggal Surat</label><input type="date" class="form-control @error('tgl_srt_rekom_pw') is-invalid @enderror" name="tgl_srt_rekom_pw" value="{{ old('tgl_srt_rekom_pw') }}" required></div>
                     </div>
-                    <div class="sip-field"><label>File Rekomendasi PW (PDF max 1MB)</label><input type="file" class="form-control" name="file_rekom_pw" accept="application/pdf"></div>
+                    <div class="sip-field"><label>File Rekomendasi PW (PDF max 1MB)</label><input type="file" class="form-control @error('file_rekom_pw') is-invalid @enderror" name="file_rekom_pw" accept="application/pdf" required></div>
                 </div>
 
                 <div class="tab d-none">
@@ -177,14 +177,14 @@
                         <div class="sip-field">
                             <label>Password Akun</label>
                             <div class="input-group form-password">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Masukkan password akun">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Masukkan password akun" required>
                                 <span class="input-group-text password-toggle" style="cursor:pointer;"><i class="ti ti-eye-off"></i></span>
                             </div>
                         </div>
                         <div class="sip-field">
                             <label>Konfirmasi Password</label>
                             <div class="input-group form-password">
-                                <input type="password" class="form-control @error('passconfirm') is-invalid @enderror" name="passconfirm" placeholder="Konfirmasi password">
+                                <input type="password" class="form-control @error('passconfirm') is-invalid @enderror" name="passconfirm" placeholder="Konfirmasi password" required>
                                 <span class="input-group-text password-toggle" style="cursor:pointer;"><i class="ti ti-eye-off"></i></span>
                             </div>
                         </div>
