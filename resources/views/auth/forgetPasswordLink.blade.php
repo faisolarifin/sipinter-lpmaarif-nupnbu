@@ -77,7 +77,7 @@
         <div class="sip-lattice"></div>
         <div class="sip-right-inner">
             <div class="sip-right-logo">
-                <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo NU">
+                <img src="{{ asset('assets/images/logos/Logo_NU_Putih_PNG.png') }}" alt="Logo NU">
             </div>
         </div>
     </div>
