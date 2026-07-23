@@ -16,10 +16,7 @@
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Kembali ke Beranda
             </a>
-            <a href="{{ route('home') }}" class="sip-brand">
-                <div class="sip-brand-mark"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER"></div>
-                <div class="sip-brand-text"><b>SIPINTER</b><span>LP Ma'arif NU PBNU</span></div>
-            </a>
+            <a href="{{ route('home') }}" class="sip-brand"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER"></a>
 
             <h1>Verifikasi NPSN</h1>
             <p class="sip-sub">Masukkan NPSN Anda untuk memverifikasi dan melanjutkan proses registrasi satuan pendidikan.</p>

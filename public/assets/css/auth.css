@@ -24,11 +24,8 @@ a{text-decoration:none;}
 .sip-card-wide{max-width:560px; padding:28px 32px;}
 .sip-back-home{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--sip-ink-soft); margin-bottom:14px; transition:color .15s ease;}
 .sip-back-home:hover{color:var(--sip-primary);}
-.sip-brand{display:flex; align-items:center; gap:11px; margin-bottom:28px; text-decoration:none;}
-.sip-brand-mark{width:40px; height:40px; border-radius:11px; overflow:hidden; flex-shrink:0; background:linear-gradient(160deg, var(--sip-primary), var(--sip-primary-dark));}
-.sip-brand-mark img{width:100%; height:100%; object-fit:cover; background:none!important; border-radius:0!important; padding:0!important;}
-.sip-brand-text b{display:block; font-size:15px; font-weight:800; color:var(--sip-primary-dark); letter-spacing:0.01em;}
-.sip-brand-text span{display:block; font-size:11px; color:var(--sip-ink-soft);}
+.sip-brand{display:block; margin-bottom:28px; text-align:center;}
+.sip-brand img{max-width:180px; height:auto;}
 
 .sip-card h1{font-size:24px; font-weight:700; letter-spacing:-0.01em; margin:0 0 6px; color:var(--sip-ink);}
 .sip-card .sip-sub{font-size:13.5px; color:var(--sip-ink-soft); margin-bottom:26px; line-height:1.5;}
@@ -103,7 +100,8 @@ a{text-decoration:none;}
 
 /* steapform */
 .sip-register-header{padding:40px 0 20px; text-align:center;}
-.sip-register-header .sip-brand{display:inline-flex; align-items:center; gap:11px; margin-bottom:12px;}
+.sip-register-header .sip-brand{display:inline-block; margin-bottom:12px;}
+.sip-register-header .sip-brand img{max-width:200px; height:auto;}
 .sip-register-header h5{font-size:17px; font-weight:700; color:var(--sip-primary-dark); margin-top:12px;}
 .sip-step-card{background:var(--sip-surface); border:1px solid var(--sip-line); border-radius:20px; box-shadow:0 12px 40px -16px rgba(6,61,34,0.08); overflow:hidden; margin-bottom:40px;}
 .sip-step-nav{display:flex; flex-wrap:wrap; background:var(--sip-primary-tint); border-bottom:1px solid var(--sip-line);}

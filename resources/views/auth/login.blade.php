@@ -18,11 +18,7 @@
                 Kembali ke Beranda
             </a>
             <a href="{{ route('home') }}" class="sip-brand">
-                <div class="sip-brand-mark"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER"></div>
-                <div class="sip-brand-text">
-                    <b>SIPINTER</b>
-                    <span>LP Ma'arif NU PBNU</span>
-                </div>
+                <img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER">
             </a>
 
             <h1>Masuk ke akun Anda</h1>
