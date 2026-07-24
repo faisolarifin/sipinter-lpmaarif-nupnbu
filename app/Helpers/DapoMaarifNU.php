@@ -25,34 +25,29 @@ class DapoMaarifNU {
     public function clone($npsn)
     {
         try {
-            $token = config('services.dapo.token');
-            $url = str_replace('http://', 'https://', config('services.dapo.url')) . '/' . $npsn;
-            Log::info("DapoMaarifNU: Requesting {$url}");
+            $response = Http::withOptions(['verify' => false])
+            ->withToken(config('services.dapo.token'))
+            ->get(config('services.dapo.url') . '/' . $npsn);
 
-            $ch = curl_init($url);
-            curl_setopt_array($ch, [
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTPHEADER => [
-                    'Authorization: Bearer ' . trim($token),
-                    'Accept: application/json',
-                ],
-            ]);
-            $body = curl_exec($ch);
-            $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-
-            if ($statusCode >= 200 && $statusCode < 300) {
-                $jsonResponse = json_decode($body, true);
+            if ($response->successful()) {
+                $jsonResponse = $response->json();
                 return $this->set(true, $jsonResponse);
-            } elseif ($statusCode == 400) {
-                Log::warning("DapoMaarifNU: NPSN {$npsn} tidak ditemukan (HTTP 400)");
-                return $this->set(false, "NPSN {$npsn} tidak ditemukan di Dapo Maarif NU");
+
+            }  elseif ($response->failed()) {
+                $statusCode = $response->status();
+                $errorBody = $response->json(); // The response body that might contain error details
+                
+                if ($statusCode == 400) {
+                    Log::warning("DapoMaarifNU: NPSN {$npsn} tidak ditemukan (HTTP 400)");
+                    return $this->set(false, "NPSN {$npsn} tidak ditemukan di Dapo Maarif NU");
+                } else {
+                    Log::error("DapoMaarifNU: HTTP {$statusCode} untuk NPSN {$npsn}", ['body' => $errorBody]);
+                    return $this->set(false, "Gagal mengakses API Dapo Maarif NU untuk NPSN {$npsn}: HTTP {$statusCode}, " . ($errorBody["error"] ?? 'tidak ada detail error'));
+                }
+
             } else {
-                Log::error("DapoMaarifNU: HTTP {$statusCode} untuk NPSN {$npsn}", ['body' => $body]);
-                return $this->set(false, "Gagal mengakses API Dapo Maarif NU untuk NPSN {$npsn}: HTTP {$statusCode}");
+                Log::error("DapoMaarifNU: Response tidak terduga untuk NPSN {$npsn}");
+                return $this->set(false, "Gagal mengakses API Dapo Maarif NU untuk NPSN {$npsn}: response tidak terduga");
             }
         } catch (\Exception $err) {
             Log::error("DapoMaarifNU: Exception NPSN {$npsn} - {$err->getMessage()}", ['exception' => $err]);
