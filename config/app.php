@@ -17,7 +17,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'referensi_data_crawler' => env('REFERENSI_DATA_CRAWLER_URL', 'http://localhost:8818/api/v1/'),
+    'referensi_crawler' => env('REFERENSI_CRAWLER_URL', 'http://localhost:8818/api/v1/'),
 
     /*
     |--------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 <?php
 namespace App\Helpers;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\DomCrawler\Crawler;
 
 class ReferensiKemdikbud {
@@ -25,7 +24,7 @@ class ReferensiKemdikbud {
     public function clone($npsn)
     {
         try {
-            $response = Http::withOptions(['verify' => false])->get(config('services.referensi_kemdikbud.url') . '/' . $npsn);
+            $response = Http::withOptions(['verify' => false])->get("https://referensi.data.kemdikbud.go.id/pendidikan/npsn/".$npsn);
 
             if ($response->successful() || $response->serverError()) {
                 $html = $response->body();
@@ -57,16 +56,13 @@ class ReferensiKemdikbud {
 
                 if (count($dataList) > 0) return $this->set(true, $dataList);
 
-                Log::warning("ReferensiKemdikbud: NPSN {$npsn} tidak ditemukan (dataList kosong)");
-                return $this->set(false, "NPSN {$npsn} tidak ditemukan di Referensi Kemdikbud");
+                return $this->set(false, "NPSN tidak ditemukan");
 
             } else {
-                Log::error("ReferensiKemdikbud: HTTP {$response->status()} untuk NPSN {$npsn}");
-                return $this->set(false, "Gagal mengakses halaman Referensi Kemdikbud untuk NPSN {$npsn}: HTTP {$response->status()}");
+                return $this->set(false, "Crawling status in not successed");
             }
         } catch (\Exception $err) {
-            Log::error("ReferensiKemdikbud: Exception NPSN {$npsn} - {$err->getMessage()}", ['exception' => $err]);
-            return $this->set(false, "Koneksi ke Referensi Kemdikbud gagal saat mengecek NPSN {$npsn}");
+            return $this->set(false, "Server dalam masalah untuk pengecekan NPSN");
 
         }
     }
