@@ -68,14 +68,8 @@
     <div class="sip-right">
         <div class="sip-lattice"></div>
         <div class="sip-right-inner">
-            <div class="sip-brand-block">
-                <div class="sip-emblem">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L14.2 8.6 L21 9.3 L15.8 13.6 L17.5 20.2 L12 16.4 L6.5 20.2 L8.2 13.6 L3 9.3 L9.8 8.6 Z" fill="#063D22"/></svg>
-                </div>
-                <div>
-                    <h2>Sipinter LP Ma'arif NU PBNU</h2>
-                    <span>Pelayanan Terintegrasi dan Terpadu</span>
-                </div>
+            <div class="sip-right-logo" style="justify-content:flex-start; flex:none; margin-bottom:24px;">
+                <img src="{{ asset('assets/images/logos/Logo_NU_Putih_PNG.png') }}" alt="Logo NU" style="max-width:140px;">
             </div>
 
             <ul class="sip-feature-list">
