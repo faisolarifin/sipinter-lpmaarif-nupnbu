@@ -118,10 +118,7 @@
 @section('container')
     <nav class="navbar navbar-expand-lg navbar-dark bg-navbar-landing py-3 shadow sticky-top">
         <div class="sip-wrap sip-nav-row">
-            <a class="navbar-brand sip-brand py-0" href="{{ route('home') }}">
-                <div class="sip-brand-mark-nav"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo.png') }}" alt="SIPINTER"></div>
-                <div class="sip-brand-text-nav"><b>SIPINTER</b><span>LP Ma'arif NU PBNU</span></div>
-            </a>
+            <a class="navbar-brand sip-brand-nav py-0" href="{{ route('home') }}"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER" style="height:42px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sipNavbar" aria-controls="sipNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
