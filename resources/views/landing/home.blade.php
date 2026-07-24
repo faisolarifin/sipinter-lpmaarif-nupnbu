@@ -152,7 +152,7 @@
     display: flex; align-items: center; justify-content: space-between;
     width: 100%; padding: 0;
 }
-.sip-brand-nav img { height:47px; width:auto; background:none!important; border-radius:0!important; padding:0!important; }
+.sip-brand-nav img { height:47px; width:auto; }
 .sip-brand {
     display: flex; align-items: center; gap: 12px;
     text-decoration: none;
