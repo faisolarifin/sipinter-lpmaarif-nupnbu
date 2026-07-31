@@ -21,8 +21,10 @@
                 <img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER">
             </a>
 
-            <h1>Masuk ke akun Anda</h1>
-            <p class="sip-sub">Kelola data satuan pendidikan Ma'arif NU Anda dalam satu portal terpadu.</p>
+            <div class="text-center">
+                <h6 class="mb-1">Sistem Administrasi Pendidikan Terpadu</h6>
+                <h6 class="sip-sub mb-3">Lembaga Pendidikan Ma'arif NU PBNU</h6>
+            </div>
 
             @include('template.alert')
 
@@ -68,8 +70,13 @@
     <div class="sip-right">
         <div class="sip-lattice"></div>
         <div class="sip-right-inner">
-            <div class="sip-right-logo" style="justify-content:flex-start; flex:none; margin-bottom:24px;">
+            <div class="sip-right-logo" style="justify-content:flex-start; flex:none; margin-bottom:14px;">
                 <img src="{{ asset('assets/images/logos/Logo_NU_Putih_PNG.png') }}" alt="Logo NU" style="max-width:140px;">
+            </div>
+
+            <div class="sip-brand-text">
+                <h2>Sipinter LP Ma'arif NU PBNU</h2>
+                <span>Pelayanan Terintegrasi dan Terpadu</span>
             </div>
 
             <ul class="sip-feature-list">
