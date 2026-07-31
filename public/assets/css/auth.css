@@ -84,6 +84,9 @@ a{text-decoration:none;}
 .sip-brand-block{display:flex; align-items:center; gap:14px; margin-bottom:24px;}
 .sip-brand-block h2{font-size:18px; font-weight:700; margin:0 0 3px; line-height:1.3; color:#fff;}
 .sip-brand-block span{font-size:12.5px; color:rgba(255,255,255,0.75);}
+.sip-brand-text{margin-bottom:24px;}
+.sip-brand-text h2{font-size:20px; font-weight:700; margin:0 0 4px; line-height:1.3; color:#fff; letter-spacing:-0.01em;}
+.sip-brand-text span{font-size:13px; color:rgba(255,255,255,0.78); line-height:1.4;}
 .sip-feature-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; flex:1;}
 .sip-feature-list li{display:flex; align-items:flex-start; gap:11px; font-size:13.5px; line-height:1.4; color:rgba(255,255,255,0.92);}
 .sip-feature-list .sip-ic{width:22px; height:22px; border-radius:50%; background:rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;}
