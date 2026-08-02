@@ -96,9 +96,9 @@ body {
     max-width: 1240px;
 }
 .bg-navbar-landing img {
-    background: rgba(255, 255, 255, 0.9);
-    padding-left: 3px;
-    padding-right: 3px;
+    background: #fff;
+    padding-left: 4px;
+    padding-right: 4px;
     border-radius: .4rem;
 }
 .btn-yellow {
