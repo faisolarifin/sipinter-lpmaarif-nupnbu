@@ -32,7 +32,7 @@ a{text-decoration:none;}
 .sip-back-home{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--sip-ink-soft); margin-bottom:14px; transition:color .15s ease;}
 .sip-back-home:hover{color:var(--sip-primary);}
 .sip-brand{display:block; margin-bottom:20px; text-align:center;}
-.sip-brand img{max-width:180px; height:auto;}
+.sip-brand img{max-width:210px; height:auto;}
 
 .sip-card h1{font-size:24px; font-weight:700; letter-spacing:-0.01em; margin:0 0 6px; color:var(--sip-ink);}
 .sip-card .sip-sub{font-size:13.5px; color:var(--sip-ink-soft); margin-bottom:26px; line-height:1.5;}
