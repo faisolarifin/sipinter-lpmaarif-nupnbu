@@ -17,7 +17,7 @@
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Kembali ke Beranda
             </a>
-            <a href="{{ route('home') }}" class="sip-brand"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER"></a>
+            <a href="{{ route('home') }}" class="sip-brand"><img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.jpg') }}" alt="SIPINTER"></a>
             
             <div class="text-center">
                 <h6 class="mb-1">Sistem Administrasi Pendidikan Terpadu</h6>
