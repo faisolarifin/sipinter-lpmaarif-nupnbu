@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\MyValidationException;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BHPNURequest extends FormRequest
@@ -25,6 +23,16 @@ class BHPNURequest extends FormRequest
     {
         return [
             'bukti_bayar' => 'required',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function messages()
+    {
+        return [
+            'bukti_bayar.required' => 'Bukti pembayaran wajib diunggah.',
         ];
     }
 }

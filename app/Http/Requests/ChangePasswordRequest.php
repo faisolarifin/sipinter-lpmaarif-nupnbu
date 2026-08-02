@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\MyValidationException;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangePasswordRequest extends FormRequest
@@ -27,6 +25,19 @@ class ChangePasswordRequest extends FormRequest
             'last_pass' => 'required',
             'new_pass' => 'required',
             'confirm_pass' => 'required|same:new_pass',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function messages()
+    {
+        return [
+            'last_pass.required' => 'Password lama wajib diisi.',
+            'new_pass.required' => 'Password baru wajib diisi.',
+            'confirm_pass.required' => 'Konfirmasi password wajib diisi.',
+            'confirm_pass.same' => 'Konfirmasi password tidak sama.',
         ];
     }
 }
