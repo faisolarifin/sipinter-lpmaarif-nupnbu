@@ -22,36 +22,35 @@ class OtherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'satpenId'             => 'required',
-            'npyp'                  => 'required',
-            'naungan'              => 'required',
-            'no_sk_pendirian'      => 'required',
-            'tgl_sk_pendirian'     => 'required',
-            'no_sk_operasional'    => 'required',
-            'tgl_sk_operasional'   => 'required',
-            'akreditasi'           => 'required',
-            'website'              => 'required',
-            'lingkungan_satpen'    => 'required',
+            'satpenId' => 'required',
+            'npyp' => 'required',
+            'naungan' => 'required',
+            'no_sk_pendirian' => 'required',
+            'tgl_sk_pendirian' => 'required',
+            'no_sk_operasional' => 'required',
+            'tgl_sk_operasional' => 'required',
+            'akreditasi' => 'required',
+            'website' => 'required',
+            'lingkungan_satpen' => 'required',
         ];
     }
 
     /**
      * @return string[]
      */
-
     public function messages()
     {
         return [
-            'id_satpen.required'            => 'ID Satuan Pendidikan wajib diisi',
-            'npyp.required'                 => 'NPYP wajib diisi',
-            'naungan.required'              => 'Naungan wajib diisi',
-            'no_sk_pendirian.required'      => 'Nomor SK Pendirian wajib diisi',
-            'tgl_sk_pendirian.required'     => 'Tanggal SK Pendirian wajib diisi',
-            'no_sk_operasional.required'    => 'Nomor SK Operasional wajib diisi',
-            'tgl_sk_operasional.required'   => 'Tanggal SK Operasional wajib diisi',
-            'akreditasi.required'           => 'Akreditasi wajib diisi',
-            'website.required'              => 'Website wajib diisi',
-            'lingkungan_satpen.required'    => 'Lingkungan Satpen wajib diisi',
+            'satpenId.required' => 'ID Satuan Pendidikan wajib diisi',
+            'npyp.required' => 'NPYP wajib diisi',
+            'naungan.required' => 'Naungan wajib diisi',
+            'no_sk_pendirian.required' => 'Nomor SK Pendirian wajib diisi',
+            'tgl_sk_pendirian.required' => 'Tanggal SK Pendirian wajib diisi',
+            'no_sk_operasional.required' => 'Nomor SK Operasional wajib diisi',
+            'tgl_sk_operasional.required' => 'Tanggal SK Operasional wajib diisi',
+            'akreditasi.required' => 'Akreditasi wajib diisi',
+            'website.required' => 'Website wajib diisi',
+            'lingkungan_satpen.required' => 'Lingkungan Satpen wajib diisi',
         ];
     }
 }

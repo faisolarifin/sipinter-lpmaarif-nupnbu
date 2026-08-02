@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use App\Exceptions\MyValidationException;
 
 class LoginRequest extends FormRequest
 {
@@ -24,20 +22,19 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "username" => "required",
-            "password" => "required",
+            'username' => 'required',
+            'password' => 'required',
         ];
     }
 
     /**
      * @return string[]
      */
-
     public function messages()
     {
         return [
-            'username.required' => 'Please enter a valid username',
-            'password.required' => 'Please enter a valid password',
+            'username.required' => 'Username wajib diisi. Silakan masukkan username Anda.',
+            'password.required' => 'Password wajib diisi. Silakan masukkan password Anda.',
         ];
     }
 }

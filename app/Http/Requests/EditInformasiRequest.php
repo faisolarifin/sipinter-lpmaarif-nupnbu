@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\MyValidationException;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditInformasiRequest extends FormRequest
@@ -27,6 +25,18 @@ class EditInformasiRequest extends FormRequest
             'headline' => 'required',
             'type' => 'required',
             'contents' => 'required',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function messages()
+    {
+        return [
+            'headline.required' => 'Judul (headline) informasi wajib diisi.',
+            'type.required' => 'Tipe informasi wajib dipilih.',
+            'contents.required' => 'Isi/konten informasi wajib diisi.',
         ];
     }
 }

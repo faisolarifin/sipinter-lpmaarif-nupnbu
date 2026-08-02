@@ -17,11 +17,11 @@ class SyncRequest extends FormRequest
     }
 
     /**
-     * @param Validator $validator
      * @return void
+     *
      * @throws MyValidationException
      */
-    protected function failedValidation(Validator $validator) : MyValidationException
+    protected function failedValidation(Validator $validator): MyValidationException
     {
         throw new MyValidationException($validator);
     }
@@ -41,6 +41,24 @@ class SyncRequest extends FormRequest
             'telp' => 'nullable|max:13',
             'email' => 'nullable|email',
             'cabang' => 'required',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function messages()
+    {
+        return [
+            'npsn.required' => 'NPSN wajib diisi.',
+            'npsn.unique' => 'NPSN ini sudah terdaftar. Silakan gunakan NPSN lain.',
+            'npsn.size' => 'NPSN harus terdiri dari tepat 8 digit angka.',
+            'thn_berdiri.size' => 'Tahun berdiri harus terdiri dari tepat 4 digit angka. Contoh: 1990.',
+            'yayasan.required' => 'Yayasan wajib diisi.',
+            'jenjang.required' => 'Jenjang pendidikan wajib diisi.',
+            'telp.max' => 'Nomor telepon maksimal 13 karakter.',
+            'email.email' => 'Format email tidak valid.',
+            'cabang.required' => 'Cabang wajib diisi.',
         ];
     }
 }

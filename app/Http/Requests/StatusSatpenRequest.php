@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\MyValidationException;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StatusSatpenRequest extends FormRequest
@@ -25,6 +23,18 @@ class StatusSatpenRequest extends FormRequest
     {
         return [
             'status_verifikasi' => 'required|string|in:revisi,proses dokumen,terima,expired,perpanjangan',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function messages()
+    {
+        return [
+            'status_verifikasi.required' => 'Status verifikasi wajib dipilih.',
+            'status_verifikasi.string' => 'Status verifikasi tidak valid.',
+            'status_verifikasi.in' => 'Status verifikasi harus berupa salah satu opsi yang tersedia.',
         ];
     }
 }
