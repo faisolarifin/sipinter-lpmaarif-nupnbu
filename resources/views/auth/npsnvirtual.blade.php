@@ -1,169 +1,143 @@
 @extends('template.general', [
-    'title' => 'Sipinter - Cek NPSN',
+    'title' => 'Sipinter - Ajukan NPSN Virtual',
 ])
 
 @section('style')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
-    <style>
-        body {
-            background: #fafafa;
-        }
-    </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="{{ asset('assets/css/custom-selectpicker.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
 @endsection
 
 @section('container')
-    <div class="d-flex align-items-center" style="height: 100vh;">
-        <div class="container-fluid">
-            <div class="row" style="height: 100vh;">
-                <div class="col-sm-7 d-flex align-items-center justify-content-center order-sm-2">
-                    <div class="card w-50 mt-4 mt-sm-0 mb-0">
-                        <div class="card-body">
-                            <a href="{{ route('home') }}" class="text-nowrap text-center logo-img d-block w-100">
-                                <img src="{{ asset('assets/images/logos/logo.png') }}" width="210" alt="">
-                            </a>
-                            <p class="text-center fw-medium">Sistem Administrasi Pendidikan Terpadu <br> Lembaga Pendidikan
-                                Ma'arif NU PBNU</p>
-                            @include('template.alert')
-                            <form action="{{ route('npsnvirtual.request') }}" method="post">
-                                @csrf
-                                <div class="mb-2">
-                                    <label for="nama_sekolah" class="form-label">Nama Sekolah</label>
-                                    <input type="text" class="form-control @error('nama_sekolah') is-invalid @enderror"
-                                        id="nama_sekolah" name="nama_sekolah" value="{{ old('nama_sekolah') }}"
-                                        placeholder="Masukkan nama sekolah">
-                                    <div class="invalid-feedback">
-                                        @error('nama_sekolah')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <small>*) pastikan anda menerima email validasi setelah mengajukan permohonan, untuk
-                                    memastikan email anda masih aktif.</small>
-                                <div class="mt-1 mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        id="email" name="email" value="{{ old('email') }}"
-                                        placeholder="Masukkan email anda">
-                                    <div class="invalid-feedback">
-                                        @error('email')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="mt-1 mb-3">
-                                    <label for="nik_kepsek" class="form-label">NIK Kepala Sekolah</label>
-                                    <input type="text" class="form-control @error('nik_kepsek') is-invalid @enderror"
-                                        id="nik_kepsek" name="nik_kepsek" value="{{ old('nik_kepsek') }}"
-                                        placeholder="Masukkan NIK Kepala Sekolah">
-                                    <div class="invalid-feedback">
-                                        @error('nik_kepsek')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="jenjang" class="form-label">Jenjang Pendidikan</label>
-                                    <select class="selectpicker @error('jenjang') is-invalid @enderror"
-                                        data-show-subtext="false" data-live-search="true" name="jenjang">
-                                        @foreach ($jenjang as $row)
-                                            <option value="{{ $row->id_jenjang }}">{{ $row->nm_jenjang }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        @error('jenjang')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="provinsi" class="form-label">Provinsi</label>
-                                    <select class="selectpicker @error('provinsi') is-invalid @enderror"
-                                        data-show-subtext="false" data-live-search="true" name="provinsi">
-                                        @foreach ($provinsi as $row)
-                                            <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        @error('provinsi')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="kabupaten" class="form-label">Kabupaten</label>
-                                    <select class="selectpicker @error('kabupaten') is-invalid @enderror"
-                                        data-show-subtext="false" data-live-search="true" name="kabupaten">
-                                        @foreach ($kabupaten as $row)
-                                            <option value="{{ $row->id_kab }}">{{ $row->nama_kab }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        @error('kabupaten')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="2"
-                                        placeholder="Masukkan alamat lengkap dengan kelurahan dan kecamatan"></textarea>
-                                    <div class="invalid-feedback">
-                                        @error('alamat')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
+<div class="sip-shell">
+    <div class="sip-left sip-left-wide">
+        <div class="sip-card sip-card-wide">
+            <a href="{{ route('home') }}" class="sip-back-home">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Kembali ke Beranda
+            </a>
+            <a href="{{ route('home') }}" class="sip-brand"><img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.png') }}" alt="SIPINTER"></a>
+            
+            <div class="text-center">
+                <h6 class="mb-1">Sistem Administrasi Pendidikan Terpadu</h6>
+                <h6 class="sip-sub mb-3">Lembaga Pendidikan Ma'arif NU PBNU</h6>
+            </div>
+            
+            @include('template.alert')
 
-                                <button type="submit" class="btn btn-primary w-100 py-2 fs-3 mb-3 rounded-2">Ajukan NPSN
-                                    Virtual</button>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <p class="fs-3 mb-0 fw-bold">Sudah Punya NPSN?</p>
-                                    <a class="text-primary fw-bold ms-2" href="{{ route('ceknpsn') }}">Daftar Sekarang</a>
-                                </div>
-                            </form>
-                        </div>
+            <form action="{{ route('npsnvirtual.request') }}" method="post">
+                @csrf
+                <div class="sip-field">
+                    <label for="nama_sekolah">Nama Sekolah</label>
+                    <div class="sip-input-wrap">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-5 9 5-9 5-9-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 12v5c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5v-5" stroke="currentColor" stroke-width="1.8"/></svg>
+                        <input id="nama_sekolah" name="nama_sekolah" type="text" value="{{ old('nama_sekolah') }}" placeholder="Nama lengkap satuan pendidikan" class="@error('nama_sekolah') is-invalid @enderror">
                     </div>
+                    @error('nama_sekolah')<small style="color:#c0392b;">{{ $message }}</small>@enderror
                 </div>
-                <div class="col-sm-5 d-flex align-items-end login-side-right px-5 py-4 order-sm-1">
-                    <div class="d-flex align-items-center flex-column justify-content-between bd-highlight"
-                        style="height:60vh;">
-                        <div class="bd-highlight">
-                            <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu"
-                                width="230">
+
+                <p style="font-size:11px;color:var(--sip-ink-soft);margin:-6px 0 10px;">*) pastikan email aktif &mdash; konfirmasi permohonan akan dikirim ke alamat ini.</p>
+
+                <div class="sip-field-grid">
+                    <div class="sip-field">
+                        <label for="email">Email</label>
+                        <div class="sip-input-wrap">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.8"/></svg>
+                            <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="email@sekolah.sch.id" class="@error('email') is-invalid @enderror">
                         </div>
-                        <div class="bd-highlight">
-                            <h5>Helpdesk</h5>
-                            <div class="row">
-                                <div class="col-sm-6 pt-1">
-                                    <p class="mb-2 mt-3"><i class="ti ti-mail"></i>
-                                        Email. bhp.maarifnu@gmail.com</p>
-                                    <p class="mb-2"><i class="ti ti-phone"></i>
-                                        Telp. 021-3904115</p>
-                                    <p class="mb-2"><i class="ti ti-brand-telegram"></i>
-                                        Fax. 021-31906679</p>
-                                    <a href="https://wa.me/6285883858897" style="color:#5A6A85;">
-                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
-                                            WA 1 +6285883858897</p>
-                                    </a>
-                                    <a href="https://wa.me/6281319868302" style="color:#5A6A85;">
-                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
-                                            WA 2 +6281319868302</p>
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 text-center">
-                                    <i class="ti ti-map-pin fs-5"></i>
-                                    <p>Gedung PBNU II, Lantai 2 <br> Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng <br>
-                                        Jakarta Pusat 10320</p>
-                                </div>
-                            </div>
+                        @error('email')<small style="color:#c0392b;">{{ $message }}</small>@enderror
+                    </div>
+                    <div class="sip-field">
+                        <label for="nik_kepsek">NIK Kepala Sekolah</label>
+                        <div class="sip-input-wrap">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="8.5" cy="11" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M13 10h5M13 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                            <input id="nik_kepsek" name="nik_kepsek" type="text" value="{{ old('nik_kepsek') }}" placeholder="16 digit NIK" inputmode="numeric" class="@error('nik_kepsek') is-invalid @enderror">
                         </div>
+                        @error('nik_kepsek')<small style="color:#c0392b;">{{ $message }}</small>@enderror
                     </div>
                 </div>
 
+                <div class="sip-field-grid">
+                    <div class="sip-field">
+                        <label for="jenjang">Jenjang Pendidikan</label>
+                        <select class="selectpicker @error('jenjang') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="jenjang" data-container="body">
+                            @foreach($jenjang as $row)
+                                <option value="{{ $row->id_jenjang }}">{{ $row->nm_jenjang }}</option>
+                            @endforeach
+                        </select>
+                        @error('jenjang')<small style="color:#c0392b;">{{ $message }}</small>@enderror
+                    </div>
+                    <div class="sip-field">
+                        <label for="provinsi">Provinsi</label>
+                        <select class="selectpicker @error('provinsi') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="provinsi" data-container="body">
+                            @foreach($provinsi as $row)
+                                <option value="{{ $row->id_prov }}">{{ $row->nm_prov }}</option>
+                            @endforeach
+                        </select>
+                        @error('provinsi')<small style="color:#c0392b;">{{ $message }}</small>@enderror
+                    </div>
+                </div>
+
+                <div class="sip-field-grid">
+                    <div class="sip-field">
+                        <label for="kabupaten">Kabupaten/Kota</label>
+                        <select class="selectpicker @error('kabupaten') is-invalid @enderror" data-show-subtext="false" data-live-search="true" name="kabupaten" data-container="body">
+                            @foreach($kabupaten as $row)
+                                <option value="{{ $row->id_kab }}">{{ $row->nama_kab }}</option>
+                            @endforeach
+                        </select>
+                        @error('kabupaten')<small style="color:#c0392b;">{{ $message }}</small>@enderror
+                    </div>
+                    <div class="sip-field">
+                        <label for="alamat">Alamat</label>
+                        <div class="sip-input-wrap">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="top:12px;"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.8"/></svg>
+                            <textarea id="alamat" name="alamat" rows="1" placeholder="Alamat lengkap satuan pendidikan" class="@error('alamat') is-invalid @enderror">{{ old('alamat') }}</textarea>
+                        </div>
+                        @error('alamat')<small style="color:#c0392b;">{{ $message }}</small>@enderror
+                    </div>
+                </div>
+
+                <button type="submit" class="sip-btn-submit">
+                    Ajukan NPSN Virtual
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </form>
+
+            <div class="sip-foot-note">Sudah Punya NPSN? <a href="{{ route('ceknpsn') }}">Daftar Sekarang</a></div>
+        </div>
+    </div>
+
+    <div class="sip-right">
+        <div class="sip-lattice"></div>
+        <div class="sip-right-inner">
+            <div class="sip-right-logo" style="justify-content:flex-start; flex:none; margin-bottom:14px;">
+                <img src="{{ asset('assets/images/logos/Logo_NU_Putih_PNG.png') }}" alt="Logo NU" style="max-width:140px;">
+            </div>
+            
+            <div class="sip-brand-text">
+                <h2>Sipinter LP Ma'arif NU PBNU</h2>
+                <span>Pelayanan Terintegrasi dan Terpadu</span>
+            </div>
+
+            <ul class="sip-feature-list">
+                <li><span class="sip-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Menjadi Pusat Data Satuan Pendidikan Ma'arif NU</li>
+                <li><span class="sip-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Izin Sistem OSS/NIB</li>
+                <li><span class="sip-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Badan Hukum NU (BHPNU)</li>
+                <li><span class="sip-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Bantuan Pendidikan Ma'arif</li>
+                <li><span class="sip-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Layanan Beasiswa Pendidikan</li>
+            </ul>
+            <div class="sip-help-card">
+                <h4>Helpdesk</h4>
+                <div class="sip-help-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.8"/></svg>bhp.maarifnu@gmail.com</div>
+                <div class="sip-help-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.6 22 2 14.4 2 6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>021-3904115 &nbsp;&bull;&nbsp; Fax 021-31906679</div>
+                <div class="sip-wa-row"><a class="sip-wa-pill" href="https://wa.me/6285883858897">WA 1 &middot; 0858-8385-8897</a><a class="sip-wa-pill" href="https://wa.me/6281319868302">WA 2 &middot; 0813-1986-8302</a></div>
+                <div class="sip-address">Gedung PBNU II, Lt. 2, Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng, Jakarta Pusat 10320</div>
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -171,20 +145,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script>
-        $("select[name='provinsi']").on("change", function() {
-            $.ajax({
-                url: "{{ route('api.kabupatenbyprov', ':param') }}".replace(':param', $(this).val()),
-                type: "GET",
-                dataType: 'json',
-                success: function(res) {
-                    let options = "";
-                    $.each(res, function(key, value) {
-                        options += `<option value="${value.id_kab}">${value.nama_kab}</option>`;
-                    });
-                    $("select[name='kabupaten']").html(options);
-                    $('.selectpicker').selectpicker('refresh');
-                }
-            });
-        });
+        $('.selectpicker').selectpicker({container:'body'});
+        $("select[name='provinsi']").on("change",function(){$.ajax({url:"{{ route('api.kabupatenbyprov',':param') }}".replace(':param',$(this).val()),type:"GET",dataType:'json',success:function(r){var o="";$.each(r,function(k,v){o+='<option value="'+v.id_kab+'">'+v.nama_kab+'</option>'});$("select[name='kabupaten']").html(o);$('.selectpicker').selectpicker('refresh')}})});
     </script>
 @endsection

@@ -1,84 +1,81 @@
 @extends('template.general', [
-    'title' => "Reset Password - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU",
+    'title' => "Lupa Password - Sistem Administrasi Pendidikan Terpadu LP Ma'arif NU PBNU",
 ])
 
 @section('style')
-    <style>
-        body {
-            background: #fafafa;
-        }
-    </style>
+<link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+.sip-right-logo{display:flex; align-items:center; justify-content:center; flex:1;}
+.sip-right-logo img{max-width:200px; opacity:0.9;}
+</style>
 @endsection
 
 @section('container')
-    <div class="d-flex align-items-center" style="height: 100vh;">
-        <div class="container-fluid">
-            <div class="row" style="height: 100vh;">
-                <div class="col-sm-7 d-flex align-items-center justify-content-center order-sm-2">
-                    <div class="card w-60 mt-4 mt-sm-0">
-                        <div class="card-body">
-                            <h4 class="text-center mb-4">Lupa Password Anda?</h4>
-                            @include('template.alert')
-                            <form action="{{ route('forget.send') }}" method="post">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="no_registrasi" class="form-label">Nomor Registrasi Ma'arif</label>
-                                    <input type="text" class="form-control @error('no_registrasi') is-invalid @enderror"
-                                        placeholder="Masukkan Nomor Registrasi Ma'arif" id="no_registrasi"
-                                        name="no_registrasi" value="{{ old('no_registrasi') }}">
-                                    <div class="invalid-feedback">
-                                        @error('no_registrasi')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-4 rounded-2 w-100">Kirim Link Reset
-                                    Password</button>
-                            </form>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <a class="text-primary" href="{{ route('ceknpsn') }}">Buat akun baru?</a>
-                                <a class="text-primary" href="{{ route('login') }}">Login ke portal</a>
-                            </div>
-                        </div>
+<div class="sip-shell">
+    <div class="sip-left">
+        <div class="sip-card">
+            <a href="{{ route('home') }}" class="sip-back-home">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Kembali ke Beranda
+            </a>
+            <a href="{{ route('home') }}" class="sip-brand">
+                <img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.png') }}" alt="SIPINTER">
+            </a>
+
+            <h1>Lupa Password?</h1>
+            <p class="sip-sub">Masukkan nomor registrasi Ma'arif Anda untuk menerima link reset password.</p>
+
+            @include('template.alert')
+
+            <form action="{{ route('forget.send') }}" method="post">
+                @csrf
+                <div class="sip-field">
+                    <label for="no_registrasi">Nomor Registrasi Ma'arif</label>
+                    <div class="sip-input-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2.4" stroke="currentColor" stroke-width="1.8"/><path d="M7 9h10M7 13h10M7 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                        <input id="no_registrasi" name="no_registrasi" type="text" value="{{ old('no_registrasi') }}" placeholder="Masukkan Nomor Registrasi Ma'arif" class="@error('no_registrasi') is-invalid @enderror">
                     </div>
-                </div>
-                <div class="col-sm-5 d-flex align-items-end login-side-right px-5 py-4 order-sm-1">
-                    <div class="d-flex align-items-center flex-column justify-content-between bd-highlight"
-                        style="height:60vh;">
-                        <div class="bd-highlight">
-                            <img src="{{ asset('assets/images/logos/green-nahdlatul-ulama-logo.png') }}" alt="Logo Nu"
-                                width="230">
-                        </div>
-                        <div class="bd-highlight">
-                            <h5>Helpdesk</h5>
-                            <div class="row">
-                                <div class="col-sm-6 pt-1">
-                                    <p class="mb-2 mt-3"><i class="ti ti-mail"></i>
-                                        Email. sekretariat@maarifnu.org</p>
-                                    <p class="mb-2"><i class="ti ti-phone"></i>
-                                        Telp. 021-3904115</p>
-                                    <p class="mb-2"><i class="ti ti-brand-telegram"></i>
-                                        Fax. 021-31906679</p>
-                                    <a href="https://wa.me/6285883858897" style="color:#5A6A85;">
-                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
-                                            WA 1 +6285883858897</p>
-                                    </a>
-                                    <a href="https://wa.me/6281319868302" style="color:#5A6A85;">
-                                        <p class="mb-1"><i class="ti ti-brand-whatsapp"></i>
-                                            WA 2 +6281319868302</p>
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 text-center">
-                                    <i class="ti ti-map-pin fs-5"></i>
-                                    <p>Lembaga Pendidikan Ma’arif Nahdlatul Ulama Pengurus Besar Nahdlatul Ulama Gedung PBNU
-                                        II Lt. 2 Jl. Taman Amir Hamzah No. 5 Jakarta Pusat 10320.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @error('no_registrasi')<small style="color:#c0392b;">{{ $message }}</small>@enderror
                 </div>
 
+                <button type="submit" class="sip-btn-submit">
+                    Kirim Link Reset Password
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </form>
+
+            <div class="sip-foot-note">
+                <a href="{{ route('ceknpsn') }}">Buat akun baru?</a> &nbsp;&bull;&nbsp; <a href="{{ route('login') }}">Login ke portal</a>
             </div>
         </div>
     </div>
+
+    <div class="sip-right">
+        <div class="sip-lattice"></div>
+        <div class="sip-right-inner">
+            <div class="sip-right-logo">
+                <img src="{{ asset('assets/images/logos/Logo_NU_Putih_PNG.png') }}" alt="Logo NU">
+            </div>
+            <div class="sip-help-card">
+                <h4>Helpdesk</h4>
+                <div class="sip-help-row">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.8"/></svg>
+                    bhp.maarifnu@gmail.com
+                </div>
+                <div class="sip-help-row">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.6 22 2 14.4 2 6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                    021-3904115 &nbsp;&bull;&nbsp; Fax 021-31906679
+                </div>
+                <div class="sip-wa-row">
+                    <a class="sip-wa-pill" href="https://wa.me/6285883858897">WA 1 &middot; 0858-8385-8897</a>
+                    <a class="sip-wa-pill" href="https://wa.me/6281319868302">WA 2 &middot; 0813-1986-8302</a>
+                </div>
+                <div class="sip-address">Gedung PBNU II, Lt. 2, Jl. Taman Amir Hamzah No. 5, Pegangsaan, Menteng, Jakarta Pusat 10320</div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

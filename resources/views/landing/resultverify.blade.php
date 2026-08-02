@@ -35,7 +35,7 @@
         width: 42px; height: 42px; border-radius: 10px;
         overflow: hidden; flex-shrink: 0;
     }
-    .sip-brand-mark-nav img { width: 100%; height: 100%; object-fit: cover; }
+    .sip-brand-mark-nav img { width: 100%; height: 100%; object-fit: cover; background: none !important; border-radius: 0 !important; padding: 0 !important; }
     .sip-brand-text-nav { line-height: 1.2; }
     .sip-brand-text-nav b { display: block; font-size: 14.5px; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
     .sip-brand-text-nav span { display: block; font-size: 11.5px; font-weight: 700; color: #F8B23E; }
@@ -112,10 +112,7 @@
 @section('container')
     <nav class="navbar navbar-expand-lg navbar-dark bg-navbar-landing py-3 shadow sticky-top">
         <div class="sip-wrap sip-nav-row">
-            <a class="navbar-brand sip-brand py-0" href="{{ route('home') }}">
-                <div class="sip-brand-mark-nav"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo.png') }}" alt="SIPINTER"></div>
-                <div class="sip-brand-text-nav"><b>SIPINTER</b><span>LP Ma'arif NU PBNU</span></div>
-            </a>
+            <a class="navbar-brand sip-brand-nav py-0" href="{{ route('home') }}"><img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.png') }}" alt="SIPINTER" style="height:47px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sipNavbar" aria-controls="sipNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -226,7 +223,7 @@
         <div class="sip-wrap">
             <div class="sip-footer-grid">
                 <div>
-                    <div class="sip-footer-brand"><div class="sip-brand-mark-nav"><img src="{{ asset('assets/images/logos/Sipinter_New_Logo.png') }}" alt="SIPINTER"></div><b>SIPINTER</b></div>
+                    <div class="sip-footer-brand"><div class="sip-brand-mark-nav"><img src="{{ asset('assets/images/logos/Logo_Sipinter.png') }}" alt="SIPINTER"></div><b>SIPINTER</b></div>
                     <p style="font-size:13.5px; line-height:1.7; max-width:280px;">Sistem Administrasi Pendidikan Terpadu &mdash; Lembaga Pendidikan Ma'arif NU, Pengurus Besar Nahdlatul Ulama.</p>
                 </div>
                 <div><h4>Alamat</h4><ul><li>Gedung PBNU II, Lantai 2</li><li>Jl. Taman Amir Hamzah No. 5</li><li>Pegangsaan, Menteng, Jakarta Pusat 10320</li></ul></div>
