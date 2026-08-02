@@ -97,8 +97,9 @@ body {
 }
 .bg-navbar-landing img {
     background: rgba(255, 255, 255, 0.9);
-    padding: 0;
-    border-radius: .2rem;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: .4rem;
 }
 .btn-yellow {
     background: #F8B23E;

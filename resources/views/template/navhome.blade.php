@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-navbar-landing py-3 shadow">
     <div class="container container-navbar">
         <a class="navbar-brand" href="#">
-            <img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.jpg') }}" alt="Logo Nu" width="140">
+            <img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.png') }}" alt="Logo Nu" width="140">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
