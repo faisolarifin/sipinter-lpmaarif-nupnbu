@@ -51,9 +51,9 @@ class SyncRequest extends FormRequest
     {
         return [
             'npsn.required' => 'NPSN wajib diisi.',
-            'npsn.unique' => 'NPSN ini sudah terdaftar. Silakan gunakan NPSN lain.',
+            'npsn.unique' => 'NPSN sudah terdaftar.',
             'npsn.size' => 'NPSN harus terdiri dari tepat 8 digit angka.',
-            'thn_berdiri.size' => 'Tahun berdiri harus terdiri dari tepat 4 digit angka. Contoh: 1990.',
+            'thn_berdiri.size' => 'Tahun berdiri harus 4 digit.',
             'yayasan.required' => 'Yayasan wajib diisi.',
             'jenjang.required' => 'Jenjang pendidikan wajib diisi.',
             'telp.max' => 'Nomor telepon maksimal 13 karakter.',

@@ -117,7 +117,7 @@ class OSSRequest extends FormRequest
     {
         return [
             'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid. Contoh: nama@sekolah.sch.id.',
+            'email.email' => 'Format email tidak valid.',
             'npwp.required' => 'NPWP Sekolah wajib diisi.',
             'npwp.string' => 'NPWP harus berupa teks.',
             'no_whatsapp.required' => 'Nomor WhatsApp wajib diisi.',
@@ -137,7 +137,7 @@ class OSSRequest extends FormRequest
             'lokasi_usaha.required' => 'Lokasi kegiatan usaha wajib diisi.',
             'lokasi_usaha.string' => 'Lokasi usaha harus berupa teks.',
             'luas_lahan_usaha.required' => 'Luas lahan usaha wajib diisi.',
-            'luas_lahan_usaha.numeric' => 'Luas lahan usaha harus berupa angka. Contoh: 500.',
+            'luas_lahan_usaha.numeric' => 'Luas lahan usaha harus berupa angka.',
             'apakah_sudah_menempati_lahan.required' => 'Pilih apakah sudah menempati lahan tersebut.',
             'apakah_sudah_menempati_lahan.in' => 'Pilihan status lahan tidak valid.',
             'status_lahan.required' => 'Status lahan wajib dipilih.',

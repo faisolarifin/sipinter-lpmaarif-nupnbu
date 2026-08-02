@@ -44,12 +44,12 @@ class VirtualNPSNRequest extends FormRequest
             'kabupaten.required' => 'Kabupaten/Kota wajib dipilih.',
             'alamat.required' => 'Alamat wajib diisi.',
             'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid. Contoh: nama@sekolah.sch.id.',
-            'email.unique' => 'Email ini sudah digunakan untuk pengajuan NPSN virtual. Silakan gunakan email lain.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
             'nik_kepsek.required' => 'NIK kepala sekolah wajib diisi.',
             'nik_kepsek.min' => 'NIK kepala sekolah harus terdiri dari tepat 16 digit angka.',
             'nik_kepsek.max' => 'NIK kepala sekolah harus terdiri dari tepat 16 digit angka.',
-            'nik_kepsek.unique' => 'NIK ini sudah digunakan untuk pengajuan NPSN virtual. Silakan gunakan NIK lain.',
+            'nik_kepsek.unique' => 'NIK sudah digunakan.',
         ];
     }
 }

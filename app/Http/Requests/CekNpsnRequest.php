@@ -32,7 +32,7 @@ class CekNpsnRequest extends FormRequest
     public function messages()
     {
         return [
-            'npsn.required' => 'NPSN wajib diisi. Silakan masukkan NPSN satuan pendidikan Anda.',
+            'npsn.required' => 'Silakan masukkan NPSN Anda.',
             'npsn.size' => 'NPSN harus terdiri dari tepat 8 digit angka.',
         ];
     }

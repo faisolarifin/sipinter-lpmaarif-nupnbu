@@ -37,7 +37,7 @@ class ChangePasswordRequest extends FormRequest
             'last_pass.required' => 'Password lama wajib diisi.',
             'new_pass.required' => 'Password baru wajib diisi.',
             'confirm_pass.required' => 'Konfirmasi password wajib diisi.',
-            'confirm_pass.same' => 'Konfirmasi password tidak sama dengan password baru. Silakan ketik ulang.',
+            'confirm_pass.same' => 'Konfirmasi password tidak sama.',
         ];
     }
 }

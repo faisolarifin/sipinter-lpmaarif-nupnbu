@@ -33,8 +33,8 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'username.required' => 'Username wajib diisi. Silakan masukkan username Anda.',
-            'password.required' => 'Password wajib diisi. Silakan masukkan password Anda.',
+            'username.required' => 'Silakan masukkan username Anda.',
+            'password.required' => 'Silakan masukkan password Anda.',
         ];
     }
 }
