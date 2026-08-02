@@ -22,7 +22,7 @@
                 Kembali ke Beranda
             </a>
             <a href="{{ route('home') }}" class="sip-brand">
-                <img src="{{ asset('assets/images/logos/Sipinter_New_Logo_Text.png') }}" alt="SIPINTER">
+                <img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.jpg') }}" alt="SIPINTER">
             </a>
 
             <h1>Reset Password</h1>
