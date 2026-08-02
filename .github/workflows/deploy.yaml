@@ -32,4 +32,3 @@ jobs:
               echo "Unknown branch: ${{ github.ref_name }}"
               exit 1
             fi
-```
