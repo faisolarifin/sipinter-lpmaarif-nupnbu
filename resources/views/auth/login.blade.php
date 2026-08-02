@@ -18,7 +18,7 @@
                 Kembali ke Beranda
             </a>
             <a href="{{ route('home') }}" class="sip-brand">
-                <img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.jpg') }}" alt="SIPINTER">
+                <img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.png') }}" alt="SIPINTER">
             </a>
 
             <div class="text-center">

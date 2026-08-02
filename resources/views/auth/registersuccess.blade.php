@@ -11,7 +11,7 @@
 @section('container')
 <div class="sip-shell">
     <div class="sip-card">
-        <a href="{{ route('home') }}" class="sip-brand"><img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.jpg') }}" alt="SIPINTER"></a>
+        <a href="{{ route('home') }}" class="sip-brand"><img src="{{ asset('assets/images/logos/Logo_Sipinter_Panjang.png') }}" alt="SIPINTER"></a>
 
         <div class="sip-success-icon">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#0B6B3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
