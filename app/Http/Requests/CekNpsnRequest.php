@@ -14,7 +14,7 @@ class CekNpsnRequest extends FormRequest
         return true;
     }
 
-     /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
@@ -22,18 +22,18 @@ class CekNpsnRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "npsn" => "required|size:8",
+            'npsn' => 'required|size:8',
         ];
     }
 
     /**
      * @return string[]
      */
-
     public function messages()
     {
         return [
-            'npsn.required' => 'Please enter a valid npsn'
+            'npsn.required' => 'Silakan masukkan NPSN Anda.',
+            'npsn.size' => 'NPSN harus terdiri dari tepat 8 digit angka.',
         ];
     }
 }
