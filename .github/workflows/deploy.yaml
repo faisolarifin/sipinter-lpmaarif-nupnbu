@@ -21,12 +21,12 @@ jobs:
             if [ "${{ github.ref_name }}" = "STAGING" ]; then
               echo "Deploying STAGING..."
               cd /var/www/sipinter-dev/
-              git pull origin STAGING
+              sudo git pull origin STAGING
 
             elif [ "${{ github.ref_name }}" = "master" ]; then
               echo "Deploying MASTER..."
               cd /var/www/sipinter-lpmaarifnu-pbnu/
-              git pull origin master
+              sudo git pull origin master
 
             else
               echo "Unknown branch: ${{ github.ref_name }}"
