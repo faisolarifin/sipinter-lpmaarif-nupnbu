@@ -1,7 +1,7 @@
 # SIPINTER LP MA'ARIF NU PBNU
 
 <p align="center">
-  <img src="https://maarifnu.or.id/assets/images/logo.png" width="300" alt="LP Ma'arif NU Logo">
+  <img src="https://sipinter.maarifnu.or.id/assets/images/logos/Logo_Sipinter_Panjang.png" width="300" alt="LP Ma'arif NU Logo">
 </p>
 
 <p align="center">
